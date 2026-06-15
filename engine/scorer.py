@@ -43,57 +43,6 @@ TEAM_ALIASES = {
 }
 
 
-FLAGS = {
-    "Argentina": "🇦🇷",
-    "Australia": "🇦🇺",
-    "Austria": "🇦🇹",
-    "Belgium": "🇧🇪",
-    "Bosnia": "🇧🇦",
-    "Brazil": "🇧🇷",
-    "Canada": "🇨🇦",
-    "Cape Verde": "🇨🇻",
-    "Colombia": "🇨🇴",
-    "Croatia": "🇭🇷",
-    "Curacao": "🇨🇼",
-    "Czech Republic": "🇨🇿",
-    "DR Congo": "🇨🇩",
-    "Ecuador": "🇪🇨",
-    "Egypt": "🇪🇬",
-    "England": "🏴",
-    "France": "🇫🇷",
-    "Germany": "🇩🇪",
-    "Ghana": "🇬🇭",
-    "Haiti": "🇭🇹",
-    "Iran": "🇮🇷",
-    "Iraq": "🇮🇶",
-    "Ivory Coast": "🇨🇮",
-    "Japan": "🇯🇵",
-    "Jordan": "🇯🇴",
-    "Mexico": "🇲🇽",
-    "Morocco": "🇲🇦",
-    "Netherlands": "🇳🇱",
-    "New Zealand": "🇳🇿",
-    "Norway": "🇳🇴",
-    "Panama": "🇵🇦",
-    "Paraguay": "🇵🇾",
-    "Portugal": "🇵🇹",
-    "Qatar": "🇶🇦",
-    "Saudi Arabia": "🇸🇦",
-    "Scotland": "🏴",
-    "Senegal": "🇸🇳",
-    "South Africa": "🇿🇦",
-    "South Korea": "🇰🇷",
-    "Spain": "🇪🇸",
-    "Sweden": "🇸🇪",
-    "Switzerland": "🇨🇭",
-    "Tunisia": "🇹🇳",
-    "Turkey": "🇹🇷",
-    "Uruguay": "🇺🇾",
-    "USA": "🇺🇸",
-    "Uzbekistan": "🇺🇿",
-}
-
-
 def load(path, default=None):
     if not path.exists():
         return default
@@ -258,8 +207,8 @@ def calculate(players, matches, previous_leaderboard):
     scores = defaultdict(int)
     games_played = defaultdict(int)
 
-    previous_ranks = {
-        row["name"]: row.get("rank")
+    previous_by_name = {
+        row["name"]: row
         for row in previous_leaderboard or []
     }
 
@@ -290,25 +239,35 @@ def calculate(players, matches, previous_leaderboard):
         })
 
     leaderboard.sort(
-        key=lambda x: (x["points"], x["gamesPlayed"], x["name"]),
-        reverse=True
+        key=lambda x: (-x["points"], -x["gamesPlayed"], x["name"])
     )
 
     for index, row in enumerate(leaderboard, start=1):
         row["rank"] = index
 
-        previous_rank = previous_ranks.get(row["name"])
+    for row in leaderboard:
+        previous = previous_by_name.get(row["name"])
+
+        if not previous:
+            row["previousRank"] = None
+            row["movement"] = 0
+            continue
+
+        previous_rank = previous.get("rank")
+        previous_points = previous.get("points", 0)
+        previous_games = previous.get("gamesPlayed", 0)
+
         row["previousRank"] = previous_rank
 
-        if previous_rank is None:
+        points_changed = row["points"] != previous_points
+        games_changed = row["gamesPlayed"] != previous_games
+
+        if not points_changed and not games_changed:
+            row["movement"] = 0
+        elif previous_rank is None:
             row["movement"] = 0
         else:
-            row["movement"] = previous_rank - index
-
-        row["teamFlags"] = [
-            FLAGS.get(normalise_team_name(team), "")
-            for team in row["teams"]
-        ]
+            row["movement"] = previous_rank - row["rank"]
 
     return leaderboard
 
@@ -341,7 +300,7 @@ def build_latest_results(players, matches, limit=8):
                     "points": gained
                 })
 
-        player_gains.sort(key=lambda x: x["points"], reverse=True)
+        player_gains.sort(key=lambda x: (-x["points"], x["name"]))
 
         latest.append({
             "date": match.get("date"),
@@ -359,23 +318,37 @@ def build_latest_results(players, matches, limit=8):
 def update_history(leaderboard):
     history = load(HISTORY_FILE, default=[])
 
-    now = datetime.now(timezone.utc).isoformat()
+    snapshot_players = [
+        {
+            "name": row["name"],
+            "points": row["points"],
+            "rank": row["rank"],
+        }
+        for row in leaderboard
+    ]
+
+    if history:
+        previous_players = history[-1].get("players", [])
+
+        previous_simple = [
+            {
+                "name": row.get("name"),
+                "points": row.get("points"),
+                "rank": row.get("rank"),
+            }
+            for row in previous_players
+        ]
+
+        if previous_simple == snapshot_players:
+            save(HISTORY_FILE, history)
+            return
 
     snapshot = {
-        "timestamp": now,
-        "players": [
-            {
-                "name": row["name"],
-                "points": row["points"],
-                "rank": row["rank"],
-            }
-            for row in leaderboard
-        ]
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "players": snapshot_players
     }
 
     history.append(snapshot)
-
-    # Keep the history file small-ish.
     history = history[-300:]
 
     save(HISTORY_FILE, history)
