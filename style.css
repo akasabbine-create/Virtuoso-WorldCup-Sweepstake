@@ -653,11 +653,17 @@ tr.top-three:nth-child(3) .badge-icon {
 }
 
 .results-grid,
-.fixtures-grid,
-.bonus-grid {
+.fixtures-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 14px;
+}
+
+.bonus-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  align-items: stretch;
 }
 
 .spoon-race-grid {
@@ -758,32 +764,29 @@ tr.top-three:nth-child(3) .badge-icon {
 /* Bonus races */
 
 .bonus-race-card {
+  min-height: 100%;
   border-left: 4px solid #58a6ff;
 }
 
-.bonus-race-feature {
+.bonus-race-card:nth-child(1) {
   border-left-color: #ffd166;
   background:
-    radial-gradient(circle at top right, rgba(255, 209, 102, 0.16), transparent 36%),
+    radial-gradient(circle at top right, rgba(255, 209, 102, 0.14), transparent 36%),
     linear-gradient(145deg, rgba(16, 45, 68, 0.96), rgba(8, 31, 49, 0.98));
 }
 
-.bonus-race-label {
-  position: relative;
-  z-index: 1;
-  display: inline-flex;
-  width: fit-content;
-  margin-bottom: 10px;
-  padding: 5px 9px;
-  border-radius: 999px;
-  background: rgba(255, 209, 102, 0.1);
-  border: 1px solid rgba(255, 209, 102, 0.2);
-  color: #ffd166;
-  font-size: 0.74rem;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  line-height: 1;
-  text-transform: uppercase;
+.bonus-race-card:nth-child(2) {
+  border-left-color: #39d353;
+  background:
+    radial-gradient(circle at top right, rgba(57, 211, 83, 0.11), transparent 36%),
+    linear-gradient(145deg, rgba(16, 45, 68, 0.96), rgba(8, 31, 49, 0.98));
+}
+
+.bonus-race-card:nth-child(3) {
+  border-left-color: #ffb86b;
+  background:
+    radial-gradient(circle at top right, rgba(255, 184, 107, 0.13), transparent 36%),
+    linear-gradient(145deg, rgba(16, 45, 68, 0.96), rgba(8, 31, 49, 0.98));
 }
 
 .bonus-race-card ul {
@@ -859,7 +862,22 @@ tr.top-three:nth-child(3) .badge-icon {
 
 .awarded-bonus-card {
   grid-column: 1 / -1;
+  min-height: auto;
   border-left-color: #8b949e;
+}
+
+.awarded-bonus-card ul {
+  display: block;
+  padding-left: 18px;
+  list-style: disc;
+}
+
+.awarded-bonus-card li {
+  display: list-item;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  margin-bottom: 6px;
 }
 
 .bonus-card {
@@ -1532,6 +1550,14 @@ tr.top-three:nth-child(3) .badge-icon {
     grid-template-columns: repeat(3, 1fr);
   }
 
+  .bonus-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .awarded-bonus-card {
+    grid-column: auto;
+  }
+
   .potential-row {
     grid-template-columns: 1fr;
   }
@@ -1567,7 +1593,6 @@ tr.top-three:nth-child(3) .badge-icon {
   .cards,
   .results-grid,
   .fixtures-grid,
-  .bonus-grid,
   .player-grid,
   .rules-grid {
     grid-template-columns: 1fr;
@@ -1742,10 +1767,6 @@ tr.top-three:nth-child(3) .badge-icon {
 
   .result-ticker-gains {
     justify-content: flex-start;
-  }
-
-  .awarded-bonus-card {
-    grid-column: auto;
   }
 
   .rules-collapse-toggle {
