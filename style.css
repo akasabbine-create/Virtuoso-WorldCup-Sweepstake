@@ -43,15 +43,22 @@ main {
 }
 
 .title-kicker {
-  display: inline-block;
-  padding: 6px 14px;
-  margin-bottom: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  min-width: 0;
+  padding: 6px 16px;
+  margin: 0 auto 4px;
   color: #071b2a;
   background: linear-gradient(135deg, #f2cc60, #ffd166, #d29922);
   border-radius: 999px;
   font-size: clamp(0.75rem, 1.2vw, 0.95rem);
   font-weight: 800;
-  letter-spacing: 0.24em;
+  letter-spacing: 0.2em;
+  line-height: 1.1;
+  text-align: center;
+  white-space: nowrap;
   box-shadow: 0 8px 24px rgba(242, 204, 96, 0.22);
 }
 
@@ -299,6 +306,23 @@ h2::after {
   font-size: 0.92rem;
   font-weight: 700;
   letter-spacing: 0;
+}
+
+.wooden-spoon-country {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(210, 153, 34, 0.14);
+  border: 1px solid rgba(210, 153, 34, 0.38);
+  color: #ffd166;
+  font-weight: 800;
+  line-height: 1.1;
+  white-space: nowrap;
+  box-shadow:
+    0 0 0 1px rgba(255, 209, 102, 0.04),
+    0 8px 18px rgba(210, 153, 34, 0.08);
 }
 
 /* Insight strip */
@@ -905,6 +929,10 @@ tr.top-three:nth-child(3) .badge-icon {
     linear-gradient(145deg, rgba(16, 45, 68, 0.96), rgba(8, 31, 49, 0.98));
 }
 
+.spoon-race-card.current-spoon h3 {
+  width: fit-content;
+}
+
 .spoon-race-header {
   position: relative;
   z-index: 1;
@@ -1297,6 +1325,10 @@ tr.top-three:nth-child(3) .badge-icon {
   white-space: nowrap;
 }
 
+.player-collapse-teams .wooden-spoon-country {
+  padding: 2px 7px;
+}
+
 .player-collapse-meta {
   display: flex;
   align-items: center;
@@ -1406,7 +1438,9 @@ tr.top-three:nth-child(3) .badge-icon {
 
 .wooden-spoon-team {
   border-color: rgba(210, 153, 34, 0.4);
-  background: rgba(210, 153, 34, 0.12);
+  background:
+    radial-gradient(circle at top right, rgba(210, 153, 34, 0.12), transparent 40%),
+    rgba(210, 153, 34, 0.09);
 }
 
 .team-breakdown-header {
@@ -1637,8 +1671,11 @@ tr.top-three:nth-child(3) .badge-icon {
   }
 
   .title-kicker {
+    justify-content: center;
+    padding: 6px 14px;
     font-size: 0.72rem;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.16em;
+    text-align: center;
   }
 
   .status-card {
@@ -1685,6 +1722,11 @@ tr.top-three:nth-child(3) .badge-icon {
 
   .badge-chip {
     font-size: 0.78rem;
+  }
+
+  .wooden-spoon-country {
+    padding: 2px 7px;
+    font-size: 0.92em;
   }
 
   .player-card-header {
