@@ -1,68 +1,23 @@
 import json
 import urllib.request
 from collections import defaultdict
+from datetime import date, timedelta
 from pathlib import Path
 
 PLAYERS_FILE = Path("data/players.json")
 MATCHES_FILE = Path("data/matches.json")
 LEADERBOARD_FILE = Path("data/leaderboard.json")
 
-API_URL = "https://wheniskickoff.com/data/v1/matches.json"
-
-
-TEAM_CODES = {
-    "ARG": "Argentina",
-    "AUS": "Australia",
-    "AUT": "Austria",
-    "BEL": "Belgium",
-    "BIH": "Bosnia",
-    "BRA": "Brazil",
-    "CAN": "Canada",
-    "CIV": "Ivory Coast",
-    "COD": "DR Congo",
-    "COL": "Colombia",
-    "CPV": "Cape Verde",
-    "CRO": "Croatia",
-    "CUW": "Curacao",
-    "CZE": "Czech Republic",
-    "DZA": "Algeria",
-    "ECU": "Ecuador",
-    "EGY": "Egypt",
-    "ENG": "England",
-    "ESP": "Spain",
-    "FRA": "France",
-    "GER": "Germany",
-    "GHA": "Ghana",
-    "HAI": "Haiti",
-    "IRN": "Iran",
-    "IRQ": "Iraq",
-    "JOR": "Jordan",
-    "JPN": "Japan",
-    "KOR": "South Korea",
-    "KSA": "Saudi Arabia",
-    "MAR": "Morocco",
-    "MEX": "Mexico",
-    "NED": "Netherlands",
-    "NOR": "Norway",
-    "NZL": "New Zealand",
-    "PAN": "Panama",
-    "PAR": "Paraguay",
-    "POR": "Portugal",
-    "QAT": "Qatar",
-    "RSA": "South Africa",
-    "SCO": "Scotland",
-    "SEN": "Senegal",
-    "SUI": "Switzerland",
-    "SWE": "Sweden",
-    "TUN": "Tunisia",
-    "TUR": "Turkey",
-    "URY": "Uruguay",
-    "USA": "USA",
-    "UZB": "Uzbekistan",
-}
+ESPN_URL = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard"
 
 
 TEAM_ALIASES = {
+    "Türkiye": "Turkey",
+    "Turkey": "Turkey",
+
+    "Curaçao": "Curacao",
+    "Curacao": "Curacao",
+
     "United States": "USA",
     "USA": "USA",
 
@@ -80,9 +35,6 @@ TEAM_ALIASES = {
     "Congo DR": "DR Congo",
     "DR Congo": "DR Congo",
 
-    "Curaçao": "Curacao",
-    "Curacao": "Curacao",
-
     "Korea Republic": "South Korea",
     "South Korea": "South Korea",
 }
@@ -99,23 +51,16 @@ def save(path, data):
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
-def first_value(game, keys):
-    """
-    Looks first at the match object, then at match['raw'] if it exists.
-    Important: preserves 0 scores.
-    """
-    sources = [game]
+def normalise_team_name(name):
+    if not name:
+        return name
 
-    raw = game.get("raw")
-    if isinstance(raw, dict):
-        sources.append(raw)
+    name = str(name).strip()
+    return TEAM_ALIASES.get(name, name)
 
-    for source in sources:
-        for key in keys:
-            if key in source and source[key] is not None:
-                return source[key]
 
-    return None
+def team_matches(player_team, result_team):
+    return normalise_team_name(player_team) == normalise_team_name(result_team)
 
 
 def as_int_or_none(value):
@@ -128,108 +73,109 @@ def as_int_or_none(value):
         return None
 
 
-def normalise_team_name(name):
-    if not name:
-        return name
+def fetch_json(url):
+    request = urllib.request.Request(
+        url,
+        headers={"User-Agent": "Mozilla/5.0"}
+    )
 
-    name = str(name).strip()
-
-    if name in TEAM_CODES:
-        return TEAM_CODES[name]
-
-    if name in TEAM_ALIASES:
-        return TEAM_ALIASES[name]
-
-    return name
+    with urllib.request.urlopen(request, timeout=30) as response:
+        return json.load(response)
 
 
-def team_matches(player_team, result_team):
-    return normalise_team_name(player_team) == normalise_team_name(result_team)
-
-
-def fetch_matches():
-    with urllib.request.urlopen(API_URL, timeout=30) as response:
-        data = json.load(response)
-
-    if isinstance(data, dict):
-        games = (
-            data.get("matches")
-            or data.get("games")
-            or data.get("fixtures")
-            or data.get("data")
-            or []
-        )
-    elif isinstance(data, list):
-        games = data
-    else:
-        games = []
+def fetch_espn_day(day):
+    url = f"{ESPN_URL}?dates={day.strftime('%Y%m%d')}"
+    data = fetch_json(url)
 
     matches = []
 
-    for game in games:
-        if not isinstance(game, dict):
+    for event in data.get("events", []):
+        competition = event.get("competitions", [{}])[0]
+        competitors = competition.get("competitors", [])
+
+        if len(competitors) < 2:
             continue
 
-        home = first_value(game, [
-            "home_name",
-            "homeTeamName",
-            "home_team",
-            "homeTeam",
-            "home",
-            "team1"
-        ])
+        home = None
+        away = None
 
-        away = first_value(game, [
-            "away_name",
-            "awayTeamName",
-            "away_team",
-            "awayTeam",
-            "away",
-            "team2"
-        ])
+        for competitor in competitors:
+            side = competitor.get("homeAway")
+            team = competitor.get("team", {})
+            team_name = team.get("displayName") or team.get("name")
+            score = as_int_or_none(competitor.get("score"))
 
-        score1 = as_int_or_none(first_value(game, [
-            "score_home",
-            "home_score",
-            "homeScore",
-            "homeGoals",
-            "home_goals",
-            "score1"
-        ]))
+            item = {
+                "team": normalise_team_name(team_name),
+                "score": score,
+                "winner": competitor.get("winner", False),
+                "raw": competitor
+            }
 
-        score2 = as_int_or_none(first_value(game, [
-            "score_away",
-            "away_score",
-            "awayScore",
-            "awayGoals",
-            "away_goals",
-            "score2"
-        ]))
-
-        status = str(first_value(game, ["status"]) or "").lower()
+            if side == "home":
+                home = item
+            elif side == "away":
+                away = item
 
         if not home or not away:
             continue
 
+        status = competition.get("status", {})
+        status_type = status.get("type", {})
+        completed = status_type.get("completed", False)
+
         matches.append({
-            "team1": normalise_team_name(home),
-            "team2": normalise_team_name(away),
-            "score1": score1,
-            "score2": score2,
-            "status": status,
-            "date": first_value(game, ["date", "utcDate", "local_date", "datetime_utc"]),
-            "raw": game
+            "team1": home["team"],
+            "team2": away["team"],
+            "score1": home["score"] if completed else None,
+            "score2": away["score"] if completed else None,
+            "status": status_type.get("description", ""),
+            "completed": completed,
+            "date": event.get("date"),
+            "name": event.get("name"),
+            "raw": event
         })
 
+    return matches
+
+
+def fetch_matches():
+    """
+    ESPN returns matches by date, so fetch every day from the tournament start
+    through tomorrow. This keeps it automatic.
+    """
+    start = date(2026, 6, 11)
+    end = date.today() + timedelta(days=1)
+
+    all_matches = []
+    seen = set()
+
+    current = start
+    while current <= end:
+        day_matches = fetch_espn_day(current)
+
+        for match in day_matches:
+            key = (
+                match.get("date"),
+                match.get("team1"),
+                match.get("team2"),
+            )
+
+            if key not in seen:
+                seen.add(key)
+                all_matches.append(match)
+
+        current += timedelta(days=1)
+
     scored_matches = [
-        m for m in matches
+        m for m in all_matches
         if m["score1"] is not None and m["score2"] is not None
     ]
 
-    print(f"Matches found: {len(matches)}")
-    print(f"Matches with scores: {len(scored_matches)}")
+    print(f"ESPN matches found: {len(all_matches)}")
+    print(f"ESPN matches with scores: {len(scored_matches)}")
 
-    return matches
+    return all_matches
 
 
 def calculate(players, matches):
@@ -290,4 +236,4 @@ if __name__ == "__main__":
     leaderboard = calculate(players, matches)
     save(LEADERBOARD_FILE, leaderboard)
 
-    print("Updated matches and leaderboard")
+    print("Updated matches and leaderboard from ESPN")
