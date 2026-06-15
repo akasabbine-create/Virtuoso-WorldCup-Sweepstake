@@ -7,7 +7,7 @@ PLAYERS_FILE = Path("data/players.json")
 MATCHES_FILE = Path("data/matches.json")
 LEADERBOARD_FILE = Path("data/leaderboard.json")
 
-API_URL = "https://worldcup2026-api.onrender.com/api/games"
+API_URL = "https://wheniskickoff.com/data/v1/matches.json"
 
 def load(path):
     with open(path, encoding="utf-8") as f:
