@@ -91,6 +91,88 @@ function findWoodenSpoonTeam(playerDetails) {
   return allTeams[0];
 }
 
+function normaliseText(value) {
+  return String(value || "").trim().toLowerCase();
+}
+
+function playerOwnsTeam(player, teamName) {
+  const target = normaliseText(teamName);
+
+  return (player.teams || []).some(team => normaliseText(team) === target);
+}
+
+function findCurrentBadgeHolders(leaderboard, playerDetails, bonusData) {
+  const badgesByPlayer = {};
+
+  (leaderboard || []).forEach(player => {
+    badgesByPlayer[player.name] = [];
+  });
+
+  const spoonTeam = findWoodenSpoonTeam(playerDetails);
+
+  if (spoonTeam && badgesByPlayer[spoonTeam.playerName]) {
+    badgesByPlayer[spoonTeam.playerName].push({
+      icon: "🥄",
+      label: `Wooden Spoon: ${spoonTeam.team}`
+    });
+  }
+
+  const goldenBootRace = bonusData?.goldenBootRace || [];
+
+  if (goldenBootRace.length > 0) {
+    const topGoals = goldenBootRace[0].goals;
+
+    const topScorers = goldenBootRace.filter(item => item.goals === topGoals);
+
+    topScorers.forEach(scorer => {
+      (leaderboard || []).forEach(player => {
+        if (playerOwnsTeam(player, scorer.team)) {
+          badgesByPlayer[player.name].push({
+            icon: "🥾",
+            label: `Golden Boot race: ${scorer.player} (${scorer.team})`
+          });
+        }
+      });
+    });
+  }
+
+  const nationGoalTable = bonusData?.nationGoalTable || [];
+
+  if (nationGoalTable.length > 0) {
+    const topNationGoals = nationGoalTable[0].goals;
+
+    const topNations = nationGoalTable.filter(item => item.goals === topNationGoals);
+
+    topNations.forEach(nation => {
+      (leaderboard || []).forEach(player => {
+        if (playerOwnsTeam(player, nation.team)) {
+          badgesByPlayer[player.name].push({
+            icon: "⚽",
+            label: `Most goals by nation: ${nation.team}`
+          });
+        }
+      });
+    });
+  }
+
+  return {
+    spoonTeam,
+    badgesByPlayer
+  };
+}
+
+function badgeHtml(badges) {
+  if (!badges || badges.length === 0) {
+    return `<span class="badge-empty">—</span>`;
+  }
+
+  return badges.map(badge => `
+    <span class="badge-icon" title="${badge.label}" aria-label="${badge.label}">
+      ${badge.icon}
+    </span>
+  `).join("");
+}
+
 function renderStatus(status) {
   const statusEl = document.querySelector("#status");
   const completedEl = document.querySelector("#completed-matches");
@@ -138,7 +220,7 @@ function renderSummaryCards(leaderboard, playerDetails) {
   `;
 }
 
-function renderLeaderboard(data, spoonTeam) {
+function renderLeaderboard(data, spoonTeam, badgesByPlayer) {
   const tbody = document.querySelector("#board tbody");
 
   if (!tbody) return;
@@ -148,7 +230,7 @@ function renderLeaderboard(data, spoonTeam) {
   if (!data || data.length === 0) {
     tbody.innerHTML = `
       <tr>
-        <td colspan="8">No leaderboard data found.</td>
+        <td colspan="9">No leaderboard data found.</td>
       </tr>
     `;
     return;
@@ -181,6 +263,7 @@ function renderLeaderboard(data, spoonTeam) {
     tr.innerHTML = `
       <td>${medal(player.rank)} ${player.rank}</td>
       <td>${movementIcon(player.movement || 0)}</td>
+      <td class="badge-cell">${badgeHtml(badgesByPlayer[player.name])}</td>
       <td>${playerName}</td>
       <td>${teams}</td>
       <td>${player.gamesPlayed ?? 0}</td>
@@ -193,7 +276,7 @@ function renderLeaderboard(data, spoonTeam) {
   });
 }
 
-function renderBonusTracker(bonusData) {
+function renderBonusTracker(bonusData, leaderboard) {
   const container = document.querySelector("#bonus-tracker");
 
   if (!container) return;
@@ -229,13 +312,33 @@ function renderBonusTracker(bonusData) {
       `).join("")
     : `<li>No bonus points awarded yet.</li>`;
 
-  const goldenBootHtml = (bonusData.goldenBootRace || []).slice(0, 5).map(item => `
-    <li>${item.player} (${item.team}) — ${item.goals} goals</li>
-  `).join("") || `<li>No goals tracked yet.</li>`;
+  const goldenBootHtml = (bonusData.goldenBootRace || []).slice(0, 5).map(item => {
+    const owners = (leaderboard || [])
+      .filter(player => playerOwnsTeam(player, item.team))
+      .map(player => player.name)
+      .join(", ");
 
-  const nationGoalsHtml = (bonusData.nationGoalTable || []).slice(0, 5).map(item => `
-    <li>${item.team} — ${item.goals} goals</li>
-  `).join("") || `<li>No nation goal data yet.</li>`;
+    return `
+      <li>
+        ${item.player} (${item.team}) — ${item.goals} goals
+        ${owners ? `<br /><span>Current owner: ${owners}</span>` : ""}
+      </li>
+    `;
+  }).join("") || `<li>No goals tracked yet.</li>`;
+
+  const nationGoalsHtml = (bonusData.nationGoalTable || []).slice(0, 5).map(item => {
+    const owners = (leaderboard || [])
+      .filter(player => playerOwnsTeam(player, item.team))
+      .map(player => player.name)
+      .join(", ");
+
+    return `
+      <li>
+        ${item.team} — ${item.goals} goals
+        ${owners ? `<br /><span>Current owner: ${owners}</span>` : ""}
+      </li>
+    `;
+  }).join("") || `<li>No nation goal data yet.</li>`;
 
   const fastestGoal = bonusData.fastestGoal
     ? `
@@ -256,18 +359,18 @@ function renderBonusTracker(bonusData) {
     </div>
 
     <div class="bonus-card">
-      <h3>Golden Boot Race</h3>
+      <h3>🥾 Golden Boot Race</h3>
       <ul>${goldenBootHtml}</ul>
       <p class="bonus-note">
-        +5 points awarded at the end of the tournament.
+        Badge shown for current race leader owner. +5 points awarded at the end of the tournament.
       </p>
     </div>
 
     <div class="bonus-card">
-      <h3>Most Goals by Nation</h3>
+      <h3>⚽ Most Goals by Nation</h3>
       <ul>${nationGoalsHtml}</ul>
       <p class="bonus-note">
-        +5 points awarded at the end of the tournament.
+        Badge shown for current top nation owner. +5 points awarded at the end of the tournament.
       </p>
     </div>
 
@@ -425,7 +528,9 @@ function renderLatestResults(results) {
 async function init() {
   let leaderboard = [];
   let playerDetails = [];
+  let bonusData = null;
   let spoonTeam = null;
+  let badgesByPlayer = {};
 
   try {
     leaderboard = await loadJson("data/leaderboard.json");
@@ -437,7 +542,7 @@ async function init() {
     if (tbody) {
       tbody.innerHTML = `
         <tr>
-          <td colspan="8">Could not load leaderboard data.</td>
+          <td colspan="9">Could not load leaderboard data.</td>
         </tr>
       `;
     }
@@ -445,7 +550,6 @@ async function init() {
 
   try {
     playerDetails = await loadJson("data/player_details.json");
-    spoonTeam = findWoodenSpoonTeam(playerDetails);
   } catch (error) {
     console.error(error);
 
@@ -456,13 +560,8 @@ async function init() {
     }
   }
 
-  renderSummaryCards(leaderboard, playerDetails);
-  renderLeaderboard(leaderboard, spoonTeam);
-  renderPlayerDetails(playerDetails, spoonTeam);
-
   try {
-    const bonusData = await loadJson("data/bonus_points.json");
-    renderBonusTracker(bonusData);
+    bonusData = await loadJson("data/bonus_points.json");
   } catch (error) {
     console.error(error);
 
@@ -472,6 +571,15 @@ async function init() {
       bonusEl.textContent = "Bonus tracker not available yet.";
     }
   }
+
+  const badgeData = findCurrentBadgeHolders(leaderboard, playerDetails, bonusData);
+  spoonTeam = badgeData.spoonTeam;
+  badgesByPlayer = badgeData.badgesByPlayer;
+
+  renderSummaryCards(leaderboard, playerDetails);
+  renderLeaderboard(leaderboard, spoonTeam, badgesByPlayer);
+  renderPlayerDetails(playerDetails, spoonTeam);
+  renderBonusTracker(bonusData, leaderboard);
 
   try {
     const status = await loadJson("data/status.json");
