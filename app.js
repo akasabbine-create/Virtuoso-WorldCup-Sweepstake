@@ -21,6 +21,63 @@ function formatDateTime(value) {
   });
 }
 
+function formatTimeOnly(value) {
+  if (!value) return "TBC";
+
+  const date = new Date(value);
+
+  return date.toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit"
+  });
+}
+
+function fixtureStatusLabel(match) {
+  if (match.completed) {
+    return "Final";
+  }
+
+  const status = normaliseText(match.status);
+
+  if (
+    status.includes("half") ||
+    status.includes("live") ||
+    status.includes("in progress") ||
+    status.includes("1st") ||
+    status.includes("2nd") ||
+    status.includes("extra")
+  ) {
+    return match.status || "Live";
+  }
+
+  if (match.isToday) {
+    return "Today";
+  }
+
+  return "Upcoming";
+}
+
+function fixtureStatusClass(match) {
+  if (match.completed) return "final";
+
+  const status = normaliseText(match.status);
+
+  if (
+    status.includes("half") ||
+    status.includes("live") ||
+    status.includes("in progress") ||
+    status.includes("1st") ||
+    status.includes("2nd") ||
+    status.includes("extra")
+  ) {
+    return "live";
+  }
+
+  if (match.isToday) return "today";
+
+  return "upcoming";
+}
+
 function movementIcon(movement) {
   if (movement > 0) {
     return `<span class="movement up">▲ ${movement}</span>`;
@@ -198,12 +255,19 @@ function renderStatus(status) {
 
   if (!statusEl || !completedEl) return;
 
+  const updated = status.lastUpdated
+    ? new Date(status.lastUpdated).toLocaleString("en-GB", {
+        day: "2-digit",
+        month: "short",
+        hour: "2-digit",
+        minute: "2-digit"
+      })
+    : "Unknown";
+
   statusEl.innerHTML = `
-    <strong>Last updated:</strong> ${formatDateTime(status.lastUpdated)}
-    <br />
-    <strong>Source:</strong> ${status.source || "ESPN public scoreboard"}
-    <br />
-    <strong>ESPN fixtures fetched:</strong> ${status.matchesFetchedFromEspn ?? "Unknown"}
+    <span><strong>Updated</strong> ${updated}</span>
+    <span><strong>Source</strong> ESPN</span>
+    <span><strong>Fetched</strong> ${status.matchesFetchedFromEspn ?? "?"}</span>
   `;
 
   const completed = status.completedMatches ?? 0;
@@ -572,13 +636,24 @@ function renderUpcomingFixtures(fixtures) {
   container.innerHTML = "";
 
   if (!fixtures || fixtures.length === 0) {
-    container.innerHTML = `<p>No upcoming fixtures found.</p>`;
+    container.innerHTML = `<p>No matches found for the current football day.</p>`;
     return;
   }
 
   fixtures.forEach(match => {
     const card = document.createElement("div");
     card.className = "fixture-card";
+
+    if (match.isToday) {
+      card.classList.add("today-match");
+    }
+
+    if (match.completed) {
+      card.classList.add("completed-match");
+    }
+
+    const statusClass = fixtureStatusClass(match);
+    const statusLabel = fixtureStatusLabel(match);
 
     const players = match.players && match.players.length > 0
       ? match.players.map(player => {
@@ -587,21 +662,62 @@ function renderUpcomingFixtures(fixtures) {
         }).join("")
       : `<li>No sweepstake players involved</li>`;
 
+    const hasVisibleScore = match.displayScore1 !== null
+      && match.displayScore1 !== undefined
+      && match.displayScore2 !== null
+      && match.displayScore2 !== undefined;
+
+    const scoreHtml = hasVisibleScore
+      ? `
+        <div class="fixture-score">
+          <span>${match.team1}</span>
+          <strong>${match.displayScore1}–${match.displayScore2}</strong>
+          <span>${match.team2}</span>
+        </div>
+      `
+      : `<h3>${match.team1} v ${match.team2}</h3>`;
+
+    const playerGains = match.playerGains && match.playerGains.length > 0
+      ? match.playerGains.map(gain => `<li>${gain.name} +${gain.points}</li>`).join("")
+      : `<li>No player gained points</li>`;
+
     const potentialRows = calculatePotentialPoints(match);
 
     const potentialHtml = potentialRows.length > 0
       ? potentialRows.map(row => `
           <div class="potential-row">
             <strong>${row.name}</strong>
-            <span>${match.team1} win +${row.team1Win}</span>
+            <span>${match.team1} +${row.team1Win}</span>
             <span>Draw +${row.draw}</span>
-            <span>${match.team2} win +${row.team2Win}</span>
+            <span>${match.team2} +${row.team2Win}</span>
           </div>
         `).join("")
       : `<p class="potential-empty">No sweepstake players involved.</p>`;
 
+    const pointsSection = match.completed
+      ? `
+        <div class="fixture-section">
+          <h4>Points awarded</h4>
+          <ul>${playerGains}</ul>
+        </div>
+      `
+      : `
+        <div class="fixture-section">
+          <h4>Potential points</h4>
+          <div class="potential-points">
+            ${potentialHtml}
+          </div>
+        </div>
+      `;
+
     card.innerHTML = `
-      <h3>${match.team1} v ${match.team2}</h3>
+      <div class="fixture-topline">
+        <span class="fixture-status ${statusClass}">${statusLabel}</span>
+        <span class="fixture-time">${formatTimeOnly(match.date)}</span>
+      </div>
+
+      ${scoreHtml}
+
       <p>${formatDateTime(match.date)}</p>
 
       <div class="fixture-section">
@@ -609,12 +725,7 @@ function renderUpcomingFixtures(fixtures) {
         <ul>${players}</ul>
       </div>
 
-      <div class="fixture-section">
-        <h4>Potential points</h4>
-        <div class="potential-points">
-          ${potentialHtml}
-        </div>
-      </div>
+      ${pointsSection}
     `;
 
     container.appendChild(card);
