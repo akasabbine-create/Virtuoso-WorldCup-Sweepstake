@@ -185,6 +185,10 @@ tr.top-three td {
   padding: 14px;
 }
 
+.wooden-spoon-card {
+  border-left-color: #d29922;
+}
+
 .player-card-header {
   display: flex;
   justify-content: space-between;
@@ -209,6 +213,11 @@ tr.top-three td {
   border-radius: 10px;
   padding: 10px;
   margin-top: 8px;
+}
+
+.wooden-spoon-team {
+  border-color: #d29922;
+  background: rgba(210, 153, 34, 0.12);
 }
 
 .team-breakdown-header {
