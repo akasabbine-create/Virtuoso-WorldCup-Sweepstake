@@ -138,7 +138,7 @@ function renderSummaryCards(leaderboard, playerDetails) {
   `;
 }
 
-function renderLeaderboard(data) {
+function renderLeaderboard(data, spoonTeam) {
   const tbody = document.querySelector("#board tbody");
 
   if (!tbody) return;
@@ -165,12 +165,23 @@ function renderLeaderboard(data) {
       tr.classList.add("top-three");
     }
 
-    const teams = (player.teams || []).join(", ");
+    const isWoodenSpoonHolder = spoonTeam && player.name === spoonTeam.playerName;
+    const playerName = isWoodenSpoonHolder
+      ? `🥄 ${player.name}`
+      : player.name;
+
+    const teams = (player.teams || []).map(team => {
+      if (spoonTeam && player.name === spoonTeam.playerName && team === spoonTeam.team) {
+        return `🥄 ${team}`;
+      }
+
+      return team;
+    }).join(", ");
 
     tr.innerHTML = `
       <td>${medal(player.rank)} ${player.rank}</td>
       <td>${movementIcon(player.movement || 0)}</td>
-      <td>${player.name}</td>
+      <td>${playerName}</td>
       <td>${teams}</td>
       <td>${player.gamesPlayed ?? 0}</td>
       <td><strong>${player.points}</strong></td>
@@ -180,7 +191,7 @@ function renderLeaderboard(data) {
   });
 }
 
-function renderPlayerDetails(details) {
+function renderPlayerDetails(details, spoonTeam) {
   const container = document.querySelector("#player-details");
 
   if (!container) return;
@@ -196,7 +207,17 @@ function renderPlayerDetails(details) {
     const card = document.createElement("div");
     card.className = "player-card";
 
+    if (spoonTeam && player.name === spoonTeam.playerName) {
+      card.classList.add("wooden-spoon-card");
+    }
+
     const teams = (player.teams || []).map(team => {
+      const isSpoonTeam = spoonTeam
+        && player.name === spoonTeam.playerName
+        && team.team === spoonTeam.team;
+
+      const teamName = isSpoonTeam ? `🥄 ${team.team}` : team.team;
+
       const recentResults = team.recentResults && team.recentResults.length > 0
         ? team.recentResults.map(result => `
             <li>
@@ -207,9 +228,9 @@ function renderPlayerDetails(details) {
         : `<li>No completed matches yet</li>`;
 
       return `
-        <div class="team-breakdown">
+        <div class="team-breakdown ${isSpoonTeam ? "wooden-spoon-team" : ""}">
           <div class="team-breakdown-header">
-            <strong>${team.team}</strong>
+            <strong>${teamName}</strong>
             <span>${team.points} pts</span>
           </div>
 
@@ -223,9 +244,13 @@ function renderPlayerDetails(details) {
       `;
     }).join("");
 
+    const playerName = spoonTeam && player.name === spoonTeam.playerName
+      ? `🥄 ${player.name}`
+      : player.name;
+
     card.innerHTML = `
       <div class="player-card-header">
-        <h3>${medal(player.rank)} ${player.name}</h3>
+        <h3>${medal(player.rank)} ${playerName}</h3>
         <strong>${player.points} pts</strong>
       </div>
 
@@ -308,10 +333,10 @@ function renderLatestResults(results) {
 async function init() {
   let leaderboard = [];
   let playerDetails = [];
+  let spoonTeam = null;
 
   try {
     leaderboard = await loadJson("data/leaderboard.json");
-    renderLeaderboard(leaderboard);
   } catch (error) {
     console.error(error);
 
@@ -328,7 +353,7 @@ async function init() {
 
   try {
     playerDetails = await loadJson("data/player_details.json");
-    renderPlayerDetails(playerDetails);
+    spoonTeam = findWoodenSpoonTeam(playerDetails);
   } catch (error) {
     console.error(error);
 
@@ -340,6 +365,8 @@ async function init() {
   }
 
   renderSummaryCards(leaderboard, playerDetails);
+  renderLeaderboard(leaderboard, spoonTeam);
+  renderPlayerDetails(playerDetails, spoonTeam);
 
   try {
     const status = await loadJson("data/status.json");
