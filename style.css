@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap");
 
 * {
   box-sizing: border-box;
@@ -8,8 +8,8 @@ body {
   margin: 0;
   background: #071b2a;
   color: #ffffff;
-  font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-weight: 500;
+  font-family: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-weight: 600;
   text-rendering: geometricPrecision;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -45,16 +45,16 @@ main {
   background: linear-gradient(135deg, #f2cc60, #ffd166, #d29922);
   border-radius: 999px;
   font-size: clamp(0.75rem, 1.2vw, 0.95rem);
-  font-weight: 900;
+  font-weight: 800;
   letter-spacing: 0.24em;
   box-shadow: 0 8px 24px rgba(242, 204, 96, 0.22);
 }
 
 .title-main {
   display: inline-block;
-  font-family: "Inter", "Arial Black", "Trebuchet MS", Arial, sans-serif;
+  font-family: "Manrope", "Arial Black", "Trebuchet MS", Arial, sans-serif;
   font-size: clamp(3rem, 7vw, 6.4rem);
-  font-weight: 900;
+  font-weight: 800;
   letter-spacing: -0.09em;
   background: linear-gradient(180deg, #ffffff 0%, #f2cc60 48%, #d29922 100%);
   -webkit-background-clip: text;
@@ -68,7 +68,7 @@ main {
 .title-sub {
   display: inline-block;
   font-size: clamp(1.25rem, 2.8vw, 2.35rem);
-  font-weight: 900;
+  font-weight: 800;
   letter-spacing: 0.08em;
   color: #ffffff;
   text-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
@@ -82,7 +82,7 @@ h1 {
 h2 {
   margin-top: 32px;
   margin-bottom: 12px;
-  font-weight: 900;
+  font-weight: 800;
   letter-spacing: -0.04em;
 }
 
@@ -90,7 +90,7 @@ h2 {
   margin-top: 0;
   margin-bottom: 14px;
   color: #c9d1d9;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .status-card {
@@ -101,7 +101,7 @@ h2 {
   border: 1px solid #24465d;
   border-radius: 10px;
   text-align: left;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .cards {
@@ -197,7 +197,7 @@ h2 {
   margin: 0 0 12px;
   color: #c9d1d9;
   font-size: 0.78rem;
-  font-weight: 900;
+  font-weight: 800;
   letter-spacing: 0.15em;
   line-height: 1.25;
   text-transform: uppercase;
@@ -209,7 +209,7 @@ h2 {
   margin: 0;
   color: #ffffff;
   font-size: clamp(1.28rem, 2vw, 1.72rem);
-  font-weight: 900;
+  font-weight: 800;
   line-height: 1.18;
   letter-spacing: -0.045em;
 }
@@ -234,7 +234,7 @@ h2 {
   margin-top: 8px;
   color: #d6e4ef;
   font-size: 0.92rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0;
 }
 
@@ -262,17 +262,17 @@ td {
 
 th {
   font-size: 0.95rem;
-  font-weight: 900;
+  font-weight: 800;
   letter-spacing: -0.03em;
 }
 
 td {
   font-size: 0.98rem;
-  font-weight: 650;
+  font-weight: 700;
 }
 
 tr.top-three td {
-  font-weight: 850;
+  font-weight: 800;
 }
 
 /* 1st place - Gold */
@@ -291,7 +291,7 @@ tr.leader td {
 
 tr.leader td:first-child {
   color: #ffd166;
-  font-weight: 900;
+  font-weight: 800;
 }
 
 tr.leader td:last-child strong {
@@ -315,7 +315,7 @@ tr.top-three:nth-child(2) td {
 
 tr.top-three:nth-child(2) td:first-child {
   color: #e6edf3;
-  font-weight: 900;
+  font-weight: 800;
 }
 
 tr.top-three:nth-child(2) td:last-child strong {
@@ -339,7 +339,7 @@ tr.top-three:nth-child(3) td {
 
 tr.top-three:nth-child(3) td:first-child {
   color: #ffb86b;
-  font-weight: 900;
+  font-weight: 800;
 }
 
 tr.top-three:nth-child(3) td:last-child strong {
@@ -361,7 +361,7 @@ tr.top-three td:last-child strong {
 .movement {
   display: inline-block;
   min-width: 44px;
-  font-weight: 900;
+  font-weight: 800;
 }
 
 .movement.up {
@@ -451,7 +451,7 @@ tr.top-three:nth-child(3) .badge-icon {
 .bonus-card h3,
 .spoon-race-card h3 {
   margin: 0 0 8px;
-  font-weight: 900;
+  font-weight: 800;
   letter-spacing: -0.04em;
 }
 
@@ -540,7 +540,7 @@ tr.top-three:nth-child(3) .badge-icon {
 .fixture-section h4 {
   margin: 0 0 6px;
   color: #ffffff;
-  font-weight: 900;
+  font-weight: 800;
   letter-spacing: -0.03em;
 }
 
@@ -588,7 +588,7 @@ tr.top-three:nth-child(3) .badge-icon {
 
 .player-card-header strong {
   font-size: 1rem;
-  font-weight: 900;
+  font-weight: 800;
 }
 
 .player-card-subtitle {
@@ -618,7 +618,7 @@ tr.top-three:nth-child(3) .badge-icon {
 }
 
 .team-breakdown-header strong {
-  font-weight: 900;
+  font-weight: 800;
 }
 
 .team-stats {
@@ -655,7 +655,7 @@ tr.top-three:nth-child(3) .badge-icon {
 .rules-card h3 {
   margin-top: 0;
   margin-bottom: 10px;
-  font-weight: 900;
+  font-weight: 800;
   letter-spacing: -0.04em;
 }
 
