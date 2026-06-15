@@ -54,7 +54,7 @@ function playerOwnsTeam(player, teamName) {
   return (player.teams || []).some(team => normaliseText(team) === target);
 }
 
-function findWoodenSpoonTeam(playerDetails) {
+function flattenPlayerTeams(playerDetails) {
   const allTeams = [];
 
   (playerDetails || []).forEach(player => {
@@ -74,11 +74,11 @@ function findWoodenSpoonTeam(playerDetails) {
     });
   });
 
-  if (allTeams.length === 0) {
-    return null;
-  }
+  return allTeams;
+}
 
-  allTeams.sort((a, b) => {
+function sortWoodenSpoonTeams(teams) {
+  return [...teams].sort((a, b) => {
     if (a.points !== b.points) {
       return a.points - b.points;
     }
@@ -97,8 +97,16 @@ function findWoodenSpoonTeam(playerDetails) {
 
     return a.team.localeCompare(b.team);
   });
+}
 
-  return allTeams[0];
+function findWoodenSpoonTeam(playerDetails) {
+  const allTeams = flattenPlayerTeams(playerDetails);
+
+  if (allTeams.length === 0) {
+    return null;
+  }
+
+  return sortWoodenSpoonTeams(allTeams)[0];
 }
 
 function findCurrentBadgeHolders(leaderboard, playerDetails, bonusData) {
@@ -395,6 +403,57 @@ function renderBonusTracker(bonusData, leaderboard) {
   `;
 }
 
+function renderWoodenSpoonRace(playerDetails) {
+  const container = document.querySelector("#wooden-spoon-race");
+
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  const allTeams = flattenPlayerTeams(playerDetails);
+  const sortedTeams = sortWoodenSpoonTeams(allTeams).slice(0, 5);
+
+  if (sortedTeams.length === 0) {
+    container.innerHTML = `<p>No wooden spoon data available yet.</p>`;
+    return;
+  }
+
+  sortedTeams.forEach((team, index) => {
+    const card = document.createElement("div");
+    card.className = "spoon-race-card";
+
+    if (index === 0) {
+      card.classList.add("current-spoon");
+    }
+
+    const positionLabel = index === 0 ? "Current spoon" : `Race position ${index + 1}`;
+    const icon = index === 0 ? "🥄" : "⬇️";
+
+    card.innerHTML = `
+      <div class="spoon-race-header">
+        <span class="spoon-race-position">${icon} ${positionLabel}</span>
+        <strong>${team.points} pts</strong>
+      </div>
+
+      <h3>${team.team}</h3>
+
+      <p>
+        Owner: <strong>${team.playerName}</strong>
+      </p>
+
+      <div class="spoon-race-stats">
+        <span>Played ${team.gamesPlayed}</span>
+        <span>W${team.wins} D${team.draws} L${team.losses}</span>
+        <span>GF ${team.goalsFor}</span>
+        <span>GA ${team.goalsAgainst}</span>
+        <span>GD ${team.goalDifference}</span>
+      </div>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
 function renderPlayerDetails(details, spoonTeam) {
   const container = document.querySelector("#player-details");
 
@@ -647,8 +706,9 @@ async function init() {
 
   renderSummaryCards(leaderboard, playerDetails);
   renderLeaderboard(leaderboard, spoonTeam, badgesByPlayer);
-  renderPlayerDetails(playerDetails, spoonTeam);
   renderBonusTracker(bonusData, leaderboard);
+  renderWoodenSpoonRace(playerDetails);
+  renderPlayerDetails(playerDetails, spoonTeam);
 
   try {
     const status = await loadJson("data/status.json");
