@@ -13,6 +13,8 @@ LATEST_RESULTS_FILE = Path("data/latest_results.json")
 
 ESPN_URL = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard"
 
+TOTAL_TOURNAMENT_MATCHES = 104
+
 
 TEAM_ALIASES = {
     "Türkiye": "Turkey",
@@ -178,8 +180,9 @@ def fetch_matches():
         if m["score1"] is not None and m["score2"] is not None
     ]
 
-    print(f"ESPN matches found: {len(all_matches)}")
-    print(f"ESPN matches with scores: {len(scored_matches)}")
+    print(f"ESPN matches fetched so far: {len(all_matches)}")
+    print(f"Completed matches with scores: {len(scored_matches)}")
+    print(f"Total tournament matches: {TOTAL_TOURNAMENT_MATCHES}")
 
     return all_matches
 
@@ -362,8 +365,9 @@ def build_status(matches):
 
     return {
         "lastUpdated": datetime.now(timezone.utc).isoformat(),
-        "matchesChecked": len(matches),
         "completedMatches": len(completed),
+        "totalTournamentMatches": TOTAL_TOURNAMENT_MATCHES,
+        "matchesFetchedFromEspn": len(matches),
         "source": "ESPN public scoreboard",
     }
 
