@@ -97,35 +97,135 @@ h2 {
 .cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
-  margin: 24px 0;
+  gap: 16px;
+  margin: 26px 0 28px;
 }
 
 .card {
-  background: #102d44;
-  border: 1px solid #24465d;
-  border-radius: 12px;
-  padding: 16px;
-  text-align: center;
+  position: relative;
+  overflow: hidden;
+  min-height: 126px;
+  background:
+    linear-gradient(145deg, rgba(16, 45, 68, 0.98), rgba(8, 31, 49, 0.98));
+  border: 1px solid rgba(88, 166, 255, 0.18);
+  border-radius: 18px;
+  padding: 18px 18px 20px;
+  text-align: left;
+  box-shadow:
+    0 18px 36px rgba(0, 0, 0, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 6px;
+  background: #58a6ff;
+}
+
+.card::after {
+  content: "";
+  position: absolute;
+  top: -60px;
+  right: -60px;
+  width: 150px;
+  height: 150px;
+  border-radius: 999px;
+  background: rgba(88, 166, 255, 0.12);
+  pointer-events: none;
+}
+
+.card:nth-child(1) {
+  border-color: rgba(255, 209, 102, 0.34);
+  background:
+    radial-gradient(circle at top right, rgba(255, 209, 102, 0.18), transparent 34%),
+    linear-gradient(145deg, rgba(16, 45, 68, 0.98), rgba(8, 31, 49, 0.98));
+}
+
+.card:nth-child(1)::before {
+  background: linear-gradient(180deg, #ffd166, #d29922);
+}
+
+.card:nth-child(1)::after {
+  background: rgba(255, 209, 102, 0.15);
+}
+
+.card:nth-child(2) {
+  border-color: rgba(210, 153, 34, 0.34);
+  background:
+    radial-gradient(circle at top right, rgba(210, 153, 34, 0.18), transparent 34%),
+    linear-gradient(145deg, rgba(16, 45, 68, 0.98), rgba(8, 31, 49, 0.98));
+}
+
+.card:nth-child(2)::before {
+  background: linear-gradient(180deg, #ffb86b, #d29922);
+}
+
+.card:nth-child(2)::after {
+  background: rgba(210, 153, 34, 0.15);
+}
+
+.card:nth-child(3) {
+  border-color: rgba(88, 166, 255, 0.34);
+  background:
+    radial-gradient(circle at top right, rgba(88, 166, 255, 0.18), transparent 34%),
+    linear-gradient(145deg, rgba(16, 45, 68, 0.98), rgba(8, 31, 49, 0.98));
+}
+
+.card:nth-child(3)::before {
+  background: linear-gradient(180deg, #79c0ff, #1f6feb);
+}
+
+.card:nth-child(3)::after {
+  background: rgba(88, 166, 255, 0.15);
 }
 
 .card h2 {
-  margin: 0 0 8px;
-  font-size: 1.1rem;
+  position: relative;
+  z-index: 1;
+  margin: 0 0 12px;
+  color: #c9d1d9;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.14em;
+  line-height: 1.25;
+  text-transform: uppercase;
 }
 
 .card p {
+  position: relative;
+  z-index: 1;
   margin: 0;
-  font-size: 1.4rem;
-  font-weight: bold;
+  color: #ffffff;
+  font-size: clamp(1.28rem, 2vw, 1.72rem);
+  font-weight: 900;
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+}
+
+.card:nth-child(1) p {
+  color: #ffd166;
+  text-shadow: 0 8px 22px rgba(255, 209, 102, 0.14);
+}
+
+.card:nth-child(2) p {
+  color: #ffb86b;
+  text-shadow: 0 8px 22px rgba(210, 153, 34, 0.14);
+}
+
+.card:nth-child(3) p {
+  color: #79c0ff;
+  text-shadow: 0 8px 22px rgba(88, 166, 255, 0.14);
 }
 
 .small-card-text {
   display: inline-block;
-  margin-top: 4px;
-  font-size: 0.9rem;
-  color: #c9d1d9;
-  font-weight: normal;
+  margin-top: 8px;
+  color: #d6e4ef;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0;
 }
 
 .table-wrap {
@@ -600,8 +700,17 @@ tr.top-three:nth-child(3) .badge-icon {
     font-size: 0.9rem;
   }
 
+  .card {
+    min-height: 112px;
+    padding: 16px 16px 18px;
+  }
+
+  .card h2 {
+    font-size: 0.74rem;
+  }
+
   .card p {
-    font-size: 1.2rem;
+    font-size: 1.28rem;
   }
 
   .player-card-header {
