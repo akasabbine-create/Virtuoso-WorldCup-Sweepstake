@@ -17,8 +17,10 @@ TEAM_ALIASES = {
     "Czechia": "Czech Republic",
     "Czech Republic": "Czechia",
 
-    "Bosnia-Herzegovina": "Bosnia & Herzegovina",
-    "Bosnia & Herzegovina": "Bosnia-Herzegovina",
+    "Bosnia": "Bosnia-Herzegovina",
+    "Bosnia-Herzegovina": "Bosnia",
+    "Bosnia & Herzegovina": "Bosnia",
+    "Bosnia and Herzegovina": "Bosnia",
 
     "Cape Verde Islands": "Cape Verde",
     "Cape Verde": "Cape Verde Islands",
@@ -28,8 +30,6 @@ TEAM_ALIASES = {
 
     "Curaçao": "Curacao",
     "Curacao": "Curaçao",
-
-    "Ivory Coast": "Ivory Coast",
 }
 
 
@@ -42,6 +42,27 @@ def save(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
+
+
+def first_value(game, keys):
+    """
+    Returns the first key that exists and is not None.
+    Important: this preserves 0 scores.
+    """
+    for key in keys:
+        if key in game and game[key] is not None:
+            return game[key]
+    return None
+
+
+def as_int_or_none(value):
+    if value is None:
+        return None
+
+    try:
+        return int(value)
+    except (TypeError, ValueError):
+        return None
 
 
 def normalise_team_name(name):
@@ -68,16 +89,6 @@ def team_matches(player_team, result_team):
     return False
 
 
-def as_int_or_none(value):
-    if value is None:
-        return None
-
-    try:
-        return int(value)
-    except (TypeError, ValueError):
-        return None
-
-
 def fetch_matches():
     with urllib.request.urlopen(API_URL, timeout=30) as response:
         data = json.load(response)
@@ -101,39 +112,37 @@ def fetch_matches():
         if not isinstance(game, dict):
             continue
 
-        home = (
-            game.get("home_name")
-            or game.get("home_team")
-            or game.get("homeTeam")
-            or game.get("home")
-            or game.get("team1")
-        )
+        home = first_value(game, [
+            "home_name",
+            "home_team",
+            "homeTeam",
+            "home",
+            "team1"
+        ])
 
-        away = (
-            game.get("away_name")
-            or game.get("away_team")
-            or game.get("awayTeam")
-            or game.get("away")
-            or game.get("team2")
-        )
+        away = first_value(game, [
+            "away_name",
+            "away_team",
+            "awayTeam",
+            "away",
+            "team2"
+        ])
 
-        score1 = as_int_or_none(
-            game.get("score_home")
-            or game.get("home_score")
-            or game.get("homeScore")
-            or game.get("homeGoals")
-            or game.get("home_goals")
-        )
+        score1 = as_int_or_none(first_value(game, [
+            "score_home",
+            "home_score",
+            "homeScore",
+            "homeGoals",
+            "home_goals"
+        ]))
 
-        score2 = as_int_or_none(
-            game.get("score_away")
-            or game.get("away_score")
-            or game.get("awayScore")
-            or game.get("awayGoals")
-            or game.get("away_goals")
-        )
-
-        status = str(game.get("status", "")).lower()
+        score2 = as_int_or_none(first_value(game, [
+            "score_away",
+            "away_score",
+            "awayScore",
+            "awayGoals",
+            "away_goals"
+        ]))
 
         if not home or not away:
             continue
@@ -143,7 +152,7 @@ def fetch_matches():
             "team2": normalise_team_name(away),
             "score1": score1,
             "score2": score2,
-            "status": status,
+            "status": str(game.get("status", "")).lower(),
             "date": game.get("date") or game.get("utcDate") or game.get("local_date") or game.get("datetime_utc"),
             "raw": game
         })
