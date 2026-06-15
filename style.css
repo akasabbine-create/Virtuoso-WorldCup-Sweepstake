@@ -27,7 +27,13 @@ h1 {
 
 h2 {
   margin-top: 32px;
-  margin-bottom: 16px;
+  margin-bottom: 12px;
+}
+
+.section-note {
+  margin-top: 0;
+  margin-bottom: 14px;
+  color: #c9d1d9;
 }
 
 .status-card {
@@ -130,11 +136,16 @@ tr.top-three td {
 }
 
 .results-grid,
-.fixtures-grid,
-.player-grid {
+.fixtures-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 14px;
+}
+
+.player-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
 }
 
 .result-card,
@@ -170,7 +181,8 @@ tr.top-three td {
 }
 
 .player-card {
-  border-left: 4px solid #f2cc60;
+  border-left: 3px solid #f2cc60;
+  padding: 14px;
 }
 
 .player-card-header {
@@ -182,38 +194,40 @@ tr.top-three td {
 }
 
 .player-card-header strong {
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .player-card-subtitle {
-  margin: 0 0 12px;
+  margin: 0 0 10px;
   color: #c9d1d9;
+  font-size: 0.95rem;
 }
 
 .team-breakdown {
   background: #081f31;
   border: 1px solid #24465d;
   border-radius: 10px;
-  padding: 12px;
-  margin-top: 10px;
+  padding: 10px;
+  margin-top: 8px;
 }
 
 .team-breakdown-header {
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 6px;
+  margin-bottom: 5px;
 }
 
 .team-stats {
   color: #c9d1d9;
-  font-size: 0.95rem;
-  margin-bottom: 8px;
+  font-size: 0.9rem;
+  margin-bottom: 7px;
 }
 
 .team-breakdown li {
   margin-bottom: 4px;
   color: #d6e4ef;
+  font-size: 0.92rem;
 }
 
 .rules-section {
