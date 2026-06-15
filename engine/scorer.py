@@ -12,6 +12,7 @@ HISTORY_FILE = Path("data/history.json")
 LATEST_RESULTS_FILE = Path("data/latest_results.json")
 UPCOMING_FIXTURES_FILE = Path("data/upcoming_fixtures.json")
 PLAYER_DETAILS_FILE = Path("data/player_details.json")
+BONUS_POINTS_FILE = Path("data/bonus_points.json")
 
 ESPN_URL = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard"
 
@@ -19,6 +20,18 @@ TOTAL_TOURNAMENT_MATCHES = 104
 TOURNAMENT_START = date(2026, 6, 11)
 TOURNAMENT_END = date(2026, 7, 19)
 
+PROGRESSION_BONUSES = {
+    "round_of_32": ("Reach Round of 32", 5),
+    "round_of_16": ("Reach Round of 16", 5),
+    "quarter_final": ("Reach Quarter-finals", 5),
+    "semi_final": ("Reach Semi-finals", 10),
+    "final": ("Reach Final", 10),
+}
+
+WINNER_BONUS = ("Tournament Winner", 15)
+GOLDEN_BOOT_BONUS = ("Golden Boot", 5)
+MOST_GOALS_NATION_BONUS = ("Most goals by nation", 5)
+KNOCKOUT_CLEAN_SHEET_BONUS = ("Knockout clean sheet", 2)
 
 TEAM_ALIASES = {
     "Türkiye": "Turkey",
@@ -207,9 +220,366 @@ def match_points(match):
     return {t1: 1, t2: 1}
 
 
-def calculate(players, matches, previous_leaderboard):
-    scores = defaultdict(int)
+def get_match_stage(match):
+    raw = match.get("raw", {}) or {}
+    competition = (raw.get("competitions") or [{}])[0]
+
+    values = [
+        str((raw.get("season") or {}).get("slug", "")),
+        str((match.get("raw") or {}).get("name", "")),
+        str(match.get("name", "")),
+        str(match.get("shortName", "")),
+        str(competition.get("altGameNote", "")),
+    ]
+
+    text = " ".join(values).lower()
+
+    if "group" in text:
+        return "group"
+
+    if "round of 32" in text or "round-of-32" in text or "rd of 32" in text:
+        return "round_of_32"
+
+    if "round of 16" in text or "round-of-16" in text or "rd of 16" in text:
+        return "round_of_16"
+
+    if "quarter" in text:
+        return "quarter_final"
+
+    if "semi" in text:
+        return "semi_final"
+
+    if "3rd-place" in text or "third-place" in text or "3rd place" in text:
+        return "third_place"
+
+    if "final" in text:
+        return "final"
+
+    return "unknown"
+
+
+def is_knockout_stage(stage):
+    return stage in {
+        "round_of_32",
+        "round_of_16",
+        "quarter_final",
+        "semi_final",
+        "final",
+        "third_place",
+    }
+
+
+def build_team_to_players(players):
+    mapping = defaultdict(list)
+
+    for player in players:
+        for team in player["teams"]:
+            mapping[normalise_team_name(team)].append(player["name"])
+
+    return mapping
+
+
+def add_bonus(player_bonuses, team_to_players, team, label, points, reason, status="awarded"):
+    team = normalise_team_name(team)
+    owners = team_to_players.get(team, [])
+
+    for owner in owners:
+        player_bonuses[owner]["items"].append({
+            "label": label,
+            "team": team,
+            "points": points if status == "awarded" else 0,
+            "displayPoints": points,
+            "reason": reason,
+            "status": status,
+        })
+
+        if status == "awarded":
+            player_bonuses[owner]["total"] += points
+
+
+def get_competitor_team_id_map(match):
+    raw = match.get("raw", {}) or {}
+    competition = (raw.get("competitions") or [{}])[0]
+    competitors = competition.get("competitors", [])
+
+    mapping = {}
+
+    for competitor in competitors:
+        team = competitor.get("team", {})
+        team_id = str(team.get("id"))
+        team_name = normalise_team_name(team.get("displayName") or team.get("name"))
+
+        if team_id and team_name:
+            mapping[team_id] = team_name
+
+    return mapping
+
+
+def build_goal_trackers(matches):
+    scorer_totals = defaultdict(lambda: {
+        "player": None,
+        "team": None,
+        "goals": 0,
+    })
+
+    nation_goals = defaultdict(int)
+    fastest_goal = None
+
+    for match in matches:
+        if match.get("score1") is None or match.get("score2") is None:
+            continue
+
+        nation_goals[match["team1"]] += match["score1"]
+        nation_goals[match["team2"]] += match["score2"]
+
+        raw = match.get("raw", {}) or {}
+        competition = (raw.get("competitions") or [{}])[0]
+        details = competition.get("details", [])
+        team_id_map = get_competitor_team_id_map(match)
+
+        for detail in details:
+            if not detail.get("scoringPlay"):
+                continue
+
+            if detail.get("ownGoal"):
+                continue
+
+            score_value = detail.get("scoreValue", 1)
+
+            if score_value != 1:
+                continue
+
+            team_id = str((detail.get("team") or {}).get("id"))
+            scoring_team = team_id_map.get(team_id)
+
+            athletes = detail.get("athletesInvolved", [])
+            scorer_name = None
+
+            if athletes:
+                scorer_name = athletes[0].get("displayName") or athletes[0].get("fullName")
+
+            if not scorer_name or not scoring_team:
+                continue
+
+            key = f"{scorer_name}|{scoring_team}"
+
+            scorer_totals[key]["player"] = scorer_name
+            scorer_totals[key]["team"] = scoring_team
+            scorer_totals[key]["goals"] += 1
+
+            clock = detail.get("clock", {})
+            clock_value = clock.get("value")
+
+            if clock_value is not None:
+                goal_item = {
+                    "player": scorer_name,
+                    "team": scoring_team,
+                    "opponent": match["team2"] if scoring_team == match["team1"] else match["team1"],
+                    "clockSeconds": clock_value,
+                    "clockDisplay": clock.get("displayValue", ""),
+                    "date": match.get("date"),
+                    "match": f"{match['team1']} {match['score1']}–{match['score2']} {match['team2']}",
+                }
+
+                if fastest_goal is None or clock_value < fastest_goal["clockSeconds"]:
+                    fastest_goal = goal_item
+
+    golden_boot_race = sorted(
+        scorer_totals.values(),
+        key=lambda x: (-x["goals"], x["player"] or "")
+    )
+
+    nation_goal_table = [
+        {
+            "team": team,
+            "goals": goals,
+        }
+        for team, goals in nation_goals.items()
+    ]
+
+    nation_goal_table.sort(key=lambda x: (-x["goals"], x["team"]))
+
+    return golden_boot_race, nation_goal_table, fastest_goal
+
+
+def build_bonus_points(players, matches):
+    team_to_players = build_team_to_players(players)
+
+    player_bonuses = defaultdict(lambda: {
+        "total": 0,
+        "items": [],
+    })
+
+    completed_matches = [
+        m for m in matches
+        if m.get("score1") is not None and m.get("score2") is not None
+    ]
+
+    tournament_complete = len(completed_matches) >= TOTAL_TOURNAMENT_MATCHES
+
+    stage_awards_seen = set()
+    clean_sheet_awards_seen = set()
+
+    for match in completed_matches:
+        stage = get_match_stage(match)
+
+        if stage in PROGRESSION_BONUSES:
+            label, points = PROGRESSION_BONUSES[stage]
+
+            for team in [match["team1"], match["team2"]]:
+                key = (team, stage)
+
+                if key not in stage_awards_seen:
+                    stage_awards_seen.add(key)
+
+                    add_bonus(
+                        player_bonuses,
+                        team_to_players,
+                        team,
+                        label,
+                        points,
+                        f"{team} reached {label.replace('Reach ', '')}"
+                    )
+
+        if stage == "final":
+            winner_team = None
+
+            if match["score1"] > match["score2"]:
+                winner_team = match["team1"]
+            elif match["score2"] > match["score1"]:
+                winner_team = match["team2"]
+
+            if winner_team:
+                label, points = WINNER_BONUS
+
+                add_bonus(
+                    player_bonuses,
+                    team_to_players,
+                    winner_team,
+                    label,
+                    points,
+                    f"{winner_team} won the tournament"
+                )
+
+        if is_knockout_stage(stage):
+            if match["score2"] == 0:
+                key = (match["team1"], match.get("id"), "clean_sheet")
+
+                if key not in clean_sheet_awards_seen:
+                    clean_sheet_awards_seen.add(key)
+                    label, points = KNOCKOUT_CLEAN_SHEET_BONUS
+
+                    add_bonus(
+                        player_bonuses,
+                        team_to_players,
+                        match["team1"],
+                        label,
+                        points,
+                        f"{match['team1']} kept a knockout clean sheet against {match['team2']}"
+                    )
+
+            if match["score1"] == 0:
+                key = (match["team2"], match.get("id"), "clean_sheet")
+
+                if key not in clean_sheet_awards_seen:
+                    clean_sheet_awards_seen.add(key)
+                    label, points = KNOCKOUT_CLEAN_SHEET_BONUS
+
+                    add_bonus(
+                        player_bonuses,
+                        team_to_players,
+                        match["team2"],
+                        label,
+                        points,
+                        f"{match['team2']} kept a knockout clean sheet against {match['team1']}"
+                    )
+
+    golden_boot_race, nation_goal_table, fastest_goal = build_goal_trackers(matches)
+
+    if tournament_complete and golden_boot_race:
+        top_goals = golden_boot_race[0]["goals"]
+        top_scorers = [
+            item for item in golden_boot_race
+            if item["goals"] == top_goals
+        ]
+
+        awarded_teams = set()
+
+        for scorer in top_scorers:
+            team = scorer["team"]
+
+            if team in awarded_teams:
+                continue
+
+            awarded_teams.add(team)
+            label, points = GOLDEN_BOOT_BONUS
+
+            add_bonus(
+                player_bonuses,
+                team_to_players,
+                team,
+                label,
+                points,
+                f"{scorer['player']} won/shared the Golden Boot with {scorer['goals']} goals"
+            )
+
+    if tournament_complete and nation_goal_table:
+        top_goals = nation_goal_table[0]["goals"]
+        top_nations = [
+            item for item in nation_goal_table
+            if item["goals"] == top_goals
+        ]
+
+        for nation in top_nations:
+            label, points = MOST_GOALS_NATION_BONUS
+
+            add_bonus(
+                player_bonuses,
+                team_to_players,
+                nation["team"],
+                label,
+                points,
+                f"{nation['team']} finished with the most goals: {nation['goals']}"
+            )
+
+    player_bonus_rows = []
+
+    for player in players:
+        name = player["name"]
+        bonus = player_bonuses[name]
+
+        player_bonus_rows.append({
+            "name": name,
+            "total": bonus["total"],
+            "items": bonus["items"],
+        })
+
+    player_bonus_rows.sort(key=lambda x: (-x["total"], x["name"]))
+
+    return {
+        "tournamentComplete": tournament_complete,
+        "playerBonuses": player_bonus_rows,
+        "goldenBootRace": golden_boot_race[:10],
+        "nationGoalTable": nation_goal_table,
+        "fastestGoal": fastest_goal,
+        "notes": [
+            "Progression bonuses are awarded when teams appear in the relevant knockout stage data.",
+            "Knockout clean sheet bonuses are awarded automatically from knockout-stage scores.",
+            "Golden Boot and most goals by nation are tracked during the tournament and awarded when the tournament is complete.",
+            "Fastest goal is prize-only and does not affect leaderboard points.",
+            "Wooden Spoon is prize-only and does not affect leaderboard points."
+        ]
+    }
+
+
+def calculate(players, matches, previous_leaderboard, bonus_data):
+    base_scores = defaultdict(int)
     games_played = defaultdict(int)
+
+    bonus_by_player = {
+        row["name"]: row.get("total", 0)
+        for row in bonus_data.get("playerBonuses", [])
+    }
 
     previous_by_name = {
         row["name"]: row
@@ -226,7 +596,7 @@ def calculate(players, matches, previous_leaderboard):
             for team in player["teams"]:
                 for result_team, points in results.items():
                     if team_matches(team, result_team):
-                        scores[player["name"]] += points
+                        base_scores[player["name"]] += points
                         games_played[player["name"]] += 1
 
     leaderboard = []
@@ -234,11 +604,16 @@ def calculate(players, matches, previous_leaderboard):
     for player in players:
         player_name = player["name"]
         teams = [normalise_team_name(team) for team in player["teams"]]
+        match_points_total = base_scores[player_name]
+        bonus_points_total = bonus_by_player.get(player_name, 0)
+        total_points = match_points_total + bonus_points_total
 
         leaderboard.append({
             "name": player_name,
             "teams": teams,
-            "points": scores[player_name],
+            "matchPoints": match_points_total,
+            "bonusPoints": bonus_points_total,
+            "points": total_points,
             "gamesPlayed": games_played[player_name],
         })
 
@@ -279,6 +654,16 @@ def calculate(players, matches, previous_leaderboard):
 def build_player_details(players, matches, leaderboard):
     rank_by_player = {
         row["name"]: row.get("rank")
+        for row in leaderboard
+    }
+
+    bonus_by_player = {
+        row["name"]: row.get("bonusPoints", 0)
+        for row in leaderboard
+    }
+
+    match_points_by_player = {
+        row["name"]: row.get("matchPoints", row.get("points", 0))
         for row in leaderboard
     }
 
@@ -358,13 +743,17 @@ def build_player_details(players, matches, leaderboard):
                 "recentResults": recent_results[:3]
             })
 
-        total_points = sum(team["points"] for team in team_rows)
+        total_match_points = match_points_by_player.get(player_name, 0)
+        total_bonus_points = bonus_by_player.get(player_name, 0)
+        total_points = total_match_points + total_bonus_points
         total_games = sum(team["gamesPlayed"] for team in team_rows)
 
         details.append({
             "name": player_name,
             "rank": rank_by_player.get(player_name),
             "points": total_points,
+            "matchPoints": total_match_points,
+            "bonusPoints": total_bonus_points,
             "gamesPlayed": total_games,
             "teams": team_rows
         })
@@ -529,13 +918,15 @@ if __name__ == "__main__":
     previous_leaderboard = load(LEADERBOARD_FILE, default=[])
 
     matches = fetch_matches()
-    leaderboard = calculate(players, matches, previous_leaderboard)
+    bonus_data = build_bonus_points(players, matches)
+    leaderboard = calculate(players, matches, previous_leaderboard, bonus_data)
     latest_results = build_latest_results(players, matches)
     upcoming_fixtures = build_upcoming_fixtures(players, matches)
     player_details = build_player_details(players, matches, leaderboard)
     status = build_status(matches)
 
     save(MATCHES_FILE, matches)
+    save(BONUS_POINTS_FILE, bonus_data)
     save(LEADERBOARD_FILE, leaderboard)
     save(LATEST_RESULTS_FILE, latest_results)
     save(UPCOMING_FIXTURES_FILE, upcoming_fixtures)
