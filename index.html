@@ -3,41 +3,153 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>World Cup Sweepstake</title>
+
   <link rel="stylesheet" href="style.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
   <main>
-    <h1>🏆 World Cup Sweepstake Leaderboard</h1>
-
-    <section class="summary">
+    <header class="page-header">
+      <h1>🏆 World Cup Sweepstake Leaderboard</h1>
       <p>
         Live leaderboard for the Virtuoso World Cup Sweepstake.
         Rankings update automatically when new match data is available.
       </p>
+
+      <div id="status" class="status-card">
+        Loading update status...
+      </div>
+    </header>
+
+    <section class="cards">
+      <div class="card">
+        <h2>🥇 Current Leader</h2>
+        <p id="current-leader">Loading...</p>
+      </div>
+
+      <div class="card">
+        <h2>🥄 Wooden Spoon</h2>
+        <p id="wooden-spoon">Loading...</p>
+      </div>
+
+      <div class="card">
+        <h2>⚽ Completed Matches</h2>
+        <p id="completed-matches">Loading...</p>
+      </div>
     </section>
 
-    <table id="board">
-      <thead>
-        <tr>
-          <th>Rank</th>
-          <th>Player</th>
-          <th>Teams</th>
-          <th>Games Played</th>
-          <th>Points</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td colspan="5">Loading leaderboard...</td>
-        </tr>
-      </tbody>
-    </table>
+    <section>
+      <h2>Leaderboard</h2>
 
-    <p class="note">
-      Points are calculated automatically from completed match results.
-    </p>
+      <div class="table-wrap">
+        <table id="board">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Movement</th>
+              <th>Player</th>
+              <th>Teams</th>
+              <th>Games Played</th>
+              <th>Points</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td colspan="6">Loading leaderboard...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Latest Results</h2>
+
+      <div id="latest-results" class="results-grid">
+        Loading latest results...
+      </div>
+    </section>
+
+    <section>
+      <h2>Points Over Time</h2>
+
+      <div class="chart-card">
+        <canvas id="history-chart"></canvas>
+      </div>
+    </section>
+
+    <section class="rules-section">
+      <h2>📜 Rules & Scoring</h2>
+
+      <div class="rules-grid">
+        <div class="rules-card">
+          <h3>Basic Match Points</h3>
+          <ul>
+            <li><strong>Win:</strong> 3 points</li>
+            <li><strong>Draw:</strong> 1 point</li>
+            <li><strong>Loss:</strong> 0 points</li>
+          </ul>
+          <p>
+            Each player earns points from all three of their assigned teams.
+            For example, if two of your teams win, you receive 6 points.
+          </p>
+        </div>
+
+        <div class="rules-card">
+          <h3>Games Played</h3>
+          <ul>
+            <li>A game is counted once one of your teams has completed a match.</li>
+            <li>Only completed matches are included in the leaderboard.</li>
+            <li>Upcoming fixtures do not affect points or games played.</li>
+          </ul>
+        </div>
+
+        <div class="rules-card">
+          <h3>Leaderboard Ranking</h3>
+          <ul>
+            <li>Players are ranked by total points.</li>
+            <li>If players are level on points, games played is used as the next sorter.</li>
+            <li>Movement arrows show whether a player has moved up or down since the previous update.</li>
+          </ul>
+        </div>
+
+        <div class="rules-card">
+          <h3>Bonus Points</h3>
+          <ul>
+            <li><strong>Golden Boot:</strong> To be added</li>
+            <li><strong>Most goals by a nation:</strong> To be added</li>
+            <li><strong>Knockout clean sheets:</strong> To be added</li>
+            <li><strong>Fastest goal:</strong> To be added</li>
+            <li><strong>Tournament winner bonus:</strong> To be added</li>
+          </ul>
+          <p>
+            Bonus points are listed here for transparency, but they will only be included
+            once the bonus scoring engine has been added to the dashboard.
+          </p>
+        </div>
+
+        <div class="rules-card">
+          <h3>Automatic Updates</h3>
+          <ul>
+            <li>Results are pulled automatically from ESPN’s public scoreboard.</li>
+            <li>The leaderboard updates automatically through GitHub Actions.</li>
+            <li>The page refreshes from generated data files hosted on GitHub Pages.</li>
+          </ul>
+        </div>
+
+        <div class="rules-card">
+          <h3>Wooden Spoon</h3>
+          <ul>
+            <li>The wooden spoon is the player currently sitting bottom of the leaderboard.</li>
+            <li>This can change after every matchday.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
   </main>
 
   <script src="app.js"></script>
