@@ -1,12 +1,15 @@
 import json
 import urllib.request
 from collections import defaultdict
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta, timezone
 from pathlib import Path
 
 PLAYERS_FILE = Path("data/players.json")
 MATCHES_FILE = Path("data/matches.json")
 LEADERBOARD_FILE = Path("data/leaderboard.json")
+STATUS_FILE = Path("data/status.json")
+HISTORY_FILE = Path("data/history.json")
+LATEST_RESULTS_FILE = Path("data/latest_results.json")
 
 ESPN_URL = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard"
 
@@ -40,13 +43,68 @@ TEAM_ALIASES = {
 }
 
 
-def load(path):
+FLAGS = {
+    "Argentina": "🇦🇷",
+    "Australia": "🇦🇺",
+    "Austria": "🇦🇹",
+    "Belgium": "🇧🇪",
+    "Bosnia": "🇧🇦",
+    "Brazil": "🇧🇷",
+    "Canada": "🇨🇦",
+    "Cape Verde": "🇨🇻",
+    "Colombia": "🇨🇴",
+    "Croatia": "🇭🇷",
+    "Curacao": "🇨🇼",
+    "Czech Republic": "🇨🇿",
+    "DR Congo": "🇨🇩",
+    "Ecuador": "🇪🇨",
+    "Egypt": "🇪🇬",
+    "England": "🏴",
+    "France": "🇫🇷",
+    "Germany": "🇩🇪",
+    "Ghana": "🇬🇭",
+    "Haiti": "🇭🇹",
+    "Iran": "🇮🇷",
+    "Iraq": "🇮🇶",
+    "Ivory Coast": "🇨🇮",
+    "Japan": "🇯🇵",
+    "Jordan": "🇯🇴",
+    "Mexico": "🇲🇽",
+    "Morocco": "🇲🇦",
+    "Netherlands": "🇳🇱",
+    "New Zealand": "🇳🇿",
+    "Norway": "🇳🇴",
+    "Panama": "🇵🇦",
+    "Paraguay": "🇵🇾",
+    "Portugal": "🇵🇹",
+    "Qatar": "🇶🇦",
+    "Saudi Arabia": "🇸🇦",
+    "Scotland": "🏴",
+    "Senegal": "🇸🇳",
+    "South Africa": "🇿🇦",
+    "South Korea": "🇰🇷",
+    "Spain": "🇪🇸",
+    "Sweden": "🇸🇪",
+    "Switzerland": "🇨🇭",
+    "Tunisia": "🇹🇳",
+    "Turkey": "🇹🇷",
+    "Uruguay": "🇺🇾",
+    "USA": "🇺🇸",
+    "Uzbekistan": "🇺🇿",
+}
+
+
+def load(path, default=None):
+    if not path.exists():
+        return default
+
     with open(path, encoding="utf-8") as f:
         return json.load(f)
 
 
 def save(path, data):
     path.parent.mkdir(parents=True, exist_ok=True)
+
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
@@ -109,7 +167,7 @@ def fetch_espn_day(day):
                 "team": normalise_team_name(team_name),
                 "score": score,
                 "winner": competitor.get("winner", False),
-                "raw": competitor
+                "raw": competitor,
             }
 
             if side == "home":
@@ -122,9 +180,10 @@ def fetch_espn_day(day):
 
         status = competition.get("status", {})
         status_type = status.get("type", {})
-        completed = status_type.get("completed", False)
+        completed = bool(status_type.get("completed", False))
 
         matches.append({
+            "id": event.get("id"),
             "team1": home["team"],
             "team2": away["team"],
             "score1": home["score"] if completed else None,
@@ -133,17 +192,14 @@ def fetch_espn_day(day):
             "completed": completed,
             "date": event.get("date"),
             "name": event.get("name"),
-            "raw": event
+            "shortName": event.get("shortName"),
+            "raw": event,
         })
 
     return matches
 
 
 def fetch_matches():
-    """
-    ESPN returns matches by date, so fetch every day from the tournament start
-    through tomorrow. This keeps it automatic.
-    """
     start = date(2026, 6, 11)
     end = date.today() + timedelta(days=1)
 
@@ -151,11 +207,12 @@ def fetch_matches():
     seen = set()
 
     current = start
+
     while current <= end:
         day_matches = fetch_espn_day(current)
 
         for match in day_matches:
-            key = (
+            key = match.get("id") or (
                 match.get("date"),
                 match.get("team1"),
                 match.get("team2"),
@@ -178,26 +235,39 @@ def fetch_matches():
     return all_matches
 
 
-def calculate(players, matches):
+def match_points(match):
+    s1 = match.get("score1")
+    s2 = match.get("score2")
+
+    if s1 is None or s2 is None:
+        return {}
+
+    t1 = match["team1"]
+    t2 = match["team2"]
+
+    if s1 > s2:
+        return {t1: 3, t2: 0}
+
+    if s2 > s1:
+        return {t1: 0, t2: 3}
+
+    return {t1: 1, t2: 1}
+
+
+def calculate(players, matches, previous_leaderboard):
     scores = defaultdict(int)
     games_played = defaultdict(int)
 
+    previous_ranks = {
+        row["name"]: row.get("rank")
+        for row in previous_leaderboard or []
+    }
+
     for match in matches:
-        s1 = match.get("score1")
-        s2 = match.get("score2")
+        results = match_points(match)
 
-        if s1 is None or s2 is None:
+        if not results:
             continue
-
-        t1 = match["team1"]
-        t2 = match["team2"]
-
-        if s1 > s2:
-            results = {t1: 3, t2: 0}
-        elif s2 > s1:
-            results = {t1: 0, t2: 3}
-        else:
-            results = {t1: 1, t2: 1}
 
         for player in players:
             for team in player["teams"]:
@@ -209,31 +279,135 @@ def calculate(players, matches):
     leaderboard = []
 
     for player in players:
+        player_name = player["name"]
+        teams = [normalise_team_name(team) for team in player["teams"]]
+
         leaderboard.append({
-            "name": player["name"],
-            "teams": player["teams"],
-            "points": scores[player["name"]],
-            "gamesPlayed": games_played[player["name"]]
+            "name": player_name,
+            "teams": teams,
+            "points": scores[player_name],
+            "gamesPlayed": games_played[player_name],
         })
 
     leaderboard.sort(
-        key=lambda x: (x["points"], x["gamesPlayed"]),
+        key=lambda x: (x["points"], x["gamesPlayed"], x["name"]),
         reverse=True
     )
 
     for index, row in enumerate(leaderboard, start=1):
         row["rank"] = index
 
+        previous_rank = previous_ranks.get(row["name"])
+        row["previousRank"] = previous_rank
+
+        if previous_rank is None:
+            row["movement"] = 0
+        else:
+            row["movement"] = previous_rank - index
+
+        row["teamFlags"] = [
+            FLAGS.get(normalise_team_name(team), "")
+            for team in row["teams"]
+        ]
+
     return leaderboard
 
 
+def build_latest_results(players, matches, limit=8):
+    completed = [
+        m for m in matches
+        if m.get("score1") is not None and m.get("score2") is not None
+    ]
+
+    completed.sort(key=lambda x: x.get("date") or "", reverse=True)
+
+    latest = []
+
+    for match in completed[:limit]:
+        results = match_points(match)
+        player_gains = []
+
+        for player in players:
+            gained = 0
+
+            for team in player["teams"]:
+                for result_team, points in results.items():
+                    if team_matches(team, result_team):
+                        gained += points
+
+            if gained > 0:
+                player_gains.append({
+                    "name": player["name"],
+                    "points": gained
+                })
+
+        player_gains.sort(key=lambda x: x["points"], reverse=True)
+
+        latest.append({
+            "date": match.get("date"),
+            "team1": match["team1"],
+            "team2": match["team2"],
+            "score1": match["score1"],
+            "score2": match["score2"],
+            "status": match.get("status"),
+            "playerGains": player_gains,
+        })
+
+    return latest
+
+
+def update_history(leaderboard):
+    history = load(HISTORY_FILE, default=[])
+
+    now = datetime.now(timezone.utc).isoformat()
+
+    snapshot = {
+        "timestamp": now,
+        "players": [
+            {
+                "name": row["name"],
+                "points": row["points"],
+                "rank": row["rank"],
+            }
+            for row in leaderboard
+        ]
+    }
+
+    history.append(snapshot)
+
+    # Keep the history file small-ish.
+    history = history[-300:]
+
+    save(HISTORY_FILE, history)
+
+
+def build_status(matches):
+    completed = [
+        m for m in matches
+        if m.get("score1") is not None and m.get("score2") is not None
+    ]
+
+    return {
+        "lastUpdated": datetime.now(timezone.utc).isoformat(),
+        "matchesChecked": len(matches),
+        "completedMatches": len(completed),
+        "source": "ESPN public scoreboard",
+    }
+
+
 if __name__ == "__main__":
-    players = load(PLAYERS_FILE)
+    players = load(PLAYERS_FILE, default=[])
+    previous_leaderboard = load(LEADERBOARD_FILE, default=[])
 
     matches = fetch_matches()
+    leaderboard = calculate(players, matches, previous_leaderboard)
+    latest_results = build_latest_results(players, matches)
+    status = build_status(matches)
+
     save(MATCHES_FILE, matches)
-
-    leaderboard = calculate(players, matches)
     save(LEADERBOARD_FILE, leaderboard)
+    save(LATEST_RESULTS_FILE, latest_results)
+    save(STATUS_FILE, status)
+    update_history(leaderboard)
 
-    print("Updated matches and leaderboard from ESPN")
+    print("Updated matches, leaderboard, latest results, status and history")
