@@ -1,4 +1,5 @@
 import subprocess
+import sys
 
-subprocess.run(["python3", "engine/scorer.py"])
+subprocess.run([sys.executable, "engine/scorer.py"], check=True)
 print("Updated leaderboard")
