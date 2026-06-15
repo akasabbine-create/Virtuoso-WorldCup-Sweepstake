@@ -6,7 +6,10 @@
 
 body {
   margin: 0;
-  background: #071b2a;
+  background:
+    radial-gradient(circle at top left, rgba(88, 166, 255, 0.1), transparent 34%),
+    radial-gradient(circle at top right, rgba(255, 209, 102, 0.08), transparent 30%),
+    #071b2a;
   color: #ffffff;
   font-family: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-weight: 600;
@@ -80,35 +83,69 @@ h1 {
 }
 
 h2 {
-  margin-top: 32px;
-  margin-bottom: 12px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 42px;
+  margin-bottom: 14px;
+  color: #ffffff;
+  font-size: clamp(1.35rem, 2.2vw, 1.95rem);
   font-weight: 800;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.055em;
+}
+
+h2::before {
+  content: "";
+  width: 7px;
+  height: 28px;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #ffd166, #58a6ff);
+  box-shadow: 0 0 22px rgba(88, 166, 255, 0.24);
+}
+
+h2::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  margin-left: 4px;
+  background: linear-gradient(90deg, rgba(88, 166, 255, 0.38), transparent);
 }
 
 .section-note {
-  margin-top: 0;
-  margin-bottom: 14px;
-  color: #c9d1d9;
+  margin-top: -6px;
+  margin-bottom: 16px;
+  color: #b9c7d4;
+  font-size: 0.96rem;
   font-weight: 600;
+  line-height: 1.45;
 }
 
 .status-card {
   display: inline-block;
   margin-top: 12px;
   padding: 12px 18px;
-  background: #102d44;
-  border: 1px solid #24465d;
-  border-radius: 10px;
+  background:
+    linear-gradient(145deg, rgba(16, 45, 68, 0.96), rgba(8, 31, 49, 0.96));
+  border: 1px solid rgba(88, 166, 255, 0.24);
+  border-radius: 14px;
   text-align: left;
+  color: #d6e4ef;
   font-weight: 700;
+  box-shadow:
+    0 16px 32px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.status-card strong {
+  color: #ffffff;
 }
 
 .cards {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
-  margin: 26px 0 28px;
+  margin: 26px 0 30px;
 }
 
 .card {
@@ -194,6 +231,7 @@ h2 {
 .card h2 {
   position: relative;
   z-index: 1;
+  display: block;
   margin: 0 0 12px;
   color: #c9d1d9;
   font-size: 0.78rem;
@@ -201,6 +239,11 @@ h2 {
   letter-spacing: 0.15em;
   line-height: 1.25;
   text-transform: uppercase;
+}
+
+.card h2::before,
+.card h2::after {
+  display: none;
 }
 
 .card p {
@@ -240,35 +283,74 @@ h2 {
 
 .table-wrap {
   overflow-x: auto;
-  border-radius: 12px;
+  border: 1px solid rgba(88, 166, 255, 0.18);
+  border-radius: 18px;
+  background:
+    linear-gradient(145deg, rgba(16, 45, 68, 0.92), rgba(8, 31, 49, 0.98));
+  box-shadow:
+    0 20px 42px rgba(0, 0, 0, 0.24),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  background: #081f31;
+  background: transparent;
 }
 
 thead {
-  background: #12314a;
+  background:
+    linear-gradient(90deg, rgba(18, 49, 74, 0.98), rgba(16, 45, 68, 0.98));
 }
 
 th,
 td {
   padding: 14px 12px;
-  border-bottom: 1px solid #334858;
+  border-bottom: 1px solid rgba(51, 72, 88, 0.74);
   text-align: center;
 }
 
 th {
-  font-size: 0.95rem;
+  color: #d6e4ef;
+  font-size: 0.78rem;
   font-weight: 800;
-  letter-spacing: -0.03em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
 }
 
 td {
+  color: #eef6ff;
   font-size: 0.98rem;
   font-weight: 700;
+}
+
+#board th:nth-child(4),
+#board td:nth-child(4),
+#board th:nth-child(5),
+#board td:nth-child(5) {
+  text-align: left;
+}
+
+#board td:nth-child(4) {
+  color: #ffffff;
+  font-weight: 800;
+}
+
+#board td:nth-child(5) {
+  color: #c9d1d9;
+  font-size: 0.93rem;
+  line-height: 1.35;
+}
+
+tbody tr {
+  transition:
+    background 0.18s ease,
+    transform 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+tbody tr:hover {
+  background: rgba(88, 166, 255, 0.08);
 }
 
 tr.top-three td {
@@ -347,15 +429,17 @@ tr.top-three:nth-child(3) td:last-child strong {
   color: #ffb86b;
 }
 
-tr.top-three td:last-child strong {
+tr.top-three td:last-child strong,
+#board td:last-child strong {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 38px;
-  padding: 4px 9px;
+  min-width: 42px;
+  padding: 5px 10px;
   border-radius: 999px;
   background: rgba(8, 31, 49, 0.72);
-  border: 1px solid rgba(242, 204, 96, 0.22);
+  border: 1px solid rgba(88, 166, 255, 0.22);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .movement {
@@ -438,27 +522,58 @@ tr.top-three:nth-child(3) .badge-icon {
 .fixture-card,
 .player-card,
 .bonus-card,
-.spoon-race-card {
-  background: #102d44;
-  border: 1px solid #24465d;
-  border-radius: 12px;
+.spoon-race-card,
+.rules-card {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(145deg, rgba(16, 45, 68, 0.96), rgba(8, 31, 49, 0.98));
+  border: 1px solid rgba(88, 166, 255, 0.18);
+  border-radius: 16px;
   padding: 16px;
+  box-shadow:
+    0 16px 34px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.result-card::after,
+.fixture-card::after,
+.player-card::after,
+.bonus-card::after,
+.spoon-race-card::after,
+.rules-card::after {
+  content: "";
+  position: absolute;
+  top: -44px;
+  right: -44px;
+  width: 110px;
+  height: 110px;
+  border-radius: 999px;
+  background: rgba(88, 166, 255, 0.07);
+  pointer-events: none;
 }
 
 .result-card h3,
 .fixture-card h3,
 .player-card h3,
 .bonus-card h3,
-.spoon-race-card h3 {
+.spoon-race-card h3,
+.rules-card h3 {
+  position: relative;
+  z-index: 1;
   margin: 0 0 8px;
+  color: #ffffff;
   font-weight: 800;
   letter-spacing: -0.04em;
+  line-height: 1.18;
 }
 
 .result-card p,
 .fixture-card p,
 .bonus-card p,
 .spoon-race-card p {
+  position: relative;
+  z-index: 1;
   margin: 0 0 10px;
   color: #c9d1d9;
 }
@@ -467,8 +582,25 @@ tr.top-three:nth-child(3) .badge-icon {
 .fixture-card ul,
 .player-card ul,
 .bonus-card ul {
+  position: relative;
+  z-index: 1;
   margin: 0;
   padding-left: 18px;
+}
+
+.result-card li,
+.fixture-card li,
+.bonus-card li {
+  margin-bottom: 6px;
+  color: #d6e4ef;
+}
+
+.result-card {
+  border-left: 4px solid #58a6ff;
+}
+
+.result-card h3 {
+  color: #79c0ff;
 }
 
 .bonus-card {
@@ -491,10 +623,14 @@ tr.top-three:nth-child(3) .badge-icon {
 
 .spoon-race-card.current-spoon {
   border-left-color: #d29922;
-  background: rgba(210, 153, 34, 0.12);
+  background:
+    radial-gradient(circle at top right, rgba(210, 153, 34, 0.16), transparent 34%),
+    linear-gradient(145deg, rgba(16, 45, 68, 0.96), rgba(8, 31, 49, 0.98));
 }
 
 .spoon-race-header {
+  position: relative;
+  z-index: 1;
   display: flex;
   justify-content: space-between;
   gap: 8px;
@@ -513,6 +649,8 @@ tr.top-three:nth-child(3) .badge-icon {
 }
 
 .spoon-race-stats {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
@@ -521,8 +659,8 @@ tr.top-three:nth-child(3) .badge-icon {
 .spoon-race-stats span {
   display: inline-block;
   padding: 4px 7px;
-  background: #081f31;
-  border: 1px solid #24465d;
+  background: rgba(8, 31, 49, 0.78);
+  border: 1px solid rgba(88, 166, 255, 0.18);
   border-radius: 999px;
   color: #d6e4ef;
   font-size: 0.85rem;
@@ -533,36 +671,115 @@ tr.top-three:nth-child(3) .badge-icon {
   border-left: 4px solid #39d353;
 }
 
+.fixture-card h3 {
+  color: #ffffff;
+  font-size: 1.08rem;
+}
+
+.fixture-card > p {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: rgba(57, 211, 83, 0.1);
+  border: 1px solid rgba(57, 211, 83, 0.2);
+  color: #b7f7c1;
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
 .fixture-section {
+  position: relative;
+  z-index: 1;
   margin-top: 12px;
 }
 
 .fixture-section h4 {
-  margin: 0 0 6px;
+  margin: 0 0 7px;
   color: #ffffff;
+  font-size: 0.82rem;
   font-weight: 800;
-  letter-spacing: -0.03em;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.fixture-section ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  padding-left: 0;
+  list-style: none;
+}
+
+.fixture-section li {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin: 0;
+  padding: 5px 9px;
+  background: rgba(8, 31, 49, 0.78);
+  border: 1px solid rgba(88, 166, 255, 0.18);
+  border-radius: 999px;
+  color: #d6e4ef;
+  font-size: 0.84rem;
+  font-weight: 700;
 }
 
 .potential-points {
   display: grid;
-  gap: 8px;
+  gap: 6px;
 }
 
 .potential-row {
   display: grid;
-  grid-template-columns: 1fr;
-  gap: 4px;
-  padding: 10px;
-  background: #081f31;
-  border: 1px solid #24465d;
+  grid-template-columns: minmax(90px, 1fr) repeat(3, auto);
+  gap: 6px;
+  align-items: center;
+  padding: 7px 8px;
+  background: rgba(8, 31, 49, 0.74);
+  border: 1px solid rgba(88, 166, 255, 0.16);
   border-radius: 10px;
 }
 
+.potential-row strong {
+  min-width: 0;
+  color: #ffffff;
+  font-size: 0.86rem;
+  font-weight: 800;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .potential-row span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 58px;
+  padding: 4px 7px;
+  border-radius: 999px;
+  background: rgba(16, 45, 68, 0.88);
+  border: 1px solid rgba(88, 166, 255, 0.16);
   color: #c9d1d9;
-  font-size: 0.92rem;
-  font-weight: 600;
+  font-size: 0.78rem;
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.potential-row span:nth-child(2) {
+  border-color: rgba(57, 211, 83, 0.2);
+  color: #b7f7c1;
+}
+
+.potential-row span:nth-child(3) {
+  border-color: rgba(201, 209, 217, 0.2);
+  color: #e6edf3;
+}
+
+.potential-row span:nth-child(4) {
+  border-color: rgba(88, 166, 255, 0.24);
+  color: #a5d6ff;
 }
 
 .potential-empty {
@@ -579,6 +796,8 @@ tr.top-three:nth-child(3) .badge-icon {
 }
 
 .player-card-header {
+  position: relative;
+  z-index: 1;
   display: flex;
   justify-content: space-between;
   gap: 12px;
@@ -587,26 +806,39 @@ tr.top-three:nth-child(3) .badge-icon {
 }
 
 .player-card-header strong {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 58px;
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: rgba(255, 209, 102, 0.1);
+  border: 1px solid rgba(255, 209, 102, 0.2);
+  color: #ffd166;
   font-size: 1rem;
   font-weight: 800;
 }
 
 .player-card-subtitle {
+  position: relative;
+  z-index: 1;
   margin: 0 0 10px;
   color: #c9d1d9;
   font-size: 0.95rem;
 }
 
 .team-breakdown {
-  background: #081f31;
-  border: 1px solid #24465d;
-  border-radius: 10px;
+  position: relative;
+  z-index: 1;
+  background: rgba(8, 31, 49, 0.76);
+  border: 1px solid rgba(88, 166, 255, 0.16);
+  border-radius: 12px;
   padding: 10px;
   margin-top: 8px;
 }
 
 .wooden-spoon-team {
-  border-color: #d29922;
+  border-color: rgba(210, 153, 34, 0.4);
   background: rgba(210, 153, 34, 0.12);
 }
 
@@ -634,22 +866,15 @@ tr.top-three:nth-child(3) .badge-icon {
 }
 
 .rules-section {
-  margin-top: 40px;
+  margin-top: 44px;
   padding-top: 24px;
-  border-top: 1px solid #334858;
+  border-top: 1px solid rgba(88, 166, 255, 0.18);
 }
 
 .rules-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 14px;
-}
-
-.rules-card {
-  background: #102d44;
-  border: 1px solid #24465d;
-  border-radius: 12px;
-  padding: 16px;
 }
 
 .rules-card h3 {
@@ -660,15 +885,20 @@ tr.top-three:nth-child(3) .badge-icon {
 }
 
 .rules-card ul {
+  position: relative;
+  z-index: 1;
   margin: 0 0 12px;
   padding-left: 20px;
 }
 
 .rules-card li {
   margin-bottom: 6px;
+  color: #d6e4ef;
 }
 
 .rules-card p {
+  position: relative;
+  z-index: 1;
   margin: 0;
   color: #d6e4ef;
   line-height: 1.4;
@@ -677,6 +907,15 @@ tr.top-three:nth-child(3) .badge-icon {
 @media (max-width: 1100px) {
   .spoon-race-grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+
+  .potential-row {
+    grid-template-columns: 1fr;
+  }
+
+  .potential-row span {
+    justify-content: flex-start;
+    width: fit-content;
   }
 }
 
@@ -703,6 +942,19 @@ tr.top-three:nth-child(3) .badge-icon {
     font-size: 2rem;
   }
 
+  h2 {
+    margin-top: 34px;
+    font-size: 1.35rem;
+  }
+
+  h2::before {
+    height: 24px;
+  }
+
+  h2::after {
+    display: none;
+  }
+
   .site-title {
     gap: 6px;
   }
@@ -724,7 +976,11 @@ tr.top-three:nth-child(3) .badge-icon {
   th,
   td {
     padding: 10px 8px;
-    font-size: 0.9rem;
+    font-size: 0.88rem;
+  }
+
+  #board td:nth-child(5) {
+    min-width: 180px;
   }
 
   .card {
@@ -754,5 +1010,14 @@ tr.top-three:nth-child(3) .badge-icon {
   tr.top-three td:last-child strong {
     min-width: 32px;
     padding: 3px 7px;
+  }
+
+  .fixture-section ul {
+    display: grid;
+    grid-template-columns: 1fr;
+  }
+
+  .fixture-section li {
+    width: 100%;
   }
 }
