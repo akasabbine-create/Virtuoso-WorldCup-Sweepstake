@@ -42,13 +42,13 @@
     "date": "2026-06-15T19:00Z",
     "team1": "Belgium",
     "team2": "Egypt",
-    "score1": null,
-    "score2": null,
+    "score1": 1,
+    "score2": 1,
     "displayScore1": 1,
     "displayScore2": 1,
-    "status": "Second Half",
-    "completed": false,
-    "live": true,
+    "status": "Full Time",
+    "completed": true,
+    "live": false,
     "isToday": true,
     "footballDayStart": "2026-06-15T05:00:00+00:00",
     "footballDayEnd": "2026-06-16T05:00:00+00:00",
@@ -66,7 +66,16 @@
         ]
       }
     ],
-    "playerGains": []
+    "playerGains": [
+      {
+        "name": "Malcolm",
+        "points": 1
+      },
+      {
+        "name": "Oli",
+        "points": 1
+      }
+    ]
   },
   {
     "date": "2026-06-15T22:00Z",
