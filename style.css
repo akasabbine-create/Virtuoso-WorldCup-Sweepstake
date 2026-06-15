@@ -135,6 +135,28 @@ tr.top-three td {
   color: #c9d1d9;
 }
 
+.badge-cell {
+  min-width: 80px;
+  white-space: nowrap;
+}
+
+.badge-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 2px;
+  width: 28px;
+  height: 28px;
+  background: #081f31;
+  border: 1px solid #24465d;
+  border-radius: 999px;
+  font-size: 1.05rem;
+}
+
+.badge-empty {
+  color: #c9d1d9;
+}
+
 .results-grid,
 .fixtures-grid,
 .bonus-grid {
@@ -329,5 +351,11 @@ tr.top-three td {
   .player-card-header {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .badge-icon {
+    width: 24px;
+    height: 24px;
+    font-size: 0.95rem;
   }
 }
