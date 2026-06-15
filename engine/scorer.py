@@ -6,9 +6,31 @@ from pathlib import Path
 PLAYERS_FILE = Path("data/players.json")
 MATCHES_FILE = Path("data/matches.json")
 LEADERBOARD_FILE = Path("data/leaderboard.json")
-RAW_FILE = Path("data/raw-api-data.json")
 
 API_URL = "https://wheniskickoff.com/data/v1/matches.json"
+
+
+TEAM_ALIASES = {
+    "USA": "United States",
+    "United States": "USA",
+
+    "Czechia": "Czech Republic",
+    "Czech Republic": "Czechia",
+
+    "Bosnia-Herzegovina": "Bosnia & Herzegovina",
+    "Bosnia & Herzegovina": "Bosnia-Herzegovina",
+
+    "Cape Verde Islands": "Cape Verde",
+    "Cape Verde": "Cape Verde Islands",
+
+    "Congo DR": "DR Congo",
+    "DR Congo": "Congo DR",
+
+    "Curaçao": "Curacao",
+    "Curacao": "Curaçao",
+
+    "Ivory Coast": "Ivory Coast",
+}
 
 
 def load(path):
@@ -22,114 +44,28 @@ def save(path, data):
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
-def fetch_json():
-    with urllib.request.urlopen(API_URL, timeout=30) as response:
-        return json.load(response)
+def normalise_team_name(name):
+    if not name:
+        return name
+
+    name = str(name).strip()
+    return TEAM_ALIASES.get(name, name)
 
 
-def find_possible_matches(data):
-    """
-    Recursively searches the API response for match-like dictionaries.
-    This is more flexible than assuming the API returns a simple list.
-    """
-    found = []
+def team_matches(player_team, result_team):
+    player_team = normalise_team_name(player_team)
+    result_team = normalise_team_name(result_team)
 
-    def walk(value):
-        if isinstance(value, dict):
-            keys = set(value.keys())
+    if player_team == result_team:
+        return True
 
-            has_team_info = any(k in keys for k in [
-                "home_team", "away_team",
-                "homeTeam", "awayTeam",
-                "home", "away",
-                "team1", "team2",
-                "home_team_id", "away_team_id"
-            ])
+    if TEAM_ALIASES.get(player_team) == result_team:
+        return True
 
-            has_score_info = any(k in keys for k in [
-                "home_score", "away_score",
-                "homeScore", "awayScore",
-                "score", "scores",
-                "homeGoals", "awayGoals",
-                "home_goals", "away_goals"
-            ])
+    if TEAM_ALIASES.get(result_team) == player_team:
+        return True
 
-            has_fixture_info = any(k in keys for k in [
-                "date", "utcDate", "kickoff", "status", "stage", "round"
-            ])
-
-            if has_team_info and (has_score_info or has_fixture_info):
-                found.append(value)
-
-            for child in value.values():
-                walk(child)
-
-        elif isinstance(value, list):
-            for item in value:
-                walk(item)
-
-    walk(data)
-    return found
-
-
-def get_team_name(value):
-    if isinstance(value, str):
-        return value
-
-    if isinstance(value, dict):
-        return (
-            value.get("name")
-            or value.get("country")
-            or value.get("team")
-            or value.get("displayName")
-            or value.get("shortName")
-        )
-
-    return None
-
-
-def get_score(game, side):
-    """
-    side should be 'home' or 'away'.
-    Tries several common score formats.
-    """
-    direct_keys = {
-        "home": ["home_score", "homeScore", "homeGoals", "home_goals"],
-        "away": ["away_score", "awayScore", "awayGoals", "away_goals"]
-    }
-
-    for key in direct_keys[side]:
-        if key in game and game[key] is not None:
-            return game[key]
-
-    score = game.get("score")
-    if isinstance(score, dict):
-        for key in [side, f"{side}_score", f"{side}Score", f"{side}Goals"]:
-            if key in score and score[key] is not None:
-                return score[key]
-
-        if side == "home":
-            for key in ["homeTeam", "home_team"]:
-                if isinstance(score.get(key), dict):
-                    nested = score[key]
-                    for score_key in ["score", "goals", "value"]:
-                        if score_key in nested:
-                            return nested[score_key]
-
-        if side == "away":
-            for key in ["awayTeam", "away_team"]:
-                if isinstance(score.get(key), dict):
-                    nested = score[key]
-                    for score_key in ["score", "goals", "value"]:
-                        if score_key in nested:
-                            return nested[score_key]
-
-    scores = game.get("scores")
-    if isinstance(scores, dict):
-        if side in scores:
-            return scores[side]
-
-    return None
+    return False
 
 
 def as_int_or_none(value):
@@ -143,42 +79,72 @@ def as_int_or_none(value):
 
 
 def fetch_matches():
-    data = fetch_json()
+    with urllib.request.urlopen(API_URL, timeout=30) as response:
+        data = json.load(response)
 
-    save(RAW_FILE, data)
-
-    possible_games = find_possible_matches(data)
+    if isinstance(data, dict):
+        games = (
+            data.get("matches")
+            or data.get("games")
+            or data.get("fixtures")
+            or data.get("data")
+            or []
+        )
+    elif isinstance(data, list):
+        games = data
+    else:
+        games = []
 
     matches = []
 
-    for game in possible_games:
+    for game in games:
+        if not isinstance(game, dict):
+            continue
+
         home = (
-            get_team_name(game.get("home_team"))
-            or get_team_name(game.get("homeTeam"))
-            or get_team_name(game.get("home"))
-            or get_team_name(game.get("team1"))
+            game.get("home_name")
+            or game.get("home_team")
+            or game.get("homeTeam")
+            or game.get("home")
+            or game.get("team1")
         )
 
         away = (
-            get_team_name(game.get("away_team"))
-            or get_team_name(game.get("awayTeam"))
-            or get_team_name(game.get("away"))
-            or get_team_name(game.get("team2"))
+            game.get("away_name")
+            or game.get("away_team")
+            or game.get("awayTeam")
+            or game.get("away")
+            or game.get("team2")
         )
 
-        home_score = as_int_or_none(get_score(game, "home"))
-        away_score = as_int_or_none(get_score(game, "away"))
+        score1 = as_int_or_none(
+            game.get("score_home")
+            or game.get("home_score")
+            or game.get("homeScore")
+            or game.get("homeGoals")
+            or game.get("home_goals")
+        )
+
+        score2 = as_int_or_none(
+            game.get("score_away")
+            or game.get("away_score")
+            or game.get("awayScore")
+            or game.get("awayGoals")
+            or game.get("away_goals")
+        )
+
+        status = str(game.get("status", "")).lower()
 
         if not home or not away:
             continue
 
         matches.append({
-            "team1": home,
-            "team2": away,
-            "score1": home_score,
-            "score2": away_score,
-            "status": str(game.get("status", "")).lower(),
-            "date": game.get("date") or game.get("utcDate") or game.get("local_date") or game.get("kickoff"),
+            "team1": normalise_team_name(home),
+            "team2": normalise_team_name(away),
+            "score1": score1,
+            "score2": score2,
+            "status": status,
+            "date": game.get("date") or game.get("utcDate") or game.get("local_date") or game.get("datetime_utc"),
             "raw": game
         })
 
@@ -187,13 +153,8 @@ def fetch_matches():
         if m["score1"] is not None and m["score2"] is not None
     ]
 
-    print(f"API returned possible matches: {len(possible_games)}")
-    print(f"Normalised matches saved: {len(matches)}")
+    print(f"Matches found: {len(matches)}")
     print(f"Matches with scores: {len(scored_matches)}")
-
-    if matches:
-        print("Example normalised match:")
-        print(json.dumps(matches[0], indent=2, ensure_ascii=False)[:1000])
 
     return matches
 
@@ -221,9 +182,10 @@ def calculate(players, matches):
 
         for player in players:
             for team in player["teams"]:
-                if team in results:
-                    scores[player["name"]] += results[team]
-                    games_played[player["name"]] += 1
+                for result_team, points in results.items():
+                    if team_matches(team, result_team):
+                        scores[player["name"]] += points
+                        games_played[player["name"]] += 1
 
     leaderboard = []
 
@@ -235,7 +197,10 @@ def calculate(players, matches):
             "gamesPlayed": games_played[player["name"]]
         })
 
-    leaderboard.sort(key=lambda x: x["points"], reverse=True)
+    leaderboard.sort(
+        key=lambda x: (x["points"], x["gamesPlayed"]),
+        reverse=True
+    )
 
     for index, row in enumerate(leaderboard, start=1):
         row["rank"] = index
