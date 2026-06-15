@@ -148,7 +148,7 @@ function renderLeaderboard(data, spoonTeam) {
   if (!data || data.length === 0) {
     tbody.innerHTML = `
       <tr>
-        <td colspan="6">No leaderboard data found.</td>
+        <td colspan="8">No leaderboard data found.</td>
       </tr>
     `;
     return;
@@ -184,11 +184,101 @@ function renderLeaderboard(data, spoonTeam) {
       <td>${playerName}</td>
       <td>${teams}</td>
       <td>${player.gamesPlayed ?? 0}</td>
-      <td><strong>${player.points}</strong></td>
+      <td>${player.matchPoints ?? player.points ?? 0}</td>
+      <td>${player.bonusPoints ?? 0}</td>
+      <td><strong>${player.points ?? 0}</strong></td>
     `;
 
     tbody.appendChild(tr);
   });
+}
+
+function renderBonusTracker(bonusData) {
+  const container = document.querySelector("#bonus-tracker");
+
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  if (!bonusData) {
+    container.innerHTML = `<p>No bonus data available yet.</p>`;
+    return;
+  }
+
+  const awarded = [];
+
+  (bonusData.playerBonuses || []).forEach(player => {
+    (player.items || []).forEach(item => {
+      if (item.status === "awarded" && item.points > 0) {
+        awarded.push({
+          player: player.name,
+          ...item
+        });
+      }
+    });
+  });
+
+  const awardedHtml = awarded.length > 0
+    ? awarded.map(item => `
+        <li>
+          <strong>${item.player}</strong>: +${item.points}
+          ${item.label} — ${item.team}
+          <br />
+          <span>${item.reason}</span>
+        </li>
+      `).join("")
+    : `<li>No bonus points awarded yet.</li>`;
+
+  const goldenBootHtml = (bonusData.goldenBootRace || []).slice(0, 5).map(item => `
+    <li>${item.player} (${item.team}) — ${item.goals} goals</li>
+  `).join("") || `<li>No goals tracked yet.</li>`;
+
+  const nationGoalsHtml = (bonusData.nationGoalTable || []).slice(0, 5).map(item => `
+    <li>${item.team} — ${item.goals} goals</li>
+  `).join("") || `<li>No nation goal data yet.</li>`;
+
+  const fastestGoal = bonusData.fastestGoal
+    ? `
+      <p>
+        <strong>${bonusData.fastestGoal.player}</strong>
+        (${bonusData.fastestGoal.team}) —
+        ${bonusData.fastestGoal.clockDisplay}
+        <br />
+        ${bonusData.fastestGoal.match}
+      </p>
+    `
+    : `<p>No fastest goal tracked yet.</p>`;
+
+  container.innerHTML = `
+    <div class="bonus-card">
+      <h3>Awarded Bonus Points</h3>
+      <ul>${awardedHtml}</ul>
+    </div>
+
+    <div class="bonus-card">
+      <h3>Golden Boot Race</h3>
+      <ul>${goldenBootHtml}</ul>
+      <p class="bonus-note">
+        +5 points awarded at the end of the tournament.
+      </p>
+    </div>
+
+    <div class="bonus-card">
+      <h3>Most Goals by Nation</h3>
+      <ul>${nationGoalsHtml}</ul>
+      <p class="bonus-note">
+        +5 points awarded at the end of the tournament.
+      </p>
+    </div>
+
+    <div class="bonus-card">
+      <h3>Fastest Goal Prize</h3>
+      ${fastestGoal}
+      <p class="bonus-note">
+        Prize only. No leaderboard points.
+      </p>
+    </div>
+  `;
 }
 
 function renderPlayerDetails(details, spoonTeam) {
@@ -256,6 +346,8 @@ function renderPlayerDetails(details, spoonTeam) {
 
       <p class="player-card-subtitle">
         Rank ${player.rank} · ${player.gamesPlayed} games played
+        · Match ${player.matchPoints ?? player.points} pts
+        · Bonus ${player.bonusPoints ?? 0} pts
       </p>
 
       ${teams}
@@ -345,7 +437,7 @@ async function init() {
     if (tbody) {
       tbody.innerHTML = `
         <tr>
-          <td colspan="6">Could not load leaderboard data.</td>
+          <td colspan="8">Could not load leaderboard data.</td>
         </tr>
       `;
     }
@@ -367,6 +459,19 @@ async function init() {
   renderSummaryCards(leaderboard, playerDetails);
   renderLeaderboard(leaderboard, spoonTeam);
   renderPlayerDetails(playerDetails, spoonTeam);
+
+  try {
+    const bonusData = await loadJson("data/bonus_points.json");
+    renderBonusTracker(bonusData);
+  } catch (error) {
+    console.error(error);
+
+    const bonusEl = document.querySelector("#bonus-tracker");
+
+    if (bonusEl) {
+      bonusEl.textContent = "Bonus tracker not available yet.";
+    }
+  }
 
   try {
     const status = await loadJson("data/status.json");
