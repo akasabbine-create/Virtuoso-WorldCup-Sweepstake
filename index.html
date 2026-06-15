@@ -12,11 +12,17 @@
 <body>
   <main>
     <header class="page-header">
-      <h1>🏆 World Cup Sweepstake Leaderboard</h1>
-      <p>
-        Live leaderboard for the Virtuoso World Cup Sweepstake.
-        Rankings update automatically when new match data is available.
-      </p>
+      <div class="hero-copy">
+        <div class="hero-icon">🏆</div>
+
+        <div>
+          <h1>World Cup Sweepstake Leaderboard</h1>
+          <p>
+            Live leaderboard for the Virtuoso World Cup Sweepstake.
+            Rankings update automatically when new match data is available.
+          </p>
+        </div>
+      </div>
 
       <div id="status" class="status-card">
         Loading update status...
@@ -24,103 +30,129 @@
     </header>
 
     <section class="cards">
-      <div class="card">
-        <h2>🥇 Current Leader</h2>
+      <div class="card leader-card">
+        <h2>🏆 Current Leader</h2>
         <p id="current-leader">Loading...</p>
       </div>
 
-      <div class="card">
+      <div class="card spoon-card">
         <h2>🥄 Wooden Spoon</h2>
         <p id="wooden-spoon">Loading...</p>
       </div>
 
-      <div class="card">
+      <div class="card matches-card">
         <h2>⚽ Completed Matches</h2>
         <p id="completed-matches">Loading...</p>
       </div>
     </section>
 
-    <section>
-      <h2>Leaderboard</h2>
+    <section class="dashboard-layout">
+      <div class="main-column">
+        <section class="panel leaderboard-panel">
+          <div class="section-heading">
+            <div>
+              <h2>Leaderboard</h2>
+              <p class="section-note">
+                Badges: 🥄 current wooden spoon, 🥾 current Golden Boot race leader’s team owner,
+                ⚽ current most-goals nation owner, ⚡ current fastest goal prize holder.
+              </p>
+            </div>
+          </div>
 
-      <p class="section-note">
-        Badges: 🥄 current wooden spoon, 🥾 current Golden Boot race leader’s team owner, ⚽ current most-goals nation owner, ⚡ current fastest goal prize holder.
-      </p>
+          <div class="table-wrap">
+            <table id="board">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Movement</th>
+                  <th>Badges</th>
+                  <th>Player</th>
+                  <th>Teams</th>
+                  <th>Games Played</th>
+                  <th>Match Pts</th>
+                  <th>Bonus</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td colspan="9">Loading leaderboard...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
 
-      <div class="table-wrap">
-        <table id="board">
-          <thead>
-            <tr>
-              <th>Rank</th>
-              <th>Movement</th>
-              <th>Badges</th>
-              <th>Player</th>
-              <th>Teams</th>
-              <th>Games Played</th>
-              <th>Match Pts</th>
-              <th>Bonus</th>
-              <th>Total</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td colspan="9">Loading leaderboard...</td>
-            </tr>
-          </tbody>
-        </table>
+        <section class="panel">
+          <div class="section-heading">
+            <div>
+              <h2>🥄 Wooden Spoon Race</h2>
+              <p class="section-note">
+                Bottom 5 individual teams based on lowest points, then games played, goal difference and goals scored.
+              </p>
+            </div>
+          </div>
+
+          <div id="wooden-spoon-race" class="spoon-race-grid">
+            Loading wooden spoon race...
+          </div>
+        </section>
+
+        <section class="two-column-panels">
+          <div class="panel">
+            <div class="section-heading">
+              <h2>Upcoming Fixtures</h2>
+            </div>
+
+            <div id="upcoming-fixtures" class="fixtures-grid compact-grid">
+              Loading upcoming fixtures...
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="section-heading">
+              <h2>Latest Results</h2>
+            </div>
+
+            <div id="latest-results" class="results-grid compact-grid">
+              Loading latest results...
+            </div>
+          </div>
+        </section>
       </div>
+
+      <aside class="side-column">
+        <section class="panel bonus-panel">
+          <div class="section-heading">
+            <h2>Bonus Tracker</h2>
+          </div>
+
+          <div id="bonus-tracker" class="bonus-grid">
+            Loading bonus tracker...
+          </div>
+        </section>
+      </aside>
     </section>
 
-    <section>
-      <h2>Bonus Tracker</h2>
-
-      <div id="bonus-tracker" class="bonus-grid">
-        Loading bonus tracker...
+    <section class="panel">
+      <div class="section-heading">
+        <div>
+          <h2>Player Breakdown</h2>
+          <p class="section-note">
+            Detailed points breakdown by player and team.
+          </p>
+        </div>
       </div>
-    </section>
-
-    <section>
-      <h2>🥄 Wooden Spoon Race</h2>
-
-      <p class="section-note">
-        Bottom 5 individual teams based on lowest points, then games played, goal difference and goals scored.
-      </p>
-
-      <div id="wooden-spoon-race" class="spoon-race-grid">
-        Loading wooden spoon race...
-      </div>
-    </section>
-
-    <section>
-      <h2>Upcoming Fixtures</h2>
-
-      <div id="upcoming-fixtures" class="fixtures-grid">
-        Loading upcoming fixtures...
-      </div>
-    </section>
-
-    <section>
-      <h2>Latest Results</h2>
-
-      <div id="latest-results" class="results-grid">
-        Loading latest results...
-      </div>
-    </section>
-
-    <section>
-      <h2>Player Breakdown</h2>
-
-      <p class="section-note">
-        Detailed points breakdown by player and team.
-      </p>
 
       <div id="player-details" class="player-grid">
         Loading player breakdown...
       </div>
     </section>
 
-    <section class="rules-section">
-      <h2>📜 Rules, Bonuses & Prizes</h2>
+    <section class="panel rules-section">
+      <div class="section-heading">
+        <h2>📜 Rules, Bonuses & Prizes</h2>
+      </div>
 
       <div class="rules-grid">
         <div class="rules-card">
