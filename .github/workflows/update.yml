@@ -2,7 +2,7 @@ name: Update Leaderboard
 
 on:
   schedule:
-    - cron: "0 */6 * * *"
+    - cron: "*/30 * * * *"
   workflow_dispatch:
 
 permissions:
@@ -26,7 +26,7 @@ jobs:
       - name: Commit changes
         run: |
           git config --global user.name "bot"
-          git config --global user.email "bot@github.com"
+          git config --global user.email "bot@users.noreply.github.com"
           git add .
-          git commit -m "update leaderboard" || exit 0
+          git commit -m "update leaderboard" || echo "No changes to commit"
           git push
