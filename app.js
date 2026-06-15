@@ -668,14 +668,6 @@ function renderBonusTracker(bonusData, leaderboard) {
     : `<p>No fastest goal tracked yet.</p>`;
 
   container.innerHTML = `
-    <div class="bonus-race-card bonus-race-feature">
-      <div class="bonus-race-label">Bonus Races</div>
-      <h3>Live bonus leaders</h3>
-      <p>
-        These are current race leaders only. Final bonus points are awarded later unless shown as awarded.
-      </p>
-    </div>
-
     <div class="bonus-race-card">
       <h3>🥾 Golden Boot Race</h3>
       <ul>${goldenBootHtml}</ul>
