@@ -100,13 +100,7 @@ function renderLeaderboard(data) {
       tr.classList.add("top-three");
     }
 
-    const teams = (player.teams || []).map((team, index) => {
-      const flag = player.teamFlags && player.teamFlags[index]
-        ? player.teamFlags[index]
-        : "";
-
-      return `${flag} ${team}`.trim();
-    }).join(", ");
+    const teams = (player.teams || []).join(", ");
 
     tr.innerHTML = `
       <td>${medal(player.rank)} ${player.rank}</td>
@@ -154,9 +148,18 @@ function renderLatestResults(results) {
 }
 
 function renderHistoryChart(history) {
+  const chartSection = document.querySelector("#history-chart-section");
   const canvas = document.querySelector("#history-chart");
 
-  if (!canvas || !history || history.length === 0 || typeof Chart === "undefined") {
+  if (!chartSection || !canvas) return;
+
+  if (!history || history.length < 2 || typeof Chart === "undefined") {
+    chartSection.innerHTML = `
+      <h2>Points Over Time</h2>
+      <div class="empty-chart-message">
+        The points graph will appear after the leaderboard has changed at least twice.
+      </div>
+    `;
     return;
   }
 
@@ -264,6 +267,7 @@ async function init() {
     renderHistoryChart(history);
   } catch (error) {
     console.error(error);
+    renderHistoryChart([]);
   }
 }
 
