@@ -10,10 +10,13 @@ LEADERBOARD_FILE = Path("data/leaderboard.json")
 STATUS_FILE = Path("data/status.json")
 HISTORY_FILE = Path("data/history.json")
 LATEST_RESULTS_FILE = Path("data/latest_results.json")
+UPCOMING_FIXTURES_FILE = Path("data/upcoming_fixtures.json")
 
 ESPN_URL = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard"
 
 TOTAL_TOURNAMENT_MATCHES = 104
+TOURNAMENT_START = date(2026, 6, 11)
+TOURNAMENT_END = date(2026, 7, 19)
 
 
 TEAM_ALIASES = {
@@ -151,15 +154,12 @@ def fetch_espn_day(day):
 
 
 def fetch_matches():
-    start = date(2026, 6, 11)
-    end = date.today() + timedelta(days=1)
-
     all_matches = []
     seen = set()
 
-    current = start
+    current = TOURNAMENT_START
 
-    while current <= end:
+    while current <= TOURNAMENT_END:
         day_matches = fetch_espn_day(current)
 
         for match in day_matches:
@@ -180,7 +180,7 @@ def fetch_matches():
         if m["score1"] is not None and m["score2"] is not None
     ]
 
-    print(f"ESPN matches fetched so far: {len(all_matches)}")
+    print(f"ESPN matches fetched: {len(all_matches)}")
     print(f"Completed matches with scores: {len(scored_matches)}")
     print(f"Total tournament matches: {TOTAL_TOURNAMENT_MATCHES}")
 
@@ -318,6 +318,59 @@ def build_latest_results(players, matches, limit=8):
     return latest
 
 
+def build_upcoming_fixtures(players, matches, limit=8):
+    now = datetime.now(timezone.utc)
+
+    upcoming = []
+
+    for match in matches:
+        if match.get("score1") is not None and match.get("score2") is not None:
+            continue
+
+        raw_date = match.get("date")
+
+        if not raw_date:
+            continue
+
+        try:
+            match_date = datetime.fromisoformat(raw_date.replace("Z", "+00:00"))
+        except ValueError:
+            continue
+
+        if match_date < now:
+            continue
+
+        involved_players = []
+
+        for player in players:
+            matching_teams = []
+
+            for team in player["teams"]:
+                if team_matches(team, match["team1"]):
+                    matching_teams.append(match["team1"])
+
+                if team_matches(team, match["team2"]):
+                    matching_teams.append(match["team2"])
+
+            if matching_teams:
+                involved_players.append({
+                    "name": player["name"],
+                    "teams": matching_teams
+                })
+
+        upcoming.append({
+            "date": match.get("date"),
+            "team1": match["team1"],
+            "team2": match["team2"],
+            "status": match.get("status"),
+            "players": involved_players
+        })
+
+    upcoming.sort(key=lambda x: x.get("date") or "")
+
+    return upcoming[:limit]
+
+
 def update_history(leaderboard):
     history = load(HISTORY_FILE, default=[])
 
@@ -379,12 +432,14 @@ if __name__ == "__main__":
     matches = fetch_matches()
     leaderboard = calculate(players, matches, previous_leaderboard)
     latest_results = build_latest_results(players, matches)
+    upcoming_fixtures = build_upcoming_fixtures(players, matches)
     status = build_status(matches)
 
     save(MATCHES_FILE, matches)
     save(LEADERBOARD_FILE, leaderboard)
     save(LATEST_RESULTS_FILE, latest_results)
+    save(UPCOMING_FIXTURES_FILE, upcoming_fixtures)
     save(STATUS_FILE, status)
     update_history(leaderboard)
 
-    print("Updated matches, leaderboard, latest results, status and history")
+    print("Updated dashboard data")
