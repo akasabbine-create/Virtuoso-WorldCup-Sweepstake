@@ -121,31 +121,40 @@ tr.top-three td {
   color: #c9d1d9;
 }
 
-.results-grid {
+.results-grid,
+.fixtures-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 14px;
 }
 
-.result-card {
+.result-card,
+.fixture-card {
   background: #102d44;
   border: 1px solid #24465d;
   border-radius: 12px;
   padding: 16px;
 }
 
-.result-card h3 {
+.result-card h3,
+.fixture-card h3 {
   margin: 0 0 8px;
 }
 
-.result-card p {
+.result-card p,
+.fixture-card p {
   margin: 0 0 10px;
   color: #c9d1d9;
 }
 
-.result-card ul {
+.result-card ul,
+.fixture-card ul {
   margin: 0;
   padding-left: 18px;
+}
+
+.fixture-card {
+  border-left: 4px solid #39d353;
 }
 
 .rules-section {
@@ -195,6 +204,7 @@ tr.top-three td {
 
   .cards,
   .results-grid,
+  .fixtures-grid,
   .rules-grid {
     grid-template-columns: 1fr;
   }
