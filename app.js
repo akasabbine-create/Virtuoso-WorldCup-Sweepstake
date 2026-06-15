@@ -459,7 +459,7 @@ function renderSummaryCards(leaderboard, playerDetails) {
   }
 
   spoonEl.innerHTML = `
-    ${spoonTeam.playerName} — ${spoonTeam.team}
+    ${spoonTeam.playerName} — <span class="wooden-spoon-country">${spoonTeam.team}</span>
     <br />
     <span class="small-card-text">
       ${spoonTeam.points} pts, ${spoonTeam.gamesPlayed} played, GD ${spoonTeam.goalDifference}
@@ -562,14 +562,9 @@ function renderLeaderboard(data, spoonTeam, badgesByPlayer) {
       tr.classList.add("top-three");
     }
 
-    const isWoodenSpoonHolder = spoonTeam && player.name === spoonTeam.playerName;
-    const playerName = isWoodenSpoonHolder
-      ? `🥄 ${player.name}`
-      : player.name;
-
     const teams = (player.teams || []).map(team => {
       if (spoonTeam && player.name === spoonTeam.playerName && team === spoonTeam.team) {
-        return `🥄 ${team}`;
+        return `<span class="wooden-spoon-country">${team}</span>`;
       }
 
       return team;
@@ -579,7 +574,7 @@ function renderLeaderboard(data, spoonTeam, badgesByPlayer) {
       <td>${medal(player.rank)} ${player.rank}</td>
       <td>${movementIcon(player.movement || 0)}</td>
       <td class="badge-cell">${badgeHtml(badgesByPlayer[player.name])}</td>
-      <td>${playerName}</td>
+      <td>${player.name}</td>
       <td>${teams}</td>
       <td>${player.gamesPlayed ?? 0}</td>
       <td>${player.matchPoints ?? player.points ?? 0}</td>
@@ -717,15 +712,14 @@ function renderWoodenSpoonRace(playerDetails) {
     }
 
     const positionLabel = index === 0 ? "Current spoon" : `Race position ${index + 1}`;
-    const icon = index === 0 ? "🥄" : "⬇️";
 
     card.innerHTML = `
       <div class="spoon-race-header">
-        <span class="spoon-race-position">${icon} ${positionLabel}</span>
+        <span class="spoon-race-position">${positionLabel}</span>
         <strong>${team.points} pts</strong>
       </div>
 
-      <h3>${team.team}</h3>
+      <h3 class="${index === 0 ? "wooden-spoon-country" : ""}">${team.team}</h3>
 
       <p>
         Owner: <strong>${team.playerName}</strong>
@@ -769,7 +763,9 @@ function renderPlayerDetails(details, spoonTeam) {
         && player.name === spoonTeam.playerName
         && team.team === spoonTeam.team;
 
-      const teamName = isSpoonTeam ? `🥄 ${team.team}` : team.team;
+      const teamName = isSpoonTeam
+        ? `<span class="wooden-spoon-country">${team.team}</span>`
+        : team.team;
 
       const recentResults = team.recentResults && team.recentResults.length > 0
         ? team.recentResults.map(result => `
@@ -797,19 +793,21 @@ function renderPlayerDetails(details, spoonTeam) {
       `;
     }).join("");
 
-    const playerName = spoonTeam && player.name === spoonTeam.playerName
-      ? `🥄 ${player.name}`
-      : player.name;
-
     const teamNames = (player.teams || [])
-      .map(team => team.team)
+      .map(team => {
+        if (spoonTeam && player.name === spoonTeam.playerName && team.team === spoonTeam.team) {
+          return `<span class="wooden-spoon-country">${team.team}</span>`;
+        }
+
+        return team.team;
+      })
       .join(", ");
 
     card.innerHTML = `
       <button class="player-collapse-toggle" type="button" aria-expanded="false">
         <span class="player-collapse-main">
           <span class="player-collapse-name">
-            ${medal(player.rank)} ${playerName}
+            ${medal(player.rank)} ${player.name}
           </span>
           <span class="player-collapse-teams">
             ${teamNames}
