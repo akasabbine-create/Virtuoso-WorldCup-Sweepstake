@@ -136,7 +136,8 @@ tr.top-three td {
 }
 
 .results-grid,
-.fixtures-grid {
+.fixtures-grid,
+.bonus-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 14px;
@@ -150,7 +151,8 @@ tr.top-three td {
 
 .result-card,
 .fixture-card,
-.player-card {
+.player-card,
+.bonus-card {
   background: #102d44;
   border: 1px solid #24465d;
   border-radius: 12px;
@@ -159,21 +161,38 @@ tr.top-three td {
 
 .result-card h3,
 .fixture-card h3,
-.player-card h3 {
+.player-card h3,
+.bonus-card h3 {
   margin: 0 0 8px;
 }
 
 .result-card p,
-.fixture-card p {
+.fixture-card p,
+.bonus-card p {
   margin: 0 0 10px;
   color: #c9d1d9;
 }
 
 .result-card ul,
 .fixture-card ul,
-.player-card ul {
+.player-card ul,
+.bonus-card ul {
   margin: 0;
   padding-left: 18px;
+}
+
+.bonus-card {
+  border-left: 4px solid #58a6ff;
+}
+
+.bonus-card li {
+  margin-bottom: 8px;
+}
+
+.bonus-card span,
+.bonus-note {
+  color: #c9d1d9;
+  font-size: 0.92rem;
 }
 
 .fixture-card {
@@ -287,6 +306,7 @@ tr.top-three td {
   .cards,
   .results-grid,
   .fixtures-grid,
+  .bonus-grid,
   .player-grid,
   .rules-grid {
     grid-template-columns: 1fr;
