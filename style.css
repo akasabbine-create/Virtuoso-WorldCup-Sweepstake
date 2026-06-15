@@ -165,7 +165,7 @@ h2::after {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
-  margin: 26px 0 30px;
+  margin: 26px 0 18px;
 }
 
 .card {
@@ -299,6 +299,111 @@ h2::after {
   font-size: 0.92rem;
   font-weight: 700;
   letter-spacing: 0;
+}
+
+/* Insight strip */
+
+.insight-strip {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin: 0 0 30px;
+}
+
+.insight-card {
+  position: relative;
+  overflow: hidden;
+  min-height: 126px;
+  padding: 16px 18px;
+  border-radius: 18px;
+  background:
+    radial-gradient(circle at top right, rgba(88, 166, 255, 0.14), transparent 36%),
+    linear-gradient(145deg, rgba(16, 45, 68, 0.98), rgba(8, 31, 49, 0.98));
+  border: 1px solid rgba(88, 166, 255, 0.2);
+  border-left: 5px solid #58a6ff;
+  box-shadow:
+    0 18px 36px rgba(0, 0, 0, 0.18),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.latest-swing-card {
+  border-left-color: #ffd166;
+  background:
+    radial-gradient(circle at top right, rgba(255, 209, 102, 0.16), transparent 36%),
+    linear-gradient(145deg, rgba(16, 45, 68, 0.98), rgba(8, 31, 49, 0.98));
+}
+
+.biggest-mover-card {
+  border-left-color: #39d353;
+  background:
+    radial-gradient(circle at top right, rgba(57, 211, 83, 0.12), transparent 36%),
+    linear-gradient(145deg, rgba(16, 45, 68, 0.98), rgba(8, 31, 49, 0.98));
+}
+
+.insight-label {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  margin-bottom: 10px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: rgba(8, 31, 49, 0.78);
+  border: 1px solid rgba(88, 166, 255, 0.16);
+  color: #d6e4ef;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.insight-card h3 {
+  margin: 0 0 6px;
+  color: #ffffff;
+  font-size: 1.08rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+}
+
+.insight-card p {
+  margin: 0 0 12px;
+  color: #c9d1d9;
+  font-size: 0.88rem;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.insight-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.insight-chip-row span,
+.insight-chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: rgba(255, 209, 102, 0.1);
+  border: 1px solid rgba(255, 209, 102, 0.2);
+  color: #ffd166;
+  font-size: 0.8rem;
+  font-weight: 800;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.insight-chip.positive {
+  background: rgba(57, 211, 83, 0.1);
+  border-color: rgba(57, 211, 83, 0.24);
+  color: #b7f7c1;
+}
+
+.insight-chip.negative {
+  background: rgba(255, 107, 107, 0.1);
+  border-color: rgba(255, 107, 107, 0.24);
+  color: #ffb4b4;
 }
 
 .badge-legend {
@@ -571,6 +676,7 @@ tr.top-three:nth-child(3) .badge-icon {
 .fixture-card,
 .player-card,
 .bonus-card,
+.bonus-race-card,
 .spoon-race-card,
 .rules-card {
   position: relative;
@@ -589,6 +695,7 @@ tr.top-three:nth-child(3) .badge-icon {
 .fixture-card::after,
 .player-card::after,
 .bonus-card::after,
+.bonus-race-card::after,
 .spoon-race-card::after,
 .rules-card::after {
   content: "";
@@ -606,6 +713,7 @@ tr.top-three:nth-child(3) .badge-icon {
 .fixture-card h3,
 .player-card h3,
 .bonus-card h3,
+.bonus-race-card h3,
 .spoon-race-card h3,
 .rules-card h3 {
   position: relative;
@@ -620,6 +728,7 @@ tr.top-three:nth-child(3) .badge-icon {
 .result-card p,
 .fixture-card p,
 .bonus-card p,
+.bonus-race-card p,
 .spoon-race-card p {
   position: relative;
   z-index: 1;
@@ -630,7 +739,8 @@ tr.top-three:nth-child(3) .badge-icon {
 .result-card ul,
 .fixture-card ul,
 .player-card ul,
-.bonus-card ul {
+.bonus-card ul,
+.bonus-race-card ul {
   position: relative;
   z-index: 1;
   margin: 0;
@@ -639,9 +749,117 @@ tr.top-three:nth-child(3) .badge-icon {
 
 .result-card li,
 .fixture-card li,
-.bonus-card li {
+.bonus-card li,
+.bonus-race-card li {
   margin-bottom: 6px;
   color: #d6e4ef;
+}
+
+/* Bonus races */
+
+.bonus-race-card {
+  border-left: 4px solid #58a6ff;
+}
+
+.bonus-race-feature {
+  border-left-color: #ffd166;
+  background:
+    radial-gradient(circle at top right, rgba(255, 209, 102, 0.16), transparent 36%),
+    linear-gradient(145deg, rgba(16, 45, 68, 0.96), rgba(8, 31, 49, 0.98));
+}
+
+.bonus-race-label {
+  position: relative;
+  z-index: 1;
+  display: inline-flex;
+  width: fit-content;
+  margin-bottom: 10px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: rgba(255, 209, 102, 0.1);
+  border: 1px solid rgba(255, 209, 102, 0.2);
+  color: #ffd166;
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.bonus-race-card ul {
+  display: grid;
+  gap: 7px;
+  padding-left: 0;
+  list-style: none;
+}
+
+.bonus-race-card li {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 9px 10px;
+  border-radius: 12px;
+  background: rgba(8, 31, 49, 0.66);
+  border: 1px solid rgba(88, 166, 255, 0.14);
+}
+
+.bonus-race-card li.race-leader {
+  border-color: rgba(255, 209, 102, 0.28);
+  background: rgba(255, 209, 102, 0.08);
+}
+
+.bonus-race-card li strong {
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 800;
+}
+
+.bonus-race-card li span {
+  color: #d6e4ef;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.bonus-race-card li em {
+  color: #ffd166;
+  font-size: 0.78rem;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.fastest-goal-card {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 3px;
+  padding: 10px;
+  border-radius: 12px;
+  background: rgba(255, 209, 102, 0.08);
+  border: 1px solid rgba(255, 209, 102, 0.24);
+}
+
+.fastest-goal-card strong {
+  color: #ffffff;
+  font-size: 0.98rem;
+  font-weight: 800;
+}
+
+.fastest-goal-card span {
+  color: #ffd166;
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.fastest-goal-card em {
+  color: #d6e4ef;
+  font-size: 0.82rem;
+  font-style: normal;
+  font-weight: 700;
+}
+
+.awarded-bonus-card {
+  grid-column: 1 / -1;
+  border-left-color: #8b949e;
 }
 
 .bonus-card {
@@ -1196,6 +1414,8 @@ tr.top-three:nth-child(3) .badge-icon {
   font-size: 0.92rem;
 }
 
+/* Rules */
+
 .rules-section {
   margin-top: 44px;
   padding-top: 24px;
@@ -1235,6 +1455,78 @@ tr.top-three:nth-child(3) .badge-icon {
   line-height: 1.4;
 }
 
+.rules-collapsible-card {
+  padding: 0;
+  border-left: 4px solid rgba(88, 166, 255, 0.42);
+}
+
+.rules-collapsible-card.is-open {
+  border-color: rgba(255, 209, 102, 0.32);
+}
+
+.rules-collapse-toggle {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  width: 100%;
+  padding: 14px 16px;
+  background: transparent;
+  border: 0;
+  color: #ffffff;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.rules-collapse-toggle span:first-child {
+  font-weight: 800;
+  letter-spacing: -0.035em;
+}
+
+.rules-collapse-toggle:hover {
+  background: rgba(88, 166, 255, 0.06);
+}
+
+.rules-collapse-toggle:focus-visible {
+  outline: 2px solid rgba(255, 209, 102, 0.72);
+  outline-offset: 3px;
+  border-radius: 14px;
+}
+
+.rules-collapse-chevron {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex: 0 0 auto;
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  background: rgba(88, 166, 255, 0.1);
+  border: 1px solid rgba(88, 166, 255, 0.22);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 800;
+}
+
+.rules-collapsible-card.is-open .rules-collapse-chevron {
+  background: rgba(255, 209, 102, 0.13);
+  border-color: rgba(255, 209, 102, 0.28);
+  color: #ffd166;
+}
+
+.rules-collapse-body {
+  position: relative;
+  z-index: 1;
+  padding: 0 16px 16px;
+}
+
+.rules-collapse-body[hidden] {
+  display: none !important;
+}
+
 @media (max-width: 1100px) {
   .spoon-race-grid {
     grid-template-columns: repeat(3, 1fr);
@@ -1259,6 +1551,10 @@ tr.top-three:nth-child(3) .badge-icon {
 
   .player-collapse-meta {
     justify-content: flex-start;
+  }
+
+  .insight-strip {
+    grid-template-columns: 1fr;
   }
 }
 
@@ -1328,6 +1624,11 @@ tr.top-three:nth-child(3) .badge-icon {
   .status-card span {
     font-size: 0.72rem;
     padding: 5px 7px;
+  }
+
+  .insight-card {
+    min-height: 0;
+    padding: 14px;
   }
 
   th,
@@ -1441,5 +1742,17 @@ tr.top-three:nth-child(3) .badge-icon {
 
   .result-ticker-gains {
     justify-content: flex-start;
+  }
+
+  .awarded-bonus-card {
+    grid-column: auto;
+  }
+
+  .rules-collapse-toggle {
+    padding: 13px 14px;
+  }
+
+  .rules-collapse-body {
+    padding: 0 14px 14px;
   }
 }
