@@ -20,6 +20,8 @@ TOTAL_TOURNAMENT_MATCHES = 104
 TOURNAMENT_START = date(2026, 6, 11)
 TOURNAMENT_END = date(2026, 7, 19)
 
+MOVEMENT_DISPLAY_HOURS = 24
+
 PROGRESSION_BONUSES = {
     "round_of_32": ("Reach Round of 32", 5),
     "round_of_16": ("Reach Round of 16", 5),
@@ -97,6 +99,43 @@ def as_int_or_none(value):
         return int(value)
     except (TypeError, ValueError):
         return None
+
+
+def parse_datetime(value):
+    if not value:
+        return None
+
+    try:
+        return datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+    except ValueError:
+        return None
+
+
+def movement_direction(movement):
+    if movement > 0:
+        return "up"
+
+    if movement < 0:
+        return "down"
+
+    return "same"
+
+
+def previous_movement_is_still_visible(previous_row, now):
+    if not previous_row:
+        return False
+
+    previous_movement = previous_row.get("movement", 0)
+
+    if not previous_movement:
+        return False
+
+    show_until = parse_datetime(previous_row.get("showMovementUntil"))
+
+    if not show_until:
+        return False
+
+    return now < show_until
 
 
 def fetch_json(url):
@@ -573,6 +612,10 @@ def build_bonus_points(players, matches):
 
 
 def calculate(players, matches, previous_leaderboard, bonus_data):
+    now = datetime.now(timezone.utc)
+    now_iso = now.isoformat()
+    show_until_iso = (now + timedelta(hours=MOVEMENT_DISPLAY_HOURS)).isoformat()
+
     base_scores = defaultdict(int)
     games_played = defaultdict(int)
 
@@ -627,26 +670,47 @@ def calculate(players, matches, previous_leaderboard, bonus_data):
     for row in leaderboard:
         previous = previous_by_name.get(row["name"])
 
+        row["previousRank"] = None
+        row["movement"] = 0
+        row["movementDirection"] = "same"
+        row["movementChangedAt"] = None
+        row["showMovementUntil"] = None
+
         if not previous:
-            row["previousRank"] = None
-            row["movement"] = 0
             continue
 
         previous_rank = previous.get("rank")
-        previous_points = previous.get("points", 0)
-        previous_games = previous.get("gamesPlayed", 0)
+        current_rank = row.get("rank")
+
+        if previous_rank is None or current_rank is None:
+            continue
+
+        rank_movement = previous_rank - current_rank
+
+        if rank_movement != 0:
+            row["previousRank"] = previous_rank
+            row["movement"] = rank_movement
+            row["movementDirection"] = movement_direction(rank_movement)
+            row["movementChangedAt"] = now_iso
+            row["showMovementUntil"] = show_until_iso
+            continue
+
+        if previous_movement_is_still_visible(previous, now):
+            row["previousRank"] = previous.get("previousRank", previous_rank)
+            row["movement"] = previous.get("movement", 0)
+            row["movementDirection"] = previous.get(
+                "movementDirection",
+                movement_direction(previous.get("movement", 0))
+            )
+            row["movementChangedAt"] = previous.get("movementChangedAt")
+            row["showMovementUntil"] = previous.get("showMovementUntil")
+            continue
 
         row["previousRank"] = previous_rank
-
-        points_changed = row["points"] != previous_points
-        games_changed = row["gamesPlayed"] != previous_games
-
-        if not points_changed and not games_changed:
-            row["movement"] = 0
-        elif previous_rank is None:
-            row["movement"] = 0
-        else:
-            row["movement"] = previous_rank - row["rank"]
+        row["movement"] = 0
+        row["movementDirection"] = "same"
+        row["movementChangedAt"] = None
+        row["showMovementUntil"] = None
 
     return leaderboard
 
