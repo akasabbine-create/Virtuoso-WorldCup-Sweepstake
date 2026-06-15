@@ -1,8 +1,9 @@
 import json
 import urllib.request
 from collections import defaultdict
-from datetime import date, datetime, timedelta, timezone
+from datetime import date, datetime, time, timedelta, timezone
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 PLAYERS_FILE = Path("data/players.json")
 MATCHES_FILE = Path("data/matches.json")
@@ -21,6 +22,9 @@ TOURNAMENT_START = date(2026, 6, 11)
 TOURNAMENT_END = date(2026, 7, 19)
 
 MOVEMENT_DISPLAY_HOURS = 24
+
+FOOTBALL_DAY_TIMEZONE = ZoneInfo("Europe/London")
+FOOTBALL_DAY_START_HOUR = 6
 
 PROGRESSION_BONUSES = {
     "round_of_32": ("Reach Round of 32", 5),
@@ -138,6 +142,47 @@ def previous_movement_is_still_visible(previous_row, now):
     return now < show_until
 
 
+def get_football_day_window(now_utc=None):
+    if now_utc is None:
+        now_utc = datetime.now(timezone.utc)
+
+    now_local = now_utc.astimezone(FOOTBALL_DAY_TIMEZONE)
+
+    start_local = datetime.combine(
+        now_local.date(),
+        time(hour=FOOTBALL_DAY_START_HOUR),
+        tzinfo=FOOTBALL_DAY_TIMEZONE,
+    )
+
+    if now_local < start_local:
+        start_local -= timedelta(days=1)
+
+    end_local = start_local + timedelta(days=1)
+
+    return start_local.astimezone(timezone.utc), end_local.astimezone(timezone.utc)
+
+
+def is_live_or_in_progress_status(status_text):
+    text = str(status_text or "").lower()
+
+    live_words = [
+        "live",
+        "in progress",
+        "1st",
+        "first half",
+        "2nd",
+        "second half",
+        "half",
+        "halftime",
+        "half time",
+        "extra",
+        "penalty",
+        "stoppage",
+    ]
+
+    return any(word in text for word in live_words)
+
+
 def fetch_json(url):
     request = urllib.request.Request(
         url,
@@ -188,6 +233,15 @@ def fetch_espn_day(day):
         status = competition.get("status", {})
         status_type = status.get("type", {})
         completed = bool(status_type.get("completed", False))
+        status_description = (
+            status_type.get("description")
+            or status_type.get("detail")
+            or status_type.get("shortDetail")
+            or ""
+        )
+
+        display_score1 = home["score"]
+        display_score2 = away["score"]
 
         matches.append({
             "id": event.get("id"),
@@ -195,8 +249,11 @@ def fetch_espn_day(day):
             "team2": away["team"],
             "score1": home["score"] if completed else None,
             "score2": away["score"] if completed else None,
-            "status": status_type.get("description", ""),
+            "displayScore1": display_score1,
+            "displayScore2": display_score2,
+            "status": status_description,
             "completed": completed,
+            "live": bool(not completed and is_live_or_in_progress_status(status_description)),
             "date": event.get("date"),
             "name": event.get("name"),
             "shortName": event.get("shortName"),
@@ -870,57 +927,104 @@ def build_latest_results(players, matches, limit=8):
     return latest
 
 
-def build_upcoming_fixtures(players, matches, limit=8):
-    now = datetime.now(timezone.utc)
+def build_match_players(players, match):
+    involved_players = []
 
-    upcoming = []
+    for player in players:
+        matching_teams = []
+
+        for team in player["teams"]:
+            if team_matches(team, match["team1"]):
+                matching_teams.append(match["team1"])
+
+            if team_matches(team, match["team2"]):
+                matching_teams.append(match["team2"])
+
+        if matching_teams:
+            involved_players.append({
+                "name": player["name"],
+                "teams": matching_teams
+            })
+
+    return involved_players
+
+
+def build_player_gains_for_match(players, match):
+    results = match_points(match)
+    player_gains = []
+
+    if not results:
+        return player_gains
+
+    for player in players:
+        gained = 0
+
+        for team in player["teams"]:
+            for result_team, points in results.items():
+                if team_matches(team, result_team):
+                    gained += points
+
+        if gained > 0:
+            player_gains.append({
+                "name": player["name"],
+                "points": gained
+            })
+
+    player_gains.sort(key=lambda x: (-x["points"], x["name"]))
+
+    return player_gains
+
+
+def build_upcoming_fixtures(players, matches, limit=12):
+    now = datetime.now(timezone.utc)
+    football_day_start, football_day_end = get_football_day_window(now)
+
+    football_day_matches = []
+    fallback_future_matches = []
 
     for match in matches:
-        if match.get("score1") is not None and match.get("score2") is not None:
-            continue
-
         raw_date = match.get("date")
 
         if not raw_date:
             continue
 
-        try:
-            match_date = datetime.fromisoformat(raw_date.replace("Z", "+00:00"))
-        except ValueError:
+        match_date = parse_datetime(raw_date)
+
+        if not match_date:
             continue
 
-        if match_date < now:
-            continue
+        is_current_football_day = football_day_start <= match_date < football_day_end
 
-        involved_players = []
-
-        for player in players:
-            matching_teams = []
-
-            for team in player["teams"]:
-                if team_matches(team, match["team1"]):
-                    matching_teams.append(match["team1"])
-
-                if team_matches(team, match["team2"]):
-                    matching_teams.append(match["team2"])
-
-            if matching_teams:
-                involved_players.append({
-                    "name": player["name"],
-                    "teams": matching_teams
-                })
-
-        upcoming.append({
+        fixture_row = {
             "date": match.get("date"),
             "team1": match["team1"],
             "team2": match["team2"],
+            "score1": match.get("score1"),
+            "score2": match.get("score2"),
+            "displayScore1": match.get("displayScore1"),
+            "displayScore2": match.get("displayScore2"),
             "status": match.get("status"),
-            "players": involved_players
-        })
+            "completed": bool(match.get("completed")),
+            "live": bool(match.get("live")),
+            "isToday": is_current_football_day,
+            "footballDayStart": football_day_start.isoformat(),
+            "footballDayEnd": football_day_end.isoformat(),
+            "players": build_match_players(players, match),
+            "playerGains": build_player_gains_for_match(players, match),
+        }
 
-    upcoming.sort(key=lambda x: x.get("date") or "")
+        if is_current_football_day:
+            football_day_matches.append(fixture_row)
+        elif match_date >= football_day_end and not match.get("completed"):
+            fallback_future_matches.append(fixture_row)
 
-    return upcoming[:limit]
+    football_day_matches.sort(key=lambda x: x.get("date") or "")
+    fallback_future_matches.sort(key=lambda x: x.get("date") or "")
+
+    if football_day_matches:
+        return football_day_matches[:limit]
+
+    return fallback_future_matches[:limit]
 
 
 def update_history(leaderboard):
@@ -968,12 +1072,17 @@ def build_status(matches):
         if m.get("score1") is not None and m.get("score2") is not None
     ]
 
+    football_day_start, football_day_end = get_football_day_window()
+
     return {
         "lastUpdated": datetime.now(timezone.utc).isoformat(),
         "completedMatches": len(completed),
         "totalTournamentMatches": TOTAL_TOURNAMENT_MATCHES,
         "matchesFetchedFromEspn": len(matches),
         "source": "ESPN public scoreboard",
+        "footballDayStart": football_day_start.isoformat(),
+        "footballDayEnd": football_day_end.isoformat(),
+        "footballDayTimezone": "Europe/London",
     }
 
 
