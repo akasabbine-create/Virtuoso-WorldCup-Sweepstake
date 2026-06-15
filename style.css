@@ -1123,7 +1123,7 @@ tr.top-three:nth-child(3) .badge-icon {
 }
 
 .player-collapse-body[hidden] {
-  display: none;
+  display: none !important;
 }
 
 .player-card-header {
@@ -1389,6 +1389,10 @@ tr.top-three:nth-child(3) .badge-icon {
 
   .player-collapse-body {
     padding: 0 12px 12px;
+  }
+
+  .player-collapse-body[hidden] {
+    display: none !important;
   }
 
   .badge-icon {
