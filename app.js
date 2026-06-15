@@ -460,6 +460,40 @@ function renderPlayerDetails(details, spoonTeam) {
   });
 }
 
+function calculatePotentialPoints(match) {
+  const team1 = match.team1;
+  const team2 = match.team2;
+  const playerMap = {};
+
+  (match.players || []).forEach(player => {
+    if (!playerMap[player.name]) {
+      playerMap[player.name] = {
+        name: player.name,
+        teams: [],
+        team1Win: 0,
+        draw: 0,
+        team2Win: 0
+      };
+    }
+
+    (player.teams || []).forEach(team => {
+      playerMap[player.name].teams.push(team);
+
+      if (normaliseText(team) === normaliseText(team1)) {
+        playerMap[player.name].team1Win += 3;
+        playerMap[player.name].draw += 1;
+      }
+
+      if (normaliseText(team) === normaliseText(team2)) {
+        playerMap[player.name].team2Win += 3;
+        playerMap[player.name].draw += 1;
+      }
+    });
+  });
+
+  return Object.values(playerMap).sort((a, b) => a.name.localeCompare(b.name));
+}
+
 function renderUpcomingFixtures(fixtures) {
   const container = document.querySelector("#upcoming-fixtures");
 
@@ -483,10 +517,34 @@ function renderUpcomingFixtures(fixtures) {
         }).join("")
       : `<li>No sweepstake players involved</li>`;
 
+    const potentialRows = calculatePotentialPoints(match);
+
+    const potentialHtml = potentialRows.length > 0
+      ? potentialRows.map(row => `
+          <div class="potential-row">
+            <strong>${row.name}</strong>
+            <span>${match.team1} win +${row.team1Win}</span>
+            <span>Draw +${row.draw}</span>
+            <span>${match.team2} win +${row.team2Win}</span>
+          </div>
+        `).join("")
+      : `<p class="potential-empty">No sweepstake players involved.</p>`;
+
     card.innerHTML = `
       <h3>${match.team1} v ${match.team2}</h3>
       <p>${formatDateTime(match.date)}</p>
-      <ul>${players}</ul>
+
+      <div class="fixture-section">
+        <h4>Players involved</h4>
+        <ul>${players}</ul>
+      </div>
+
+      <div class="fixture-section">
+        <h4>Potential points</h4>
+        <div class="potential-points">
+          ${potentialHtml}
+        </div>
+      </div>
     `;
 
     container.appendChild(card);
@@ -609,7 +667,7 @@ async function init() {
 
   try {
     const latestResults = await loadJson("data/latest_results.json");
-    renderLatestResults(latestResults);
+    renderLatestResults(latResults);
   } catch (error) {
     console.error(error);
 
