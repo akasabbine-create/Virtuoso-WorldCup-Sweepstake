@@ -32,6 +32,10 @@ function formatTimeOnly(value) {
   });
 }
 
+function normaliseText(value) {
+  return String(value || "").trim().toLowerCase();
+}
+
 function fixtureStatusLabel(match) {
   if (match.completed) {
     return "Final";
@@ -78,6 +82,82 @@ function fixtureStatusClass(match) {
   return "upcoming";
 }
 
+function updateStaticPageText() {
+  document.querySelectorAll("h2").forEach(heading => {
+    const text = normaliseText(heading.textContent);
+
+    if (text === "upcoming fixtures") {
+      heading.textContent = "Today's Matches";
+    }
+
+    if (text === "latest results") {
+      heading.textContent = "Recent Results";
+    }
+  });
+
+  const upcomingContainer = document.querySelector("#upcoming-fixtures");
+
+  if (upcomingContainer) {
+    let previous = upcomingContainer.previousElementSibling;
+    let hasNote = false;
+
+    while (previous) {
+      if (previous.tagName === "P" && previous.classList.contains("section-note")) {
+        previous.textContent = "Matches from the current football day, including live, completed and overnight fixtures.";
+        hasNote = true;
+        break;
+      }
+
+      if (previous.tagName === "H2") {
+        break;
+      }
+
+      previous = previous.previousElementSibling;
+    }
+
+    if (!hasNote) {
+      const note = document.createElement("p");
+      note.className = "section-note";
+      note.textContent = "Matches from the current football day, including live, completed and overnight fixtures.";
+
+      const heading = findPreviousHeading(upcomingContainer);
+
+      if (heading && heading.parentNode) {
+        heading.parentNode.insertBefore(note, upcomingContainer);
+      }
+    }
+  }
+
+  document.querySelectorAll("p").forEach(paragraph => {
+    const text = normaliseText(paragraph.textContent);
+
+    if (text.startsWith("badges:")) {
+      paragraph.classList.add("badge-legend");
+      paragraph.innerHTML = `
+        <span class="badge-legend-title">Badges</span>
+        <span class="badge-chip" title="Current wooden spoon">🥄 Wooden Spoon</span>
+        <span class="badge-chip" title="Current Golden Boot race leader's team owner">🥾 Golden Boot</span>
+        <span class="badge-chip" title="Current most-goals nation owner">⚽ Most Goals</span>
+        <span class="badge-chip" title="Current fastest goal prize holder">⚡ Fastest Goal</span>
+      `;
+    }
+  });
+}
+
+function findPreviousHeading(element) {
+  let previous = element.previousElementSibling;
+
+  while (previous) {
+    if (previous.tagName === "H2") {
+      return previous;
+    }
+
+    previous = previous.previousElementSibling;
+  }
+
+  return null;
+}
+
 function movementIcon(movement) {
   if (movement > 0) {
     return `<span class="movement up">▲ ${movement}</span>`;
@@ -99,10 +179,6 @@ function medal(rank) {
 
 function goalDifference(team) {
   return (team.goalsFor ?? 0) - (team.goalsAgainst ?? 0);
-}
-
-function normaliseText(value) {
-  return String(value || "").trim().toLowerCase();
 }
 
 function playerOwnsTeam(player, teamName) {
@@ -628,6 +704,24 @@ function calculatePotentialPoints(match) {
   return Object.values(playerMap).sort((a, b) => a.name.localeCompare(b.name));
 }
 
+function potentialChips(row, match) {
+  const chips = [];
+
+  if (row.team1Win > 0) {
+    chips.push(`<span>${match.team1} +${row.team1Win}</span>`);
+  }
+
+  if (row.draw > 0) {
+    chips.push(`<span>Draw +${row.draw}</span>`);
+  }
+
+  if (row.team2Win > 0) {
+    chips.push(`<span>${match.team2} +${row.team2Win}</span>`);
+  }
+
+  return chips.join("");
+}
+
 function renderUpcomingFixtures(fixtures) {
   const container = document.querySelector("#upcoming-fixtures");
 
@@ -687,9 +781,9 @@ function renderUpcomingFixtures(fixtures) {
       ? potentialRows.map(row => `
           <div class="potential-row">
             <strong>${row.name}</strong>
-            <span>${match.team1} +${row.team1Win}</span>
-            <span>Draw +${row.draw}</span>
-            <span>${match.team2} +${row.team2Win}</span>
+            <div class="potential-chip-row">
+              ${potentialChips(row, match)}
+            </div>
           </div>
         `).join("")
       : `<p class="potential-empty">No sweepstake players involved.</p>`;
@@ -738,6 +832,7 @@ function renderLatestResults(results) {
   if (!container) return;
 
   container.innerHTML = "";
+  container.classList.add("results-ticker");
 
   if (!results || results.length === 0) {
     container.innerHTML = `<p>No completed results yet.</p>`;
@@ -745,26 +840,33 @@ function renderLatestResults(results) {
   }
 
   results.forEach(match => {
-    const card = document.createElement("div");
-    card.className = "result-card";
+    const row = document.createElement("div");
+    row.className = "result-ticker-row";
 
     const gains = match.playerGains && match.playerGains.length > 0
       ? match.playerGains.map(gain => `
-          <li>${gain.name} +${gain.points}</li>
+          <span>${gain.name} +${gain.points}</span>
         `).join("")
-      : `<li>No player gained points</li>`;
+      : `<span>No player gained points</span>`;
 
-    card.innerHTML = `
-      <h3>${match.team1} ${match.score1}–${match.score2} ${match.team2}</h3>
-      <p>${formatDateTime(match.date)}</p>
-      <ul>${gains}</ul>
+    row.innerHTML = `
+      <div class="result-ticker-score">
+        <strong>${match.team1} ${match.score1}–${match.score2} ${match.team2}</strong>
+        <small>${formatDateTime(match.date)}</small>
+      </div>
+
+      <div class="result-ticker-gains">
+        ${gains}
+      </div>
     `;
 
-    container.appendChild(card);
+    container.appendChild(row);
   });
 }
 
 async function init() {
+  updateStaticPageText();
+
   let leaderboard = [];
   let playerDetails = [];
   let bonusData = null;
