@@ -49,10 +49,15 @@ function renderStatus(status) {
   statusEl.innerHTML = `
     <strong>Last updated:</strong> ${formatDateTime(status.lastUpdated)}
     <br />
-    <strong>Source:</strong> ${status.source || "ESPN"}
+    <strong>Source:</strong> ${status.source || "ESPN public scoreboard"}
+    <br />
+    <strong>ESPN fixtures fetched so far:</strong> ${status.matchesFetchedFromEspn ?? "Unknown"}
   `;
 
-  completedEl.textContent = `${status.completedMatches ?? 0} of ${status.matchesChecked ?? 0}`;
+  const completed = status.completedMatches ?? 0;
+  const total = status.totalTournamentMatches ?? 104;
+
+  completedEl.textContent = `${completed} of ${total}`;
 }
 
 function renderSummaryCards(leaderboard) {
