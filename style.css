@@ -26,7 +26,7 @@ main {
 
 .page-header {
   text-align: center;
-  margin-bottom: 22px;
+  margin-bottom: 18px;
   overflow: visible;
 }
 
@@ -35,7 +35,7 @@ main {
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  margin: 0 0 14px;
+  margin: 0 0 12px;
   text-align: center;
   line-height: 1;
   text-transform: uppercase;
@@ -129,21 +129,31 @@ h2::after {
 }
 
 .status-card {
-  display: inline-block;
-  margin-top: 8px;
-  padding: 9px 13px;
-  background:
-    linear-gradient(145deg, rgba(16, 45, 68, 0.9), rgba(8, 31, 49, 0.9));
-  border: 1px solid rgba(88, 166, 255, 0.22);
-  border-radius: 12px;
-  text-align: left;
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 6px;
+  padding: 6px;
+  background: rgba(8, 31, 49, 0.42);
+  border: 1px solid rgba(88, 166, 255, 0.14);
+  border-radius: 999px;
   color: #c9d1d9;
-  font-size: 0.82rem;
-  font-weight: 650;
-  line-height: 1.25;
-  box-shadow:
-    0 10px 24px rgba(0, 0, 0, 0.14),
-    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  font-size: 0.76rem;
+  font-weight: 700;
+  line-height: 1;
+  box-shadow: none;
+}
+
+.status-card span {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: rgba(16, 45, 68, 0.78);
+  border: 1px solid rgba(88, 166, 255, 0.12);
+  white-space: nowrap;
 }
 
 .status-card strong {
@@ -681,6 +691,67 @@ tr.top-three:nth-child(3) .badge-icon {
   border-left: 4px solid #39d353;
 }
 
+.fixture-card.today-match {
+  border-left-color: #ffd166;
+}
+
+.fixture-card.completed-match {
+  border-left-color: #58a6ff;
+}
+
+.fixture-topline {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.fixture-status,
+.fixture-time {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 5px 9px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.fixture-status.upcoming {
+  background: rgba(88, 166, 255, 0.1);
+  border: 1px solid rgba(88, 166, 255, 0.22);
+  color: #a5d6ff;
+}
+
+.fixture-status.today {
+  background: rgba(255, 209, 102, 0.12);
+  border: 1px solid rgba(255, 209, 102, 0.24);
+  color: #ffd166;
+}
+
+.fixture-status.live {
+  background: rgba(57, 211, 83, 0.12);
+  border: 1px solid rgba(57, 211, 83, 0.28);
+  color: #b7f7c1;
+  box-shadow: 0 0 22px rgba(57, 211, 83, 0.1);
+}
+
+.fixture-status.final {
+  background: rgba(201, 209, 217, 0.1);
+  border: 1px solid rgba(201, 209, 217, 0.22);
+  color: #e6edf3;
+}
+
+.fixture-time {
+  background: rgba(8, 31, 49, 0.78);
+  border: 1px solid rgba(88, 166, 255, 0.16);
+  color: #d6e4ef;
+}
+
 .fixture-card h3 {
   color: #ffffff;
   font-size: 1.08rem;
@@ -697,6 +768,47 @@ tr.top-three:nth-child(3) .badge-icon {
   color: #b7f7c1;
   font-size: 0.86rem;
   font-weight: 800;
+}
+
+.fixture-score {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 10px;
+  align-items: center;
+  margin: 4px 0 10px;
+  color: #ffffff;
+}
+
+.fixture-score span {
+  min-width: 0;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.15;
+}
+
+.fixture-score span:first-child {
+  text-align: right;
+}
+
+.fixture-score span:last-child {
+  text-align: left;
+}
+
+.fixture-score strong {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 58px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(8, 31, 49, 0.78);
+  border: 1px solid rgba(255, 209, 102, 0.24);
+  color: #ffd166;
+  font-size: 1.08rem;
+  font-weight: 800;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .fixture-section {
@@ -988,9 +1100,13 @@ tr.top-three:nth-child(3) .badge-icon {
   }
 
   .status-card {
-    padding: 8px 11px;
-    font-size: 0.78rem;
-    line-height: 1.22;
+    max-width: 100%;
+    border-radius: 16px;
+  }
+
+  .status-card span {
+    font-size: 0.72rem;
+    padding: 5px 7px;
   }
 
   th,
@@ -1039,5 +1155,25 @@ tr.top-three:nth-child(3) .badge-icon {
 
   .fixture-section li {
     width: 100%;
+  }
+
+  .fixture-topline {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .fixture-score {
+    grid-template-columns: 1fr;
+    gap: 6px;
+    text-align: left;
+  }
+
+  .fixture-score span:first-child,
+  .fixture-score span:last-child {
+    text-align: left;
+  }
+
+  .fixture-score strong {
+    width: fit-content;
   }
 }
