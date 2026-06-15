@@ -152,76 +152,6 @@ function renderLatestResults(results) {
   });
 }
 
-function renderHistoryChart(history) {
-  const chartSection = document.querySelector("#history-chart-section");
-  const canvas = document.querySelector("#history-chart");
-
-  if (!chartSection || !canvas) return;
-
-  if (!history || history.length < 2 || typeof Chart === "undefined") {
-    chartSection.innerHTML = `
-      <h2>Points Over Time</h2>
-      <div class="empty-chart-message">
-        The points graph will appear after the leaderboard has changed at least twice.
-      </div>
-    `;
-    return;
-  }
-
-  const labels = history.map(entry => {
-    const date = new Date(entry.timestamp);
-
-    return date.toLocaleString("en-GB", {
-      day: "2-digit",
-      month: "short",
-      hour: "2-digit",
-      minute: "2-digit"
-    });
-  });
-
-  const playerNames = new Set();
-
-  history.forEach(entry => {
-    (entry.players || []).forEach(player => {
-      playerNames.add(player.name);
-    });
-  });
-
-  const datasets = Array.from(playerNames).map(name => ({
-    label: name,
-    data: history.map(entry => {
-      const player = (entry.players || []).find(p => p.name === name);
-      return player ? player.points : 0;
-    }),
-    tension: 0.2
-  }));
-
-  new Chart(canvas, {
-    type: "line",
-    data: {
-      labels,
-      datasets
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-      plugins: {
-        legend: {
-          position: "bottom"
-        }
-      },
-      scales: {
-        y: {
-          beginAtZero: true,
-          ticks: {
-            precision: 0
-          }
-        }
-      }
-    }
-  });
-}
-
 async function init() {
   try {
     const leaderboard = await loadJson("data/leaderboard.json");
@@ -265,14 +195,6 @@ async function init() {
     if (latestEl) {
       latestEl.textContent = "Latest results not available yet.";
     }
-  }
-
-  try {
-    const history = await loadJson("data/history.json");
-    renderHistoryChart(history);
-  } catch (error) {
-    console.error(error);
-    renderHistoryChart([]);
   }
 }
 
