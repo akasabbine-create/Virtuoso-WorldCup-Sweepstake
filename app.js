@@ -51,7 +51,7 @@ function renderStatus(status) {
     <br />
     <strong>Source:</strong> ${status.source || "ESPN public scoreboard"}
     <br />
-    <strong>ESPN fixtures fetched so far:</strong> ${status.matchesFetchedFromEspn ?? "Unknown"}
+    <strong>ESPN fixtures fetched:</strong> ${status.matchesFetchedFromEspn ?? "Unknown"}
   `;
 
   const completed = status.completedMatches ?? 0;
@@ -120,6 +120,39 @@ function renderLeaderboard(data) {
   });
 }
 
+function renderUpcomingFixtures(fixtures) {
+  const container = document.querySelector("#upcoming-fixtures");
+
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  if (!fixtures || fixtures.length === 0) {
+    container.innerHTML = `<p>No upcoming fixtures found.</p>`;
+    return;
+  }
+
+  fixtures.forEach(match => {
+    const card = document.createElement("div");
+    card.className = "fixture-card";
+
+    const players = match.players && match.players.length > 0
+      ? match.players.map(player => {
+          const teams = (player.teams || []).join(", ");
+          return `<li>${player.name}: ${teams}</li>`;
+        }).join("")
+      : `<li>No sweepstake players involved</li>`;
+
+    card.innerHTML = `
+      <h3>${match.team1} v ${match.team2}</h3>
+      <p>${formatDateTime(match.date)}</p>
+      <ul>${players}</ul>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
 function renderLatestResults(results) {
   const container = document.querySelector("#latest-results");
 
@@ -181,6 +214,19 @@ async function init() {
 
     if (statusEl) {
       statusEl.textContent = "Update status not available yet.";
+    }
+  }
+
+  try {
+    const upcomingFixtures = await loadJson("data/upcoming_fixtures.json");
+    renderUpcomingFixtures(upcomingFixtures);
+  } catch (error) {
+    console.error(error);
+
+    const upcomingEl = document.querySelector("#upcoming-fixtures");
+
+    if (upcomingEl) {
+      upcomingEl.textContent = "Upcoming fixtures not available yet.";
     }
   }
 
