@@ -82,6 +82,20 @@ function fixtureStatusClass(match) {
   return "upcoming";
 }
 
+function findPreviousHeading(element) {
+  let previous = element.previousElementSibling;
+
+  while (previous) {
+    if (previous.tagName === "H2") {
+      return previous;
+    }
+
+    previous = previous.previousElementSibling;
+  }
+
+  return null;
+}
+
 function updateStaticPageText() {
   document.querySelectorAll("h2").forEach(heading => {
     const text = normaliseText(heading.textContent);
@@ -128,6 +142,39 @@ function updateStaticPageText() {
     }
   }
 
+  const playerDetailsContainer = document.querySelector("#player-details");
+
+  if (playerDetailsContainer) {
+    let previous = playerDetailsContainer.previousElementSibling;
+    let hasNote = false;
+
+    while (previous) {
+      if (previous.tagName === "P" && previous.classList.contains("section-note")) {
+        previous.textContent = "Click a player to expand their team-by-team points breakdown.";
+        hasNote = true;
+        break;
+      }
+
+      if (previous.tagName === "H2") {
+        break;
+      }
+
+      previous = previous.previousElementSibling;
+    }
+
+    if (!hasNote) {
+      const note = document.createElement("p");
+      note.className = "section-note";
+      note.textContent = "Click a player to expand their team-by-team points breakdown.";
+
+      const heading = findPreviousHeading(playerDetailsContainer);
+
+      if (heading && heading.parentNode) {
+        heading.parentNode.insertBefore(note, playerDetailsContainer);
+      }
+    }
+  }
+
   document.querySelectorAll("p").forEach(paragraph => {
     const text = normaliseText(paragraph.textContent);
 
@@ -142,20 +189,6 @@ function updateStaticPageText() {
       `;
     }
   });
-}
-
-function findPreviousHeading(element) {
-  let previous = element.previousElementSibling;
-
-  while (previous) {
-    if (previous.tagName === "H2") {
-      return previous;
-    }
-
-    previous = previous.previousElementSibling;
-  }
-
-  return null;
 }
 
 function movementIcon(movement) {
@@ -608,7 +641,7 @@ function renderPlayerDetails(details, spoonTeam) {
 
   details.forEach(player => {
     const card = document.createElement("div");
-    card.className = "player-card";
+    card.className = "player-card player-collapsible-card";
 
     if (spoonTeam && player.name === spoonTeam.playerName) {
       card.classList.add("wooden-spoon-card");
@@ -651,20 +684,53 @@ function renderPlayerDetails(details, spoonTeam) {
       ? `🥄 ${player.name}`
       : player.name;
 
+    const teamNames = (player.teams || [])
+      .map(team => team.team)
+      .join(", ");
+
     card.innerHTML = `
-      <div class="player-card-header">
-        <h3>${medal(player.rank)} ${playerName}</h3>
-        <strong>${player.points} pts</strong>
+      <button class="player-collapse-toggle" type="button" aria-expanded="false">
+        <span class="player-collapse-main">
+          <span class="player-collapse-name">
+            ${medal(player.rank)} ${playerName}
+          </span>
+          <span class="player-collapse-teams">
+            ${teamNames}
+          </span>
+        </span>
+
+        <span class="player-collapse-meta">
+          <span>Rank ${player.rank}</span>
+          <span>${player.gamesPlayed} played</span>
+          <strong>${player.points} pts</strong>
+          <span class="player-collapse-chevron">+</span>
+        </span>
+      </button>
+
+      <div class="player-collapse-body" hidden>
+        <p class="player-card-subtitle">
+          Rank ${player.rank} · ${player.gamesPlayed} games played
+          · Match ${player.matchPoints ?? player.points} pts
+          · Bonus ${player.bonusPoints ?? 0} pts
+        </p>
+
+        ${teams}
       </div>
-
-      <p class="player-card-subtitle">
-        Rank ${player.rank} · ${player.gamesPlayed} games played
-        · Match ${player.matchPoints ?? player.points} pts
-        · Bonus ${player.bonusPoints ?? 0} pts
-      </p>
-
-      ${teams}
     `;
+
+    const toggle = card.querySelector(".player-collapse-toggle");
+    const body = card.querySelector(".player-collapse-body");
+    const chevron = card.querySelector(".player-collapse-chevron");
+
+    toggle.addEventListener("click", () => {
+      const isOpen = toggle.getAttribute("aria-expanded") === "true";
+      const nextOpenState = !isOpen;
+
+      toggle.setAttribute("aria-expanded", String(nextOpenState));
+      body.hidden = !nextOpenState;
+      card.classList.toggle("is-open", nextOpenState);
+      chevron.textContent = nextOpenState ? "−" : "+";
+    });
 
     container.appendChild(card);
   });
