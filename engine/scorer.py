@@ -11,6 +11,7 @@ STATUS_FILE = Path("data/status.json")
 HISTORY_FILE = Path("data/history.json")
 LATEST_RESULTS_FILE = Path("data/latest_results.json")
 UPCOMING_FIXTURES_FILE = Path("data/upcoming_fixtures.json")
+PLAYER_DETAILS_FILE = Path("data/player_details.json")
 
 ESPN_URL = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard"
 
@@ -275,6 +276,104 @@ def calculate(players, matches, previous_leaderboard):
     return leaderboard
 
 
+def build_player_details(players, matches, leaderboard):
+    rank_by_player = {
+        row["name"]: row.get("rank")
+        for row in leaderboard
+    }
+
+    details = []
+
+    for player in players:
+        player_name = player["name"]
+        player_teams = [normalise_team_name(team) for team in player["teams"]]
+
+        team_rows = []
+
+        for team in player_teams:
+            team_points = 0
+            team_games = 0
+            wins = 0
+            draws = 0
+            losses = 0
+            goals_for = 0
+            goals_against = 0
+            recent_results = []
+
+            for match in matches:
+                results = match_points(match)
+
+                if not results:
+                    continue
+
+                if not team_matches(team, match["team1"]) and not team_matches(team, match["team2"]):
+                    continue
+
+                team_games += 1
+
+                if team_matches(team, match["team1"]):
+                    team_score = match["score1"]
+                    opponent_score = match["score2"]
+                    opponent = match["team2"]
+                else:
+                    team_score = match["score2"]
+                    opponent_score = match["score1"]
+                    opponent = match["team1"]
+
+                points = results.get(normalise_team_name(team), 0)
+                team_points += points
+                goals_for += team_score
+                goals_against += opponent_score
+
+                if points == 3:
+                    wins += 1
+                    result_label = "W"
+                elif points == 1:
+                    draws += 1
+                    result_label = "D"
+                else:
+                    losses += 1
+                    result_label = "L"
+
+                recent_results.append({
+                    "date": match.get("date"),
+                    "opponent": opponent,
+                    "scoreFor": team_score,
+                    "scoreAgainst": opponent_score,
+                    "result": result_label,
+                    "points": points
+                })
+
+            recent_results.sort(key=lambda x: x.get("date") or "", reverse=True)
+
+            team_rows.append({
+                "team": team,
+                "points": team_points,
+                "gamesPlayed": team_games,
+                "wins": wins,
+                "draws": draws,
+                "losses": losses,
+                "goalsFor": goals_for,
+                "goalsAgainst": goals_against,
+                "recentResults": recent_results[:3]
+            })
+
+        total_points = sum(team["points"] for team in team_rows)
+        total_games = sum(team["gamesPlayed"] for team in team_rows)
+
+        details.append({
+            "name": player_name,
+            "rank": rank_by_player.get(player_name),
+            "points": total_points,
+            "gamesPlayed": total_games,
+            "teams": team_rows
+        })
+
+    details.sort(key=lambda x: (x["rank"] if x["rank"] is not None else 999))
+
+    return details
+
+
 def build_latest_results(players, matches, limit=8):
     completed = [
         m for m in matches
@@ -433,12 +532,14 @@ if __name__ == "__main__":
     leaderboard = calculate(players, matches, previous_leaderboard)
     latest_results = build_latest_results(players, matches)
     upcoming_fixtures = build_upcoming_fixtures(players, matches)
+    player_details = build_player_details(players, matches, leaderboard)
     status = build_status(matches)
 
     save(MATCHES_FILE, matches)
     save(LEADERBOARD_FILE, leaderboard)
     save(LATEST_RESULTS_FILE, latest_results)
     save(UPCOMING_FIXTURES_FILE, upcoming_fixtures)
+    save(PLAYER_DETAILS_FILE, player_details)
     save(STATUS_FILE, status)
     update_history(leaderboard)
 
