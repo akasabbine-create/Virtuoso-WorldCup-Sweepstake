@@ -44,6 +44,8 @@ function renderStatus(status) {
   const statusEl = document.querySelector("#status");
   const completedEl = document.querySelector("#completed-matches");
 
+  if (!statusEl || !completedEl) return;
+
   statusEl.innerHTML = `
     <strong>Last updated:</strong> ${formatDateTime(status.lastUpdated)}
     <br />
@@ -54,18 +56,28 @@ function renderStatus(status) {
 }
 
 function renderSummaryCards(leaderboard) {
+  const leaderEl = document.querySelector("#current-leader");
+  const spoonEl = document.querySelector("#wooden-spoon");
+
+  if (!leaderEl || !spoonEl) return;
+
   const leader = leaderboard[0];
   const woodenSpoon = leaderboard[leaderboard.length - 1];
 
-  document.querySelector("#current-leader").textContent =
-    leader ? `${leader.name} — ${leader.points} pts` : "No data";
+  leaderEl.textContent = leader
+    ? `${leader.name} — ${leader.points} pts`
+    : "No data";
 
-  document.querySelector("#wooden-spoon").textContent =
-    woodenSpoon ? `${woodenSpoon.name} — ${woodenSpoon.points} pts` : "No data";
+  spoonEl.textContent = woodenSpoon
+    ? `${woodenSpoon.name} — ${woodenSpoon.points} pts`
+    : "No data";
 }
 
 function renderLeaderboard(data) {
   const tbody = document.querySelector("#board tbody");
+
+  if (!tbody) return;
+
   tbody.innerHTML = "";
 
   if (!data || data.length === 0) {
@@ -111,6 +123,9 @@ function renderLeaderboard(data) {
 
 function renderLatestResults(results) {
   const container = document.querySelector("#latest-results");
+
+  if (!container) return;
+
   container.innerHTML = "";
 
   if (!results || results.length === 0) {
@@ -141,7 +156,7 @@ function renderLatestResults(results) {
 function renderHistoryChart(history) {
   const canvas = document.querySelector("#history-chart");
 
-  if (!canvas || !history || history.length === 0) {
+  if (!canvas || !history || history.length === 0 || typeof Chart === "undefined") {
     return;
   }
 
@@ -181,6 +196,7 @@ function renderHistoryChart(history) {
     },
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       plugins: {
         legend: {
           position: "bottom"
@@ -200,26 +216,54 @@ function renderHistoryChart(history) {
 
 async function init() {
   try {
-    const [leaderboard, status, latestResults, history] = await Promise.all([
-      loadJson("data/leaderboard.json"),
-      loadJson("data/status.json"),
-      loadJson("data/latest_results.json"),
-      loadJson("data/history.json")
-    ]);
-
-    renderStatus(status);
+    const leaderboard = await loadJson("data/leaderboard.json");
     renderSummaryCards(leaderboard);
     renderLeaderboard(leaderboard);
-    renderLatestResults(latestResults);
-    renderHistoryChart(history);
   } catch (error) {
     console.error(error);
 
-    document.querySelector("#board tbody").innerHTML = `
-      <tr>
-        <td colspan="6">Could not load dashboard data.</td>
-      </tr>
-    `;
+    const tbody = document.querySelector("#board tbody");
+
+    if (tbody) {
+      tbody.innerHTML = `
+        <tr>
+          <td colspan="6">Could not load leaderboard data.</td>
+        </tr>
+      `;
+    }
+  }
+
+  try {
+    const status = await loadJson("data/status.json");
+    renderStatus(status);
+  } catch (error) {
+    console.error(error);
+
+    const statusEl = document.querySelector("#status");
+
+    if (statusEl) {
+      statusEl.textContent = "Update status not available yet.";
+    }
+  }
+
+  try {
+    const latestResults = await loadJson("data/latest_results.json");
+    renderLatestResults(latestResults);
+  } catch (error) {
+    console.error(error);
+
+    const latestEl = document.querySelector("#latest-results");
+
+    if (latestEl) {
+      latestEl.textContent = "Latest results not available yet.";
+    }
+  }
+
+  try {
+    const history = await loadJson("data/history.json");
+    renderHistoryChart(history);
+  } catch (error) {
+    console.error(error);
   }
 }
 
