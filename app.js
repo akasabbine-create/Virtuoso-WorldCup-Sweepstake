@@ -44,6 +44,16 @@ function goalDifference(team) {
   return (team.goalsFor ?? 0) - (team.goalsAgainst ?? 0);
 }
 
+function normaliseText(value) {
+  return String(value || "").trim().toLowerCase();
+}
+
+function playerOwnsTeam(player, teamName) {
+  const target = normaliseText(teamName);
+
+  return (player.teams || []).some(team => normaliseText(team) === target);
+}
+
 function findWoodenSpoonTeam(playerDetails) {
   const allTeams = [];
 
@@ -91,16 +101,6 @@ function findWoodenSpoonTeam(playerDetails) {
   return allTeams[0];
 }
 
-function normaliseText(value) {
-  return String(value || "").trim().toLowerCase();
-}
-
-function playerOwnsTeam(player, teamName) {
-  const target = normaliseText(teamName);
-
-  return (player.teams || []).some(team => normaliseText(team) === target);
-}
-
 function findCurrentBadgeHolders(leaderboard, playerDetails, bonusData) {
   const badgesByPlayer = {};
 
@@ -121,7 +121,6 @@ function findCurrentBadgeHolders(leaderboard, playerDetails, bonusData) {
 
   if (goldenBootRace.length > 0) {
     const topGoals = goldenBootRace[0].goals;
-
     const topScorers = goldenBootRace.filter(item => item.goals === topGoals);
 
     topScorers.forEach(scorer => {
@@ -140,7 +139,6 @@ function findCurrentBadgeHolders(leaderboard, playerDetails, bonusData) {
 
   if (nationGoalTable.length > 0) {
     const topNationGoals = nationGoalTable[0].goals;
-
     const topNations = nationGoalTable.filter(item => item.goals === topNationGoals);
 
     topNations.forEach(nation => {
@@ -152,6 +150,19 @@ function findCurrentBadgeHolders(leaderboard, playerDetails, bonusData) {
           });
         }
       });
+    });
+  }
+
+  const fastestGoal = bonusData?.fastestGoal;
+
+  if (fastestGoal && fastestGoal.team) {
+    (leaderboard || []).forEach(player => {
+      if (playerOwnsTeam(player, fastestGoal.team)) {
+        badgesByPlayer[player.name].push({
+          icon: "⚡",
+          label: `Fastest goal prize: ${fastestGoal.player} (${fastestGoal.team})`
+        });
+      }
     });
   }
 
@@ -375,7 +386,7 @@ function renderBonusTracker(bonusData, leaderboard) {
     </div>
 
     <div class="bonus-card">
-      <h3>Fastest Goal Prize</h3>
+      <h3>⚡ Fastest Goal Prize</h3>
       ${fastestGoal}
       <p class="bonus-note">
         Prize only. No leaderboard points.
@@ -667,7 +678,7 @@ async function init() {
 
   try {
     const latestResults = await loadJson("data/latest_results.json");
-    renderLatestResults(latResults);
+    renderLatestResults(latestResults);
   } catch (error) {
     console.error(error);
 
