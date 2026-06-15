@@ -1,46 +1,109 @@
 import json
+import urllib.request
 from collections import defaultdict
+from pathlib import Path
+
+PLAYERS_FILE = Path("data/players.json")
+MATCHES_FILE = Path("data/matches.json")
+LEADERBOARD_FILE = Path("data/leaderboard.json")
+
+API_URL = "https://worldcup2026-api.onrender.com/api/games"
 
 def load(path):
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         return json.load(f)
 
 def save(path, data):
-    with open(path, "w") as f:
-        json.dump(data, f, indent=2)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(data, f, indent=2, ensure_ascii=False)
+
+def fetch_matches():
+    with urllib.request.urlopen(API_URL, timeout=30) as response:
+        games = json.load(response)
+
+    matches = []
+
+    for game in games:
+        home = game.get("home_team") or game.get("homeTeam") or game.get("team1")
+        away = game.get("away_team") or game.get("awayTeam") or game.get("team2")
+
+        home_score = game.get("home_score")
+        away_score = game.get("away_score")
+
+        if home_score is None:
+            home_score = game.get("homeScore")
+        if away_score is None:
+            away_score = game.get("awayScore")
+
+        status = str(game.get("status", "")).lower()
+
+        if not home or not away:
+            continue
+
+        matches.append({
+            "team1": home,
+            "team2": away,
+            "score1": home_score,
+            "score2": away_score,
+            "status": status,
+            "date": game.get("date") or game.get("utcDate") or game.get("local_date"),
+            "raw": game
+        })
+
+    return matches
 
 def calculate(players, matches):
     scores = defaultdict(int)
+    games_played = defaultdict(int)
 
     for match in matches:
-        t1, t2 = match["team1"], match["team2"]
-        s1, s2 = match["score1"], match["score2"]
+        s1 = match.get("score1")
+        s2 = match.get("score2")
+
+        if s1 is None or s2 is None:
+            continue
+
+        t1 = match["team1"]
+        t2 = match["team2"]
 
         if s1 > s2:
-            results = {t1: 3}
+            results = {t1: 3, t2: 0}
         elif s2 > s1:
-            results = {t2: 3}
+            results = {t1: 0, t2: 3}
         else:
             results = {t1: 1, t2: 1}
 
-        for p in players:
-            for team in p["teams"]:
+        for player in players:
+            for team in player["teams"]:
                 if team in results:
-                    scores[p["name"]] += results[team]
+                    scores[player["name"]] += results[team]
+                    games_played[player["name"]] += 1
 
-    leaderboard = [
-        {"name": p["name"], "points": scores[p["name"]]}
-        for p in players
-    ]
+    leaderboard = []
+
+    for player in players:
+        leaderboard.append({
+            "name": player["name"],
+            "teams": player["teams"],
+            "points": scores[player["name"]],
+            "gamesPlayed": games_played[player["name"]]
+        })
 
     leaderboard.sort(key=lambda x: x["points"], reverse=True)
+
+    for index, row in enumerate(leaderboard, start=1):
+        row["rank"] = index
 
     return leaderboard
 
 if __name__ == "__main__":
-    players = load("data/players.json")
-    matches = load("data/matches.json")
+    players = load(PLAYERS_FILE)
+
+    matches = fetch_matches()
+    save(MATCHES_FILE, matches)
 
     leaderboard = calculate(players, matches)
+    save(LEADERBOARD_FILE, leaderboard)
 
-    save("data/leaderboard.json", leaderboard)
+    print("Updated matches and leaderboard")
