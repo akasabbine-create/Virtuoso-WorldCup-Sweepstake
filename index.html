@@ -52,15 +52,25 @@
               <th>Player</th>
               <th>Teams</th>
               <th>Games Played</th>
-              <th>Points</th>
+              <th>Match Pts</th>
+              <th>Bonus</th>
+              <th>Total</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td colspan="6">Loading leaderboard...</td>
+              <td colspan="8">Loading leaderboard...</td>
             </tr>
           </tbody>
         </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>Bonus Tracker</h2>
+
+      <div id="bonus-tracker" class="bonus-grid">
+        Loading bonus tracker...
       </div>
     </section>
 
@@ -122,6 +132,7 @@
           <h3>Leaderboard Ranking</h3>
           <ul>
             <li>Players are ranked by total points.</li>
+            <li>Total points are match points plus awarded bonus points.</li>
             <li>If players are level on points, games played is used as the next sorter.</li>
             <li>Movement arrows only show when a player’s score or games played has changed.</li>
           </ul>
@@ -150,7 +161,7 @@
             <li><strong>Knockout clean sheet:</strong> +2 points per clean sheet in the knockout stage only.</li>
           </ul>
           <p>
-            These bonuses are added to the leaderboard when the relevant tournament outcomes are known.
+            Golden Boot and most-goals-by-nation bonuses are tracked during the tournament and awarded at the end.
           </p>
         </div>
 
