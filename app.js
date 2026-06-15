@@ -120,6 +120,66 @@ function renderLeaderboard(data) {
   });
 }
 
+function renderPlayerDetails(details) {
+  const container = document.querySelector("#player-details");
+
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  if (!details || details.length === 0) {
+    container.innerHTML = `<p>No player breakdown available yet.</p>`;
+    return;
+  }
+
+  details.forEach(player => {
+    const card = document.createElement("div");
+    card.className = "player-card";
+
+    const teams = (player.teams || []).map(team => {
+      const recentResults = team.recentResults && team.recentResults.length > 0
+        ? team.recentResults.map(result => `
+            <li>
+              ${result.result}: ${team.team} ${result.scoreFor}–${result.scoreAgainst} ${result.opponent}
+              (${result.points} pts)
+            </li>
+          `).join("")
+        : `<li>No completed matches yet</li>`;
+
+      return `
+        <div class="team-breakdown">
+          <div class="team-breakdown-header">
+            <strong>${team.team}</strong>
+            <span>${team.points} pts</span>
+          </div>
+
+          <div class="team-stats">
+            Played ${team.gamesPlayed} · W${team.wins} D${team.draws} L${team.losses}
+            · GF ${team.goalsFor} GA ${team.goalsAgainst}
+          </div>
+
+          <ul>${recentResults}</ul>
+        </div>
+      `;
+    }).join("");
+
+    card.innerHTML = `
+      <div class="player-card-header">
+        <h3>${medal(player.rank)} ${player.name}</h3>
+        <strong>${player.points} pts</strong>
+      </div>
+
+      <p class="player-card-subtitle">
+        Rank ${player.rank} · ${player.gamesPlayed} games played
+      </p>
+
+      ${teams}
+    `;
+
+    container.appendChild(card);
+  });
+}
+
 function renderUpcomingFixtures(fixtures) {
   const container = document.querySelector("#upcoming-fixtures");
 
@@ -214,6 +274,19 @@ async function init() {
 
     if (statusEl) {
       statusEl.textContent = "Update status not available yet.";
+    }
+  }
+
+  try {
+    const playerDetails = await loadJson("data/player_details.json");
+    renderPlayerDetails(playerDetails);
+  } catch (error) {
+    console.error(error);
+
+    const playerDetailsEl = document.querySelector("#player-details");
+
+    if (playerDetailsEl) {
+      playerDetailsEl.textContent = "Player breakdown not available yet.";
     }
   }
 
