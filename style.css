@@ -21,12 +21,13 @@ body {
 main {
   width: min(1200px, 96vw);
   margin: 0 auto;
-  padding: 24px 0 48px;
+  padding: 22px 0 48px;
 }
 
 .page-header {
   text-align: center;
-  margin-bottom: 24px;
+  margin-bottom: 22px;
+  overflow: visible;
 }
 
 .site-title {
@@ -34,10 +35,11 @@ main {
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  margin: 0 0 18px;
+  margin: 0 0 14px;
   text-align: center;
   line-height: 1;
   text-transform: uppercase;
+  overflow: visible;
 }
 
 .title-kicker {
@@ -55,14 +57,19 @@ main {
 
 .title-main {
   display: inline-block;
+  max-width: 100%;
+  padding: 0 0.16em 0.08em;
+  margin: 0 -0.08em;
   font-family: "Manrope", "Arial Black", "Trebuchet MS", Arial, sans-serif;
   font-size: clamp(3rem, 7vw, 6.4rem);
   font-weight: 800;
-  letter-spacing: -0.09em;
+  line-height: 1.04;
+  letter-spacing: -0.085em;
   background: linear-gradient(180deg, #ffffff 0%, #f2cc60 48%, #d29922 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+  overflow: visible;
   text-shadow:
     0 4px 0 rgba(0, 0, 0, 0.22),
     0 14px 34px rgba(0, 0, 0, 0.42);
@@ -123,22 +130,25 @@ h2::after {
 
 .status-card {
   display: inline-block;
-  margin-top: 12px;
-  padding: 12px 18px;
+  margin-top: 8px;
+  padding: 9px 13px;
   background:
-    linear-gradient(145deg, rgba(16, 45, 68, 0.96), rgba(8, 31, 49, 0.96));
-  border: 1px solid rgba(88, 166, 255, 0.24);
-  border-radius: 14px;
+    linear-gradient(145deg, rgba(16, 45, 68, 0.9), rgba(8, 31, 49, 0.9));
+  border: 1px solid rgba(88, 166, 255, 0.22);
+  border-radius: 12px;
   text-align: left;
-  color: #d6e4ef;
-  font-weight: 700;
+  color: #c9d1d9;
+  font-size: 0.82rem;
+  font-weight: 650;
+  line-height: 1.25;
   box-shadow:
-    0 16px 32px rgba(0, 0, 0, 0.18),
+    0 10px 24px rgba(0, 0, 0, 0.14),
     inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
 .status-card strong {
   color: #ffffff;
+  font-weight: 800;
 }
 
 .cards {
@@ -960,8 +970,12 @@ tr.top-three:nth-child(3) .badge-icon {
   }
 
   .title-main {
-    font-size: clamp(2.7rem, 14vw, 4rem);
-    letter-spacing: -0.08em;
+    max-width: 100%;
+    padding: 0 0.14em 0.08em;
+    margin: 0 -0.07em;
+    font-size: clamp(2.6rem, 13vw, 4rem);
+    line-height: 1.06;
+    letter-spacing: -0.075em;
   }
 
   .title-sub {
@@ -971,6 +985,12 @@ tr.top-three:nth-child(3) .badge-icon {
   .title-kicker {
     font-size: 0.72rem;
     letter-spacing: 0.18em;
+  }
+
+  .status-card {
+    padding: 8px 11px;
+    font-size: 0.78rem;
+    line-height: 1.22;
   }
 
   th,
