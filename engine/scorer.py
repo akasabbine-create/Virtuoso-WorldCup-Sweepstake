@@ -20,23 +20,55 @@ def save(path, data):
 
 def fetch_matches():
     with urllib.request.urlopen(API_URL, timeout=30) as response:
-        games = json.load(response)
+        data = json.load(response)
+
+    if isinstance(data, dict):
+        games = (
+            data.get("matches")
+            or data.get("games")
+            or data.get("fixtures")
+            or data.get("data")
+            or []
+        )
+    else:
+        games = data
 
     matches = []
 
     for game in games:
-        home = game.get("home_team") or game.get("homeTeam") or game.get("team1")
-        away = game.get("away_team") or game.get("awayTeam") or game.get("team2")
+        if not isinstance(game, dict):
+            continue
 
-        home_score = game.get("home_score")
-        away_score = game.get("away_score")
+        home = (
+            game.get("home_team")
+            or game.get("homeTeam")
+            or game.get("home")
+            or game.get("team1")
+        )
 
-        if home_score is None:
-            home_score = game.get("homeScore")
-        if away_score is None:
-            away_score = game.get("awayScore")
+        away = (
+            game.get("away_team")
+            or game.get("awayTeam")
+            or game.get("away")
+            or game.get("team2")
+        )
 
-        status = str(game.get("status", "")).lower()
+        score = game.get("score", {})
+
+        if isinstance(score, dict):
+            home_score = (
+                game.get("home_score")
+                or game.get("homeScore")
+                or score.get("home")
+            )
+            away_score = (
+                game.get("away_score")
+                or game.get("awayScore")
+                or score.get("away")
+            )
+        else:
+            home_score = game.get("home_score") or game.get("homeScore")
+            away_score = game.get("away_score") or game.get("awayScore")
 
         if not home or not away:
             continue
@@ -46,7 +78,7 @@ def fetch_matches():
             "team2": away,
             "score1": home_score,
             "score2": away_score,
-            "status": status,
+            "status": str(game.get("status", "")).lower(),
             "date": game.get("date") or game.get("utcDate") or game.get("local_date"),
             "raw": game
         })
