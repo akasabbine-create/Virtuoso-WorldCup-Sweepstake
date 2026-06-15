@@ -191,6 +191,61 @@ function updateStaticPageText() {
   });
 }
 
+function makeRulesCollapsible() {
+  const rulesSection = document.querySelector(".rules-section");
+
+  if (!rulesSection) return;
+
+  const cards = rulesSection.querySelectorAll(".rules-card");
+
+  cards.forEach((card, index) => {
+    if (card.classList.contains("rules-collapsible-card")) return;
+
+    const heading = card.querySelector("h3");
+
+    if (!heading) return;
+
+    const title = heading.textContent.trim();
+    const bodyChildren = Array.from(card.children).filter(child => child !== heading);
+
+    card.classList.add("rules-collapsible-card");
+    card.innerHTML = "";
+
+    const button = document.createElement("button");
+    button.className = "rules-collapse-toggle";
+    button.type = "button";
+    button.setAttribute("aria-expanded", index < 2 ? "true" : "false");
+
+    button.innerHTML = `
+      <span>${title}</span>
+      <span class="rules-collapse-chevron">${index < 2 ? "−" : "+"}</span>
+    `;
+
+    const body = document.createElement("div");
+    body.className = "rules-collapse-body";
+
+    if (index >= 2) {
+      body.hidden = true;
+    }
+
+    bodyChildren.forEach(child => body.appendChild(child));
+
+    button.addEventListener("click", () => {
+      const isOpen = button.getAttribute("aria-expanded") === "true";
+      const nextOpenState = !isOpen;
+
+      button.setAttribute("aria-expanded", String(nextOpenState));
+      body.hidden = !nextOpenState;
+      card.classList.toggle("is-open", nextOpenState);
+      button.querySelector(".rules-collapse-chevron").textContent = nextOpenState ? "−" : "+";
+    });
+
+    card.appendChild(button);
+    card.appendChild(body);
+    card.classList.toggle("is-open", index < 2);
+  });
+}
+
 function movementIcon(movement) {
   if (movement > 0) {
     return `<span class="movement up">▲ ${movement}</span>`;
@@ -412,6 +467,74 @@ function renderSummaryCards(leaderboard, playerDetails) {
   `;
 }
 
+function renderInsightStrip(leaderboard, latestResults) {
+  const cards = document.querySelector(".cards");
+
+  if (!cards || document.querySelector("#insight-strip")) return;
+
+  const section = document.createElement("section");
+  section.id = "insight-strip";
+  section.className = "insight-strip";
+
+  const latestMatch = latestResults && latestResults.length > 0
+    ? latestResults[0]
+    : null;
+
+  const latestGains = latestMatch?.playerGains && latestMatch.playerGains.length > 0
+    ? latestMatch.playerGains.map(gain => `
+        <span>${gain.name} +${gain.points}</span>
+      `).join("")
+    : `<span>No player gained points</span>`;
+
+  const upwardMovers = (leaderboard || [])
+    .filter(player => (player.movement || 0) > 0)
+    .sort((a, b) => (b.movement || 0) - (a.movement || 0))
+    .slice(0, 3);
+
+  const downwardMovers = (leaderboard || [])
+    .filter(player => (player.movement || 0) < 0)
+    .sort((a, b) => (a.movement || 0) - (b.movement || 0))
+    .slice(0, 2);
+
+  const moverHtml = upwardMovers.length > 0 || downwardMovers.length > 0
+    ? `
+      ${upwardMovers.map(player => `
+        <span class="insight-chip positive">${player.name} ▲ ${player.movement}</span>
+      `).join("")}
+      ${downwardMovers.map(player => `
+        <span class="insight-chip negative">${player.name} ▼ ${Math.abs(player.movement)}</span>
+      `).join("")}
+    `
+    : `<span class="insight-chip">No ranking movement yet</span>`;
+
+  section.innerHTML = `
+    <div class="insight-card latest-swing-card">
+      <div class="insight-label">Latest Points Swing</div>
+      ${
+        latestMatch
+          ? `
+            <h3>${latestMatch.team1} ${latestMatch.score1}–${latestMatch.score2} ${latestMatch.team2}</h3>
+            <p>${formatDateTime(latestMatch.date)}</p>
+            <div class="insight-chip-row">${latestGains}</div>
+          `
+          : `
+            <h3>No completed result yet</h3>
+            <p>Latest points swing will appear after the next completed match.</p>
+          `
+      }
+    </div>
+
+    <div class="insight-card biggest-mover-card">
+      <div class="insight-label">Biggest Movers</div>
+      <h3>Leaderboard movement</h3>
+      <p>Movement since the previous scoring update.</p>
+      <div class="insight-chip-row">${moverHtml}</div>
+    </div>
+  `;
+
+  cards.insertAdjacentElement("afterend", section);
+}
+
 function renderLeaderboard(data, spoonTeam, badgesByPlayer) {
   const tbody = document.querySelector("#board tbody");
 
@@ -504,74 +627,76 @@ function renderBonusTracker(bonusData, leaderboard) {
       `).join("")
     : `<li>No bonus points awarded yet.</li>`;
 
-  const goldenBootHtml = (bonusData.goldenBootRace || []).slice(0, 5).map(item => {
+  const goldenBootHtml = (bonusData.goldenBootRace || []).slice(0, 5).map((item, index) => {
     const owners = (leaderboard || [])
       .filter(player => playerOwnsTeam(player, item.team))
       .map(player => player.name)
       .join(", ");
 
     return `
-      <li>
-        ${item.player} (${item.team}) — ${item.goals} goals
-        ${owners ? `<br /><span>Current owner: ${owners}</span>` : ""}
+      <li class="${index === 0 ? "race-leader" : ""}">
+        <strong>${item.player}</strong>
+        <span>${item.team} · ${item.goals} goals</span>
+        ${owners ? `<em>Owner: ${owners}</em>` : ""}
       </li>
     `;
   }).join("") || `<li>No goals tracked yet.</li>`;
 
-  const nationGoalsHtml = (bonusData.nationGoalTable || []).slice(0, 5).map(item => {
+  const nationGoalsHtml = (bonusData.nationGoalTable || []).slice(0, 5).map((item, index) => {
     const owners = (leaderboard || [])
       .filter(player => playerOwnsTeam(player, item.team))
       .map(player => player.name)
       .join(", ");
 
     return `
-      <li>
-        ${item.team} — ${item.goals} goals
-        ${owners ? `<br /><span>Current owner: ${owners}</span>` : ""}
+      <li class="${index === 0 ? "race-leader" : ""}">
+        <strong>${item.team}</strong>
+        <span>${item.goals} goals</span>
+        ${owners ? `<em>Owner: ${owners}</em>` : ""}
       </li>
     `;
   }).join("") || `<li>No nation goal data yet.</li>`;
 
   const fastestGoal = bonusData.fastestGoal
     ? `
-      <p>
+      <div class="fastest-goal-card">
         <strong>${bonusData.fastestGoal.player}</strong>
-        (${bonusData.fastestGoal.team}) —
-        ${bonusData.fastestGoal.clockDisplay}
-        <br />
-        ${bonusData.fastestGoal.match}
-      </p>
+        <span>${bonusData.fastestGoal.team} · ${bonusData.fastestGoal.clockDisplay}</span>
+        <em>${bonusData.fastestGoal.match}</em>
+      </div>
     `
     : `<p>No fastest goal tracked yet.</p>`;
 
   container.innerHTML = `
-    <div class="bonus-card">
-      <h3>Awarded Bonus Points</h3>
-      <ul>${awardedHtml}</ul>
+    <div class="bonus-race-card bonus-race-feature">
+      <div class="bonus-race-label">Bonus Races</div>
+      <h3>Live bonus leaders</h3>
+      <p>
+        These are current race leaders only. Final bonus points are awarded later unless shown as awarded.
+      </p>
     </div>
 
-    <div class="bonus-card">
+    <div class="bonus-race-card">
       <h3>🥾 Golden Boot Race</h3>
       <ul>${goldenBootHtml}</ul>
-      <p class="bonus-note">
-        Badge shown for current race leader owner. +5 points awarded at the end of the tournament.
-      </p>
+      <p class="bonus-note">Current top scorer owner gets the badge. +5 points awarded at tournament end.</p>
     </div>
 
-    <div class="bonus-card">
+    <div class="bonus-race-card">
       <h3>⚽ Most Goals by Nation</h3>
       <ul>${nationGoalsHtml}</ul>
-      <p class="bonus-note">
-        Badge shown for current top nation owner. +5 points awarded at the end of the tournament.
-      </p>
+      <p class="bonus-note">Current top nation owner gets the badge. +5 points awarded at tournament end.</p>
     </div>
 
-    <div class="bonus-card">
+    <div class="bonus-race-card">
       <h3>⚡ Fastest Goal Prize</h3>
       ${fastestGoal}
-      <p class="bonus-note">
-        Prize only. No leaderboard points.
-      </p>
+      <p class="bonus-note">Prize only. No leaderboard points.</p>
+    </div>
+
+    <div class="bonus-race-card awarded-bonus-card">
+      <h3>Awarded Bonus Points</h3>
+      <ul>${awardedHtml}</ul>
     </div>
   `;
 }
@@ -932,10 +1057,12 @@ function renderLatestResults(results) {
 
 async function init() {
   updateStaticPageText();
+  makeRulesCollapsible();
 
   let leaderboard = [];
   let playerDetails = [];
   let bonusData = null;
+  let latestResults = [];
   let spoonTeam = null;
   let badgesByPlayer = {};
 
@@ -979,15 +1106,29 @@ async function init() {
     }
   }
 
+  try {
+    latestResults = await loadJson("data/latest_results.json");
+  } catch (error) {
+    console.error(error);
+
+    const latestEl = document.querySelector("#latest-results");
+
+    if (latestEl) {
+      latestEl.textContent = "Latest results not available yet.";
+    }
+  }
+
   const badgeData = findCurrentBadgeHolders(leaderboard, playerDetails, bonusData);
   spoonTeam = badgeData.spoonTeam;
   badgesByPlayer = badgeData.badgesByPlayer;
 
   renderSummaryCards(leaderboard, playerDetails);
+  renderInsightStrip(leaderboard, latestResults);
   renderLeaderboard(leaderboard, spoonTeam, badgesByPlayer);
   renderBonusTracker(bonusData, leaderboard);
   renderWoodenSpoonRace(playerDetails);
   renderPlayerDetails(playerDetails, spoonTeam);
+  renderLatestResults(latestResults);
 
   try {
     const status = await loadJson("data/status.json");
@@ -1012,19 +1153,6 @@ async function init() {
 
     if (upcomingEl) {
       upcomingEl.textContent = "Upcoming fixtures not available yet.";
-    }
-  }
-
-  try {
-    const latestResults = await loadJson("data/latest_results.json");
-    renderLatestResults(latestResults);
-  } catch (error) {
-    console.error(error);
-
-    const latestEl = document.querySelector("#latest-results");
-
-    if (latestEl) {
-      latestEl.textContent = "Latest results not available yet.";
     }
   }
 }
