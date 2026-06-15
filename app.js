@@ -40,6 +40,57 @@ function medal(rank) {
   return "";
 }
 
+function goalDifference(team) {
+  return (team.goalsFor ?? 0) - (team.goalsAgainst ?? 0);
+}
+
+function findWoodenSpoonTeam(playerDetails) {
+  const allTeams = [];
+
+  (playerDetails || []).forEach(player => {
+    (player.teams || []).forEach(team => {
+      allTeams.push({
+        playerName: player.name,
+        team: team.team,
+        points: team.points ?? 0,
+        gamesPlayed: team.gamesPlayed ?? 0,
+        wins: team.wins ?? 0,
+        draws: team.draws ?? 0,
+        losses: team.losses ?? 0,
+        goalsFor: team.goalsFor ?? 0,
+        goalsAgainst: team.goalsAgainst ?? 0,
+        goalDifference: goalDifference(team)
+      });
+    });
+  });
+
+  if (allTeams.length === 0) {
+    return null;
+  }
+
+  allTeams.sort((a, b) => {
+    if (a.points !== b.points) {
+      return a.points - b.points;
+    }
+
+    if (a.gamesPlayed !== b.gamesPlayed) {
+      return b.gamesPlayed - a.gamesPlayed;
+    }
+
+    if (a.goalDifference !== b.goalDifference) {
+      return a.goalDifference - b.goalDifference;
+    }
+
+    if (a.goalsFor !== b.goalsFor) {
+      return a.goalsFor - b.goalsFor;
+    }
+
+    return a.team.localeCompare(b.team);
+  });
+
+  return allTeams[0];
+}
+
 function renderStatus(status) {
   const statusEl = document.querySelector("#status");
   const completedEl = document.querySelector("#completed-matches");
@@ -60,22 +111,31 @@ function renderStatus(status) {
   completedEl.textContent = `${completed} of ${total}`;
 }
 
-function renderSummaryCards(leaderboard) {
+function renderSummaryCards(leaderboard, playerDetails) {
   const leaderEl = document.querySelector("#current-leader");
   const spoonEl = document.querySelector("#wooden-spoon");
 
   if (!leaderEl || !spoonEl) return;
 
   const leader = leaderboard[0];
-  const woodenSpoon = leaderboard[leaderboard.length - 1];
+  const spoonTeam = findWoodenSpoonTeam(playerDetails);
 
   leaderEl.textContent = leader
     ? `${leader.name} — ${leader.points} pts`
     : "No data";
 
-  spoonEl.textContent = woodenSpoon
-    ? `${woodenSpoon.name} — ${woodenSpoon.points} pts`
-    : "No data";
+  if (!spoonTeam) {
+    spoonEl.textContent = "No data";
+    return;
+  }
+
+  spoonEl.innerHTML = `
+    ${spoonTeam.playerName} — ${spoonTeam.team}
+    <br />
+    <span class="small-card-text">
+      ${spoonTeam.points} pts, ${spoonTeam.gamesPlayed} played, GD ${spoonTeam.goalDifference}
+    </span>
+  `;
 }
 
 function renderLeaderboard(data) {
@@ -246,9 +306,11 @@ function renderLatestResults(results) {
 }
 
 async function init() {
+  let leaderboard = [];
+  let playerDetails = [];
+
   try {
-    const leaderboard = await loadJson("data/leaderboard.json");
-    renderSummaryCards(leaderboard);
+    leaderboard = await loadJson("data/leaderboard.json");
     renderLeaderboard(leaderboard);
   } catch (error) {
     console.error(error);
@@ -265,6 +327,21 @@ async function init() {
   }
 
   try {
+    playerDetails = await loadJson("data/player_details.json");
+    renderPlayerDetails(playerDetails);
+  } catch (error) {
+    console.error(error);
+
+    const playerDetailsEl = document.querySelector("#player-details");
+
+    if (playerDetailsEl) {
+      playerDetailsEl.textContent = "Player breakdown not available yet.";
+    }
+  }
+
+  renderSummaryCards(leaderboard, playerDetails);
+
+  try {
     const status = await loadJson("data/status.json");
     renderStatus(status);
   } catch (error) {
@@ -274,19 +351,6 @@ async function init() {
 
     if (statusEl) {
       statusEl.textContent = "Update status not available yet.";
-    }
-  }
-
-  try {
-    const playerDetails = await loadJson("data/player_details.json");
-    renderPlayerDetails(playerDetails);
-  } catch (error) {
-    console.error(error);
-
-    const playerDetailsEl = document.querySelector("#player-details");
-
-    if (playerDetailsEl) {
-      playerDetailsEl.textContent = "Player breakdown not available yet.";
     }
   }
 
