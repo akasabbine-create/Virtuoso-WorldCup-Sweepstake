@@ -130,6 +130,7 @@ h2 {
 
 .table-wrap {
   overflow-x: auto;
+  border-radius: 12px;
 }
 
 table {
@@ -157,12 +158,82 @@ td {
   font-size: 1rem;
 }
 
-tr.leader {
-  background: rgba(255, 215, 0, 0.12);
+tr.top-three td {
+  font-weight: 800;
 }
 
-tr.top-three td {
-  font-weight: 700;
+tr.leader {
+  position: relative;
+  background:
+    linear-gradient(90deg, rgba(242, 204, 96, 0.28), rgba(242, 204, 96, 0.12), rgba(242, 204, 96, 0.04));
+  box-shadow:
+    inset 5px 0 0 #f2cc60,
+    inset 0 1px 0 rgba(242, 204, 96, 0.32),
+    inset 0 -1px 0 rgba(242, 204, 96, 0.22);
+}
+
+tr.leader td {
+  border-bottom-color: rgba(242, 204, 96, 0.28);
+}
+
+tr.leader td:first-child {
+  color: #ffd166;
+  font-weight: 900;
+}
+
+tr.top-three:nth-child(2) {
+  background:
+    linear-gradient(90deg, rgba(192, 210, 224, 0.2), rgba(88, 166, 255, 0.08), rgba(88, 166, 255, 0.03));
+  box-shadow:
+    inset 5px 0 0 #c9d1d9,
+    inset 0 1px 0 rgba(201, 209, 217, 0.22),
+    inset 0 -1px 0 rgba(201, 209, 217, 0.16);
+}
+
+tr.top-three:nth-child(2) td {
+  border-bottom-color: rgba(201, 209, 217, 0.2);
+}
+
+tr.top-three:nth-child(2) td:first-child {
+  color: #dce7f0;
+  font-weight: 900;
+}
+
+tr.top-three:nth-child(3) {
+  background:
+    linear-gradient(90deg, rgba(210, 153, 34, 0.2), rgba(210, 153, 34, 0.08), rgba(210, 153, 34, 0.03));
+  box-shadow:
+    inset 5px 0 0 #d29922,
+    inset 0 1px 0 rgba(210, 153, 34, 0.22),
+    inset 0 -1px 0 rgba(210, 153, 34, 0.16);
+}
+
+tr.top-three:nth-child(3) td {
+  border-bottom-color: rgba(210, 153, 34, 0.2);
+}
+
+tr.top-three:nth-child(3) td:first-child {
+  color: #f2cc60;
+  font-weight: 900;
+}
+
+tr.top-three td:last-child strong {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 38px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: rgba(8, 31, 49, 0.72);
+  border: 1px solid rgba(242, 204, 96, 0.22);
+}
+
+tr.top-three:nth-child(2) td:last-child strong {
+  border-color: rgba(201, 209, 217, 0.28);
+}
+
+tr.top-three:nth-child(3) td:last-child strong {
+  border-color: rgba(210, 153, 34, 0.3);
 }
 
 .movement {
@@ -199,6 +270,11 @@ tr.top-three td {
   border: 1px solid #24465d;
   border-radius: 999px;
   font-size: 1.05rem;
+}
+
+tr.top-three .badge-icon {
+  border-color: rgba(242, 204, 96, 0.28);
+  background: rgba(8, 31, 49, 0.78);
 }
 
 .badge-empty {
@@ -517,5 +593,10 @@ tr.top-three td {
     width: 24px;
     height: 24px;
     font-size: 0.95rem;
+  }
+
+  tr.top-three td:last-child strong {
+    min-width: 32px;
+    padding: 3px 7px;
   }
 }
