@@ -10,26 +10,81 @@ LEADERBOARD_FILE = Path("data/leaderboard.json")
 API_URL = "https://wheniskickoff.com/data/v1/matches.json"
 
 
+TEAM_CODES = {
+    "ARG": "Argentina",
+    "AUS": "Australia",
+    "AUT": "Austria",
+    "BEL": "Belgium",
+    "BIH": "Bosnia",
+    "BRA": "Brazil",
+    "CAN": "Canada",
+    "CIV": "Ivory Coast",
+    "COD": "DR Congo",
+    "COL": "Colombia",
+    "CPV": "Cape Verde",
+    "CRO": "Croatia",
+    "CUW": "Curacao",
+    "CZE": "Czech Republic",
+    "DZA": "Algeria",
+    "ECU": "Ecuador",
+    "EGY": "Egypt",
+    "ENG": "England",
+    "ESP": "Spain",
+    "FRA": "France",
+    "GER": "Germany",
+    "GHA": "Ghana",
+    "HAI": "Haiti",
+    "IRN": "Iran",
+    "IRQ": "Iraq",
+    "JOR": "Jordan",
+    "JPN": "Japan",
+    "KOR": "South Korea",
+    "KSA": "Saudi Arabia",
+    "MAR": "Morocco",
+    "MEX": "Mexico",
+    "NED": "Netherlands",
+    "NOR": "Norway",
+    "NZL": "New Zealand",
+    "PAN": "Panama",
+    "PAR": "Paraguay",
+    "POR": "Portugal",
+    "QAT": "Qatar",
+    "RSA": "South Africa",
+    "SCO": "Scotland",
+    "SEN": "Senegal",
+    "SUI": "Switzerland",
+    "SWE": "Sweden",
+    "TUN": "Tunisia",
+    "TUR": "Turkey",
+    "URY": "Uruguay",
+    "USA": "USA",
+    "UZB": "Uzbekistan",
+}
+
+
 TEAM_ALIASES = {
-    "USA": "United States",
     "United States": "USA",
+    "USA": "USA",
 
     "Czechia": "Czech Republic",
-    "Czech Republic": "Czechia",
+    "Czech Republic": "Czech Republic",
 
-    "Bosnia": "Bosnia-Herzegovina",
     "Bosnia-Herzegovina": "Bosnia",
     "Bosnia & Herzegovina": "Bosnia",
     "Bosnia and Herzegovina": "Bosnia",
+    "Bosnia": "Bosnia",
 
     "Cape Verde Islands": "Cape Verde",
-    "Cape Verde": "Cape Verde Islands",
+    "Cape Verde": "Cape Verde",
 
     "Congo DR": "DR Congo",
-    "DR Congo": "Congo DR",
+    "DR Congo": "DR Congo",
 
     "Curaçao": "Curacao",
-    "Curacao": "Curaçao",
+    "Curacao": "Curacao",
+
+    "Korea Republic": "South Korea",
+    "South Korea": "South Korea",
 }
 
 
@@ -46,12 +101,20 @@ def save(path, data):
 
 def first_value(game, keys):
     """
-    Returns the first key that exists and is not None.
-    Important: this preserves 0 scores.
+    Looks first at the match object, then at match['raw'] if it exists.
+    Important: preserves 0 scores.
     """
-    for key in keys:
-        if key in game and game[key] is not None:
-            return game[key]
+    sources = [game]
+
+    raw = game.get("raw")
+    if isinstance(raw, dict):
+        sources.append(raw)
+
+    for source in sources:
+        for key in keys:
+            if key in source and source[key] is not None:
+                return source[key]
+
     return None
 
 
@@ -70,23 +133,18 @@ def normalise_team_name(name):
         return name
 
     name = str(name).strip()
-    return TEAM_ALIASES.get(name, name)
+
+    if name in TEAM_CODES:
+        return TEAM_CODES[name]
+
+    if name in TEAM_ALIASES:
+        return TEAM_ALIASES[name]
+
+    return name
 
 
 def team_matches(player_team, result_team):
-    player_team = normalise_team_name(player_team)
-    result_team = normalise_team_name(result_team)
-
-    if player_team == result_team:
-        return True
-
-    if TEAM_ALIASES.get(player_team) == result_team:
-        return True
-
-    if TEAM_ALIASES.get(result_team) == player_team:
-        return True
-
-    return False
+    return normalise_team_name(player_team) == normalise_team_name(result_team)
 
 
 def fetch_matches():
@@ -114,6 +172,7 @@ def fetch_matches():
 
         home = first_value(game, [
             "home_name",
+            "homeTeamName",
             "home_team",
             "homeTeam",
             "home",
@@ -122,6 +181,7 @@ def fetch_matches():
 
         away = first_value(game, [
             "away_name",
+            "awayTeamName",
             "away_team",
             "awayTeam",
             "away",
@@ -133,7 +193,8 @@ def fetch_matches():
             "home_score",
             "homeScore",
             "homeGoals",
-            "home_goals"
+            "home_goals",
+            "score1"
         ]))
 
         score2 = as_int_or_none(first_value(game, [
@@ -141,8 +202,11 @@ def fetch_matches():
             "away_score",
             "awayScore",
             "awayGoals",
-            "away_goals"
+            "away_goals",
+            "score2"
         ]))
+
+        status = str(first_value(game, ["status"]) or "").lower()
 
         if not home or not away:
             continue
@@ -152,8 +216,8 @@ def fetch_matches():
             "team2": normalise_team_name(away),
             "score1": score1,
             "score2": score2,
-            "status": str(game.get("status", "")).lower(),
-            "date": game.get("date") or game.get("utcDate") or game.get("local_date") or game.get("datetime_utc"),
+            "status": status,
+            "date": first_value(game, ["date", "utcDate", "local_date", "datetime_utc"]),
             "raw": game
         })
 
