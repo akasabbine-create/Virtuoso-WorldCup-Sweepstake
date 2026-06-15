@@ -122,14 +122,16 @@ tr.top-three td {
 }
 
 .results-grid,
-.fixtures-grid {
+.fixtures-grid,
+.player-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 14px;
 }
 
 .result-card,
-.fixture-card {
+.fixture-card,
+.player-card {
   background: #102d44;
   border: 1px solid #24465d;
   border-radius: 12px;
@@ -137,7 +139,8 @@ tr.top-three td {
 }
 
 .result-card h3,
-.fixture-card h3 {
+.fixture-card h3,
+.player-card h3 {
   margin: 0 0 8px;
 }
 
@@ -148,13 +151,61 @@ tr.top-three td {
 }
 
 .result-card ul,
-.fixture-card ul {
+.fixture-card ul,
+.player-card ul {
   margin: 0;
   padding-left: 18px;
 }
 
 .fixture-card {
   border-left: 4px solid #39d353;
+}
+
+.player-card {
+  border-left: 4px solid #f2cc60;
+}
+
+.player-card-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.player-card-header strong {
+  font-size: 1.1rem;
+}
+
+.player-card-subtitle {
+  margin: 0 0 12px;
+  color: #c9d1d9;
+}
+
+.team-breakdown {
+  background: #081f31;
+  border: 1px solid #24465d;
+  border-radius: 10px;
+  padding: 12px;
+  margin-top: 10px;
+}
+
+.team-breakdown-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 6px;
+}
+
+.team-stats {
+  color: #c9d1d9;
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+}
+
+.team-breakdown li {
+  margin-bottom: 4px;
+  color: #d6e4ef;
 }
 
 .rules-section {
@@ -205,6 +256,7 @@ tr.top-three td {
   .cards,
   .results-grid,
   .fixtures-grid,
+  .player-grid,
   .rules-grid {
     grid-template-columns: 1fr;
   }
@@ -221,5 +273,10 @@ tr.top-three td {
 
   .card p {
     font-size: 1.2rem;
+  }
+
+  .player-card-header {
+    align-items: flex-start;
+    flex-direction: column;
   }
 }
