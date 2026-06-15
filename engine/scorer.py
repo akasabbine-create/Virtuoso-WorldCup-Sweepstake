@@ -30,8 +30,10 @@ def fetch_matches():
             or data.get("data")
             or []
         )
-    else:
+    elif isinstance(data, list):
         games = data
+    else:
+        games = []
 
     matches = []
 
