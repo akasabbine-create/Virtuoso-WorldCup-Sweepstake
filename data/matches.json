@@ -279,8 +279,8 @@
                 "shortDisplayName": "South Africa",
                 "name": "South Africa",
                 "location": "South Africa",
-                "color": "087d5a",
-                "alternateColor": "fbb516",
+                "color": "FFB81C",
+                "alternateColor": "0C562E",
                 "isActive": true,
                 "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rsa.png",
                 "links": [
@@ -1635,7 +1635,7 @@
                 "name": "Canada",
                 "location": "Canada",
                 "color": "ed2224",
-                "alternateColor": "ffffff",
+                "alternateColor": "000000",
                 "isActive": true,
                 "logo": "https://a.espncdn.com/i/teamlogos/countries/500/can.png",
                 "links": [
@@ -3386,7 +3386,7 @@
                 "name": "Qatar",
                 "location": "Qatar",
                 "color": "691a40",
-                "alternateColor": "691a40",
+                "alternateColor": "FFFFFF",
                 "isActive": true,
                 "logo": "https://a.espncdn.com/i/teamlogos/countries/500/qat.png",
                 "links": [
@@ -3513,8 +3513,8 @@
                 "shortDisplayName": "Switzerland",
                 "name": "Switzerland",
                 "location": "Switzerland",
-                "color": "d72b2c",
-                "alternateColor": "ffffff",
+                "color": "FF0000",
+                "alternateColor": "BCECAC",
                 "isActive": true,
                 "logo": "https://a.espncdn.com/i/teamlogos/countries/500/sui.png",
                 "links": [
@@ -4080,7 +4080,7 @@
                 "name": "Brazil",
                 "location": "Brazil",
                 "color": "fee000",
-                "alternateColor": "009c37",
+                "alternateColor": "193375",
                 "isActive": true,
                 "logo": "https://a.espncdn.com/i/teamlogos/countries/500/bra.png",
                 "links": [
@@ -4210,8 +4210,8 @@
                 "shortDisplayName": "Morocco",
                 "name": "Morocco",
                 "location": "Morocco",
-                "color": "009060",
-                "alternateColor": "df2027",
+                "color": "df2027",
+                "alternateColor": "ffffff",
                 "isActive": true,
                 "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mar.png",
                 "links": [
@@ -4735,7 +4735,7 @@
                 "name": "Haiti",
                 "location": "Haiti",
                 "color": "0033a0",
-                "alternateColor": "D20300",
+                "alternateColor": "FFFFFF",
                 "isActive": true,
                 "logo": "https://a.espncdn.com/i/teamlogos/countries/500/hai.png",
                 "links": [
@@ -7661,7 +7661,7 @@
                 "name": "Ivory Coast",
                 "location": "Ivory Coast",
                 "color": "FF8200",
-                "alternateColor": "009A44",
+                "alternateColor": "FF8200",
                 "isActive": true,
                 "logo": "https://a.espncdn.com/i/teamlogos/countries/500/civ.png",
                 "links": [
@@ -11618,7 +11618,7 @@
     "score2": null,
     "displayScore1": 0,
     "displayScore2": 0,
-    "status": "Halftime",
+    "status": "Second Half",
     "completed": false,
     "live": true,
     "date": "2026-06-16T19:00Z",
@@ -11645,17 +11645,17 @@
           "timeValid": true,
           "recent": true,
           "status": {
-            "clock": 2700.0,
-            "displayClock": "45'+6'",
-            "period": 1,
+            "clock": 3960.0,
+            "displayClock": "66'",
+            "period": 2,
             "type": {
-              "id": "23",
-              "name": "STATUS_HALFTIME",
+              "id": "26",
+              "name": "STATUS_SECOND_HALF",
               "state": "in",
               "completed": false,
-              "description": "Halftime",
-              "detail": "HT",
-              "shortDetail": "HT"
+              "description": "Second Half",
+              "detail": "66'",
+              "shortDetail": "66'"
             }
           },
           "venue": {
@@ -11829,7 +11829,7 @@
                 {
                   "name": "wonCorners",
                   "abbreviation": "CW",
-                  "displayValue": "3"
+                  "displayValue": "5"
                 },
                 {
                   "name": "goalAssists",
@@ -11839,27 +11839,27 @@
                 {
                   "name": "possessionPct",
                   "abbreviation": "PP",
-                  "displayValue": "56.5"
+                  "displayValue": "55.5"
                 },
                 {
                   "name": "shotAssists",
                   "abbreviation": "SHAST",
-                  "displayValue": "1"
+                  "displayValue": "5"
                 },
                 {
                   "name": "shotsOnTarget",
                   "abbreviation": "SOG",
-                  "displayValue": "0"
+                  "displayValue": "3"
                 },
                 {
                   "name": "totalGoals",
                   "abbreviation": "G",
-                  "displayValue": "0"
+                  "displayValue": "1"
                 },
                 {
                   "name": "totalShots",
                   "abbreviation": "SHOT",
-                  "displayValue": "1"
+                  "displayValue": "6"
                 }
               ]
             },
@@ -11955,7 +11955,7 @@
                 {
                   "name": "foulsCommitted",
                   "abbreviation": "FC",
-                  "displayValue": "4"
+                  "displayValue": "6"
                 },
                 {
                   "name": "wonCorners",
@@ -11970,7 +11970,7 @@
                 {
                   "name": "possessionPct",
                   "abbreviation": "PP",
-                  "displayValue": "43.5"
+                  "displayValue": "44.5"
                 },
                 {
                   "name": "shotAssists",
@@ -11995,7 +11995,52 @@
               ]
             }
           ],
-          "details": [],
+          "details": [
+            {
+              "type": {
+                "id": "70",
+                "text": "Goal"
+              },
+              "clock": {
+                "value": 3932.0,
+                "displayValue": "66'"
+              },
+              "team": {
+                "id": "478"
+              },
+              "scoreValue": 1,
+              "scoringPlay": true,
+              "redCard": false,
+              "yellowCard": false,
+              "penaltyKick": false,
+              "ownGoal": false,
+              "shootout": false,
+              "athletesInvolved": [
+                {
+                  "id": "231388",
+                  "displayName": "Kylian Mbappé",
+                  "shortName": "K. Mbappé",
+                  "fullName": "Kylian Mbappé",
+                  "jersey": "10",
+                  "team": {
+                    "id": "478"
+                  },
+                  "links": [
+                    {
+                      "rel": [
+                        "playercard",
+                        "desktop",
+                        "athlete"
+                      ],
+                      "href": "https://www.espn.com/soccer/player/_/id/231388/kylian-mbappe",
+                      "isHidden": false
+                    }
+                  ],
+                  "position": "F"
+                }
+              ]
+            }
+          ],
           "odds": [
             {
               "overUnder": 2.5,
@@ -12064,14 +12109,14 @@
                     "odds": "-150"
                   },
                   "current": {
-                    "line": "o1.5",
-                    "odds": "-109",
+                    "line": "o2.5",
+                    "odds": "+187",
                     "link": {
                       "rel": [
                         "over",
                         "bets"
                       ],
-                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33260442%3Foutcomes%3D0OU84979167O150_1",
+                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33260442%3Foutcomes%3D0OU84979167O250_1",
                       "tracking": {
                         "campaign": "betting-integrations",
                         "tags": {
@@ -12080,7 +12125,7 @@
                           "gameId": 760432,
                           "betSide": "over",
                           "betType": "straight",
-                          "betDetails": "Over:1.5"
+                          "betDetails": "Over:2.5"
                         }
                       }
                     }
@@ -12096,14 +12141,14 @@
                     "odds": "+120"
                   },
                   "current": {
-                    "line": "u1.5",
-                    "odds": "-109",
+                    "line": "u2.5",
+                    "odds": "-232",
                     "link": {
                       "rel": [
                         "under",
                         "bets"
                       ],
-                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33260442%3Foutcomes%3D0OU84979167U150_3",
+                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33260442%3Foutcomes%3D0OU84979167U250_3",
                       "tracking": {
                         "campaign": "betting-integrations",
                         "tags": {
@@ -12112,7 +12157,7 @@
                           "gameId": 760432,
                           "betSide": "under",
                           "betType": "straight",
-                          "betDetails": "Under:1.5"
+                          "betDetails": "Under:2.5"
                         }
                       }
                     }
@@ -12132,14 +12177,14 @@
                     "odds": "+140"
                   },
                   "current": {
-                    "line": "-0.5",
-                    "odds": "-110",
+                    "line": "-1.5",
+                    "odds": "+120",
                     "link": {
                       "rel": [
                         "homeSpread",
                         "bets"
                       ],
-                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33260442%3Foutcomes%3D0HC84979168N50_1",
+                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33260442%3Foutcomes%3D0HC84979168N150_1",
                       "tracking": {
                         "campaign": "betting-integrations",
                         "tags": {
@@ -12148,7 +12193,7 @@
                           "gameId": 760432,
                           "betSide": "home",
                           "betType": "straight",
-                          "betDetails": "Spread:FRA-0.5"
+                          "betDetails": "Spread:FRA-1.5"
                         }
                       }
                     }
@@ -12164,8 +12209,8 @@
                     "odds": "-180"
                   },
                   "current": {
-                    "line": "+0.5",
-                    "odds": "-115",
+                    "line": "+1.5",
+                    "odds": "+425",
                     "link": {
                       "rel": [
                         "awaySpread",
@@ -12180,7 +12225,7 @@
                           "gameId": 760432,
                           "betSide": "away",
                           "betType": "straight",
-                          "betDetails": "Spread:SEN+0.5"
+                          "betDetails": "Spread:SEN+1.5"
                         }
                       }
                     }
@@ -12198,13 +12243,12 @@
                     "odds": "-200"
                   },
                   "current": {
-                    "odds": "-110",
+                    "odds": "OFF",
                     "link": {
                       "rel": [
                         "home",
                         "bets"
                       ],
-                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33260442%3Foutcomes%3D0ML84930140_1",
                       "tracking": {
                         "campaign": "betting-integrations",
                         "tags": {
@@ -12226,13 +12270,12 @@
                     "odds": "+550"
                   },
                   "current": {
-                    "odds": "+450",
+                    "odds": "OFF",
                     "link": {
                       "rel": [
                         "away",
                         "bets"
                       ],
-                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33260442%3Foutcomes%3D0ML84930140_3",
                       "tracking": {
                         "campaign": "betting-integrations",
                         "tags": {
@@ -12252,26 +12295,6 @@
                   },
                   "close": {
                     "odds": "+340"
-                  },
-                  "current": {
-                    "odds": "+180",
-                    "link": {
-                      "rel": [
-                        "draw",
-                        "bets"
-                      ],
-                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33260442%3Foutcomes%3D0ML84930140_2",
-                      "tracking": {
-                        "campaign": "betting-integrations",
-                        "tags": {
-                          "league": "fifa.world",
-                          "sport": "soccer",
-                          "gameId": 760432,
-                          "betSide": "draw",
-                          "betType": "straight"
-                        }
-                      }
-                    }
                   }
                 }
               },
@@ -12284,17 +12307,17 @@
         }
       ],
       "status": {
-        "clock": 2700.0,
-        "displayClock": "45'+6'",
-        "period": 1,
+        "clock": 3960.0,
+        "displayClock": "66'",
+        "period": 2,
         "type": {
-          "id": "23",
-          "name": "STATUS_HALFTIME",
+          "id": "26",
+          "name": "STATUS_SECOND_HALF",
           "state": "in",
           "completed": false,
-          "description": "Halftime",
-          "detail": "HT",
-          "shortDetail": "HT"
+          "description": "Second Half",
+          "detail": "66'",
+          "shortDetail": "66'"
         }
       },
       "venue": {
@@ -12648,7 +12671,7 @@
                 "priority": 1
               },
               "drawOdds": {
-                "moneyLine": 600,
+                "moneyLine": 550,
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -12675,7 +12698,7 @@
                   },
                   "close": {
                     "line": "o2.5",
-                    "odds": "-165",
+                    "odds": "-160",
                     "link": {
                       "rel": [
                         "over",
@@ -12793,7 +12816,7 @@
                     "odds": "+500"
                   },
                   "close": {
-                    "odds": "+1200",
+                    "odds": "+1300",
                     "link": {
                       "rel": [
                         "home",
@@ -12843,7 +12866,7 @@
                     "odds": "+330"
                   },
                   "close": {
-                    "odds": "+600",
+                    "odds": "+550",
                     "link": {
                       "rel": [
                         "draw",
@@ -14454,7 +14477,7 @@
                   },
                   "close": {
                     "line": "o2.5",
-                    "odds": "-135",
+                    "odds": "-130",
                     "link": {
                       "rel": [
                         "over",
@@ -14482,7 +14505,7 @@
                   },
                   "close": {
                     "line": "u2.5",
-                    "odds": "+110",
+                    "odds": "+105",
                     "link": {
                       "rel": [
                         "under",
@@ -16773,8 +16796,8 @@
                 "shortDisplayName": "South Africa",
                 "name": "South Africa",
                 "location": "South Africa",
-                "color": "087d5a",
-                "alternateColor": "fbb516",
+                "color": "FFB81C",
+                "alternateColor": "0C562E",
                 "isActive": true,
                 "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rsa.png",
                 "links": [
@@ -17373,8 +17396,8 @@
                 "shortDisplayName": "Switzerland",
                 "name": "Switzerland",
                 "location": "Switzerland",
-                "color": "d72b2c",
-                "alternateColor": "ffffff",
+                "color": "FF0000",
+                "alternateColor": "BCECAC",
                 "isActive": true,
                 "logo": "https://a.espncdn.com/i/teamlogos/countries/500/sui.png",
                 "links": [
@@ -18126,7 +18149,7 @@
                 "name": "Canada",
                 "location": "Canada",
                 "color": "ed2224",
-                "alternateColor": "ffffff",
+                "alternateColor": "000000",
                 "isActive": true,
                 "logo": "https://a.espncdn.com/i/teamlogos/countries/500/can.png",
                 "links": [
@@ -18293,7 +18316,7 @@
                 "name": "Qatar",
                 "location": "Qatar",
                 "color": "691a40",
-                "alternateColor": "691a40",
+                "alternateColor": "FFFFFF",
                 "isActive": true,
                 "logo": "https://a.espncdn.com/i/teamlogos/countries/500/qat.png",
                 "links": [
@@ -20562,8 +20585,8 @@
                 "shortDisplayName": "Morocco",
                 "name": "Morocco",
                 "location": "Morocco",
-                "color": "009060",
-                "alternateColor": "df2027",
+                "color": "df2027",
+                "alternateColor": "ffffff",
                 "isActive": true,
                 "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mar.png",
                 "links": [
@@ -21150,7 +21173,7 @@
                 "name": "Brazil",
                 "location": "Brazil",
                 "color": "fee000",
-                "alternateColor": "009c37",
+                "alternateColor": "193375",
                 "isActive": true,
                 "logo": "https://a.espncdn.com/i/teamlogos/countries/500/bra.png",
                 "links": [
@@ -21317,7 +21340,7 @@
                 "name": "Haiti",
                 "location": "Haiti",
                 "color": "0033a0",
-                "alternateColor": "D20300",
+                "alternateColor": "FFFFFF",
                 "isActive": true,
                 "logo": "https://a.espncdn.com/i/teamlogos/countries/500/hai.png",
                 "links": [
@@ -23588,7 +23611,7 @@
                 "name": "Ivory Coast",
                 "location": "Ivory Coast",
                 "color": "FF8200",
-                "alternateColor": "009A44",
+                "alternateColor": "FF8200",
                 "isActive": true,
                 "logo": "https://a.espncdn.com/i/teamlogos/countries/500/civ.png",
                 "links": [
@@ -27646,7 +27669,7 @@
                   },
                   "close": {
                     "line": "+1.5",
-                    "odds": "-205",
+                    "odds": "-200",
                     "link": {
                       "rel": [
                         "awaySpread",
@@ -27676,7 +27699,7 @@
                     "odds": "-225"
                   },
                   "close": {
-                    "odds": "-205",
+                    "odds": "-210",
                     "link": {
                       "rel": [
                         "home",
@@ -27701,7 +27724,7 @@
                     "odds": "+650"
                   },
                   "close": {
-                    "odds": "+650",
+                    "odds": "+700",
                     "link": {
                       "rel": [
                         "away",
@@ -27747,7 +27770,7 @@
                   }
                 }
               },
-              "details": "URU -205"
+              "details": "URU -210"
             }
           ],
           "wasSuspended": false,
@@ -33600,7 +33623,7 @@
                 "name": "Qatar",
                 "location": "Qatar",
                 "color": "691a40",
-                "alternateColor": "691a40",
+                "alternateColor": "FFFFFF",
                 "isActive": true,
                 "logo": "https://a.espncdn.com/i/teamlogos/countries/500/qat.png",
                 "links": [
@@ -34196,8 +34219,8 @@
                 "shortDisplayName": "Switzerland",
                 "name": "Switzerland",
                 "location": "Switzerland",
-                "color": "d72b2c",
-                "alternateColor": "ffffff",
+                "color": "FF0000",
+                "alternateColor": "BCECAC",
                 "isActive": true,
                 "logo": "https://a.espncdn.com/i/teamlogos/countries/500/sui.png",
                 "links": [
@@ -34364,7 +34387,7 @@
                 "name": "Canada",
                 "location": "Canada",
                 "color": "ed2224",
-                "alternateColor": "ffffff",
+                "alternateColor": "000000",
                 "isActive": true,
                 "logo": "https://a.espncdn.com/i/teamlogos/countries/500/can.png",
                 "links": [
@@ -34948,8 +34971,8 @@
                 "shortDisplayName": "Morocco",
                 "name": "Morocco",
                 "location": "Morocco",
-                "color": "009060",
-                "alternateColor": "df2027",
+                "color": "df2027",
+                "alternateColor": "ffffff",
                 "isActive": true,
                 "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mar.png",
                 "links": [
@@ -35118,7 +35141,7 @@
                 "name": "Haiti",
                 "location": "Haiti",
                 "color": "0033a0",
-                "alternateColor": "D20300",
+                "alternateColor": "FFFFFF",
                 "isActive": true,
                 "logo": "https://a.espncdn.com/i/teamlogos/countries/500/hai.png",
                 "links": [
@@ -35870,7 +35893,7 @@
                 "name": "Brazil",
                 "location": "Brazil",
                 "color": "fee000",
-                "alternateColor": "009c37",
+                "alternateColor": "193375",
                 "isActive": true,
                 "logo": "https://a.espncdn.com/i/teamlogos/countries/500/bra.png",
                 "links": [
@@ -37206,8 +37229,8 @@
                 "shortDisplayName": "South Africa",
                 "name": "South Africa",
                 "location": "South Africa",
-                "color": "087d5a",
-                "alternateColor": "fbb516",
+                "color": "FFB81C",
+                "alternateColor": "0C562E",
                 "isActive": true,
                 "logo": "https://a.espncdn.com/i/teamlogos/countries/500/rsa.png",
                 "links": [
@@ -38128,7 +38151,7 @@
                 "name": "Ivory Coast",
                 "location": "Ivory Coast",
                 "color": "FF8200",
-                "alternateColor": "009A44",
+                "alternateColor": "FF8200",
                 "isActive": true,
                 "logo": "https://a.espncdn.com/i/teamlogos/countries/500/civ.png",
                 "links": [
