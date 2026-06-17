@@ -462,6 +462,20 @@ h2::after {
   line-height: 1;
 }
 
+.badge-legend .badge-chip[title="Current wooden spoon"] {
+  background: rgba(210, 153, 34, 0.14);
+  border-color: rgba(210, 153, 34, 0.38);
+  color: #ffd166;
+  box-shadow:
+    0 0 0 1px rgba(255, 209, 102, 0.04),
+    0 8px 18px rgba(210, 153, 34, 0.08);
+}
+
+.badge-legend .badge-chip[title="Current wooden spoon"]:hover {
+  background: rgba(210, 153, 34, 0.2);
+  border-color: rgba(255, 209, 102, 0.5);
+}
+
 .table-wrap {
   overflow-x: auto;
   border: 1px solid rgba(88, 166, 255, 0.18);
