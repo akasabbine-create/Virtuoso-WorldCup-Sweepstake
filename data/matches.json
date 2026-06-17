@@ -13016,7 +13016,7 @@
     "score2": null,
     "displayScore1": 1,
     "displayScore2": 0,
-    "status": "First Half",
+    "status": "Halftime",
     "completed": false,
     "live": true,
     "date": "2026-06-17T01:00Z",
@@ -13043,17 +13043,17 @@
           "timeValid": true,
           "recent": true,
           "status": {
-            "clock": 1680.0,
-            "displayClock": "28'",
+            "clock": 2700.0,
+            "displayClock": "45'+5'",
             "period": 1,
             "type": {
-              "id": "25",
-              "name": "STATUS_FIRST_HALF",
+              "id": "23",
+              "name": "STATUS_HALFTIME",
               "state": "in",
               "completed": false,
-              "description": "First Half",
-              "detail": "28'",
-              "shortDetail": "28'"
+              "description": "Halftime",
+              "detail": "HT",
+              "shortDetail": "HT"
             }
           },
           "venue": {
@@ -13222,7 +13222,7 @@
                 {
                   "name": "foulsCommitted",
                   "abbreviation": "FC",
-                  "displayValue": "3"
+                  "displayValue": "7"
                 },
                 {
                   "name": "wonCorners",
@@ -13237,12 +13237,12 @@
                 {
                   "name": "possessionPct",
                   "abbreviation": "PP",
-                  "displayValue": "64.8"
+                  "displayValue": "56.1"
                 },
                 {
                   "name": "shotAssists",
                   "abbreviation": "SHAST",
-                  "displayValue": "1"
+                  "displayValue": "3"
                 },
                 {
                   "name": "shotsOnTarget",
@@ -13257,7 +13257,7 @@
                 {
                   "name": "totalShots",
                   "abbreviation": "SHOT",
-                  "displayValue": "1"
+                  "displayValue": "4"
                 }
               ]
             },
@@ -13353,12 +13353,12 @@
                 {
                   "name": "foulsCommitted",
                   "abbreviation": "FC",
-                  "displayValue": "0"
+                  "displayValue": "3"
                 },
                 {
                   "name": "wonCorners",
                   "abbreviation": "CW",
-                  "displayValue": "0"
+                  "displayValue": "2"
                 },
                 {
                   "name": "goalAssists",
@@ -13368,12 +13368,12 @@
                 {
                   "name": "possessionPct",
                   "abbreviation": "PP",
-                  "displayValue": "35.2"
+                  "displayValue": "43.9"
                 },
                 {
                   "name": "shotAssists",
                   "abbreviation": "SHAST",
-                  "displayValue": "1"
+                  "displayValue": "3"
                 },
                 {
                   "name": "shotsOnTarget",
@@ -13388,7 +13388,7 @@
                 {
                   "name": "totalShots",
                   "abbreviation": "SHOT",
-                  "displayValue": "1"
+                  "displayValue": "4"
                 }
               ]
             }
@@ -13509,7 +13509,7 @@
                   },
                   "current": {
                     "line": "o2.5",
-                    "odds": "-167",
+                    "odds": "+116",
                     "link": {
                       "rel": [
                         "over",
@@ -13541,7 +13541,7 @@
                   },
                   "current": {
                     "line": "u2.5",
-                    "odds": "+139",
+                    "odds": "-138",
                     "link": {
                       "rel": [
                         "under",
@@ -13577,7 +13577,7 @@
                   },
                   "current": {
                     "line": "-1.5",
-                    "odds": "-120",
+                    "odds": "-105",
                     "link": {
                       "rel": [
                         "homeSpread",
@@ -13609,7 +13609,7 @@
                   },
                   "current": {
                     "line": "+1.5",
-                    "odds": "-110",
+                    "odds": "-120",
                     "link": {
                       "rel": [
                         "awaySpread",
@@ -13642,7 +13642,7 @@
                     "odds": "-185"
                   },
                   "current": {
-                    "odds": "-750",
+                    "odds": "-700",
                     "link": {
                       "rel": [
                         "home",
@@ -13670,7 +13670,7 @@
                     "odds": "+550"
                   },
                   "current": {
-                    "odds": "+1800",
+                    "odds": "+2200",
                     "link": {
                       "rel": [
                         "away",
@@ -13698,7 +13698,7 @@
                     "odds": "+310"
                   },
                   "current": {
-                    "odds": "+550",
+                    "odds": "+500",
                     "link": {
                       "rel": [
                         "draw",
@@ -13728,17 +13728,17 @@
         }
       ],
       "status": {
-        "clock": 1680.0,
-        "displayClock": "28'",
+        "clock": 2700.0,
+        "displayClock": "45'+5'",
         "period": 1,
         "type": {
-          "id": "25",
-          "name": "STATUS_FIRST_HALF",
+          "id": "23",
+          "name": "STATUS_HALFTIME",
           "state": "in",
           "completed": false,
-          "description": "First Half",
-          "detail": "28'",
-          "shortDetail": "28'"
+          "description": "Halftime",
+          "detail": "HT",
+          "shortDetail": "HT"
         }
       },
       "venue": {
@@ -13772,6 +13772,18 @@
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "highlights",
+            "desktop"
+          ],
+          "href": "https://www.espn.com/soccer/video/_/gameId/760433",
+          "text": "Highlights",
+          "shortText": "Highlights",
+          "isExternal": false,
+          "isPremium": false
         }
       ]
     }
@@ -49490,7 +49502,7 @@
                 "priority": 1
               },
               "drawOdds": {
-                "moneyLine": 210,
+                "moneyLine": 205,
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -49577,7 +49589,7 @@
                   },
                   "close": {
                     "line": "+0.5",
-                    "odds": "-140",
+                    "odds": "-170",
                     "link": {
                       "rel": [
                         "homeSpread",
@@ -49605,7 +49617,7 @@
                   },
                   "close": {
                     "line": "-0.5",
-                    "odds": "+110",
+                    "odds": "+135",
                     "link": {
                       "rel": [
                         "awaySpread",
@@ -49635,7 +49647,7 @@
                     "odds": "+260"
                   },
                   "close": {
-                    "odds": "+280",
+                    "odds": "+230",
                     "link": {
                       "rel": [
                         "home",
@@ -49660,7 +49672,7 @@
                     "odds": "+115"
                   },
                   "close": {
-                    "odds": "+120",
+                    "odds": "+140",
                     "link": {
                       "rel": [
                         "away",
@@ -49685,7 +49697,7 @@
                     "odds": "+230"
                   },
                   "close": {
-                    "odds": "+210",
+                    "odds": "+205",
                     "link": {
                       "rel": [
                         "draw",
@@ -49706,7 +49718,7 @@
                   }
                 }
               },
-              "details": "AUT +120"
+              "details": "AUT +140"
             }
           ],
           "wasSuspended": false,
