@@ -325,6 +325,30 @@ h2::after {
     0 8px 18px rgba(210, 153, 34, 0.08);
 }
 
+.most-goals-country {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(88, 166, 255, 0.14);
+  border: 1px solid rgba(88, 166, 255, 0.42);
+  color: #79c0ff;
+  font-weight: 800;
+  line-height: 1.1;
+  white-space: nowrap;
+  box-shadow:
+    0 0 0 1px rgba(88, 166, 255, 0.05),
+    0 8px 18px rgba(88, 166, 255, 0.08);
+}
+
+.wooden-spoon-country.most-goals-country {
+  background:
+    linear-gradient(90deg, rgba(210, 153, 34, 0.16), rgba(88, 166, 255, 0.14));
+  border-color: rgba(255, 209, 102, 0.42);
+  color: #ffd166;
+}
+
 /* Insight strip */
 
 .insight-strip {
@@ -474,6 +498,20 @@ h2::after {
 .badge-legend .badge-chip[title="Current wooden spoon"]:hover {
   background: rgba(210, 153, 34, 0.2);
   border-color: rgba(255, 209, 102, 0.5);
+}
+
+.badge-legend .badge-chip[title="Current most-goals nation owner"] {
+  background: rgba(88, 166, 255, 0.14);
+  border-color: rgba(88, 166, 255, 0.42);
+  color: #79c0ff;
+  box-shadow:
+    0 0 0 1px rgba(88, 166, 255, 0.05),
+    0 8px 18px rgba(88, 166, 255, 0.08);
+}
+
+.badge-legend .badge-chip[title="Current most-goals nation owner"]:hover {
+  background: rgba(88, 166, 255, 0.2);
+  border-color: rgba(121, 192, 255, 0.55);
 }
 
 .table-wrap {
@@ -1339,7 +1377,8 @@ tr.top-three:nth-child(3) .badge-icon {
   white-space: nowrap;
 }
 
-.player-collapse-teams .wooden-spoon-country {
+.player-collapse-teams .wooden-spoon-country,
+.player-collapse-teams .most-goals-country {
   padding: 2px 7px;
 }
 
@@ -1738,7 +1777,8 @@ tr.top-three:nth-child(3) .badge-icon {
     font-size: 0.78rem;
   }
 
-  .wooden-spoon-country {
+  .wooden-spoon-country,
+  .most-goals-country {
     padding: 2px 7px;
     font-size: 0.92em;
   }
