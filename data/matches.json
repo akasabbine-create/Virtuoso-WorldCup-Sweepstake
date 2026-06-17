@@ -11840,7 +11840,7 @@
                 {
                   "name": "possessionPct",
                   "abbreviation": "PP",
-                  "displayValue": "53.7"
+                  "displayValue": "53.4"
                 },
                 {
                   "name": "shotAssists",
@@ -11972,7 +11972,7 @@
                 {
                   "name": "possessionPct",
                   "abbreviation": "PP",
-                  "displayValue": "46.3"
+                  "displayValue": "46.6"
                 },
                 {
                   "name": "shotAssists",
@@ -12269,13 +12269,13 @@
     "id": "760430",
     "team1": "Iraq",
     "team2": "Norway",
-    "score1": null,
-    "score2": null,
+    "score1": 1,
+    "score2": 4,
     "displayScore1": 1,
-    "displayScore2": 3,
-    "status": "Second Half",
-    "completed": false,
-    "live": true,
+    "displayScore2": 4,
+    "status": "Full Time",
+    "completed": true,
+    "live": false,
     "date": "2026-06-16T22:00Z",
     "name": "Norway at Iraq",
     "shortName": "NOR @ IRQ",
@@ -12296,7 +12296,7 @@
           "uid": "s:600~l:606~e:760430~c:760430",
           "date": "2026-06-16T22:00Z",
           "startDate": "2026-06-16T22:00Z",
-          "attendance": 0,
+          "attendance": 63106,
           "timeValid": true,
           "recent": true,
           "status": {
@@ -12304,13 +12304,13 @@
             "displayClock": "90'+8'",
             "period": 2,
             "type": {
-              "id": "26",
-              "name": "STATUS_SECOND_HALF",
-              "state": "in",
-              "completed": false,
-              "description": "Second Half",
-              "detail": "90'+8'",
-              "shortDetail": "90'+8'"
+              "id": "28",
+              "name": "STATUS_FULL_TIME",
+              "state": "post",
+              "completed": true,
+              "description": "Full Time",
+              "detail": "FT",
+              "shortDetail": "FT"
             }
           },
           "venue": {
@@ -12394,13 +12394,14 @@
               "order": 0,
               "homeAway": "home",
               "winner": false,
-              "form": "LDWWW",
+              "advance": false,
+              "form": "LLDWW",
               "score": "1",
               "records": [
                 {
                   "name": "All Splits",
                   "type": "total",
-                  "summary": "0-0-0",
+                  "summary": "0-0-1",
                   "abbreviation": "Total"
                 }
               ],
@@ -12524,14 +12525,15 @@
               "type": "team",
               "order": 1,
               "homeAway": "away",
-              "winner": false,
-              "form": "DWDLW",
-              "score": "3",
+              "winner": true,
+              "advance": true,
+              "form": "WDWDL",
+              "score": "4",
               "records": [
                 {
                   "name": "All Splits",
                   "type": "total",
-                  "summary": "0-0-0",
+                  "summary": "1-0-0",
                   "abbreviation": "Total"
                 }
               ],
@@ -12645,7 +12647,7 @@
                 {
                   "name": "totalShots",
                   "abbreviation": "SHOT",
-                  "displayValue": "13"
+                  "displayValue": "12"
                 }
               ]
             }
@@ -12916,139 +12918,15 @@
               ]
             }
           ],
-          "odds": [
+          "headlines": [
             {
-              "overUnder": 2.5,
-              "link": {
-                "language": "en-US",
-                "rel": [
-                  "game",
-                  "desktop",
-                  "bets"
-                ],
-                "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33916871",
-                "text": "Game",
-                "shortText": "Game",
-                "isExternal": true,
-                "isPremium": false,
-                "isHidden": false
-              },
-              "provider": {
-                "id": "100",
-                "name": "DraftKings",
-                "priority": 1,
-                "displayName": "DraftKings",
-                "logos": [
-                  {
-                    "href": "https://a.espncdn.com/i/betting/Draftkings_Light.svg",
-                    "rel": [
-                      "light"
-                    ]
-                  },
-                  {
-                    "href": "https://a.espncdn.com/i/betting/Draftkings_Dark.svg",
-                    "rel": [
-                      "dark"
-                    ]
-                  }
-                ]
-              },
-              "drawOdds": {
-                "moneyLine": 550,
-                "link": {
-                  "language": "en-US",
-                  "rel": [
-                    "draw",
-                    "desktop",
-                    "bets",
-                    "draftkings"
-                  ],
-                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33916871%3Foutcomes%3D0ML84134100_2",
-                  "text": "Draw Bet",
-                  "shortText": "Draw Bet",
-                  "isExternal": true,
-                  "isPremium": false,
-                  "isHidden": false
-                }
-              },
-              "total": {
-                "displayName": "Total",
-                "shortDisplayName": "Total",
-                "over": {
-                  "open": {
-                    "line": "o2.5",
-                    "odds": "-150"
-                  },
-                  "close": {
-                    "line": "o2.5",
-                    "odds": "-160"
-                  }
-                },
-                "under": {
-                  "open": {
-                    "line": "u2.5",
-                    "odds": "+105"
-                  },
-                  "close": {
-                    "line": "u2.5",
-                    "odds": "+130"
-                  }
-                }
-              },
-              "pointSpread": {
-                "displayName": "Spread",
-                "shortDisplayName": "Spread",
-                "home": {
-                  "open": {
-                    "line": "+1.5",
-                    "odds": "-165"
-                  },
-                  "close": {
-                    "line": "+1.5",
-                    "odds": "+125"
-                  }
-                },
-                "away": {
-                  "open": {
-                    "line": "-1.5",
-                    "odds": "+110"
-                  },
-                  "close": {
-                    "line": "-1.5",
-                    "odds": "-160"
-                  }
-                }
-              },
-              "moneyline": {
-                "displayName": "Moneyline",
-                "shortDisplayName": "ML",
-                "home": {
-                  "open": {
-                    "odds": "+500"
-                  },
-                  "close": {
-                    "odds": "+1200"
-                  }
-                },
-                "away": {
-                  "open": {
-                    "odds": "-245"
-                  },
-                  "close": {
-                    "odds": "-425"
-                  }
-                },
-                "draw": {
-                  "open": {
-                    "odds": "+330"
-                  },
-                  "close": {
-                    "odds": "+550"
-                  }
-                }
-              },
-              "details": "NOR -425"
+              "description": "Erling Haaland scored his first World Cup goals with a brace as Norway started their campaign with a 4-1 win over Iraq in Boston.",
+              "type": "Recap",
+              "shortLinkText": "Haaland nets brace on WC debut, Norway beat Iraq"
             }
+          ],
+          "odds": [
+            null
           ],
           "wasSuspended": false,
           "playByPlayAvailable": true,
@@ -13060,13 +12938,13 @@
         "displayClock": "90'+8'",
         "period": 2,
         "type": {
-          "id": "26",
-          "name": "STATUS_SECOND_HALF",
-          "state": "in",
-          "completed": false,
-          "description": "Second Half",
-          "detail": "90'+8'",
-          "shortDetail": "90'+8'"
+          "id": "28",
+          "name": "STATUS_FULL_TIME",
+          "state": "post",
+          "completed": true,
+          "description": "Full Time",
+          "detail": "FT",
+          "shortDetail": "FT"
         }
       },
       "venue": {
@@ -13076,13 +12954,39 @@
         {
           "language": "en-US",
           "rel": [
-            "live",
+            "summary",
             "desktop",
             "event"
           ],
-          "href": "https://www.espn.com/soccer/match/_/gameId/760430",
-          "text": "Gamecast",
-          "shortText": "Live",
+          "href": "https://www.espn.com/soccer/match/_/gameId/760430/norway-iraq",
+          "text": "Summary",
+          "shortText": "Summary",
+          "isExternal": false,
+          "isPremium": false,
+          "isHidden": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "highlights",
+            "desktop"
+          ],
+          "href": "https://www.espn.com/soccer/video/_/gameId/760430",
+          "text": "Highlights",
+          "shortText": "Highlights",
+          "isExternal": false,
+          "isPremium": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "recap",
+            "desktop",
+            "event"
+          ],
+          "href": "https://www.espn.com/soccer/report/_/gameId/760430",
+          "text": "Report",
+          "shortText": "Report",
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
@@ -13308,7 +13212,53 @@
                   "id": "11114"
                 }
               },
-              "statistics": []
+              "statistics": [
+                {
+                  "name": "appearances",
+                  "abbreviation": "APP",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "foulsCommitted",
+                  "abbreviation": "FC",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "wonCorners",
+                  "abbreviation": "CW",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "goalAssists",
+                  "abbreviation": "A",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "possessionPct",
+                  "abbreviation": "PP",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "shotAssists",
+                  "abbreviation": "SHAST",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "shotsOnTarget",
+                  "abbreviation": "SOG",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "totalGoals",
+                  "abbreviation": "G",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "totalShots",
+                  "abbreviation": "SHOT",
+                  "displayValue": "0"
+                }
+              ]
             },
             {
               "id": "624",
@@ -13393,7 +13343,53 @@
                   "id": "10689"
                 }
               },
-              "statistics": []
+              "statistics": [
+                {
+                  "name": "appearances",
+                  "abbreviation": "APP",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "foulsCommitted",
+                  "abbreviation": "FC",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "wonCorners",
+                  "abbreviation": "CW",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "goalAssists",
+                  "abbreviation": "A",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "possessionPct",
+                  "abbreviation": "PP",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "shotAssists",
+                  "abbreviation": "SHAST",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "shotsOnTarget",
+                  "abbreviation": "SOG",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "totalGoals",
+                  "abbreviation": "G",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "totalShots",
+                  "abbreviation": "SHOT",
+                  "displayValue": "0"
+                }
+              ]
             }
           ],
           "details": [],
@@ -13417,10 +13413,25 @@
               "provider": {
                 "id": "100",
                 "name": "DraftKings",
-                "priority": 1
+                "priority": 1,
+                "displayName": "DraftKings",
+                "logos": [
+                  {
+                    "href": "https://a.espncdn.com/i/betting/Draftkings_Light.svg",
+                    "rel": [
+                      "light"
+                    ]
+                  },
+                  {
+                    "href": "https://a.espncdn.com/i/betting/Draftkings_Dark.svg",
+                    "rel": [
+                      "dark"
+                    ]
+                  }
+                ]
               },
               "drawOdds": {
-                "moneyLine": 320,
+                "moneyLine": 310,
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -13475,7 +13486,7 @@
                   },
                   "close": {
                     "line": "u2.5",
-                    "odds": "-120",
+                    "odds": "-125",
                     "link": {
                       "rel": [
                         "under",
@@ -13506,14 +13517,14 @@
                     "odds": "+110"
                   },
                   "close": {
-                    "line": "-1.5",
-                    "odds": "+155",
+                    "line": "-0.5",
+                    "odds": "-195",
                     "link": {
                       "rel": [
                         "homeSpread",
                         "bets"
                       ],
-                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33260772%3Foutcomes%3D0HC82518931N150_1",
+                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33260772%3Foutcomes%3D0HC82518931N50_1",
                       "tracking": {
                         "campaign": "betting-integrations",
                         "tags": {
@@ -13522,7 +13533,7 @@
                           "gameId": 760433,
                           "betSide": "home",
                           "betType": "straight",
-                          "betDetails": "Spread:ARG-1.5"
+                          "betDetails": "Spread:ARG-0.5"
                         }
                       }
                     }
@@ -13534,14 +13545,14 @@
                     "odds": "-170"
                   },
                   "close": {
-                    "line": "+1.5",
-                    "odds": "-195",
+                    "line": "+0.5",
+                    "odds": "+150",
                     "link": {
                       "rel": [
                         "awaySpread",
                         "bets"
                       ],
-                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33260772%3Foutcomes%3D0HC82518931P150_3",
+                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F33260772%3Foutcomes%3D0HC82518931P50_3",
                       "tracking": {
                         "campaign": "betting-integrations",
                         "tags": {
@@ -13550,7 +13561,7 @@
                           "gameId": 760433,
                           "betSide": "away",
                           "betType": "straight",
-                          "betDetails": "Spread:ALG+1.5"
+                          "betDetails": "Spread:ALG+0.5"
                         }
                       }
                     }
@@ -13565,7 +13576,7 @@
                     "odds": "-275"
                   },
                   "close": {
-                    "odds": "-195",
+                    "odds": "-185",
                     "link": {
                       "rel": [
                         "home",
@@ -13615,7 +13626,7 @@
                     "odds": "+320"
                   },
                   "close": {
-                    "odds": "+320",
+                    "odds": "+310",
                     "link": {
                       "rel": [
                         "draw",
@@ -13636,7 +13647,7 @@
                   }
                 }
               },
-              "details": "ARG -195"
+              "details": "ARG -185"
             }
           ],
           "wasSuspended": false,
@@ -14023,7 +14034,7 @@
                 ]
               },
               "drawOdds": {
-                "moneyLine": 400,
+                "moneyLine": 390,
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -14050,7 +14061,7 @@
                   },
                   "close": {
                     "line": "o2.5",
-                    "odds": "-125",
+                    "odds": "-120",
                     "link": {
                       "rel": [
                         "over",
@@ -14078,7 +14089,7 @@
                   },
                   "close": {
                     "line": "u2.5",
-                    "odds": "+100",
+                    "odds": "-105",
                     "link": {
                       "rel": [
                         "under",
@@ -14110,7 +14121,7 @@
                   },
                   "close": {
                     "line": "-1.5",
-                    "odds": "+105",
+                    "odds": "+110",
                     "link": {
                       "rel": [
                         "homeSpread",
@@ -14138,7 +14149,7 @@
                   },
                   "close": {
                     "line": "+1.5",
-                    "odds": "-130",
+                    "odds": "-140",
                     "link": {
                       "rel": [
                         "awaySpread",
@@ -14168,7 +14179,7 @@
                     "odds": "-310"
                   },
                   "close": {
-                    "odds": "-280",
+                    "odds": "-265",
                     "link": {
                       "rel": [
                         "home",
@@ -14218,7 +14229,7 @@
                     "odds": "+380"
                   },
                   "close": {
-                    "odds": "+400",
+                    "odds": "+390",
                     "link": {
                       "rel": [
                         "draw",
@@ -14239,7 +14250,7 @@
                   }
                 }
               },
-              "details": "AUT -280"
+              "details": "AUT -265"
             }
           ],
           "wasSuspended": false,
@@ -14638,7 +14649,7 @@
                   },
                   "close": {
                     "line": "o2.5",
-                    "odds": "-120",
+                    "odds": "-125",
                     "link": {
                       "rel": [
                         "over",
@@ -15199,7 +15210,7 @@
                 "priority": 1
               },
               "drawOdds": {
-                "moneyLine": 280,
+                "moneyLine": 270,
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -15226,7 +15237,7 @@
                   },
                   "close": {
                     "line": "o2.5",
-                    "odds": "+115",
+                    "odds": "+120",
                     "link": {
                       "rel": [
                         "over",
@@ -15344,7 +15355,7 @@
                     "odds": "-135"
                   },
                   "close": {
-                    "odds": "-140",
+                    "odds": "-135",
                     "link": {
                       "rel": [
                         "home",
@@ -15369,7 +15380,7 @@
                     "odds": "+400"
                   },
                   "close": {
-                    "odds": "+390",
+                    "odds": "+400",
                     "link": {
                       "rel": [
                         "away",
@@ -15394,7 +15405,7 @@
                     "odds": "+270"
                   },
                   "close": {
-                    "odds": "+280",
+                    "odds": "+270",
                     "link": {
                       "rel": [
                         "draw",
@@ -15415,7 +15426,7 @@
                   }
                 }
               },
-              "details": "ENG -140"
+              "details": "ENG -135"
             }
           ],
           "wasSuspended": false,
@@ -18695,7 +18706,7 @@
                   },
                   "close": {
                     "line": "u2.5",
-                    "odds": "+105",
+                    "odds": "+110",
                     "link": {
                       "rel": [
                         "under",
@@ -23993,7 +24004,7 @@
                   },
                   "close": {
                     "line": "u2.5",
-                    "odds": "+125",
+                    "odds": "+120",
                     "link": {
                       "rel": [
                         "under",
@@ -29555,13 +29566,13 @@
               "order": 1,
               "homeAway": "away",
               "winner": false,
-              "form": "LDWWW",
+              "form": "LLDWW",
               "score": "0",
               "records": [
                 {
                   "name": "All Splits",
                   "type": "total",
-                  "summary": "0-0-0",
+                  "summary": "0-0-1",
                   "abbreviation": "Total"
                 }
               ],
@@ -29658,7 +29669,7 @@
                 "priority": 1
               },
               "drawOdds": {
-                "moneyLine": 850,
+                "moneyLine": 1200,
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -29685,7 +29696,7 @@
                   },
                   "close": {
                     "line": "o3.5",
-                    "odds": "+105",
+                    "odds": "-105",
                     "link": {
                       "rel": [
                         "over",
@@ -29713,7 +29724,7 @@
                   },
                   "close": {
                     "line": "u3.5",
-                    "odds": "-130",
+                    "odds": "-120",
                     "link": {
                       "rel": [
                         "under",
@@ -29745,7 +29756,7 @@
                   },
                   "close": {
                     "line": "-2.5",
-                    "odds": "-115",
+                    "odds": "-125",
                     "link": {
                       "rel": [
                         "homeSpread",
@@ -29773,7 +29784,7 @@
                   },
                   "close": {
                     "line": "+2.5",
-                    "odds": "-110",
+                    "odds": "-105",
                     "link": {
                       "rel": [
                         "awaySpread",
@@ -29803,7 +29814,7 @@
                     "odds": "-700"
                   },
                   "close": {
-                    "odds": "-900",
+                    "odds": "-1200",
                     "link": {
                       "rel": [
                         "home",
@@ -29853,7 +29864,7 @@
                     "odds": "+750"
                   },
                   "close": {
-                    "odds": "+850",
+                    "odds": "+1200",
                     "link": {
                       "rel": [
                         "draw",
@@ -29874,7 +29885,7 @@
                   }
                 }
               },
-              "details": "FRA -900"
+              "details": "FRA -1200"
             }
           ],
           "wasSuspended": false,
@@ -30058,13 +30069,13 @@
               "order": 0,
               "homeAway": "home",
               "winner": false,
-              "form": "DWDLW",
+              "form": "WDWDL",
               "score": "0",
               "records": [
                 {
                   "name": "All Splits",
                   "type": "total",
-                  "summary": "0-0-0",
+                  "summary": "1-0-0",
                   "abbreviation": "Total"
                 }
               ],
@@ -30246,7 +30257,7 @@
                 "priority": 1
               },
               "drawOdds": {
-                "moneyLine": 260,
+                "moneyLine": 250,
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -30301,7 +30312,7 @@
                   },
                   "close": {
                     "line": "u2.5",
-                    "odds": "-115",
+                    "odds": "-120",
                     "link": {
                       "rel": [
                         "under",
@@ -30333,7 +30344,7 @@
                   },
                   "close": {
                     "line": "-0.5",
-                    "odds": "+120",
+                    "odds": "+130",
                     "link": {
                       "rel": [
                         "homeSpread",
@@ -30361,7 +30372,7 @@
                   },
                   "close": {
                     "line": "+0.5",
-                    "odds": "-155",
+                    "odds": "-160",
                     "link": {
                       "rel": [
                         "awaySpread",
@@ -30391,7 +30402,7 @@
                     "odds": "+100"
                   },
                   "close": {
-                    "odds": "+130",
+                    "odds": "+135",
                     "link": {
                       "rel": [
                         "home",
@@ -30416,7 +30427,7 @@
                     "odds": "+260"
                   },
                   "close": {
-                    "odds": "+210",
+                    "odds": "+200",
                     "link": {
                       "rel": [
                         "away",
@@ -30441,7 +30452,7 @@
                     "odds": "+265"
                   },
                   "close": {
-                    "odds": "+260",
+                    "odds": "+250",
                     "link": {
                       "rel": [
                         "draw",
@@ -30462,7 +30473,7 @@
                   }
                 }
               },
-              "details": "NOR +130"
+              "details": "NOR +135"
             }
           ],
           "wasSuspended": false,
@@ -42655,13 +42666,13 @@
               "order": 0,
               "homeAway": "home",
               "winner": false,
-              "form": "DWDLW",
+              "form": "WDWDL",
               "score": "0",
               "records": [
                 {
                   "name": "All Splits",
                   "type": "total",
-                  "summary": "0-0-0",
+                  "summary": "1-0-0",
                   "abbreviation": "Total"
                 }
               ],
@@ -43343,13 +43354,13 @@
               "order": 1,
               "homeAway": "away",
               "winner": false,
-              "form": "LDWWW",
+              "form": "LLDWW",
               "score": "0",
               "records": [
                 {
                   "name": "All Splits",
                   "type": "total",
-                  "summary": "0-0-0",
+                  "summary": "0-0-1",
                   "abbreviation": "Total"
                 }
               ],
@@ -43446,7 +43457,7 @@
                 "priority": 1
               },
               "drawOdds": {
-                "moneyLine": 400,
+                "moneyLine": 425,
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -43473,7 +43484,7 @@
                   },
                   "close": {
                     "line": "o2.5",
-                    "odds": "-110",
+                    "odds": "-115",
                     "link": {
                       "rel": [
                         "over",
@@ -43501,7 +43512,7 @@
                   },
                   "close": {
                     "line": "u2.5",
-                    "odds": "-115",
+                    "odds": "-105",
                     "link": {
                       "rel": [
                         "under",
@@ -43533,7 +43544,7 @@
                   },
                   "close": {
                     "line": "-1.5",
-                    "odds": "+105",
+                    "odds": "-105",
                     "link": {
                       "rel": [
                         "homeSpread",
@@ -43561,7 +43572,7 @@
                   },
                   "close": {
                     "line": "+1.5",
-                    "odds": "-135",
+                    "odds": "-120",
                     "link": {
                       "rel": [
                         "awaySpread",
@@ -43591,7 +43602,7 @@
                     "odds": "-200"
                   },
                   "close": {
-                    "odds": "-290",
+                    "odds": "-320",
                     "link": {
                       "rel": [
                         "home",
@@ -43616,7 +43627,7 @@
                     "odds": "+550"
                   },
                   "close": {
-                    "odds": "+900",
+                    "odds": "+950",
                     "link": {
                       "rel": [
                         "away",
@@ -43641,7 +43652,7 @@
                     "odds": "+330"
                   },
                   "close": {
-                    "odds": "+400",
+                    "odds": "+425",
                     "link": {
                       "rel": [
                         "draw",
@@ -43662,7 +43673,7 @@
                   }
                 }
               },
-              "details": "SEN -290"
+              "details": "SEN -320"
             }
           ],
           "wasSuspended": false,
