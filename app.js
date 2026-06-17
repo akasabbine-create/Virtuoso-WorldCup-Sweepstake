@@ -365,10 +365,12 @@ function findCurrentBadgeHolders(leaderboard, playerDetails, bonusData) {
   }
 
   const nationGoalTable = bonusData?.nationGoalTable || [];
+  let mostGoalsTeams = [];
 
   if (nationGoalTable.length > 0) {
     const topNationGoals = nationGoalTable[0].goals;
     const topNations = nationGoalTable.filter(item => item.goals === topNationGoals);
+    mostGoalsTeams = topNations.map(nation => nation.team);
 
     topNations.forEach(nation => {
       (leaderboard || []).forEach(player => {
@@ -397,7 +399,8 @@ function findCurrentBadgeHolders(leaderboard, playerDetails, bonusData) {
 
   return {
     spoonTeam,
-    badgesByPlayer
+    badgesByPlayer,
+    mostGoalsTeams
   };
 }
 
@@ -411,6 +414,28 @@ function badgeHtml(badges) {
       ${badge.icon}
     </span>
   `).join("");
+}
+
+function teamHighlightClasses(team, playerName, spoonTeam, mostGoalsTeams) {
+  const classes = [];
+
+  if (spoonTeam && playerName === spoonTeam.playerName && team === spoonTeam.team) {
+    classes.push("wooden-spoon-country");
+  }
+
+  if ((mostGoalsTeams || []).some(item => normaliseText(item) === normaliseText(team))) {
+    classes.push("most-goals-country");
+  }
+
+  return classes;
+}
+
+function teamNameHtml(team, classes) {
+  if (!classes || classes.length === 0) {
+    return team;
+  }
+
+  return `<span class="${classes.join(" ")}">${team}</span>`;
 }
 
 function renderStatus(status) {
@@ -535,7 +560,7 @@ function renderInsightStrip(leaderboard, latestResults) {
   cards.insertAdjacentElement("afterend", section);
 }
 
-function renderLeaderboard(data, spoonTeam, badgesByPlayer) {
+function renderLeaderboard(data, spoonTeam, badgesByPlayer, mostGoalsTeams) {
   const tbody = document.querySelector("#board tbody");
 
   if (!tbody) return;
@@ -563,11 +588,8 @@ function renderLeaderboard(data, spoonTeam, badgesByPlayer) {
     }
 
     const teams = (player.teams || []).map(team => {
-      if (spoonTeam && player.name === spoonTeam.playerName && team === spoonTeam.team) {
-        return `<span class="wooden-spoon-country">${team}</span>`;
-      }
-
-      return team;
+      const classes = teamHighlightClasses(team, player.name, spoonTeam, mostGoalsTeams);
+      return teamNameHtml(team, classes);
     }).join(", ");
 
     tr.innerHTML = `
@@ -738,7 +760,7 @@ function renderWoodenSpoonRace(playerDetails) {
   });
 }
 
-function renderPlayerDetails(details, spoonTeam) {
+function renderPlayerDetails(details, spoonTeam, mostGoalsTeams) {
   const container = document.querySelector("#player-details");
 
   if (!container) return;
@@ -763,9 +785,8 @@ function renderPlayerDetails(details, spoonTeam) {
         && player.name === spoonTeam.playerName
         && team.team === spoonTeam.team;
 
-      const teamName = isSpoonTeam
-        ? `<span class="wooden-spoon-country">${team.team}</span>`
-        : team.team;
+      const teamClasses = teamHighlightClasses(team.team, player.name, spoonTeam, mostGoalsTeams);
+      const teamName = teamNameHtml(team.team, teamClasses);
 
       const recentResults = team.recentResults && team.recentResults.length > 0
         ? team.recentResults.map(result => `
@@ -795,11 +816,8 @@ function renderPlayerDetails(details, spoonTeam) {
 
     const teamNames = (player.teams || [])
       .map(team => {
-        if (spoonTeam && player.name === spoonTeam.playerName && team.team === spoonTeam.team) {
-          return `<span class="wooden-spoon-country">${team.team}</span>`;
-        }
-
-        return team.team;
+        const classes = teamHighlightClasses(team.team, player.name, spoonTeam, mostGoalsTeams);
+        return teamNameHtml(team.team, classes);
       })
       .join(", ");
 
@@ -1055,6 +1073,7 @@ async function init() {
   let latestResults = [];
   let spoonTeam = null;
   let badgesByPlayer = {};
+  let mostGoalsTeams = [];
 
   try {
     leaderboard = await loadJson("data/leaderboard.json");
@@ -1111,13 +1130,14 @@ async function init() {
   const badgeData = findCurrentBadgeHolders(leaderboard, playerDetails, bonusData);
   spoonTeam = badgeData.spoonTeam;
   badgesByPlayer = badgeData.badgesByPlayer;
+  mostGoalsTeams = badgeData.mostGoalsTeams || [];
 
   renderSummaryCards(leaderboard, playerDetails);
   renderInsightStrip(leaderboard, latestResults);
-  renderLeaderboard(leaderboard, spoonTeam, badgesByPlayer);
+  renderLeaderboard(leaderboard, spoonTeam, badgesByPlayer, mostGoalsTeams);
   renderBonusTracker(bonusData, leaderboard);
   renderWoodenSpoonRace(playerDetails);
-  renderPlayerDetails(playerDetails, spoonTeam);
+  renderPlayerDetails(playerDetails, spoonTeam, mostGoalsTeams);
   renderLatestResults(latestResults);
 
   try {
