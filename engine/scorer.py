@@ -675,6 +675,11 @@ def calculate(players, matches, previous_leaderboard, bonus_data):
 
     base_scores = defaultdict(int)
     games_played = defaultdict(int)
+    wins = defaultdict(int)
+    draws = defaultdict(int)
+    losses = defaultdict(int)
+    goals_for = defaultdict(int)
+    goals_against = defaultdict(int)
 
     bonus_by_player = {
         row["name"]: row.get("total", 0)
@@ -693,11 +698,34 @@ def calculate(players, matches, previous_leaderboard, bonus_data):
             continue
 
         for player in players:
+            player_name = player["name"]
+
             for team in player["teams"]:
+                normalised_team = normalise_team_name(team)
+
                 for result_team, points in results.items():
-                    if team_matches(team, result_team):
-                        base_scores[player["name"]] += points
-                        games_played[player["name"]] += 1
+                    if not team_matches(normalised_team, result_team):
+                        continue
+
+                    base_scores[player_name] += points
+                    games_played[player_name] += 1
+
+                    if team_matches(normalised_team, match["team1"]):
+                        team_score = match["score1"]
+                        opponent_score = match["score2"]
+                    else:
+                        team_score = match["score2"]
+                        opponent_score = match["score1"]
+
+                    goals_for[player_name] += team_score
+                    goals_against[player_name] += opponent_score
+
+                    if points == 3:
+                        wins[player_name] += 1
+                    elif points == 1:
+                        draws[player_name] += 1
+                    else:
+                        losses[player_name] += 1
 
     leaderboard = []
 
@@ -707,6 +735,7 @@ def calculate(players, matches, previous_leaderboard, bonus_data):
         match_points_total = base_scores[player_name]
         bonus_points_total = bonus_by_player.get(player_name, 0)
         total_points = match_points_total + bonus_points_total
+        goal_difference = goals_for[player_name] - goals_against[player_name]
 
         leaderboard.append({
             "name": player_name,
@@ -715,10 +744,23 @@ def calculate(players, matches, previous_leaderboard, bonus_data):
             "bonusPoints": bonus_points_total,
             "points": total_points,
             "gamesPlayed": games_played[player_name],
+            "wins": wins[player_name],
+            "draws": draws[player_name],
+            "losses": losses[player_name],
+            "goalsFor": goals_for[player_name],
+            "goalsAgainst": goals_against[player_name],
+            "goalDifference": goal_difference,
         })
 
     leaderboard.sort(
-        key=lambda x: (-x["points"], -x["gamesPlayed"], x["name"])
+        key=lambda x: (
+            -x["points"],
+            -x["goalDifference"],
+            -x["goalsFor"],
+            -x["wins"],
+            -x["bonusPoints"],
+            x["name"]
+        )
     )
 
     for index, row in enumerate(leaderboard, start=1):
@@ -770,7 +812,6 @@ def calculate(players, matches, previous_leaderboard, bonus_data):
         row["showMovementUntil"] = None
 
     return leaderboard
-
 
 def build_player_details(players, matches, leaderboard):
     rank_by_player = {
