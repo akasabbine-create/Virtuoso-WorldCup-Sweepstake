@@ -462,6 +462,7 @@ function teamNameHtml(team, classes) {
 function renderStatus(status) {
   const statusEl = document.querySelector("#status");
   const completedEl = document.querySelector("#completed-matches");
+  const completedNoteEl = document.querySelector("#completed-matches-note");
 
   if (!statusEl || !completedEl) return;
 
@@ -482,8 +483,13 @@ function renderStatus(status) {
 
   const completed = status.completedMatches ?? 0;
   const total = status.totalTournamentMatches ?? 104;
+  const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
 
   completedEl.textContent = `${completed} of ${total}`;
+
+  if (completedNoteEl) {
+    completedNoteEl.textContent = `${percentage}% of tournament matches complete`;
+  }
 }
 
 function renderSummaryCards(leaderboard, playerDetails) {
@@ -689,6 +695,12 @@ function renderInsightStrip(leaderboard, latestResults) {
       <h3>Leaderboard movement</h3>
       <p>Movement since the previous scoring update.</p>
       <div class="insight-chip-row">${moverHtml}</div>
+    </div>
+
+    <div class="insight-card completed-count-card">
+      <div class="insight-label">Completed Matches</div>
+      <h3 id="completed-matches">Loading...</h3>
+      <p id="completed-matches-note">Tournament progress</p>
     </div>
   `;
 
