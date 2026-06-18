@@ -1,5 +1,16 @@
 const cacheBust = Date.now();
 
+const PRIZE_POOL = {
+  total: 80,
+  places: [
+    { rank: 1, amount: 40, label: "1st Place", icon: "🥇" },
+    { rank: 2, amount: 20, label: "2nd Place", icon: "🥈" },
+    { rank: 3, amount: 10, label: "3rd Place", icon: "🥉" }
+  ],
+  fastestGoal: { amount: 5, label: "Fastest Goal", icon: "⚡" },
+  woodenSpoon: { amount: 5, label: "Wooden Spoon", icon: "🥄" }
+};
+
 async function loadJson(path) {
   const response = await fetch(`${path}?ts=${cacheBust}`);
 
@@ -499,6 +510,120 @@ function renderSummaryCards(leaderboard, playerDetails) {
     <span class="small-card-text">
       ${spoonTeam.points} pts, ${spoonTeam.gamesPlayed} played, GD ${spoonTeam.goalDifference}
     </span>
+  `;
+}
+
+
+function findOwnerForTeam(leaderboard, teamName) {
+  if (!teamName) return null;
+
+  return (leaderboard || []).find(player => playerOwnsTeam(player, teamName)) || null;
+}
+
+function addProjectedPrize(payouts, playerName, prize) {
+  if (!playerName || !prize) return;
+
+  if (!payouts[playerName]) {
+    payouts[playerName] = {
+      name: playerName,
+      total: 0,
+      prizes: [],
+      firstPrizeOrder: prize.order ?? 99
+    };
+  }
+
+  payouts[playerName].total += prize.amount;
+  payouts[playerName].firstPrizeOrder = Math.min(
+    payouts[playerName].firstPrizeOrder,
+    prize.order ?? 99
+  );
+  payouts[playerName].prizes.push(prize);
+}
+
+function renderPrizePoolCard(leaderboard, playerDetails, bonusData) {
+  const container = document.querySelector("#projected-prizes");
+
+  if (!container) return;
+
+  const payouts = {};
+
+  PRIZE_POOL.places.forEach((place, index) => {
+    const player = (leaderboard || [])[place.rank - 1];
+
+    if (!player) return;
+
+    addProjectedPrize(payouts, player.name, {
+      amount: place.amount,
+      label: place.label,
+      icon: place.icon,
+      order: index + 1
+    });
+  });
+
+  const fastestGoalTeam = bonusData?.fastestGoal?.team;
+  const fastestGoalOwner = findOwnerForTeam(leaderboard, fastestGoalTeam);
+
+  if (fastestGoalOwner) {
+    addProjectedPrize(payouts, fastestGoalOwner.name, {
+      amount: PRIZE_POOL.fastestGoal.amount,
+      label: PRIZE_POOL.fastestGoal.label,
+      icon: PRIZE_POOL.fastestGoal.icon,
+      order: 4
+    });
+  }
+
+  const spoonTeam = findWoodenSpoonTeam(playerDetails);
+
+  if (spoonTeam) {
+    addProjectedPrize(payouts, spoonTeam.playerName, {
+      amount: PRIZE_POOL.woodenSpoon.amount,
+      label: PRIZE_POOL.woodenSpoon.label,
+      icon: PRIZE_POOL.woodenSpoon.icon,
+      order: 5
+    });
+  }
+
+  const projectedPayouts = Object.values(payouts).sort((a, b) => {
+    if (b.total !== a.total) return b.total - a.total;
+    if (a.firstPrizeOrder !== b.firstPrizeOrder) return a.firstPrizeOrder - b.firstPrizeOrder;
+    return a.name.localeCompare(b.name);
+  });
+
+  if (projectedPayouts.length === 0) {
+    container.innerHTML = `
+      <div class="prize-pool-total">£${PRIZE_POOL.total}</div>
+      <div class="prize-pool-subtitle">Projected payouts unavailable</div>
+    `;
+    return;
+  }
+
+  const payoutHtml = projectedPayouts.map(player => {
+    const prizeTags = player.prizes.map(prize => `
+      <span>${prize.icon} ${prize.label} £${prize.amount}</span>
+    `).join("");
+
+    return `
+      <div class="prize-payout-item">
+        <div class="prize-payout-topline">
+          <strong>${player.name}</strong>
+          <span>£${player.total}</span>
+        </div>
+        <div class="prize-payout-tags">
+          ${prizeTags}
+        </div>
+      </div>
+    `;
+  }).join("");
+
+  container.innerHTML = `
+    <div class="prize-pool-topline">
+      <span class="prize-pool-total">£${PRIZE_POOL.total}</span>
+      <span class="prize-pool-subtitle">current projected payouts</span>
+    </div>
+
+    <div class="prize-payout-list">
+      ${payoutHtml}
+    </div>
   `;
 }
 
@@ -1144,6 +1269,7 @@ async function init() {
   mostGoalsTeams = badgeData.mostGoalsTeams || [];
 
   renderSummaryCards(leaderboard, playerDetails);
+  renderPrizePoolCard(leaderboard, playerDetails, bonusData);
   renderInsightStrip(leaderboard, latestResults);
   renderLeaderboard(leaderboard, spoonTeam, badgesByPlayer, mostGoalsTeams);
   renderBonusTracker(bonusData, leaderboard);
