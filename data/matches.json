@@ -261,7 +261,7 @@
               "homeAway": "away",
               "winner": false,
               "advance": false,
-              "form": "LWDLD",
+              "form": "DLWDL",
               "score": "0",
               "records": [
                 {
@@ -1093,7 +1093,7 @@
               "homeAway": "away",
               "winner": false,
               "advance": false,
-              "form": "LWWWW",
+              "form": "DLWWW",
               "score": "1",
               "records": [
                 {
@@ -17168,13 +17168,13 @@
     "id": "760438",
     "team1": "Czech Republic",
     "team2": "South Africa",
-    "score1": null,
-    "score2": null,
+    "score1": 1,
+    "score2": 1,
     "displayScore1": 1,
-    "displayScore2": 0,
-    "status": "Second Half",
-    "completed": false,
-    "live": true,
+    "displayScore2": 1,
+    "status": "Full Time",
+    "completed": true,
+    "live": false,
     "date": "2026-06-18T16:00Z",
     "name": "South Africa at Czechia",
     "shortName": "RSA @ CZE",
@@ -17199,17 +17199,17 @@
           "timeValid": true,
           "recent": true,
           "status": {
-            "clock": 4140.0,
-            "displayClock": "69'",
+            "clock": 5400.0,
+            "displayClock": "90'+7'",
             "period": 2,
             "type": {
-              "id": "26",
-              "name": "STATUS_SECOND_HALF",
-              "state": "in",
-              "completed": false,
-              "description": "Second Half",
-              "detail": "69'",
-              "shortDetail": "69'"
+              "id": "28",
+              "name": "STATUS_FULL_TIME",
+              "state": "post",
+              "completed": true,
+              "description": "Full Time",
+              "detail": "FT",
+              "shortDetail": "FT"
             }
           },
           "venue": {
@@ -17220,20 +17220,6 @@
               "country": "USA"
             }
           },
-          "tickets": [
-            {
-              "summary": "Tickets as low as $286",
-              "numberAvailable": 22,
-              "links": [
-                {
-                  "href": "https://www.vividseats.com/world-cup-soccer-tickets-mercedes-benz-stadium-6-18-2026--sports-soccer/production/5080471?wsUser=717"
-                },
-                {
-                  "href": "https://www.vividseats.com/mercedesbenz-stadium-tickets/venue/14188?wsUser=717"
-                }
-              ]
-            }
-          ],
           "format": {
             "regulation": {
               "periods": 2
@@ -17307,13 +17293,13 @@
               "order": 0,
               "homeAway": "home",
               "winner": false,
-              "form": "LWWWW",
+              "form": "DLWWW",
               "score": "1",
               "records": [
                 {
                   "name": "All Splits",
                   "type": "total",
-                  "summary": "0-0-1",
+                  "summary": "0-1-1",
                   "abbreviation": "Total"
                 }
               ],
@@ -17392,12 +17378,12 @@
                 {
                   "name": "foulsCommitted",
                   "abbreviation": "FC",
-                  "displayValue": "9"
+                  "displayValue": "12"
                 },
                 {
                   "name": "wonCorners",
                   "abbreviation": "CW",
-                  "displayValue": "4"
+                  "displayValue": "5"
                 },
                 {
                   "name": "goalAssists",
@@ -17407,12 +17393,12 @@
                 {
                   "name": "possessionPct",
                   "abbreviation": "PP",
-                  "displayValue": "39"
+                  "displayValue": "38.1"
                 },
                 {
                   "name": "shotAssists",
                   "abbreviation": "SHAST",
-                  "displayValue": "8"
+                  "displayValue": "11"
                 },
                 {
                   "name": "shotsOnTarget",
@@ -17427,7 +17413,7 @@
                 {
                   "name": "totalShots",
                   "abbreviation": "SHOT",
-                  "displayValue": "11"
+                  "displayValue": "14"
                 }
               ]
             },
@@ -17438,13 +17424,13 @@
               "order": 1,
               "homeAway": "away",
               "winner": false,
-              "form": "LWDLD",
-              "score": "0",
+              "form": "DLWDL",
+              "score": "1",
               "records": [
                 {
                   "name": "All Splits",
                   "type": "total",
-                  "summary": "0-0-1",
+                  "summary": "0-1-1",
                   "abbreviation": "Total"
                 }
               ],
@@ -17523,12 +17509,12 @@
                 {
                   "name": "foulsCommitted",
                   "abbreviation": "FC",
-                  "displayValue": "8"
+                  "displayValue": "10"
                 },
                 {
                   "name": "wonCorners",
                   "abbreviation": "CW",
-                  "displayValue": "4"
+                  "displayValue": "5"
                 },
                 {
                   "name": "goalAssists",
@@ -17538,27 +17524,27 @@
                 {
                   "name": "possessionPct",
                   "abbreviation": "PP",
-                  "displayValue": "61"
+                  "displayValue": "61.9"
                 },
                 {
                   "name": "shotAssists",
                   "abbreviation": "SHAST",
-                  "displayValue": "6"
+                  "displayValue": "10"
                 },
                 {
                   "name": "shotsOnTarget",
                   "abbreviation": "SOG",
-                  "displayValue": "0"
+                  "displayValue": "4"
                 },
                 {
                   "name": "totalGoals",
                   "abbreviation": "G",
-                  "displayValue": "0"
+                  "displayValue": "1"
                 },
                 {
                   "name": "totalShots",
                   "abbreviation": "SHOT",
-                  "displayValue": "8"
+                  "displayValue": "17"
                 }
               ]
             }
@@ -17696,289 +17682,98 @@
                   "position": "RM"
                 }
               ]
+            },
+            {
+              "type": {
+                "id": "94",
+                "text": "Yellow Card"
+              },
+              "clock": {
+                "value": 4484.0,
+                "displayValue": "75'"
+              },
+              "team": {
+                "id": "450"
+              },
+              "scoreValue": 0,
+              "scoringPlay": false,
+              "redCard": false,
+              "yellowCard": true,
+              "penaltyKick": false,
+              "ownGoal": false,
+              "shootout": false,
+              "athletesInvolved": [
+                {
+                  "id": "151714",
+                  "displayName": "Ladislav Krejcí",
+                  "shortName": "L. Krejcí",
+                  "fullName": "Ladislav Krejcí",
+                  "jersey": "7",
+                  "team": {
+                    "id": "450"
+                  },
+                  "links": [
+                    {
+                      "rel": [
+                        "playercard",
+                        "desktop",
+                        "athlete"
+                      ],
+                      "href": "https://www.espn.com/soccer/player/_/id/151714/ladislav-krejci",
+                      "isHidden": false
+                    }
+                  ],
+                  "position": "CD-L"
+                }
+              ]
+            },
+            {
+              "type": {
+                "id": "98",
+                "text": "Penalty - Scored"
+              },
+              "clock": {
+                "value": 4968.0,
+                "displayValue": "83'"
+              },
+              "team": {
+                "id": "467"
+              },
+              "scoreValue": 1,
+              "scoringPlay": true,
+              "redCard": false,
+              "yellowCard": false,
+              "penaltyKick": true,
+              "ownGoal": false,
+              "shootout": false,
+              "athletesInvolved": [
+                {
+                  "id": "256691",
+                  "displayName": "Teboho Mokoena",
+                  "shortName": "T. Mokoena",
+                  "fullName": "Teboho Mokoena",
+                  "jersey": "4",
+                  "team": {
+                    "id": "467"
+                  },
+                  "links": [
+                    {
+                      "rel": [
+                        "playercard",
+                        "desktop",
+                        "athlete"
+                      ],
+                      "href": "https://www.espn.com/soccer/player/_/id/256691/teboho-mokoena",
+                      "isHidden": false
+                    }
+                  ],
+                  "position": "CM"
+                }
+              ]
             }
           ],
           "odds": [
-            {
-              "overUnder": 2.5,
-              "link": {
-                "language": "en-US",
-                "rel": [
-                  "game",
-                  "desktop",
-                  "bets"
-                ],
-                "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34169479",
-                "text": "Game",
-                "shortText": "Game",
-                "isExternal": true,
-                "isPremium": false,
-                "isHidden": false
-              },
-              "provider": {
-                "id": "100",
-                "name": "DraftKings",
-                "priority": 1,
-                "displayName": "DraftKings",
-                "logos": [
-                  {
-                    "href": "https://a.espncdn.com/i/betting/Draftkings_Light.svg",
-                    "rel": [
-                      "light"
-                    ]
-                  },
-                  {
-                    "href": "https://a.espncdn.com/i/betting/Draftkings_Dark.svg",
-                    "rel": [
-                      "dark"
-                    ]
-                  }
-                ]
-              },
-              "drawOdds": {
-                "moneyLine": 240,
-                "link": {
-                  "language": "en-US",
-                  "rel": [
-                    "draw",
-                    "desktop",
-                    "bets",
-                    "draftkings"
-                  ],
-                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34169479%3Foutcomes%3D0ML84838568_2",
-                  "text": "Draw Bet",
-                  "shortText": "Draw Bet",
-                  "isExternal": true,
-                  "isPremium": false,
-                  "isHidden": false
-                }
-              },
-              "total": {
-                "displayName": "Total",
-                "shortDisplayName": "Total",
-                "over": {
-                  "open": {
-                    "line": "o2.5",
-                    "odds": "+130"
-                  },
-                  "close": {
-                    "line": "o2.5",
-                    "odds": "+125"
-                  },
-                  "current": {
-                    "line": "o1.5",
-                    "odds": "-136",
-                    "link": {
-                      "rel": [
-                        "over",
-                        "bets"
-                      ],
-                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34169479%3Foutcomes%3D0OU84979619O150_1",
-                      "tracking": {
-                        "campaign": "betting-integrations",
-                        "tags": {
-                          "league": "fifa.world",
-                          "sport": "soccer",
-                          "gameId": 760438,
-                          "betSide": "over",
-                          "betType": "straight",
-                          "betDetails": "Over:1.5"
-                        }
-                      }
-                    }
-                  }
-                },
-                "under": {
-                  "open": {
-                    "line": "u2.5",
-                    "odds": "-165"
-                  },
-                  "close": {
-                    "line": "u2.5",
-                    "odds": "-150"
-                  },
-                  "current": {
-                    "line": "u1.5",
-                    "odds": "+115",
-                    "link": {
-                      "rel": [
-                        "under",
-                        "bets"
-                      ],
-                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34169479%3Foutcomes%3D0OU84979619U150_3",
-                      "tracking": {
-                        "campaign": "betting-integrations",
-                        "tags": {
-                          "league": "fifa.world",
-                          "sport": "soccer",
-                          "gameId": 760438,
-                          "betSide": "under",
-                          "betType": "straight",
-                          "betDetails": "Under:1.5"
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "pointSpread": {
-                "displayName": "Spread",
-                "shortDisplayName": "Spread",
-                "home": {
-                  "open": {
-                    "line": "-0.5",
-                    "odds": "-110"
-                  },
-                  "close": {
-                    "line": "-0.5",
-                    "odds": "-115"
-                  },
-                  "current": {
-                    "line": "-1.5",
-                    "odds": "+210",
-                    "link": {
-                      "rel": [
-                        "homeSpread",
-                        "bets"
-                      ],
-                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34169479%3Foutcomes%3D0HC84979620N150_1",
-                      "tracking": {
-                        "campaign": "betting-integrations",
-                        "tags": {
-                          "league": "fifa.world",
-                          "sport": "soccer",
-                          "gameId": 760438,
-                          "betSide": "home",
-                          "betType": "straight",
-                          "betDetails": "Spread:CZE-1.5"
-                        }
-                      }
-                    }
-                  }
-                },
-                "away": {
-                  "open": {
-                    "line": "+0.5",
-                    "odds": "-125"
-                  },
-                  "close": {
-                    "line": "+0.5",
-                    "odds": "-110"
-                  },
-                  "current": {
-                    "line": "+1.5",
-                    "odds": "-275",
-                    "link": {
-                      "rel": [
-                        "awaySpread",
-                        "bets"
-                      ],
-                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34169479%3Foutcomes%3D0HC84979620P150_3",
-                      "tracking": {
-                        "campaign": "betting-integrations",
-                        "tags": {
-                          "league": "fifa.world",
-                          "sport": "soccer",
-                          "gameId": 760438,
-                          "betSide": "away",
-                          "betType": "straight",
-                          "betDetails": "Spread:RSA+1.5"
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "moneyline": {
-                "displayName": "Moneyline",
-                "shortDisplayName": "ML",
-                "home": {
-                  "open": {
-                    "odds": "+100"
-                  },
-                  "close": {
-                    "odds": "-115"
-                  },
-                  "current": {
-                    "odds": "-550",
-                    "link": {
-                      "rel": [
-                        "home",
-                        "bets"
-                      ],
-                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34169479%3Foutcomes%3D0ML84930509_1",
-                      "tracking": {
-                        "campaign": "betting-integrations",
-                        "tags": {
-                          "league": "fifa.world",
-                          "sport": "soccer",
-                          "gameId": 760438,
-                          "betSide": "home",
-                          "betType": "straight"
-                        }
-                      }
-                    }
-                  }
-                },
-                "away": {
-                  "open": {
-                    "odds": "+300"
-                  },
-                  "close": {
-                    "odds": "+370"
-                  },
-                  "current": {
-                    "odds": "+2800",
-                    "link": {
-                      "rel": [
-                        "away",
-                        "bets"
-                      ],
-                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34169479%3Foutcomes%3D0ML84930509_3",
-                      "tracking": {
-                        "campaign": "betting-integrations",
-                        "tags": {
-                          "league": "fifa.world",
-                          "sport": "soccer",
-                          "gameId": 760438,
-                          "betSide": "away",
-                          "betType": "straight"
-                        }
-                      }
-                    }
-                  }
-                },
-                "draw": {
-                  "open": {
-                    "odds": "+230"
-                  },
-                  "close": {
-                    "odds": "+240"
-                  },
-                  "current": {
-                    "odds": "+425",
-                    "link": {
-                      "rel": [
-                        "draw",
-                        "bets"
-                      ],
-                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34169479%3Foutcomes%3D0ML84930509_2",
-                      "tracking": {
-                        "campaign": "betting-integrations",
-                        "tags": {
-                          "league": "fifa.world",
-                          "sport": "soccer",
-                          "gameId": 760438,
-                          "betSide": "draw",
-                          "betType": "straight"
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "details": "CZE -115"
-            }
+            null
           ],
           "wasSuspended": false,
           "playByPlayAvailable": true,
@@ -17986,17 +17781,17 @@
         }
       ],
       "status": {
-        "clock": 4140.0,
-        "displayClock": "69'",
+        "clock": 5400.0,
+        "displayClock": "90'+7'",
         "period": 2,
         "type": {
-          "id": "26",
-          "name": "STATUS_SECOND_HALF",
-          "state": "in",
-          "completed": false,
-          "description": "Second Half",
-          "detail": "69'",
-          "shortDetail": "69'"
+          "id": "28",
+          "name": "STATUS_FULL_TIME",
+          "state": "post",
+          "completed": true,
+          "description": "Full Time",
+          "detail": "FT",
+          "shortDetail": "FT"
         }
       },
       "venue": {
@@ -18006,16 +17801,28 @@
         {
           "language": "en-US",
           "rel": [
-            "live",
+            "summary",
             "desktop",
             "event"
           ],
-          "href": "https://www.espn.com/soccer/match/_/gameId/760438",
-          "text": "Gamecast",
-          "shortText": "Live",
+          "href": "https://www.espn.com/soccer/match/_/gameId/760438/south-africa-czechia",
+          "text": "Summary",
+          "shortText": "Summary",
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "highlights",
+            "desktop"
+          ],
+          "href": "https://www.espn.com/soccer/video/_/gameId/760438",
+          "text": "Highlights",
+          "shortText": "Highlights",
+          "isExternal": false,
+          "isPremium": false
         },
         {
           "language": "en-US",
@@ -18067,7 +17874,7 @@
           "startDate": "2026-06-18T19:00Z",
           "attendance": 0,
           "timeValid": true,
-          "recent": false,
+          "recent": true,
           "status": {
             "clock": 0.0,
             "displayClock": "0'",
@@ -18252,7 +18059,53 @@
                   "id": "10742"
                 }
               },
-              "statistics": [],
+              "statistics": [
+                {
+                  "name": "appearances",
+                  "abbreviation": "APP",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "foulsCommitted",
+                  "abbreviation": "FC",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "wonCorners",
+                  "abbreviation": "CW",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "goalAssists",
+                  "abbreviation": "A",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "possessionPct",
+                  "abbreviation": "PP",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "shotAssists",
+                  "abbreviation": "SHAST",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "shotsOnTarget",
+                  "abbreviation": "SOG",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "totalGoals",
+                  "abbreviation": "G",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "totalShots",
+                  "abbreviation": "SHOT",
+                  "displayValue": "0"
+                }
+              ],
               "leaders": [
                 {
                   "name": "goals",
@@ -18419,7 +18272,53 @@
                   "id": "5895"
                 }
               },
-              "statistics": [],
+              "statistics": [
+                {
+                  "name": "appearances",
+                  "abbreviation": "APP",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "foulsCommitted",
+                  "abbreviation": "FC",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "wonCorners",
+                  "abbreviation": "CW",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "goalAssists",
+                  "abbreviation": "A",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "possessionPct",
+                  "abbreviation": "PP",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "shotAssists",
+                  "abbreviation": "SHAST",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "shotsOnTarget",
+                  "abbreviation": "SOG",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "totalGoals",
+                  "abbreviation": "G",
+                  "displayValue": "0"
+                },
+                {
+                  "name": "totalShots",
+                  "abbreviation": "SHOT",
+                  "displayValue": "0"
+                }
+              ],
               "leaders": [
                 {
                   "name": "goals",
@@ -18525,10 +18424,25 @@
               "provider": {
                 "id": "100",
                 "name": "DraftKings",
-                "priority": 1
+                "priority": 1,
+                "displayName": "DraftKings",
+                "logos": [
+                  {
+                    "href": "https://a.espncdn.com/i/betting/Draftkings_Light.svg",
+                    "rel": [
+                      "light"
+                    ]
+                  },
+                  {
+                    "href": "https://a.espncdn.com/i/betting/Draftkings_Dark.svg",
+                    "rel": [
+                      "dark"
+                    ]
+                  }
+                ]
               },
               "drawOdds": {
-                "moneyLine": 310,
+                "moneyLine": 320,
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -18583,7 +18497,7 @@
                   },
                   "close": {
                     "line": "u2.5",
-                    "odds": "-105",
+                    "odds": "-110",
                     "link": {
                       "rel": [
                         "under",
@@ -18614,14 +18528,14 @@
                     "odds": "+135"
                   },
                   "close": {
-                    "line": "-1.5",
-                    "odds": "+145",
+                    "line": "-0.5",
+                    "odds": "-185",
                     "link": {
                       "rel": [
                         "homeSpread",
                         "bets"
                       ],
-                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34169482%3Foutcomes%3D0HC84839077N150_1",
+                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34169482%3Foutcomes%3D0HC84839077N50_1",
                       "tracking": {
                         "campaign": "betting-integrations",
                         "tags": {
@@ -18630,7 +18544,7 @@
                           "gameId": 760439,
                           "betSide": "home",
                           "betType": "straight",
-                          "betDetails": "Spread:SUI-1.5"
+                          "betDetails": "Spread:SUI-0.5"
                         }
                       }
                     }
@@ -18642,14 +18556,14 @@
                     "odds": "-190"
                   },
                   "close": {
-                    "line": "+1.5",
-                    "odds": "-185",
+                    "line": "+0.5",
+                    "odds": "+145",
                     "link": {
                       "rel": [
                         "awaySpread",
                         "bets"
                       ],
-                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34169482%3Foutcomes%3D0HC84839077P150_3",
+                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34169482%3Foutcomes%3D0HC84839077P50_3",
                       "tracking": {
                         "campaign": "betting-integrations",
                         "tags": {
@@ -18658,7 +18572,7 @@
                           "gameId": 760439,
                           "betSide": "away",
                           "betType": "straight",
-                          "betDetails": "Spread:BIH+1.5"
+                          "betDetails": "Spread:BIH+0.5"
                         }
                       }
                     }
@@ -18673,7 +18587,7 @@
                     "odds": "-175"
                   },
                   "close": {
-                    "odds": "-180",
+                    "odds": "-175",
                     "link": {
                       "rel": [
                         "home",
@@ -18723,7 +18637,7 @@
                     "odds": "+320"
                   },
                   "close": {
-                    "odds": "+310",
+                    "odds": "+320",
                     "link": {
                       "rel": [
                         "draw",
@@ -18744,7 +18658,7 @@
                   }
                 }
               },
-              "details": "SUI -180"
+              "details": "SUI -175"
             }
           ],
           "wasSuspended": false,
@@ -18857,8 +18771,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $698",
-              "numberAvailable": 279,
+              "summary": "Tickets as low as $648",
+              "numberAvailable": 186,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-bc-place-stadium-6-18-2026--sports-soccer/production/5080475?wsUser=717"
@@ -20190,7 +20104,7 @@
                     "odds": "-125"
                   },
                   "close": {
-                    "odds": "+110",
+                    "odds": "+105",
                     "link": {
                       "rel": [
                         "home",
@@ -20215,7 +20129,7 @@
                     "odds": "+360"
                   },
                   "close": {
-                    "odds": "+295",
+                    "odds": "+310",
                     "link": {
                       "rel": [
                         "away",
@@ -20261,7 +20175,7 @@
                   }
                 }
               },
-              "details": "MEX +110"
+              "details": "MEX +105"
             }
           ],
           "wasSuspended": false,
@@ -20374,8 +20288,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $1,820",
-              "numberAvailable": 731,
+              "summary": "Tickets as low as $1,646",
+              "numberAvailable": 701,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-lumen-field-6-19-2026--sports-soccer/production/5080483?wsUser=717"
@@ -21155,8 +21069,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $1,049",
-              "numberAvailable": 673,
+              "summary": "Tickets as low as $1,016",
+              "numberAvailable": 707,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-gillette-stadium-6-19-2026--sports-soccer/production/5080481?wsUser=717"
@@ -21924,7 +21838,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $1,689",
-              "numberAvailable": 448,
+              "numberAvailable": 463,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-lincoln-financial-field-6-19-2026--sports-soccer/production/5080479?wsUser=717"
@@ -22689,8 +22603,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $629",
-              "numberAvailable": 679,
+              "summary": "Tickets as low as $579",
+              "numberAvailable": 675,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-levis-stadium-6-19-2026--sports-soccer/production/5080482?wsUser=717"
@@ -23456,7 +23370,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $859",
-              "numberAvailable": 501,
+              "numberAvailable": 502,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-nrg-stadium-6-20-2026--sports-soccer/production/5080490?wsUser=717"
@@ -24236,8 +24150,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $1,519",
-              "numberAvailable": 149,
+              "summary": "Tickets as low as $1,571",
+              "numberAvailable": 147,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-bmo-field-6-20-2026--sports-soccer/production/5080485?wsUser=717"
@@ -25003,7 +24917,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $443",
-              "numberAvailable": 1038,
+              "numberAvailable": 1039,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-geha-field-at-arrowhead-stadium-6-20-2026--sports-soccer/production/5080488?wsUser=717"
@@ -26538,7 +26452,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $1,160",
-              "numberAvailable": 632,
+              "numberAvailable": 639,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-mercedes-benz-stadium-6-21-2026--sports-soccer/production/5080496?wsUser=717"
@@ -27304,7 +27218,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $726",
-              "numberAvailable": 625,
+              "numberAvailable": 641,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-sofi-stadium-6-21-2026--sports-soccer/production/5080498?wsUser=717"
@@ -28070,7 +27984,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $608",
-              "numberAvailable": 921,
+              "numberAvailable": 929,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-hard-rock-stadium-6-21-2026--sports-soccer/production/5080494?wsUser=717"
@@ -28835,8 +28749,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $454",
-              "numberAvailable": 960,
+              "summary": "Tickets as low as $484",
+              "numberAvailable": 949,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-bc-place-stadium-6-21-2026--sports-soccer/production/5080499?wsUser=717"
@@ -29601,8 +29515,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $1,991",
-              "numberAvailable": 538,
+              "summary": "Tickets as low as $2,014",
+              "numberAvailable": 541,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-att-stadium-6-22-2026--sports-soccer/production/5080516?wsUser=717"
@@ -30384,8 +30298,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $880",
-              "numberAvailable": 761,
+              "summary": "Tickets as low as $934",
+              "numberAvailable": 751,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-lincoln-financial-field-6-22-2026--sports-soccer/production/5080513?wsUser=717"
@@ -31902,8 +31816,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $383",
-              "numberAvailable": 923,
+              "summary": "Tickets as low as $454",
+              "numberAvailable": 919,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-levis-stadium-6-22-2026--sports-soccer/production/5080518?wsUser=717"
@@ -32668,8 +32582,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $1,603",
-              "numberAvailable": 540,
+              "summary": "Tickets as low as $1,529",
+              "numberAvailable": 556,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-nrg-stadium-6-23-2026--sports-soccer/production/5080529?wsUser=717"
@@ -33446,8 +33360,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $1,235",
-              "numberAvailable": 899,
+              "summary": "Tickets as low as $1,264",
+              "numberAvailable": 906,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-gillette-stadium-6-23-2026--sports-soccer/production/5080521?wsUser=717"
@@ -34212,8 +34126,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $1,096",
-              "numberAvailable": 260,
+              "summary": "Tickets as low as $1,023",
+              "numberAvailable": 264,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-bmo-field-6-23-2026--sports-soccer/production/5080525?wsUser=717"
@@ -35731,7 +35645,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $339",
-              "numberAvailable": 1551,
+              "numberAvailable": 1562,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-lumen-field-6-24-2026--sports-soccer/production/5080607?wsUser=717"
@@ -36509,7 +36423,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $827",
-              "numberAvailable": 888,
+              "numberAvailable": 904,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-bc-place-stadium-6-24-2026--sports-soccer/production/5080604?wsUser=717"
@@ -37275,7 +37189,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $570",
-              "numberAvailable": 811,
+              "numberAvailable": 825,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-mercedes-benz-stadium-6-24-2026--sports-soccer/production/5080602?wsUser=717"
@@ -38043,7 +37957,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $2,587",
-              "numberAvailable": 692,
+              "numberAvailable": 687,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-hard-rock-stadium-6-24-2026--sports-soccer/production/5080601?wsUser=717"
@@ -38879,13 +38793,13 @@
               "order": 0,
               "homeAway": "home",
               "winner": false,
-              "form": "LWWWW",
+              "form": "DLWWW",
               "score": "0",
               "records": [
                 {
                   "name": "All Splits",
                   "type": "total",
-                  "summary": "0-0-1",
+                  "summary": "0-1-1",
                   "abbreviation": "Total"
                 }
               ],
@@ -39231,7 +39145,7 @@
                 "priority": 1
               },
               "drawOdds": {
-                "moneyLine": 265,
+                "moneyLine": 275,
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -39286,7 +39200,7 @@
                   },
                   "close": {
                     "line": "u2.5",
-                    "odds": "-140",
+                    "odds": "-135",
                     "link": {
                       "rel": [
                         "under",
@@ -39318,7 +39232,7 @@
                   },
                   "close": {
                     "line": "+0.5",
-                    "odds": "+105",
+                    "odds": "+115",
                     "link": {
                       "rel": [
                         "homeSpread",
@@ -39346,7 +39260,7 @@
                   },
                   "close": {
                     "line": "-0.5",
-                    "odds": "-130",
+                    "odds": "-145",
                     "link": {
                       "rel": [
                         "awaySpread",
@@ -39376,7 +39290,7 @@
                     "odds": "+300"
                   },
                   "close": {
-                    "odds": "+370",
+                    "odds": "+400",
                     "link": {
                       "rel": [
                         "home",
@@ -39401,7 +39315,7 @@
                     "odds": "-105"
                   },
                   "close": {
-                    "odds": "-125",
+                    "odds": "-135",
                     "link": {
                       "rel": [
                         "away",
@@ -39426,7 +39340,7 @@
                     "odds": "+245"
                   },
                   "close": {
-                    "odds": "+265",
+                    "odds": "+275",
                     "link": {
                       "rel": [
                         "draw",
@@ -39447,7 +39361,7 @@
                   }
                 }
               },
-              "details": "MEX -125"
+              "details": "MEX -135"
             }
           ],
           "wasSuspended": false,
@@ -39631,13 +39545,13 @@
               "order": 0,
               "homeAway": "home",
               "winner": false,
-              "form": "LWDLD",
+              "form": "DLWDL",
               "score": "0",
               "records": [
                 {
                   "name": "All Splits",
                   "type": "total",
-                  "summary": "0-0-1",
+                  "summary": "0-1-1",
                   "abbreviation": "Total"
                 }
               ],
@@ -39985,7 +39899,7 @@
                 "priority": 1
               },
               "drawOdds": {
-                "moneyLine": 320,
+                "moneyLine": 310,
                 "link": {
                   "language": "en-US",
                   "rel": [
@@ -40012,7 +39926,7 @@
                   },
                   "close": {
                     "line": "o2.5",
-                    "odds": "+100",
+                    "odds": "+105",
                     "link": {
                       "rel": [
                         "over",
@@ -40072,7 +39986,7 @@
                   },
                   "close": {
                     "line": "+0.5",
-                    "odds": "+145",
+                    "odds": "+140",
                     "link": {
                       "rel": [
                         "homeSpread",
@@ -40100,7 +40014,7 @@
                   },
                   "close": {
                     "line": "-0.5",
-                    "odds": "-185",
+                    "odds": "-180",
                     "link": {
                       "rel": [
                         "awaySpread",
@@ -40155,7 +40069,7 @@
                     "odds": "+110"
                   },
                   "close": {
-                    "odds": "-175",
+                    "odds": "-170",
                     "link": {
                       "rel": [
                         "away",
@@ -40180,7 +40094,7 @@
                     "odds": "+235"
                   },
                   "close": {
-                    "odds": "+320",
+                    "odds": "+310",
                     "link": {
                       "rel": [
                         "draw",
@@ -40201,7 +40115,7 @@
                   }
                 }
               },
-              "details": "KOR -175"
+              "details": "KOR -170"
             }
           ],
           "wasSuspended": false,
@@ -40315,7 +40229,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $461",
-              "numberAvailable": 562,
+              "numberAvailable": 582,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-lincoln-financial-field-6-25-2026--sports-soccer/production/5080643?wsUser=717"
@@ -41095,8 +41009,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $1,687",
-              "numberAvailable": 787,
+              "summary": "Tickets as low as $1,684",
+              "numberAvailable": 790,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-metlife-stadium-6-25-2026--sports-soccer/production/5080645?wsUser=717"
@@ -41862,7 +41776,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $993",
-              "numberAvailable": 946,
+              "numberAvailable": 942,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-att-stadium-6-25-2026--sports-soccer/production/5080649?wsUser=717"
@@ -42628,7 +42542,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $542",
-              "numberAvailable": 820,
+              "numberAvailable": 808,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-geha-field-at-arrowhead-stadium-6-25-2026--sports-soccer/production/5080653?wsUser=717"
@@ -43396,7 +43310,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $551",
-              "numberAvailable": 812,
+              "numberAvailable": 815,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-levis-stadium-6-25-2026--sports-soccer/production/5080661?wsUser=717"
@@ -44162,7 +44076,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $1,389",
-              "numberAvailable": 940,
+              "numberAvailable": 932,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-sofi-stadium-6-25-2026--sports-soccer/production/5080656?wsUser=717"
@@ -44927,8 +44841,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $1,568",
-              "numberAvailable": 670,
+              "summary": "Tickets as low as $1,735",
+              "numberAvailable": 675,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-gillette-stadium-6-26-2026--sports-soccer/production/5080674?wsUser=717"
@@ -47965,7 +47879,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $454",
-              "numberAvailable": 1609,
+              "numberAvailable": 1635,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-lumen-field-6-26-2026--sports-soccer/production/5080680?wsUser=717"
@@ -48730,8 +48644,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $611",
-              "numberAvailable": 714,
+              "summary": "Tickets as low as $488",
+              "numberAvailable": 710,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-bc-place-stadium-6-26-2026--sports-soccer/production/5080683?wsUser=717"
@@ -49497,7 +49411,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $888",
-              "numberAvailable": 679,
+              "numberAvailable": 663,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-lincoln-financial-field-6-27-2026--sports-soccer/production/5080700?wsUser=717"
@@ -50278,7 +50192,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $1,392",
-              "numberAvailable": 1314,
+              "numberAvailable": 1288,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-metlife-stadium-6-27-2026--sports-soccer/production/5080698?wsUser=717"
@@ -51044,7 +50958,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $3,453",
-              "numberAvailable": 933,
+              "numberAvailable": 946,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-hard-rock-stadium-6-27-2026--sports-soccer/production/5080718?wsUser=717"
@@ -52559,7 +52473,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $440",
-              "numberAvailable": 861,
+              "numberAvailable": 862,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-geha-field-at-arrowhead-stadium-6-27-2026--sports-soccer/production/5080707?wsUser=717"
@@ -53325,7 +53239,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $1,819",
-              "numberAvailable": 907,
+              "numberAvailable": 897,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-att-stadium-6-27-2026--sports-soccer/production/5080712?wsUser=717"
