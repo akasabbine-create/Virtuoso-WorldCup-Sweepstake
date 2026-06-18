@@ -462,7 +462,6 @@ function teamNameHtml(team, classes) {
 function renderStatus(status) {
   const statusEl = document.querySelector("#status");
   const completedEl = document.querySelector("#completed-matches");
-  const completedNoteEl = document.querySelector("#completed-matches-note");
 
   if (!statusEl || !completedEl) return;
 
@@ -483,13 +482,8 @@ function renderStatus(status) {
 
   const completed = status.completedMatches ?? 0;
   const total = status.totalTournamentMatches ?? 104;
-  const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
 
   completedEl.textContent = `${completed} of ${total}`;
-
-  if (completedNoteEl) {
-    completedNoteEl.textContent = `${percentage}% of tournament matches complete`;
-  }
 }
 
 function renderSummaryCards(leaderboard, playerDetails) {
@@ -546,7 +540,7 @@ function addProjectedPrize(payouts, playerName, prize) {
   payouts[playerName].prizes.push(prize);
 }
 
-function renderPrizePoolCard(leaderboard, playerDetails, bonusData) {
+function renderPrizePoolSection(leaderboard, playerDetails, bonusData) {
   const container = document.querySelector("#projected-prizes");
 
   if (!container) return;
@@ -597,8 +591,10 @@ function renderPrizePoolCard(leaderboard, playerDetails, bonusData) {
 
   if (projectedPayouts.length === 0) {
     container.innerHTML = `
-      <div class="prize-pool-total">£${PRIZE_POOL.total}</div>
-      <div class="prize-pool-subtitle">Projected payouts unavailable</div>
+      <div class="prize-pool-topline">
+        <span class="prize-pool-total">£${PRIZE_POOL.total}</span>
+        <span class="prize-pool-subtitle">projected payouts unavailable</span>
+      </div>
     `;
     return;
   }
@@ -695,12 +691,6 @@ function renderInsightStrip(leaderboard, latestResults) {
       <h3>Leaderboard movement</h3>
       <p>Movement since the previous scoring update.</p>
       <div class="insight-chip-row">${moverHtml}</div>
-    </div>
-
-    <div class="insight-card completed-count-card">
-      <div class="insight-label">Completed Matches</div>
-      <h3 id="completed-matches">Loading...</h3>
-      <p id="completed-matches-note">Tournament progress</p>
     </div>
   `;
 
@@ -1281,10 +1271,10 @@ async function init() {
   mostGoalsTeams = badgeData.mostGoalsTeams || [];
 
   renderSummaryCards(leaderboard, playerDetails);
-  renderPrizePoolCard(leaderboard, playerDetails, bonusData);
   renderInsightStrip(leaderboard, latestResults);
   renderLeaderboard(leaderboard, spoonTeam, badgesByPlayer, mostGoalsTeams);
   renderBonusTracker(bonusData, leaderboard);
+  renderPrizePoolSection(leaderboard, playerDetails, bonusData);
   renderWoodenSpoonRace(playerDetails);
   renderPlayerDetails(playerDetails, spoonTeam, mostGoalsTeams);
   renderLatestResults(latestResults);
