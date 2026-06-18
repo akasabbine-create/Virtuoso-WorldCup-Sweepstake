@@ -140,8 +140,78 @@
     ]
   },
   {
-    "name": "Charlie",
+    "name": "Rob",
     "rank": 3,
+    "points": 6,
+    "matchPoints": 6,
+    "bonusPoints": 0,
+    "gamesPlayed": 3,
+    "teams": [
+      {
+        "team": "Colombia",
+        "points": 3,
+        "gamesPlayed": 1,
+        "wins": 1,
+        "draws": 0,
+        "losses": 0,
+        "goalsFor": 3,
+        "goalsAgainst": 1,
+        "recentResults": [
+          {
+            "date": "2026-06-18T02:00Z",
+            "opponent": "Uzbekistan",
+            "scoreFor": 3,
+            "scoreAgainst": 1,
+            "result": "W",
+            "points": 3
+          }
+        ]
+      },
+      {
+        "team": "Panama",
+        "points": 0,
+        "gamesPlayed": 1,
+        "wins": 0,
+        "draws": 0,
+        "losses": 1,
+        "goalsFor": 0,
+        "goalsAgainst": 1,
+        "recentResults": [
+          {
+            "date": "2026-06-17T23:00Z",
+            "opponent": "Ghana",
+            "scoreFor": 0,
+            "scoreAgainst": 1,
+            "result": "L",
+            "points": 0
+          }
+        ]
+      },
+      {
+        "team": "Ghana",
+        "points": 3,
+        "gamesPlayed": 1,
+        "wins": 1,
+        "draws": 0,
+        "losses": 0,
+        "goalsFor": 1,
+        "goalsAgainst": 0,
+        "recentResults": [
+          {
+            "date": "2026-06-17T23:00Z",
+            "opponent": "Panama",
+            "scoreFor": 1,
+            "scoreAgainst": 0,
+            "result": "W",
+            "points": 3
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Charlie",
+    "rank": 4,
     "points": 6,
     "matchPoints": 6,
     "bonusPoints": 0,
@@ -211,7 +281,7 @@
   },
   {
     "name": "Ryan",
-    "rank": 4,
+    "rank": 5,
     "points": 5,
     "matchPoints": 5,
     "bonusPoints": 0,
@@ -281,7 +351,7 @@
   },
   {
     "name": "Oli",
-    "rank": 5,
+    "rank": 6,
     "points": 5,
     "matchPoints": 5,
     "bonusPoints": 0,
@@ -351,7 +421,7 @@
   },
   {
     "name": "Maelan",
-    "rank": 6,
+    "rank": 7,
     "points": 5,
     "matchPoints": 5,
     "bonusPoints": 0,
@@ -421,7 +491,7 @@
   },
   {
     "name": "Malcolm",
-    "rank": 7,
+    "rank": 8,
     "points": 4,
     "matchPoints": 4,
     "bonusPoints": 0,
@@ -491,7 +561,7 @@
   },
   {
     "name": "Seb",
-    "rank": 8,
+    "rank": 9,
     "points": 4,
     "matchPoints": 4,
     "bonusPoints": 0,
@@ -561,7 +631,7 @@
   },
   {
     "name": "Matt",
-    "rank": 9,
+    "rank": 10,
     "points": 4,
     "matchPoints": 4,
     "bonusPoints": 0,
@@ -631,7 +701,7 @@
   },
   {
     "name": "Max",
-    "rank": 10,
+    "rank": 11,
     "points": 4,
     "matchPoints": 4,
     "bonusPoints": 0,
@@ -694,67 +764,6 @@
             "scoreAgainst": 5,
             "result": "L",
             "points": 0
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "name": "Rob",
-    "rank": 11,
-    "points": 3,
-    "matchPoints": 3,
-    "bonusPoints": 0,
-    "gamesPlayed": 2,
-    "teams": [
-      {
-        "team": "Colombia",
-        "points": 0,
-        "gamesPlayed": 0,
-        "wins": 0,
-        "draws": 0,
-        "losses": 0,
-        "goalsFor": 0,
-        "goalsAgainst": 0,
-        "recentResults": []
-      },
-      {
-        "team": "Panama",
-        "points": 0,
-        "gamesPlayed": 1,
-        "wins": 0,
-        "draws": 0,
-        "losses": 1,
-        "goalsFor": 0,
-        "goalsAgainst": 1,
-        "recentResults": [
-          {
-            "date": "2026-06-17T23:00Z",
-            "opponent": "Ghana",
-            "scoreFor": 0,
-            "scoreAgainst": 1,
-            "result": "L",
-            "points": 0
-          }
-        ]
-      },
-      {
-        "team": "Ghana",
-        "points": 3,
-        "gamesPlayed": 1,
-        "wins": 1,
-        "draws": 0,
-        "losses": 0,
-        "goalsFor": 1,
-        "goalsAgainst": 0,
-        "recentResults": [
-          {
-            "date": "2026-06-17T23:00Z",
-            "opponent": "Panama",
-            "scoreFor": 1,
-            "scoreAgainst": 0,
-            "result": "W",
-            "points": 3
           }
         ]
       }
@@ -1046,7 +1055,7 @@
     "points": 0,
     "matchPoints": 0,
     "bonusPoints": 0,
-    "gamesPlayed": 2,
+    "gamesPlayed": 3,
     "teams": [
       {
         "team": "Turkey",
@@ -1071,13 +1080,22 @@
       {
         "team": "Uzbekistan",
         "points": 0,
-        "gamesPlayed": 0,
+        "gamesPlayed": 1,
         "wins": 0,
         "draws": 0,
-        "losses": 0,
-        "goalsFor": 0,
-        "goalsAgainst": 0,
-        "recentResults": []
+        "losses": 1,
+        "goalsFor": 1,
+        "goalsAgainst": 3,
+        "recentResults": [
+          {
+            "date": "2026-06-18T02:00Z",
+            "opponent": "Colombia",
+            "scoreFor": 1,
+            "scoreAgainst": 3,
+            "result": "L",
+            "points": 0
+          }
+        ]
       },
       {
         "team": "Jordan",
