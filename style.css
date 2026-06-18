@@ -170,7 +170,8 @@ h2::after {
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
   gap: 16px;
   margin: 26px 0 18px;
 }
@@ -255,6 +256,11 @@ h2::after {
   background: rgba(57, 211, 83, 0.12);
 }
 
+.prize-pool-card {
+  grid-column: 1 / -1;
+  min-height: auto;
+}
+
 .card h2 {
   position: relative;
   z-index: 1;
@@ -312,14 +318,15 @@ h2::after {
   position: relative;
   z-index: 1;
   display: grid;
-  gap: 9px;
+  grid-template-columns: minmax(150px, 0.32fr) minmax(0, 1fr);
+  gap: 16px;
+  align-items: start;
 }
 
 .prize-pool-topline {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  gap: 8px;
+  display: grid;
+  gap: 6px;
+  align-content: start;
 }
 
 .prize-pool-total {
@@ -342,7 +349,8 @@ h2::after {
 
 .prize-payout-list {
   display: grid;
-  gap: 6px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
 }
 
 .prize-payout-item {
@@ -1751,6 +1759,14 @@ tr.top-three:nth-child(3) .badge-icon {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
+  .prize-pool-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .prize-payout-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .spoon-race-grid {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -1790,6 +1806,10 @@ tr.top-three:nth-child(3) .badge-icon {
 }
 
 @media (max-width: 800px) {
+  .prize-payout-list {
+    grid-template-columns: 1fr;
+  }
+
   main {
     width: 94vw;
     padding-top: 18px;
