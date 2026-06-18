@@ -17172,7 +17172,7 @@
     "score2": null,
     "displayScore1": 1,
     "displayScore2": 0,
-    "status": "In Progress",
+    "status": "Halftime",
     "completed": false,
     "live": true,
     "date": "2026-06-18T16:00Z",
@@ -17199,17 +17199,17 @@
           "timeValid": true,
           "recent": true,
           "status": {
-            "clock": 1800.0,
-            "displayClock": "30'",
+            "clock": 2700.0,
+            "displayClock": "45'+4'",
             "period": 1,
             "type": {
-              "id": "2",
-              "name": "STATUS_IN_PROGRESS",
+              "id": "23",
+              "name": "STATUS_HALFTIME",
               "state": "in",
               "completed": false,
-              "description": "In Progress",
-              "detail": "30'",
-              "shortDetail": "30'"
+              "description": "Halftime",
+              "detail": "HT",
+              "shortDetail": "HT"
             }
           },
           "venue": {
@@ -17392,7 +17392,7 @@
                 {
                   "name": "foulsCommitted",
                   "abbreviation": "FC",
-                  "displayValue": "4"
+                  "displayValue": "8"
                 },
                 {
                   "name": "wonCorners",
@@ -17407,7 +17407,7 @@
                 {
                   "name": "possessionPct",
                   "abbreviation": "PP",
-                  "displayValue": "41.7"
+                  "displayValue": "37"
                 },
                 {
                   "name": "shotAssists",
@@ -17427,7 +17427,7 @@
                 {
                   "name": "totalShots",
                   "abbreviation": "SHOT",
-                  "displayValue": "4"
+                  "displayValue": "5"
                 }
               ]
             },
@@ -17523,12 +17523,12 @@
                 {
                   "name": "foulsCommitted",
                   "abbreviation": "FC",
-                  "displayValue": "3"
+                  "displayValue": "4"
                 },
                 {
                   "name": "wonCorners",
                   "abbreviation": "CW",
-                  "displayValue": "1"
+                  "displayValue": "3"
                 },
                 {
                   "name": "goalAssists",
@@ -17538,12 +17538,12 @@
                 {
                   "name": "possessionPct",
                   "abbreviation": "PP",
-                  "displayValue": "58.3"
+                  "displayValue": "63"
                 },
                 {
                   "name": "shotAssists",
                   "abbreviation": "SHAST",
-                  "displayValue": "2"
+                  "displayValue": "4"
                 },
                 {
                   "name": "shotsOnTarget",
@@ -17558,7 +17558,7 @@
                 {
                   "name": "totalShots",
                   "abbreviation": "SHOT",
-                  "displayValue": "2"
+                  "displayValue": "5"
                 }
               ]
             }
@@ -17606,6 +17606,94 @@
                     }
                   ],
                   "position": "CM-L"
+                }
+              ]
+            },
+            {
+              "type": {
+                "id": "94",
+                "text": "Yellow Card"
+              },
+              "clock": {
+                "value": 1975.0,
+                "displayValue": "33'"
+              },
+              "team": {
+                "id": "467"
+              },
+              "scoreValue": 0,
+              "scoringPlay": false,
+              "redCard": false,
+              "yellowCard": true,
+              "penaltyKick": false,
+              "ownGoal": false,
+              "shootout": false,
+              "athletesInvolved": [
+                {
+                  "id": "256691",
+                  "displayName": "Teboho Mokoena",
+                  "shortName": "T. Mokoena",
+                  "fullName": "Teboho Mokoena",
+                  "jersey": "4",
+                  "team": {
+                    "id": "467"
+                  },
+                  "links": [
+                    {
+                      "rel": [
+                        "playercard",
+                        "desktop",
+                        "athlete"
+                      ],
+                      "href": "https://www.espn.com/soccer/player/_/id/256691/teboho-mokoena",
+                      "isHidden": false
+                    }
+                  ],
+                  "position": "CM"
+                }
+              ]
+            },
+            {
+              "type": {
+                "id": "94",
+                "text": "Yellow Card"
+              },
+              "clock": {
+                "value": 2393.0,
+                "displayValue": "40'"
+              },
+              "team": {
+                "id": "467"
+              },
+              "scoreValue": 0,
+              "scoringPlay": false,
+              "redCard": false,
+              "yellowCard": true,
+              "penaltyKick": false,
+              "ownGoal": false,
+              "shootout": false,
+              "athletesInvolved": [
+                {
+                  "id": "301321",
+                  "displayName": "Thalente Mbatha",
+                  "shortName": "T. Mbatha",
+                  "fullName": "Thalente Mbatha",
+                  "jersey": "5",
+                  "team": {
+                    "id": "467"
+                  },
+                  "links": [
+                    {
+                      "rel": [
+                        "playercard",
+                        "desktop",
+                        "athlete"
+                      ],
+                      "href": "https://www.espn.com/soccer/player/_/id/301321/thalente-mbatha",
+                      "isHidden": false
+                    }
+                  ],
+                  "position": "RM"
                 }
               ]
             }
@@ -17679,7 +17767,7 @@
                   },
                   "current": {
                     "line": "o2.5",
-                    "odds": "-109",
+                    "odds": "+148",
                     "link": {
                       "rel": [
                         "over",
@@ -17711,7 +17799,7 @@
                   },
                   "current": {
                     "line": "u2.5",
-                    "odds": "-109",
+                    "odds": "-177",
                     "link": {
                       "rel": [
                         "under",
@@ -17747,7 +17835,7 @@
                   },
                   "current": {
                     "line": "-1.5",
-                    "odds": "+135",
+                    "odds": "+170",
                     "link": {
                       "rel": [
                         "homeSpread",
@@ -17779,7 +17867,7 @@
                   },
                   "current": {
                     "line": "+1.5",
-                    "odds": "-175",
+                    "odds": "-220",
                     "link": {
                       "rel": [
                         "awaySpread",
@@ -17812,7 +17900,7 @@
                     "odds": "-115"
                   },
                   "current": {
-                    "odds": "-350",
+                    "odds": "-330",
                     "link": {
                       "rel": [
                         "home",
@@ -17840,7 +17928,7 @@
                     "odds": "+370"
                   },
                   "current": {
-                    "odds": "+1200",
+                    "odds": "+1400",
                     "link": {
                       "rel": [
                         "away",
@@ -17868,7 +17956,7 @@
                     "odds": "+240"
                   },
                   "current": {
-                    "odds": "+390",
+                    "odds": "+330",
                     "link": {
                       "rel": [
                         "draw",
@@ -17898,17 +17986,17 @@
         }
       ],
       "status": {
-        "clock": 1800.0,
-        "displayClock": "30'",
+        "clock": 2700.0,
+        "displayClock": "45'+4'",
         "period": 1,
         "type": {
-          "id": "2",
-          "name": "STATUS_IN_PROGRESS",
+          "id": "23",
+          "name": "STATUS_HALFTIME",
           "state": "in",
           "completed": false,
-          "description": "In Progress",
-          "detail": "30'",
-          "shortDetail": "30'"
+          "description": "Halftime",
+          "detail": "HT",
+          "shortDetail": "HT"
         }
       },
       "venue": {
@@ -18527,7 +18615,7 @@
                   },
                   "close": {
                     "line": "-0.5",
-                    "odds": "-190",
+                    "odds": "-185",
                     "link": {
                       "rel": [
                         "homeSpread",
@@ -18555,7 +18643,7 @@
                   },
                   "close": {
                     "line": "+0.5",
-                    "odds": "+150",
+                    "odds": "+145",
                     "link": {
                       "rel": [
                         "awaySpread",
@@ -18770,7 +18858,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $693",
-              "numberAvailable": 339,
+              "numberAvailable": 328,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-bc-place-stadium-6-18-2026--sports-soccer/production/5080475?wsUser=717"
@@ -19258,7 +19346,7 @@
                   },
                   "close": {
                     "line": "u2.5",
-                    "odds": "+115",
+                    "odds": "+110",
                     "link": {
                       "rel": [
                         "under",
@@ -20286,8 +20374,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $1,561",
-              "numberAvailable": 762,
+              "summary": "Tickets as low as $1,533",
+              "numberAvailable": 726,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-lumen-field-6-19-2026--sports-soccer/production/5080483?wsUser=717"
@@ -22602,7 +22690,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $610",
-              "numberAvailable": 645,
+              "numberAvailable": 661,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-levis-stadium-6-19-2026--sports-soccer/production/5080482?wsUser=717"
@@ -26449,8 +26537,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $1,158",
-              "numberAvailable": 616,
+              "summary": "Tickets as low as $1,160",
+              "numberAvailable": 617,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-mercedes-benz-stadium-6-21-2026--sports-soccer/production/5080496?wsUser=717"
@@ -27216,7 +27304,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $867",
-              "numberAvailable": 649,
+              "numberAvailable": 634,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-sofi-stadium-6-21-2026--sports-soccer/production/5080498?wsUser=717"
@@ -29513,8 +29601,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $2,048",
-              "numberAvailable": 523,
+              "summary": "Tickets as low as $2,145",
+              "numberAvailable": 513,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-att-stadium-6-22-2026--sports-soccer/production/5080516?wsUser=717"
@@ -30296,8 +30384,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $877",
-              "numberAvailable": 759,
+              "summary": "Tickets as low as $911",
+              "numberAvailable": 756,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-lincoln-financial-field-6-22-2026--sports-soccer/production/5080513?wsUser=717"
@@ -36421,7 +36509,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $827",
-              "numberAvailable": 781,
+              "numberAvailable": 846,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-bc-place-stadium-6-24-2026--sports-soccer/production/5080604?wsUser=717"
@@ -39170,7 +39258,7 @@
                   },
                   "close": {
                     "line": "o2.5",
-                    "odds": "+115",
+                    "odds": "+110",
                     "link": {
                       "rel": [
                         "over",
@@ -41008,7 +41096,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $1,687",
-              "numberAvailable": 733,
+              "numberAvailable": 747,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-metlife-stadium-6-25-2026--sports-soccer/production/5080645?wsUser=717"
@@ -44840,7 +44928,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $1,568",
-              "numberAvailable": 590,
+              "numberAvailable": 593,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-gillette-stadium-6-26-2026--sports-soccer/production/5080674?wsUser=717"
@@ -53236,8 +53324,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $1,839",
-              "numberAvailable": 874,
+              "summary": "Tickets as low as $1,798",
+              "numberAvailable": 866,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-att-stadium-6-27-2026--sports-soccer/production/5080712?wsUser=717"
