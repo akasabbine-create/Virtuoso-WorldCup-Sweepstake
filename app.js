@@ -269,6 +269,16 @@ function goalDifference(team) {
   return (team.goalsFor ?? 0) - (team.goalsAgainst ?? 0);
 }
 
+function formatGoalDifference(value) {
+  const numberValue = Number(value || 0);
+
+  if (numberValue > 0) {
+    return `+${numberValue}`;
+  }
+
+  return String(numberValue);
+}
+
 function playerOwnsTeam(player, teamName) {
   const target = normaliseText(teamName);
 
@@ -570,7 +580,7 @@ function renderLeaderboard(data, spoonTeam, badgesByPlayer, mostGoalsTeams) {
   if (!data || data.length === 0) {
     tbody.innerHTML = `
       <tr>
-        <td colspan="9">No leaderboard data found.</td>
+        <td colspan="10">No leaderboard data found.</td>
       </tr>
     `;
     return;
@@ -599,6 +609,7 @@ function renderLeaderboard(data, spoonTeam, badgesByPlayer, mostGoalsTeams) {
       <td>${player.name}</td>
       <td>${teams}</td>
       <td>${player.gamesPlayed ?? 0}</td>
+      <td class="goal-difference-cell">${formatGoalDifference(player.goalDifference ?? 0)}</td>
       <td>${player.matchPoints ?? player.points ?? 0}</td>
       <td>${player.bonusPoints ?? 0}</td>
       <td><strong>${player.points ?? 0}</strong></td>
@@ -1085,7 +1096,7 @@ async function init() {
     if (tbody) {
       tbody.innerHTML = `
         <tr>
-          <td colspan="9">Could not load leaderboard data.</td>
+          <td colspan="10">Could not load leaderboard data.</td>
         </tr>
       `;
     }
