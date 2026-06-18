@@ -42,13 +42,13 @@
     "date": "2026-06-18T19:00Z",
     "team1": "Switzerland",
     "team2": "Bosnia",
-    "score1": null,
-    "score2": null,
-    "displayScore1": 0,
-    "displayScore2": 0,
-    "status": "Second Half",
-    "completed": false,
-    "live": true,
+    "score1": 4,
+    "score2": 1,
+    "displayScore1": 4,
+    "displayScore2": 1,
+    "status": "Full Time",
+    "completed": true,
+    "live": false,
     "isToday": true,
     "footballDayStart": "2026-06-18T05:00:00+00:00",
     "footballDayEnd": "2026-06-19T05:00:00+00:00",
@@ -66,7 +66,12 @@
         ]
       }
     ],
-    "playerGains": []
+    "playerGains": [
+      {
+        "name": "Maelan",
+        "points": 3
+      }
+    ]
   },
   {
     "date": "2026-06-18T22:00Z",
