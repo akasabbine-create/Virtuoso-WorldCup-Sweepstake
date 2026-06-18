@@ -690,6 +690,16 @@ tr.top-three td:last-child strong,
   color: #c9d1d9;
 }
 
+.goal-difference-cell {
+  font-weight: 800;
+  color: #ffd166;
+  white-space: nowrap;
+}
+
+#board td.goal-difference-cell {
+  text-align: center;
+}
+
 .badge-cell {
   min-width: 80px;
   white-space: nowrap;
