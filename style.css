@@ -170,7 +170,7 @@ h2::after {
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 16px;
   margin: 26px 0 18px;
 }
@@ -241,32 +241,17 @@ h2::after {
 }
 
 .card:nth-child(3) {
-  border-color: rgba(88, 166, 255, 0.34);
-  background:
-    radial-gradient(circle at top right, rgba(88, 166, 255, 0.18), transparent 34%),
-    linear-gradient(145deg, rgba(16, 45, 68, 0.98), rgba(8, 31, 49, 0.98));
-}
-
-.card:nth-child(3)::before {
-  background: linear-gradient(180deg, #79c0ff, #1f6feb);
-}
-
-.card:nth-child(3)::after {
-  background: rgba(88, 166, 255, 0.15);
-}
-
-.card:nth-child(4) {
   border-color: rgba(57, 211, 83, 0.34);
   background:
     radial-gradient(circle at top right, rgba(57, 211, 83, 0.15), transparent 34%),
     linear-gradient(145deg, rgba(16, 45, 68, 0.98), rgba(8, 31, 49, 0.98));
 }
 
-.card:nth-child(4)::before {
+.card:nth-child(3)::before {
   background: linear-gradient(180deg, #39d353, #1f9d55);
 }
 
-.card:nth-child(4)::after {
+.card:nth-child(3)::after {
   background: rgba(57, 211, 83, 0.12);
 }
 
@@ -310,8 +295,8 @@ h2::after {
 }
 
 .card:nth-child(3) p {
-  color: #79c0ff;
-  text-shadow: 0 8px 22px rgba(88, 166, 255, 0.14);
+  color: #b7f7c1;
+  text-shadow: 0 8px 22px rgba(57, 211, 83, 0.12);
 }
 
 .small-card-text {
@@ -458,7 +443,7 @@ h2::after {
 
 .insight-strip {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.1fr) minmax(210px, 0.65fr);
   gap: 14px;
   margin: 0 0 30px;
 }
@@ -491,6 +476,20 @@ h2::after {
   background:
     radial-gradient(circle at top right, rgba(57, 211, 83, 0.12), transparent 36%),
     linear-gradient(145deg, rgba(16, 45, 68, 0.98), rgba(8, 31, 49, 0.98));
+}
+
+.completed-count-card {
+  border-left-color: #58a6ff;
+  background:
+    radial-gradient(circle at top right, rgba(88, 166, 255, 0.16), transparent 36%),
+    linear-gradient(145deg, rgba(16, 45, 68, 0.98), rgba(8, 31, 49, 0.98));
+}
+
+.completed-count-card h3 {
+  color: #79c0ff;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  letter-spacing: -0.055em;
+  text-shadow: 0 8px 22px rgba(88, 166, 255, 0.14);
 }
 
 .insight-label {
@@ -1748,7 +1747,7 @@ tr.top-three:nth-child(3) .badge-icon {
 }
 
 @media (max-width: 1100px) {
-  .cards {
+ .cards {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1796,7 +1795,7 @@ tr.top-three:nth-child(3) .badge-icon {
     padding-top: 18px;
   }
 
-  .cards,
+ .cards,
   .results-grid,
   .fixtures-grid,
   .player-grid,
