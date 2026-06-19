@@ -21108,6 +21108,20 @@
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "bracket",
+            "desktop",
+            "event"
+          ],
+          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
+          "text": "Bracket",
+          "shortText": "Bracket",
+          "isExternal": false,
+          "isPremium": false,
+          "isHidden": false
         }
       ]
     }
@@ -21381,7 +21395,7 @@
                 {
                   "name": "possessionPct",
                   "abbreviation": "PP",
-                  "displayValue": "78.8"
+                  "displayValue": "79"
                 },
                 {
                   "name": "shotAssists",
@@ -21549,7 +21563,7 @@
                 {
                   "name": "possessionPct",
                   "abbreviation": "PP",
-                  "displayValue": "21.2"
+                  "displayValue": "21"
                 },
                 {
                   "name": "shotAssists",
@@ -21754,8 +21768,8 @@
             },
             {
               "type": {
-                "id": "70",
-                "text": "Goal"
+                "id": "173",
+                "text": "Goal - Volley"
               },
               "clock": {
                 "value": 2700.0,
@@ -22130,7 +22144,7 @@
     "score2": null,
     "displayScore1": 0,
     "displayScore2": 0,
-    "status": "In Progress",
+    "status": "Halftime",
     "completed": false,
     "live": true,
     "date": "2026-06-19T01:00Z",
@@ -22157,17 +22171,17 @@
           "timeValid": true,
           "recent": true,
           "status": {
-            "clock": 1800.0,
-            "displayClock": "30'",
+            "clock": 2700.0,
+            "displayClock": "45'+4'",
             "period": 1,
             "type": {
-              "id": "2",
-              "name": "STATUS_IN_PROGRESS",
+              "id": "23",
+              "name": "STATUS_HALFTIME",
               "state": "in",
               "completed": false,
-              "description": "In Progress",
-              "detail": "30'",
-              "shortDetail": "30'"
+              "description": "Halftime",
+              "detail": "HT",
+              "shortDetail": "HT"
             }
           },
           "venue": {
@@ -22375,7 +22389,7 @@
                 {
                   "name": "foulsCommitted",
                   "abbreviation": "FC",
-                  "displayValue": "1"
+                  "displayValue": "4"
                 },
                 {
                   "name": "wonCorners",
@@ -22390,7 +22404,7 @@
                 {
                   "name": "possessionPct",
                   "abbreviation": "PP",
-                  "displayValue": "60.7"
+                  "displayValue": "47"
                 },
                 {
                   "name": "shotAssists",
@@ -22560,12 +22574,12 @@
                 {
                   "name": "possessionPct",
                   "abbreviation": "PP",
-                  "displayValue": "39.3"
+                  "displayValue": "53"
                 },
                 {
                   "name": "shotAssists",
                   "abbreviation": "SHAST",
-                  "displayValue": "0"
+                  "displayValue": "1"
                 },
                 {
                   "name": "shotsOnTarget",
@@ -22580,7 +22594,7 @@
                 {
                   "name": "totalShots",
                   "abbreviation": "SHOT",
-                  "displayValue": "0"
+                  "displayValue": "2"
                 }
               ]
             }
@@ -22700,7 +22714,7 @@
                   },
                   "current": {
                     "line": "o1.5",
-                    "odds": "+103",
+                    "odds": "+189",
                     "link": {
                       "rel": [
                         "over",
@@ -22732,7 +22746,7 @@
                   },
                   "current": {
                     "line": "u1.5",
-                    "odds": "-123",
+                    "odds": "-230",
                     "link": {
                       "rel": [
                         "under",
@@ -22768,7 +22782,7 @@
                   },
                   "current": {
                     "line": "-0.5",
-                    "odds": "+100",
+                    "odds": "+155",
                     "link": {
                       "rel": [
                         "homeSpread",
@@ -22800,7 +22814,7 @@
                   },
                   "current": {
                     "line": "+0.5",
-                    "odds": "-130",
+                    "odds": "-200",
                     "link": {
                       "rel": [
                         "awaySpread",
@@ -22833,7 +22847,7 @@
                     "odds": "+100"
                   },
                   "current": {
-                    "odds": "+110",
+                    "odds": "+160",
                     "link": {
                       "rel": [
                         "home",
@@ -22861,7 +22875,7 @@
                     "odds": "+330"
                   },
                   "current": {
-                    "odds": "+400",
+                    "odds": "+350",
                     "link": {
                       "rel": [
                         "away",
@@ -22889,7 +22903,7 @@
                     "odds": "+220"
                   },
                   "current": {
-                    "odds": "+160",
+                    "odds": "+120",
                     "link": {
                       "rel": [
                         "draw",
@@ -22919,17 +22933,17 @@
         }
       ],
       "status": {
-        "clock": 1800.0,
-        "displayClock": "30'",
+        "clock": 2700.0,
+        "displayClock": "45'+4'",
         "period": 1,
         "type": {
-          "id": "2",
-          "name": "STATUS_IN_PROGRESS",
+          "id": "23",
+          "name": "STATUS_HALFTIME",
           "state": "in",
           "completed": false,
-          "description": "In Progress",
-          "detail": "30'",
-          "shortDetail": "30'"
+          "description": "Halftime",
+          "detail": "HT",
+          "shortDetail": "HT"
         }
       },
       "venue": {
@@ -23911,8 +23925,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $1,240",
-              "numberAvailable": 529,
+              "summary": "Tickets as low as $1,218",
+              "numberAvailable": 495,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-gillette-stadium-6-19-2026--sports-soccer/production/5080481?wsUser=717"
@@ -32511,8 +32525,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $507",
-              "numberAvailable": 784,
+              "summary": "Tickets as low as $521",
+              "numberAvailable": 793,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-bc-place-stadium-6-21-2026--sports-soccer/production/5080499?wsUser=717"
@@ -38532,8 +38546,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $937",
-              "numberAvailable": 263,
+              "summary": "Tickets as low as $1,006",
+              "numberAvailable": 293,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-bmo-field-6-23-2026--sports-soccer/production/5080525?wsUser=717"
@@ -41104,8 +41118,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $1,026",
-              "numberAvailable": 609,
+              "summary": "Tickets as low as $1,040",
+              "numberAvailable": 616,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-bc-place-stadium-6-24-2026--sports-soccer/production/5080604?wsUser=717"
@@ -41963,7 +41977,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $634",
-              "numberAvailable": 789,
+              "numberAvailable": 779,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-mercedes-benz-stadium-6-24-2026--sports-soccer/production/5080602?wsUser=717"
@@ -44236,7 +44250,7 @@
                   },
                   "close": {
                     "line": "u2.5",
-                    "odds": "-135",
+                    "odds": "-140",
                     "link": {
                       "rel": [
                         "under",
@@ -53941,7 +53955,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $454",
-              "numberAvailable": 1620,
+              "numberAvailable": 1609,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-lumen-field-6-26-2026--sports-soccer/production/5080680?wsUser=717"
@@ -54799,7 +54813,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $623",
-              "numberAvailable": 628,
+              "numberAvailable": 640,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-bc-place-stadium-6-26-2026--sports-soccer/production/5080683?wsUser=717"
@@ -56530,7 +56544,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $1,392",
-              "numberAvailable": 1215,
+              "numberAvailable": 1209,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-metlife-stadium-6-27-2026--sports-soccer/production/5080698?wsUser=717"
@@ -61424,20 +61438,6 @@
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
-        },
-        {
-          "language": "en-US",
-          "rel": [
-            "bracket",
-            "desktop",
-            "event"
-          ],
-          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
-          "text": "Bracket",
-          "shortText": "Bracket",
-          "isExternal": false,
-          "isPremium": false,
-          "isHidden": false
         }
       ]
     }
@@ -62357,6 +62357,20 @@
           "href": "https://www.espn.com/soccer/matchstats/_/gameId/760491",
           "text": "Statistics",
           "shortText": "Statistics",
+          "isExternal": false,
+          "isPremium": false,
+          "isHidden": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "bracket",
+            "desktop",
+            "event"
+          ],
+          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
+          "text": "Bracket",
+          "shortText": "Bracket",
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
@@ -63523,6 +63537,20 @@
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "bracket",
+            "desktop",
+            "event"
+          ],
+          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
+          "text": "Bracket",
+          "shortText": "Bracket",
+          "isExternal": false,
+          "isPremium": false,
+          "isHidden": false
         }
       ]
     }
@@ -63747,20 +63775,6 @@
           "href": "https://www.espn.com/soccer/matchstats/_/gameId/760498",
           "text": "Statistics",
           "shortText": "Statistics",
-          "isExternal": false,
-          "isPremium": false,
-          "isHidden": false
-        },
-        {
-          "language": "en-US",
-          "rel": [
-            "bracket",
-            "desktop",
-            "event"
-          ],
-          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
-          "text": "Bracket",
-          "shortText": "Bracket",
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
@@ -64218,6 +64232,20 @@
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "bracket",
+            "desktop",
+            "event"
+          ],
+          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
+          "text": "Bracket",
+          "shortText": "Bracket",
+          "isExternal": false,
+          "isPremium": false,
+          "isHidden": false
         }
       ]
     }
@@ -64669,20 +64697,6 @@
           "href": "https://www.espn.com/soccer/matchstats/_/gameId/760502",
           "text": "Statistics",
           "shortText": "Statistics",
-          "isExternal": false,
-          "isPremium": false,
-          "isHidden": false
-        },
-        {
-          "language": "en-US",
-          "rel": [
-            "bracket",
-            "desktop",
-            "event"
-          ],
-          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
-          "text": "Bracket",
-          "shortText": "Bracket",
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
@@ -66513,20 +66527,6 @@
           "href": "https://www.espn.com/soccer/matchstats/_/gameId/760510",
           "text": "Statistics",
           "shortText": "Statistics",
-          "isExternal": false,
-          "isPremium": false,
-          "isHidden": false
-        },
-        {
-          "language": "en-US",
-          "rel": [
-            "bracket",
-            "desktop",
-            "event"
-          ],
-          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
-          "text": "Bracket",
-          "shortText": "Bracket",
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
