@@ -137,6 +137,11 @@ function teamLabelHtml(team, classes = []) {
   return `<span class="team-name ${classes.join(" ")}">${content}</span>`;
 }
 
+function teamInlineHtml(team) {
+  const safeTeam = escapeHtml(String(team || "").trim());
+  return `${flagImageHtml(team)}${safeTeam}`;
+}
+
 function teamPlainText(team) {
   return String(team || "").trim();
 }
@@ -1252,7 +1257,7 @@ function renderPlayerDetails(details, spoonTeam, mostGoalsTeams) {
             <span>W${team.wins} D${team.draws} L${team.losses}</span>
             <span>GF ${team.goalsFor}</span>
             <span>GA ${team.goalsAgainst}</span>
-            <span>GD ${formatGoalDifference(team.goalDifference ?? 0)}</span>
+            <span>GD ${formatGoalDifference(goalDifference(team))}</span>
           </div>
 
           <ul>${recentResults}</ul>
@@ -1502,7 +1507,7 @@ function renderBiggestPossibleMove(leaderboard, fixtures) {
   if (!container) return;
 
   const impactMatches = getUpcomingImpactMatches(fixtures);
-  const candidates = uniqueMoveCandidates(calculateMoveCandidates(leaderboard, fixtures), 3);
+  const candidates = uniqueMoveCandidates(calculateMoveCandidates(leaderboard, fixtures), 1);
   const best = candidates[0];
 
   if (!leaderboard || leaderboard.length === 0 || impactMatches.length === 0) {
@@ -1535,19 +1540,11 @@ function renderBiggestPossibleMove(leaderboard, fixtures) {
     return;
   }
 
-  const otherMoves = candidates.slice(1).map(candidate => `
-    <li>
-      <strong>${escapeHtml(candidate.player)}</strong> could climb ${candidate.places} place${candidate.places === 1 ? "" : "s"}
-      <span>${moveCandidateText(candidate)}</span>
-    </li>
-  `).join("");
-
   container.innerHTML = `
     <div class="biggest-move-copy">
       <span class="biggest-move-label">Biggest Possible Move Today</span>
       <strong>${escapeHtml(best.player)} could climb ${best.places} place${best.places === 1 ? "" : "s"}</strong>
       <p>${moveCandidateText(best)}</p>
-      ${otherMoves ? `<ul class="biggest-move-extra">${otherMoves}</ul>` : ""}
     </div>
     <div class="biggest-move-badge">+${best.gainedPoints}</div>
   `;
@@ -1558,13 +1555,14 @@ function renderMatchdayStorylines(leaderboard, fixtures) {
 
   if (!container) return;
 
-  const candidates = uniqueMoveCandidates(calculateMoveCandidates(leaderboard, fixtures), 4);
+  const allCandidates = uniqueMoveCandidates(calculateMoveCandidates(leaderboard, fixtures), 5);
+  const candidates = allCandidates.slice(1, 5);
 
   if (candidates.length === 0) {
     container.innerHTML = `
       <div class="storyline-heading">
         <span>Matchday Storylines</span>
-        <small>No major rank moves projected yet</small>
+        <small>No other major rank moves projected yet</small>
       </div>
     `;
     return;
@@ -1573,7 +1571,7 @@ function renderMatchdayStorylines(leaderboard, fixtures) {
   container.innerHTML = `
     <div class="storyline-heading">
       <span>Matchday Storylines</span>
-      <small>What could change next</small>
+      <small>Other moves to watch</small>
     </div>
     <div class="storyline-list">
       ${candidates.map(candidate => `
