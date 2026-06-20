@@ -946,6 +946,56 @@ tr.top-three:nth-child(3) .badge-icon {
   font-weight: 700;
 }
 
+.fastest-goal-label {
+  display: inline-flex;
+  width: max-content;
+  margin-bottom: 2px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  background: rgba(255, 209, 102, 0.12);
+  border: 1px solid rgba(255, 209, 102, 0.22);
+  color: #ffd166;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.fastest-goal-chasers {
+  position: relative;
+  z-index: 1;
+  margin-top: 10px;
+}
+
+.fastest-goal-chasers ul {
+  display: grid;
+  gap: 8px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.fastest-goal-chasers li {
+  display: grid;
+  gap: 2px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(3, 32, 52, 0.44);
+  border: 1px solid rgba(110, 166, 216, 0.12);
+}
+
+.fastest-goal-chasers li strong {
+  color: #ffffff;
+  font-size: 0.86rem;
+  font-weight: 800;
+}
+
+.fastest-goal-chasers li span {
+  color: #d6e4ef;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
 .awarded-bonus-card {
   grid-column: 1 / -1;
   min-height: auto;
