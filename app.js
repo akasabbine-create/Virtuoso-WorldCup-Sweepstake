@@ -389,6 +389,26 @@ function formatGoalDifference(value) {
   return String(numberValue);
 }
 
+function playerGoalDifferenceFromDetails(playerName, playerDetails) {
+  const details = (playerDetails || []).find(item => item.name === playerName);
+
+  if (!details || !Array.isArray(details.teams)) {
+    return 0;
+  }
+
+  return details.teams.reduce((total, team) => total + goalDifference(team), 0);
+}
+
+function addGoalDifferenceToLeaderboard(leaderboard, playerDetails) {
+  return (leaderboard || []).map(player => ({
+    ...player,
+    goalDifference: player.goalDifference
+      ?? player.combinedGoalDifference
+      ?? player.gd
+      ?? playerGoalDifferenceFromDetails(player.name, playerDetails)
+  }));
+}
+
 function playerOwnsTeam(player, teamName) {
   const target = normaliseText(teamName);
 
@@ -1790,6 +1810,8 @@ async function init() {
       latestEl.textContent = "Latest results not available yet.";
     }
   }
+
+  leaderboard = addGoalDifferenceToLeaderboard(leaderboard, playerDetails);
 
   const badgeData = findCurrentBadgeHolders(leaderboard, playerDetails, bonusData);
   spoonTeam = badgeData.spoonTeam;
