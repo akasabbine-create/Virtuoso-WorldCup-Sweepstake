@@ -1064,27 +1064,17 @@ function renderBonusTracker(bonusData, leaderboard) {
 
   const fastestGoal = fastestGoalRace.length > 0
     ? `
-      <div class="fastest-goal-card fastest-goal-leader">
-        <span class="fastest-goal-label">Current leader</span>
-        <strong>${fastestGoalRace[0].player}</strong>
-        <span>${teamLabelHtml(fastestGoalRace[0].team)} · ${fastestGoalRace[0].clockDisplay}</span>
-        <em>${fastestGoalRace[0].match}</em>
-      </div>
-      ${fastestGoalRace.length > 1 ? `
-        <div class="fastest-goal-chasers">
-          <span class="fastest-goal-label">Chasing pack</span>
-          <ul>
-            ${fastestGoalRace.slice(1, 5).map(item => `
-              <li>
-                <strong>${item.player}</strong>
-                <span>${teamLabelHtml(item.team)} · ${item.clockDisplay}</span>
-              </li>
-            `).join("")}
-          </ul>
-        </div>
-      ` : ""}
+      <ul>
+        ${fastestGoalRace.slice(0, 5).map((item, index) => `
+          <li class="${index === 0 ? "race-leader" : ""}">
+            <strong>${item.player}</strong>
+            <span>${teamLabelHtml(item.team)} · ${item.clockDisplay}</span>
+            ${item.match ? `<em>${item.match}</em>` : ""}
+          </li>
+        `).join("")}
+      </ul>
     `
-    : `<p>No fastest goal tracked yet.</p>`;
+    : `<ul><li>No fastest goal tracked yet.</li></ul>`;
 
   container.innerHTML = `
     <div class="bonus-race-card">
