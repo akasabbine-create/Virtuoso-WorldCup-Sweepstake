@@ -1076,7 +1076,6 @@ function renderBonusTracker(bonusData, leaderboard) {
               <strong>${item.player}</strong>
               <span>${teamLabelHtml(item.team)} · ${item.clockDisplay}</span>
               ${owners ? `<em>Owner: ${owners}</em>` : ""}
-              ${item.match ? `<small class="bonus-match-line">${item.match}</small>` : ""}
             </li>
           `;
         }).join("")}
