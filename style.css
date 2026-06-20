@@ -2538,3 +2538,25 @@ body.title-option-broadcast .title-live::before {
     grid-template-columns: 1fr;
   }
 }
+
+/* Fix nested team labels inside Today's Matches point chips. */
+.potential-chip .team-name,
+.potential-chip-row .potential-chip .team-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  min-width: 0;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.potential-chip .team-name .team-flag,
+.potential-chip-row .potential-chip .team-name .team-flag {
+  margin: 0;
+}
