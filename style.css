@@ -916,13 +916,6 @@ tr.top-three:nth-child(3) .badge-icon {
   font-weight: 800;
 }
 
-.bonus-race-card li .bonus-match-line {
-  color: #d6e4ef;
-  font-size: 0.76rem;
-  font-weight: 700;
-  line-height: 1.25;
-}
-
 .fastest-goal-card {
   position: relative;
   z-index: 1;
@@ -950,56 +943,6 @@ tr.top-three:nth-child(3) .badge-icon {
   color: #d6e4ef;
   font-size: 0.82rem;
   font-style: normal;
-  font-weight: 700;
-}
-
-.fastest-goal-label {
-  display: inline-flex;
-  width: max-content;
-  margin-bottom: 2px;
-  padding: 3px 8px;
-  border-radius: 999px;
-  background: rgba(255, 209, 102, 0.12);
-  border: 1px solid rgba(255, 209, 102, 0.22);
-  color: #ffd166;
-  font-size: 0.68rem;
-  font-weight: 900;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.fastest-goal-chasers {
-  position: relative;
-  z-index: 1;
-  margin-top: 10px;
-}
-
-.fastest-goal-chasers ul {
-  display: grid;
-  gap: 8px;
-  margin: 8px 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.fastest-goal-chasers li {
-  display: grid;
-  gap: 2px;
-  padding: 8px 10px;
-  border-radius: 10px;
-  background: rgba(3, 32, 52, 0.44);
-  border: 1px solid rgba(110, 166, 216, 0.12);
-}
-
-.fastest-goal-chasers li strong {
-  color: #ffffff;
-  font-size: 0.86rem;
-  font-weight: 800;
-}
-
-.fastest-goal-chasers li span {
-  color: #d6e4ef;
-  font-size: 0.78rem;
   font-weight: 700;
 }
 
@@ -1285,7 +1228,7 @@ tr.top-three:nth-child(3) .badge-icon {
   gap: 5px;
 }
 
-.potential-chip {
+.potential-row span {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1300,7 +1243,7 @@ tr.top-three:nth-child(3) .badge-icon {
   white-space: nowrap;
 }
 
-.potential-chip-win {
+.potential-row span:first-child {
   border-color: rgba(57, 211, 83, 0.22);
   color: #b7f7c1;
 }
@@ -1845,7 +1788,7 @@ tr.top-three:nth-child(3) .badge-icon {
     justify-content: flex-start;
   }
 
-  .potential-chip {
+  .potential-row span {
     justify-content: flex-start;
     width: fit-content;
   }
@@ -2413,6 +2356,185 @@ body.title-option-broadcast .title-live::before {
 
 @media (max-width: 980px) {
   .competitive-snapshot-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Compact team flags in top summary cards */
+.card p .player-team-flags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  margin-top: 10px;
+  color: #d6e4ef;
+  font-size: 0.84rem;
+  font-weight: 800;
+  letter-spacing: 0;
+  line-height: 1.25;
+  text-shadow: none;
+}
+
+.card p .player-team-flags .team-name {
+  color: #d6e4ef;
+}
+
+.card p .player-team-flags .team-flag {
+  width: 1.12em;
+  min-width: 1.12em;
+}
+
+/* Bigger move card can now show a small top-three list */
+.biggest-move-extra {
+  display: grid;
+  gap: 6px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.biggest-move-extra li {
+  display: grid;
+  gap: 2px;
+  padding: 7px 9px;
+  border-radius: 12px;
+  background: rgba(8, 31, 49, 0.56);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.biggest-move-extra li strong {
+  color: #ffd166;
+  font-size: 0.86rem;
+}
+
+.biggest-move-extra li span {
+  color: #c7d5e2;
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+/* Matchday storylines under the leaderboard */
+.matchday-storylines-section {
+  margin-top: 12px;
+  margin-bottom: 8px;
+}
+
+.matchday-storylines-card {
+  padding: 14px;
+  border-radius: 18px;
+  background:
+    linear-gradient(145deg, rgba(16, 45, 68, 0.92), rgba(8, 31, 49, 0.98));
+  border: 1px solid rgba(88, 166, 255, 0.16);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.16);
+}
+
+.storyline-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.storyline-heading span {
+  color: #ffffff;
+  font-size: 0.92rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.storyline-heading small {
+  color: #8fb1c8;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.storyline-list {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.storyline-item {
+  display: grid;
+  gap: 4px;
+  padding: 10px 11px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.065);
+}
+
+.storyline-item strong {
+  color: #ffd166;
+  font-size: 0.88rem;
+  line-height: 1.25;
+}
+
+.storyline-item span {
+  color: #c7d5e2;
+  font-size: 0.78rem;
+  line-height: 1.32;
+}
+
+/* Flags in projected prize cards */
+.prize-payout-teams {
+  margin: -2px 0 8px;
+}
+
+.prize-payout-teams .player-team-flags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px 8px;
+  color: #c7d5e2;
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.prize-payout-teams .team-name {
+  gap: 0.25rem;
+}
+
+.prize-payout-teams .team-flag {
+  width: 1.05em;
+  min-width: 1.05em;
+}
+
+/* Expanded player breakdown form chips */
+.team-form-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-bottom: 8px;
+}
+
+.team-form-stats span {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 3px 7px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: #c7d5e2;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+@media (max-width: 980px) {
+  .storyline-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .storyline-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .storyline-list {
     grid-template-columns: 1fr;
   }
 }
