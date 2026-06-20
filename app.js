@@ -1100,7 +1100,7 @@ function renderBonusTracker(bonusData, leaderboard) {
     <div class="bonus-race-card">
       <h3>⚡ Fastest Goal Prize</h3>
       ${fastestGoal}
-      <p class="bonus-note">Current fastest goal owner gets the badge. £5 prize awarded at tournament end. No leaderboard points.</p>
+      <p class="bonus-note">Current fastest goal owner gets the badge. £5 prize awarded at tournament end.</p>
     </div>
 
     <div class="bonus-race-card awarded-bonus-card">
