@@ -2250,8 +2250,12 @@ body.title-option-broadcast .title-live::before {
 }
 
 .team-flag {
-  font-size: 1.05em;
-  line-height: 1;
+  width: 1.35em;
+  height: auto;
+  min-width: 1.35em;
+  border-radius: 0.12rem;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.16);
+  object-fit: cover;
   filter: saturate(1.08);
 }
 
