@@ -916,6 +916,13 @@ tr.top-three:nth-child(3) .badge-icon {
   font-weight: 800;
 }
 
+.bonus-race-card li .bonus-match-line {
+  color: #d6e4ef;
+  font-size: 0.76rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
 .fastest-goal-card {
   position: relative;
   z-index: 1;
@@ -1278,7 +1285,7 @@ tr.top-three:nth-child(3) .badge-icon {
   gap: 5px;
 }
 
-.potential-row span {
+.potential-chip {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -1293,7 +1300,7 @@ tr.top-three:nth-child(3) .badge-icon {
   white-space: nowrap;
 }
 
-.potential-row span:first-child {
+.potential-chip-win {
   border-color: rgba(57, 211, 83, 0.22);
   color: #b7f7c1;
 }
@@ -1838,7 +1845,7 @@ tr.top-three:nth-child(3) .badge-icon {
     justify-content: flex-start;
   }
 
-  .potential-row span {
+  .potential-chip {
     justify-content: flex-start;
     width: fit-content;
   }
