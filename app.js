@@ -47,6 +47,72 @@ function normaliseText(value) {
   return String(value || "").trim().toLowerCase();
 }
 
+function escapeHtml(value) {
+  return String(value ?? "")
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#039;");
+}
+
+function attributeValue(value) {
+  return escapeHtml(value).replace(/`/g, "&#096;");
+}
+
+function leaderboardGapLabel(leaderboard, index) {
+  if (!leaderboard || leaderboard.length === 0 || index === 0) {
+    return "Leader";
+  }
+
+  const current = leaderboard[index] || {};
+  const previous = leaderboard[index - 1] || {};
+  const gap = Number(previous.points ?? 0) - Number(current.points ?? 0);
+
+  if (gap <= 0) {
+    return "Level";
+  }
+
+  return `${gap} pt${gap === 1 ? "" : "s"}`;
+}
+
+function getSelectedPlayerName() {
+  const select = document.querySelector("#player-filter-select");
+  return select ? select.value : "all";
+}
+
+function selectedPlayerTeams(leaderboard, playerName) {
+  const player = (leaderboard || []).find(item => item.name === playerName);
+  return player ? (player.teams || []).map(team => normaliseText(team)) : [];
+}
+
+function rankProjectedPlayers(players) {
+  return [...players].sort((a, b) => {
+    if ((b.projectedPoints ?? 0) !== (a.projectedPoints ?? 0)) {
+      return (b.projectedPoints ?? 0) - (a.projectedPoints ?? 0);
+    }
+
+    if ((b.goalDifference ?? 0) !== (a.goalDifference ?? 0)) {
+      return (b.goalDifference ?? 0) - (a.goalDifference ?? 0);
+    }
+
+    if ((b.goalsFor ?? 0) !== (a.goalsFor ?? 0)) {
+      return (b.goalsFor ?? 0) - (a.goalsFor ?? 0);
+    }
+
+    if ((b.wins ?? 0) !== (a.wins ?? 0)) {
+      return (b.wins ?? 0) - (a.wins ?? 0);
+    }
+
+    if ((b.bonusPoints ?? 0) !== (a.bonusPoints ?? 0)) {
+      return (b.bonusPoints ?? 0) - (a.bonusPoints ?? 0);
+    }
+
+    return String(a.name || "").localeCompare(String(b.name || ""));
+  });
+}
+
+
 function fixtureStatusLabel(match) {
   if (match.completed) {
     return "Final";
@@ -452,11 +518,9 @@ function teamHighlightClasses(team, playerName, spoonTeam, mostGoalsTeams) {
 }
 
 function teamNameHtml(team, classes) {
-  if (!classes || classes.length === 0) {
-    return team;
-  }
+  const classNames = ["team-pill-inline", ...(classes || [])].join(" ");
 
-  return `<span class="${classes.join(" ")}">${team}</span>`;
+  return `<span class="${classNames}" data-team-name="${attributeValue(team)}">${escapeHtml(team)}</span>`;
 }
 
 function renderStatus(status) {
@@ -707,14 +771,15 @@ function renderLeaderboard(data, spoonTeam, badgesByPlayer, mostGoalsTeams) {
   if (!data || data.length === 0) {
     tbody.innerHTML = `
       <tr>
-        <td colspan="10">No leaderboard data found.</td>
+        <td colspan="11">No leaderboard data found.</td>
       </tr>
     `;
     return;
   }
 
-  data.forEach(player => {
+  data.forEach((player, index) => {
     const tr = document.createElement("tr");
+    tr.dataset.playerName = player.name;
 
     if (player.rank === 1) {
       tr.classList.add("leader");
@@ -731,9 +796,10 @@ function renderLeaderboard(data, spoonTeam, badgesByPlayer, mostGoalsTeams) {
 
     tr.innerHTML = `
       <td>${medal(player.rank)} ${player.rank}</td>
+      <td class="gap-cell">${leaderboardGapLabel(data, index)}</td>
       <td>${movementIcon(player.movement || 0)}</td>
       <td class="badge-cell">${badgeHtml(badgesByPlayer[player.name])}</td>
-      <td>${player.name}</td>
+      <td class="player-name-cell">${escapeHtml(player.name)}</td>
       <td>${teams}</td>
       <td>${player.gamesPlayed ?? 0}</td>
       <td class="goal-difference-cell">${formatGoalDifference(player.goalDifference ?? 0)}</td>
@@ -913,6 +979,7 @@ function renderPlayerDetails(details, spoonTeam, mostGoalsTeams) {
   details.forEach(player => {
     const card = document.createElement("div");
     card.className = "player-card player-collapsible-card";
+    card.dataset.playerName = player.name;
 
     if (spoonTeam && player.name === spoonTeam.playerName) {
       card.classList.add("wooden-spoon-card");
@@ -1007,6 +1074,295 @@ function renderPlayerDetails(details, spoonTeam, mostGoalsTeams) {
   });
 }
 
+
+function outcomeDefinitions(match) {
+  return [
+    {
+      key: "team1Win",
+      label: `${match.team1} win`,
+      shortLabel: `${match.team1} +3`
+    },
+    {
+      key: "draw",
+      label: "Draw",
+      shortLabel: "Draw +1 each"
+    },
+    {
+      key: "team2Win",
+      label: `${match.team2} win`,
+      shortLabel: `${match.team2} +3`
+    }
+  ];
+}
+
+function outcomeGains(match, outcomeKey) {
+  const gains = {};
+
+  calculatePotentialPoints(match).forEach(row => {
+    const points = Number(row[outcomeKey] || 0);
+
+    if (points > 0) {
+      gains[row.name] = (gains[row.name] || 0) + points;
+    }
+  });
+
+  return gains;
+}
+
+function getUpcomingImpactMatches(fixtures) {
+  return (fixtures || []).filter(match => !match.completed);
+}
+
+function renderPlayerFilter(leaderboard) {
+  const container = document.querySelector("#my-teams-filter");
+
+  if (!container) return;
+
+  const options = (leaderboard || []).map(player => `
+    <option value="${attributeValue(player.name)}">${escapeHtml(player.name)}</option>
+  `).join("");
+
+  container.innerHTML = `
+    <div class="player-filter-copy">
+      <strong>My Teams quick filter</strong>
+      <span>Select a player to highlight their teams across the leaderboard, today’s matches and player breakdown.</span>
+    </div>
+
+    <label for="player-filter-select">Player</label>
+    <select id="player-filter-select">
+      <option value="all">Show everyone</option>
+      ${options}
+    </select>
+
+    <div id="selected-player-teams" class="selected-player-teams"></div>
+  `;
+
+  const select = container.querySelector("#player-filter-select");
+
+  select.addEventListener("change", () => applyPlayerFilter(leaderboard));
+  applyPlayerFilter(leaderboard);
+}
+
+function applyPlayerFilter(leaderboard) {
+  const selected = getSelectedPlayerName();
+  const selectedTeams = selectedPlayerTeams(leaderboard, selected);
+  const selectedTeamSet = new Set(selectedTeams);
+  const teamsEl = document.querySelector("#selected-player-teams");
+
+  document.body.classList.toggle("has-player-filter", selected !== "all");
+
+  document.querySelectorAll("[data-player-name]").forEach(element => {
+    const isSelected = selected !== "all" && element.dataset.playerName === selected;
+    element.classList.toggle("selected-player-item", isSelected);
+    element.classList.toggle("dimmed-player-item", selected !== "all" && !isSelected);
+  });
+
+  document.querySelectorAll("[data-team-name]").forEach(element => {
+    const team = normaliseText(element.dataset.teamName);
+    element.classList.toggle("selected-team-item", selected !== "all" && selectedTeamSet.has(team));
+  });
+
+  if (teamsEl) {
+    if (selected === "all") {
+      teamsEl.innerHTML = `<span>No player selected.</span>`;
+    } else {
+      const teamLabels = selectedTeams.length > 0
+        ? selectedTeams.map(team => `<span>${escapeHtml(team)}</span>`).join("")
+        : `<span>No teams found.</span>`;
+
+      const originalPlayer = (leaderboard || []).find(player => player.name === selected);
+      const originalTeams = originalPlayer ? originalPlayer.teams : [];
+      teamsEl.innerHTML = originalTeams.length > 0
+        ? originalTeams.map(team => `<span>${escapeHtml(team)}</span>`).join("")
+        : teamLabels;
+    }
+  }
+}
+
+function renderBiggestPossibleMove(leaderboard, fixtures) {
+  const container = document.querySelector("#biggest-possible-move");
+
+  if (!container) return;
+
+  const impactMatches = getUpcomingImpactMatches(fixtures);
+
+  if (!leaderboard || leaderboard.length === 0 || impactMatches.length === 0) {
+    container.innerHTML = `
+      <div class="impact-label">Biggest Possible Move Today</div>
+      <h3>No upcoming match impact yet</h3>
+      <p>Once today’s remaining fixtures are listed, possible leaderboard moves will appear here.</p>
+    `;
+    return;
+  }
+
+  let best = null;
+
+  impactMatches.forEach(match => {
+    outcomeDefinitions(match).forEach(outcome => {
+      const gains = outcomeGains(match, outcome.key);
+
+      if (Object.keys(gains).length === 0) return;
+
+      const projected = rankProjectedPlayers((leaderboard || []).map(player => ({
+        ...player,
+        projectedPoints: Number(player.points || 0) + Number(gains[player.name] || 0)
+      })));
+
+      projected.forEach((player, index) => {
+        const oldRank = Number(player.rank || leaderboard.findIndex(item => item.name === player.name) + 1);
+        const newRank = index + 1;
+        const places = oldRank - newRank;
+        const gainedPoints = Number(gains[player.name] || 0);
+
+        if (places <= 0 || gainedPoints <= 0) return;
+
+        const candidate = {
+          player: player.name,
+          match,
+          outcome,
+          places,
+          gainedPoints,
+          oldRank,
+          newRank
+        };
+
+        if (!best
+          || candidate.places > best.places
+          || (candidate.places === best.places && candidate.gainedPoints > best.gainedPoints)
+          || (candidate.places === best.places && candidate.gainedPoints === best.gainedPoints && candidate.newRank < best.newRank)) {
+          best = candidate;
+        }
+      });
+    });
+  });
+
+  if (!best) {
+    const firstImpact = impactMatches
+      .map(match => ({ match, rows: calculatePotentialPoints(match) }))
+      .find(item => item.rows.length > 0);
+
+    container.innerHTML = `
+      <div class="impact-label">Biggest Possible Move Today</div>
+      <h3>No rank climb currently projected</h3>
+      <p>
+        ${firstImpact
+          ? `${firstImpact.match.team1} v ${firstImpact.match.team2} can still add points, but it may not change positions immediately.`
+          : "No sweepstake players are involved in the remaining listed matches."}
+      </p>
+    `;
+    return;
+  }
+
+  container.innerHTML = `
+    <div class="impact-label">Biggest Possible Move Today</div>
+    <h3>${escapeHtml(best.player)} could climb ${best.places} place${best.places === 1 ? "" : "s"}</h3>
+    <p>
+      If <strong>${escapeHtml(best.outcome.label)}</strong> in
+      ${escapeHtml(best.match.team1)} v ${escapeHtml(best.match.team2)},
+      ${escapeHtml(best.player)} gains +${best.gainedPoints} and moves from ${best.oldRank} to ${best.newRank}.
+    </p>
+  `;
+}
+
+function renderTeamsToWatch(leaderboard, fixtures) {
+  const container = document.querySelector("#teams-to-watch");
+
+  if (!container) return;
+
+  const impactMatches = getUpcomingImpactMatches(fixtures)
+    .map(match => {
+      const rows = calculatePotentialPoints(match).map(row => ({
+        ...row,
+        maxPoints: Math.max(row.team1Win || 0, row.draw || 0, row.team2Win || 0)
+      })).filter(row => row.maxPoints > 0);
+
+      const topFiveInvolved = rows.filter(row => {
+        const player = (leaderboard || []).find(item => item.name === row.name);
+        return player && player.rank <= 5;
+      }).length;
+
+      const score = rows.reduce((total, row) => total + row.maxPoints, 0) + (topFiveInvolved * 2);
+
+      return { match, rows, score };
+    })
+    .filter(item => item.rows.length > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 4);
+
+  if (impactMatches.length === 0) {
+    container.innerHTML = `
+      <div class="impact-label">Teams to Watch</div>
+      <h3>No sweepstake-impact fixtures listed</h3>
+      <p>Fixtures with player impact will appear here once today’s matches are available.</p>
+    `;
+    return;
+  }
+
+  const cards = impactMatches.map(({ match, rows }) => {
+    const chips = rows
+      .sort((a, b) => b.maxPoints - a.maxPoints || a.name.localeCompare(b.name))
+      .slice(0, 4)
+      .map(row => `<span data-player-name="${attributeValue(row.name)}">${escapeHtml(row.name)} up to +${row.maxPoints}</span>`)
+      .join("");
+
+    return `
+      <div class="team-watch-card">
+        <div>
+          <strong>
+            <span data-team-name="${attributeValue(match.team1)}">${escapeHtml(match.team1)}</span>
+            v
+            <span data-team-name="${attributeValue(match.team2)}">${escapeHtml(match.team2)}</span>
+          </strong>
+          <small>${formatTimeOnly(match.date)} · ${fixtureStatusLabel(match)}</small>
+        </div>
+        <div class="watch-chip-row">${chips}</div>
+      </div>
+    `;
+  }).join("");
+
+  container.innerHTML = `
+    <div class="impact-label">Teams to Watch</div>
+    <h3>Highest-impact upcoming fixtures</h3>
+    <div class="teams-to-watch-list">${cards}</div>
+  `;
+}
+
+function renderLiveImpactFeatures(leaderboard, fixtures) {
+  renderBiggestPossibleMove(leaderboard, fixtures);
+  renderTeamsToWatch(leaderboard, fixtures);
+  applyPlayerFilter(leaderboard);
+}
+
+function fixtureOutcomeImpactHtml(match) {
+  const rows = calculatePotentialPoints(match);
+
+  if (rows.length === 0) {
+    return `<p class="potential-empty">No sweepstake players involved.</p>`;
+  }
+
+  return `
+    <div class="fixture-impact-grid">
+      ${outcomeDefinitions(match).map(outcome => {
+        const impacted = rows.filter(row => Number(row[outcome.key] || 0) > 0);
+        const gains = impacted.length > 0
+          ? impacted.map(row => `
+              <span data-player-name="${attributeValue(row.name)}">
+                ${escapeHtml(row.name)} +${row[outcome.key]}
+              </span>
+            `).join("")
+          : `<span>No sweepstake points</span>`;
+
+        return `
+          <div class="fixture-impact-outcome">
+            <strong>${escapeHtml(outcome.label)}</strong>
+            <div>${gains}</div>
+          </div>
+        `;
+      }).join("")}
+    </div>
+  `;
+}
+
 function calculatePotentialPoints(match) {
   const team1 = match.team1;
   const team2 = match.team2;
@@ -1088,8 +1444,10 @@ function renderUpcomingFixtures(fixtures) {
 
     const players = match.players && match.players.length > 0
       ? match.players.map(player => {
-          const teams = (player.teams || []).join(", ");
-          return `<li>${player.name}: ${teams}</li>`;
+          const teams = (player.teams || []).map(team => `
+            <span data-team-name="${attributeValue(team)}">${escapeHtml(team)}</span>
+          `).join(", ");
+          return `<li data-player-name="${attributeValue(player.name)}">${escapeHtml(player.name)}: ${teams}</li>`;
         }).join("")
       : `<li>No sweepstake players involved</li>`;
 
@@ -1101,43 +1459,35 @@ function renderUpcomingFixtures(fixtures) {
     const scoreHtml = hasVisibleScore
       ? `
         <div class="fixture-score">
-          <span>${match.team1}</span>
+          <span data-team-name="${attributeValue(match.team1)}">${escapeHtml(match.team1)}</span>
           <strong>${match.displayScore1}–${match.displayScore2}</strong>
-          <span>${match.team2}</span>
+          <span data-team-name="${attributeValue(match.team2)}">${escapeHtml(match.team2)}</span>
         </div>
       `
-      : `<h3>${match.team1} v ${match.team2}</h3>`;
+      : `<h3><span data-team-name="${attributeValue(match.team1)}">${escapeHtml(match.team1)}</span> v <span data-team-name="${attributeValue(match.team2)}">${escapeHtml(match.team2)}</span></h3>`;
 
     const playerGains = match.playerGains && match.playerGains.length > 0
-      ? match.playerGains.map(gain => `<li>${gain.name} +${gain.points}</li>`).join("")
+      ? match.playerGains.map(gain => `<li data-player-name="${attributeValue(gain.name)}">${escapeHtml(gain.name)} +${gain.points}</li>`).join("")
       : `<li>No player gained points</li>`;
 
-    const potentialRows = calculatePotentialPoints(match);
-
-    const potentialHtml = potentialRows.length > 0
-      ? potentialRows.map(row => `
-          <div class="potential-row">
-            <strong>${row.name}</strong>
-            <div class="potential-chip-row">
-              ${potentialChips(row, match)}
-            </div>
-          </div>
+    const completedImpactChips = match.playerGains && match.playerGains.length > 0
+      ? match.playerGains.map(gain => `
+          <span data-player-name="${attributeValue(gain.name)}">${escapeHtml(gain.name)} +${gain.points}</span>
         `).join("")
-      : `<p class="potential-empty">No sweepstake players involved.</p>`;
+      : `<span>No player gained points</span>`;
 
     const pointsSection = match.completed
       ? `
-        <div class="fixture-section">
-          <h4>Points awarded</h4>
+        <div class="fixture-section fixture-points-impact">
+          <h4>Points impact</h4>
+          <div class="fixture-impact-summary">${completedImpactChips}</div>
           <ul>${playerGains}</ul>
         </div>
       `
       : `
-        <div class="fixture-section">
-          <h4>Potential points</h4>
-          <div class="potential-points">
-            ${potentialHtml}
-          </div>
+        <div class="fixture-section fixture-points-impact">
+          <h4>Points impact</h4>
+          ${fixtureOutcomeImpactHtml(match)}
         </div>
       `;
 
@@ -1161,6 +1511,8 @@ function renderUpcomingFixtures(fixtures) {
 
     container.appendChild(card);
   });
+
+  applyPlayerFilter(window.currentLeaderboard || []);
 }
 
 function renderLatestResults(results) {
@@ -1182,13 +1534,13 @@ function renderLatestResults(results) {
 
     const gains = match.playerGains && match.playerGains.length > 0
       ? match.playerGains.map(gain => `
-          <span>${gain.name} +${gain.points}</span>
+          <span data-player-name="${attributeValue(gain.name)}">${escapeHtml(gain.name)} +${gain.points}</span>
         `).join("")
       : `<span>No player gained points</span>`;
 
     row.innerHTML = `
       <div class="result-ticker-score">
-        <strong>${match.team1} ${match.score1}–${match.score2} ${match.team2}</strong>
+        <strong><span data-team-name="${attributeValue(match.team1)}">${escapeHtml(match.team1)}</span> ${match.score1}–${match.score2} <span data-team-name="${attributeValue(match.team2)}">${escapeHtml(match.team2)}</span></strong>
         <small>${formatDateTime(match.date)}</small>
       </div>
 
@@ -1223,7 +1575,7 @@ async function init() {
     if (tbody) {
       tbody.innerHTML = `
         <tr>
-          <td colspan="10">Could not load leaderboard data.</td>
+          <td colspan="11">Could not load leaderboard data.</td>
         </tr>
       `;
     }
@@ -1270,8 +1622,11 @@ async function init() {
   badgesByPlayer = badgeData.badgesByPlayer;
   mostGoalsTeams = badgeData.mostGoalsTeams || [];
 
+  window.currentLeaderboard = leaderboard;
+
   renderSummaryCards(leaderboard, playerDetails);
   renderInsightStrip(leaderboard, latestResults);
+  renderPlayerFilter(leaderboard);
   renderLeaderboard(leaderboard, spoonTeam, badgesByPlayer, mostGoalsTeams);
   renderBonusTracker(bonusData, leaderboard);
   renderPrizePoolSection(leaderboard, playerDetails, bonusData);
@@ -1295,6 +1650,7 @@ async function init() {
   try {
     const upcomingFixtures = await loadJson("data/upcoming_fixtures.json");
     renderUpcomingFixtures(upcomingFixtures);
+    renderLiveImpactFeatures(leaderboard, upcomingFixtures);
   } catch (error) {
     console.error(error);
 
@@ -1302,6 +1658,7 @@ async function init() {
 
     if (upcomingEl) {
       upcomingEl.textContent = "Upcoming fixtures not available yet.";
+      renderLiveImpactFeatures(leaderboard, []);
     }
   }
 }
