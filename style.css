@@ -2019,122 +2019,103 @@ tr.top-three:nth-child(3) .badge-icon {
 
 
 /* =========================================================
-   Title mockup override: title_option_1_premium_broadcast
+   Title mockup override: title_option_2_matchday_energy
    ========================================================= */
-body.title-option-broadcast .page-header {
+body.title-option-matchday .page-header {
   position: relative;
   margin-bottom: 22px;
 }
 
-body.title-option-broadcast .page-header::before {
+body.title-option-matchday .page-header::before {
   content: "";
   position: absolute;
   left: 50%;
-  top: -28px;
-  width: min(720px, 88vw);
-  height: 260px;
-  transform: translateX(-50%);
+  top: 10px;
+  width: min(860px, 92vw);
+  height: 190px;
+  transform: translateX(-50%) skewX(-8deg);
   background:
-    radial-gradient(circle at 50% 45%, rgba(255, 209, 102, 0.16), transparent 48%),
-    radial-gradient(circle at 50% 80%, rgba(88, 166, 255, 0.1), transparent 56%);
+    linear-gradient(100deg, transparent, rgba(88, 166, 255, 0.08), rgba(57, 211, 83, 0.09), transparent),
+    radial-gradient(circle at 15% 40%, rgba(255, 209, 102, 0.14), transparent 30%);
+  border-top: 1px solid rgba(88, 166, 255, 0.16);
+  border-bottom: 1px solid rgba(88, 166, 255, 0.1);
   pointer-events: none;
   z-index: -1;
 }
 
-body.title-option-broadcast .site-title {
-  position: relative;
-  gap: 2px;
+body.title-option-matchday .site-title {
+  gap: 6px;
   margin-bottom: 14px;
-  padding-top: 4px;
 }
 
-body.title-option-broadcast .title-kicker {
-  padding: 6px 18px;
-  color: #071b2a;
-  background: linear-gradient(135deg, #ffe08a, #ffd166 45%, #d29922);
-  border: 1px solid rgba(255, 255, 255, 0.28);
+body.title-option-matchday .title-kicker {
+  padding: 6px 14px;
+  color: #ffd166;
+  background: rgba(8, 31, 49, 0.72);
+  border: 1px solid rgba(255, 209, 102, 0.24);
   border-radius: 999px;
-  font-size: clamp(0.68rem, 0.95vw, 0.86rem);
-  font-weight: 800;
-  letter-spacing: 0.22em;
-  box-shadow:
-    0 10px 28px rgba(255, 209, 102, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.45);
+  font-size: clamp(0.72rem, 1vw, 0.9rem);
+  letter-spacing: 0.18em;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
 }
 
-body.title-option-broadcast .title-main {
-  position: relative;
-  isolation: isolate;
-  padding: 0 0.18em 0.06em;
-  margin-top: 6px;
-  font-size: clamp(3.45rem, 8vw, 7.4rem);
-  line-height: 0.96;
-  letter-spacing: -0.092em;
+body.title-option-matchday .title-main {
+  padding: 0.04em 0.16em 0.08em;
+  margin: 0;
+  font-size: clamp(2.85rem, 6.8vw, 6.1rem);
+  line-height: 0.98;
+  letter-spacing: -0.062em;
   background:
-    linear-gradient(180deg, #fff7cf 0%, #f8dc84 28%, #c4932e 56%, #7a5510 100%);
+    linear-gradient(90deg, #ffffff 0%, #d6e4ef 22%, #79c0ff 48%, #ffffff 72%, #ffd166 100%);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
   text-shadow:
-    0 3px 0 rgba(255, 255, 255, 0.05),
-    0 8px 0 rgba(0, 0, 0, 0.22),
-    0 24px 48px rgba(0, 0, 0, 0.5);
+    0 7px 0 rgba(0, 0, 0, 0.22),
+    0 22px 42px rgba(0, 0, 0, 0.42);
 }
 
-body.title-option-broadcast .title-sub {
-  margin-top: 2px;
-  color: #ffffff;
-  font-size: clamp(1.72rem, 3.9vw, 3.2rem);
-  font-weight: 800;
-  letter-spacing: 0.135em;
-  line-height: 1;
-  text-shadow:
-    0 8px 28px rgba(0, 0, 0, 0.45),
-    0 0 26px rgba(88, 166, 255, 0.14);
-}
-
-body.title-option-broadcast .title-live {
+body.title-option-matchday .title-sub {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  width: fit-content;
-  margin: 12px auto 0;
-  padding: 7px 13px;
+  justify-content: center;
+  gap: 9px;
+  padding: 8px 14px;
   border-radius: 999px;
-  background: rgba(8, 31, 49, 0.72);
-  border: 1px solid rgba(255, 209, 102, 0.24);
-  color: #d6e4ef;
-  font-size: clamp(0.72rem, 1vw, 0.9rem);
+  background: rgba(16, 45, 68, 0.72);
+  border: 1px solid rgba(88, 166, 255, 0.22);
+  color: #ffffff;
+  font-size: clamp(0.78rem, 1.4vw, 1.02rem);
   font-weight: 800;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.12em;
   line-height: 1;
-  box-shadow:
-    0 12px 30px rgba(0, 0, 0, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  text-shadow: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
 }
 
-body.title-option-broadcast .title-live::before {
+body.title-option-matchday .title-sub::before,
+body.title-option-matchday .title-sub::after {
   content: "";
-  width: 8px;
-  height: 8px;
+  width: 26px;
+  height: 2px;
   border-radius: 999px;
-  background: #39d353;
-  box-shadow: 0 0 18px rgba(57, 211, 83, 0.75);
+  background: linear-gradient(90deg, #39d353, #58a6ff);
 }
 
 @media (max-width: 800px) {
-  body.title-option-broadcast .title-main {
-    font-size: clamp(3rem, 15vw, 4.4rem);
-    letter-spacing: -0.085em;
+  body.title-option-matchday .title-main {
+    font-size: clamp(2.35rem, 12vw, 3.85rem);
+    letter-spacing: -0.055em;
   }
 
-  body.title-option-broadcast .title-sub {
-    font-size: clamp(1.3rem, 7vw, 1.8rem);
-    letter-spacing: 0.1em;
+  body.title-option-matchday .title-sub {
+    width: min(100%, 390px);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
   }
 
-  body.title-option-broadcast .title-live {
-    font-size: 0.68rem;
-    letter-spacing: 0.09em;
+  body.title-option-matchday .title-sub::before,
+  body.title-option-matchday .title-sub::after {
+    width: 16px;
   }
 }
