@@ -1065,13 +1065,21 @@ function renderBonusTracker(bonusData, leaderboard) {
   const fastestGoal = fastestGoalRace.length > 0
     ? `
       <ul>
-        ${fastestGoalRace.slice(0, 5).map((item, index) => `
-          <li class="${index === 0 ? "race-leader" : ""}">
-            <strong>${item.player}</strong>
-            <span>${teamLabelHtml(item.team)} · ${item.clockDisplay}</span>
-            ${item.match ? `<em>${item.match}</em>` : ""}
-          </li>
-        `).join("")}
+        ${fastestGoalRace.slice(0, 5).map((item, index) => {
+          const owners = (leaderboard || [])
+            .filter(player => playerOwnsTeam(player, item.team))
+            .map(player => player.name)
+            .join(", ");
+
+          return `
+            <li class="${index === 0 ? "race-leader" : ""}">
+              <strong>${item.player}</strong>
+              <span>${teamLabelHtml(item.team)} · ${item.clockDisplay}</span>
+              ${owners ? `<em>Owner: ${owners}</em>` : ""}
+              ${item.match ? `<small class="bonus-match-line">${item.match}</small>` : ""}
+            </li>
+          `;
+        }).join("")}
       </ul>
     `
     : `<ul><li>No fastest goal tracked yet.</li></ul>`;
@@ -1092,7 +1100,7 @@ function renderBonusTracker(bonusData, leaderboard) {
     <div class="bonus-race-card">
       <h3>⚡ Fastest Goal Prize</h3>
       ${fastestGoal}
-      <p class="bonus-note">Prize only. No leaderboard points.</p>
+      <p class="bonus-note">Current fastest goal owner gets the badge. £5 prize awarded at tournament end. No leaderboard points.</p>
     </div>
 
     <div class="bonus-race-card awarded-bonus-card">
@@ -1299,15 +1307,15 @@ function potentialChips(row, match) {
   const chips = [];
 
   if (row.team1Win > 0) {
-    chips.push(`<span>${teamLabelHtml(match.team1)} +${row.team1Win}</span>`);
+    chips.push(`<span class="potential-chip potential-chip-win">${teamLabelHtml(match.team1)} +${row.team1Win}</span>`);
   }
 
   if (row.draw > 0) {
-    chips.push(`<span>Draw +${row.draw}</span>`);
+    chips.push(`<span class="potential-chip potential-chip-draw">Draw +${row.draw}</span>`);
   }
 
   if (row.team2Win > 0) {
-    chips.push(`<span>${teamLabelHtml(match.team2)} +${row.team2Win}</span>`);
+    chips.push(`<span class="potential-chip potential-chip-win">${teamLabelHtml(match.team2)} +${row.team2Win}</span>`);
   }
 
   return chips.join("");
