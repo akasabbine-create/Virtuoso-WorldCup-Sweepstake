@@ -2240,6 +2240,34 @@ body.title-option-broadcast .title-live::before {
 }
 
 
+
+/* Team flags */
+.team-name {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  vertical-align: middle;
+}
+
+.team-flag {
+  font-size: 1.05em;
+  line-height: 1;
+  filter: saturate(1.08);
+}
+
+.team-name-text {
+  line-height: 1.15;
+}
+
+.fixture-score .team-name,
+.result-ticker-score .team-name {
+  gap: 0.3rem;
+}
+
+.potential-chip-row .team-name {
+  gap: 0.25rem;
+}
+
 /* Competitive snapshot cards under leaderboard */
 .competitive-snapshot-section {
   margin-top: 14px;
