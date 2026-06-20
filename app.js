@@ -1058,13 +1058,31 @@ function renderBonusTracker(bonusData, leaderboard) {
     `;
   }).join("") || `<li>No nation goal data yet.</li>`;
 
-  const fastestGoal = bonusData.fastestGoal
+  const fastestGoalRace = Array.isArray(bonusData.fastestGoalRace) && bonusData.fastestGoalRace.length > 0
+    ? bonusData.fastestGoalRace
+    : (bonusData.fastestGoal ? [bonusData.fastestGoal] : []);
+
+  const fastestGoal = fastestGoalRace.length > 0
     ? `
-      <div class="fastest-goal-card">
-        <strong>${bonusData.fastestGoal.player}</strong>
-        <span>${teamLabelHtml(bonusData.fastestGoal.team)} · ${bonusData.fastestGoal.clockDisplay}</span>
-        <em>${bonusData.fastestGoal.match}</em>
+      <div class="fastest-goal-card fastest-goal-leader">
+        <span class="fastest-goal-label">Current leader</span>
+        <strong>${fastestGoalRace[0].player}</strong>
+        <span>${teamLabelHtml(fastestGoalRace[0].team)} · ${fastestGoalRace[0].clockDisplay}</span>
+        <em>${fastestGoalRace[0].match}</em>
       </div>
+      ${fastestGoalRace.length > 1 ? `
+        <div class="fastest-goal-chasers">
+          <span class="fastest-goal-label">Chasing pack</span>
+          <ul>
+            ${fastestGoalRace.slice(1, 5).map(item => `
+              <li>
+                <strong>${item.player}</strong>
+                <span>${teamLabelHtml(item.team)} · ${item.clockDisplay}</span>
+              </li>
+            `).join("")}
+          </ul>
+        </div>
+      ` : ""}
     `
     : `<p>No fastest goal tracked yet.</p>`;
 
