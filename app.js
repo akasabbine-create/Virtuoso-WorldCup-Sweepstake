@@ -56,6 +56,86 @@ function escapeHtml(value) {
     .replace(/'/g, "&#039;");
 }
 
+const TEAM_FLAGS = {
+  "algeria": "🇩🇿",
+  "argentina": "🇦🇷",
+  "australia": "🇦🇺",
+  "austria": "🇦🇹",
+  "belgium": "🇧🇪",
+  "bosnia": "🇧🇦",
+  "bosnia and herzegovina": "🇧🇦",
+  "brazil": "🇧🇷",
+  "canada": "🇨🇦",
+  "cape verde": "🇨🇻",
+  "colombia": "🇨🇴",
+  "croatia": "🇭🇷",
+  "curacao": "🇨🇼",
+  "curaçao": "🇨🇼",
+  "czech republic": "🇨🇿",
+  "czechia": "🇨🇿",
+  "dr congo": "🇨🇩",
+  "democratic republic of congo": "🇨🇩",
+  "ecuador": "🇪🇨",
+  "egypt": "🇪🇬",
+  "england": "🏴",
+  "france": "🇫🇷",
+  "germany": "🇩🇪",
+  "ghana": "🇬🇭",
+  "haiti": "🇭🇹",
+  "iran": "🇮🇷",
+  "iraq": "🇮🇶",
+  "ivory coast": "🇨🇮",
+  "cote d'ivoire": "🇨🇮",
+  "côte d’ivoire": "🇨🇮",
+  "japan": "🇯🇵",
+  "jordan": "🇯🇴",
+  "mexico": "🇲🇽",
+  "morocco": "🇲🇦",
+  "netherlands": "🇳🇱",
+  "new zealand": "🇳🇿",
+  "norway": "🇳🇴",
+  "panama": "🇵🇦",
+  "paraguay": "🇵🇾",
+  "portugal": "🇵🇹",
+  "qatar": "🇶🇦",
+  "saudi arabia": "🇸🇦",
+  "scotland": "🏴",
+  "senegal": "🇸🇳",
+  "south africa": "🇿🇦",
+  "south korea": "🇰🇷",
+  "spain": "🇪🇸",
+  "sweden": "🇸🇪",
+  "switzerland": "🇨🇭",
+  "tunisia": "🇹🇳",
+  "turkey": "🇹🇷",
+  "united states": "🇺🇸",
+  "usa": "🇺🇸",
+  "uruguay": "🇺🇾",
+  "uzbekistan": "🇺🇿"
+};
+
+function flagForTeam(team) {
+  return TEAM_FLAGS[normaliseText(team)] || "";
+}
+
+function teamLabelHtml(team, classes = []) {
+  const safeTeam = escapeHtml(String(team || "").trim());
+  const flag = flagForTeam(team);
+  const content = `${flag ? `<span class="team-flag" aria-hidden="true">${flag}</span>` : ""}<span class="team-name-text">${safeTeam}</span>`;
+
+  if (!classes || classes.length === 0) {
+    return `<span class="team-name">${content}</span>`;
+  }
+
+  return `<span class="team-name ${classes.join(" ")}">${content}</span>`;
+}
+
+function teamPlainText(team) {
+  const trimmed = String(team || "").trim();
+  const flag = flagForTeam(trimmed);
+  return `${flag ? `${flag} ` : ""}${trimmed}`;
+}
+
 function fixtureStatusLabel(match) {
   if (match.completed) {
     return "Final";
@@ -461,11 +541,7 @@ function teamHighlightClasses(team, playerName, spoonTeam, mostGoalsTeams) {
 }
 
 function teamNameHtml(team, classes) {
-  if (!classes || classes.length === 0) {
-    return team;
-  }
-
-  return `<span class="${classes.join(" ")}">${team}</span>`;
+  return teamLabelHtml(team, classes);
 }
 
 function renderStatus(status) {
@@ -514,7 +590,7 @@ function renderSummaryCards(leaderboard, playerDetails) {
   }
 
   spoonEl.innerHTML = `
-    ${spoonTeam.playerName} — <span class="wooden-spoon-country">${spoonTeam.team}</span>
+    ${spoonTeam.playerName} — ${teamLabelHtml(spoonTeam.team, ["wooden-spoon-country"])}
     <br />
     <span class="small-card-text">
       ${spoonTeam.points} pts, ${spoonTeam.gamesPlayed} played, GD ${spoonTeam.goalDifference}
@@ -840,7 +916,7 @@ function renderInsightStrip(leaderboard, latestResults) {
       ${
         latestMatch
           ? `
-            <h3>${latestMatch.team1} ${latestMatch.score1}–${latestMatch.score2} ${latestMatch.team2}</h3>
+            <h3>${teamLabelHtml(latestMatch.team1)} ${latestMatch.score1}–${latestMatch.score2} ${teamLabelHtml(latestMatch.team2)}</h3>
             <p>${formatDateTime(latestMatch.date)}</p>
             <div class="insight-chip-row">${latestGains}</div>
           `
@@ -940,7 +1016,7 @@ function renderBonusTracker(bonusData, leaderboard) {
     ? awarded.map(item => `
         <li>
           <strong>${item.player}</strong>: +${item.points}
-          ${item.label} — ${item.team}
+          ${item.label} — ${teamPlainText(item.team)}
           <br />
           <span>${item.reason}</span>
         </li>
@@ -956,7 +1032,7 @@ function renderBonusTracker(bonusData, leaderboard) {
     return `
       <li class="${index === 0 ? "race-leader" : ""}">
         <strong>${item.player}</strong>
-        <span>${item.team} · ${item.goals} goals</span>
+        <span>${teamPlainText(item.team)} · ${item.goals} goals</span>
         ${owners ? `<em>Owner: ${owners}</em>` : ""}
       </li>
     `;
@@ -970,7 +1046,7 @@ function renderBonusTracker(bonusData, leaderboard) {
 
     return `
       <li class="${index === 0 ? "race-leader" : ""}">
-        <strong>${item.team}</strong>
+        <strong>${teamPlainText(item.team)}</strong>
         <span>${item.goals} goals</span>
         ${owners ? `<em>Owner: ${owners}</em>` : ""}
       </li>
@@ -981,7 +1057,7 @@ function renderBonusTracker(bonusData, leaderboard) {
     ? `
       <div class="fastest-goal-card">
         <strong>${bonusData.fastestGoal.player}</strong>
-        <span>${bonusData.fastestGoal.team} · ${bonusData.fastestGoal.clockDisplay}</span>
+        <span>${teamPlainText(bonusData.fastestGoal.team)} · ${bonusData.fastestGoal.clockDisplay}</span>
         <em>${bonusData.fastestGoal.match}</em>
       </div>
     `
@@ -1044,7 +1120,7 @@ function renderWoodenSpoonRace(playerDetails) {
         <strong>${team.points} pts</strong>
       </div>
 
-      <h3 class="${index === 0 ? "wooden-spoon-country" : ""}">${team.team}</h3>
+      <h3>${teamLabelHtml(team.team, index === 0 ? ["wooden-spoon-country"] : [])}</h3>
 
       <p>
         Owner: <strong>${team.playerName}</strong>
@@ -1094,7 +1170,7 @@ function renderPlayerDetails(details, spoonTeam, mostGoalsTeams) {
       const recentResults = team.recentResults && team.recentResults.length > 0
         ? team.recentResults.map(result => `
             <li>
-              ${result.result}: ${team.team} ${result.scoreFor}–${result.scoreAgainst} ${result.opponent}
+              ${result.result}: ${teamPlainText(team.team)} ${result.scoreFor}–${result.scoreAgainst} ${teamPlainText(result.opponent)}
               (${result.points} pts)
             </li>
           `).join("")
@@ -1210,7 +1286,7 @@ function potentialChips(row, match) {
   const chips = [];
 
   if (row.team1Win > 0) {
-    chips.push(`<span>${match.team1} +${row.team1Win}</span>`);
+    chips.push(`<span>${teamLabelHtml(match.team1)} +${row.team1Win}</span>`);
   }
 
   if (row.draw > 0) {
@@ -1218,7 +1294,7 @@ function potentialChips(row, match) {
   }
 
   if (row.team2Win > 0) {
-    chips.push(`<span>${match.team2} +${row.team2Win}</span>`);
+    chips.push(`<span>${teamLabelHtml(match.team2)} +${row.team2Win}</span>`);
   }
 
   return chips.join("");
@@ -1255,7 +1331,7 @@ function outcomeDefinitions(match) {
   return [
     {
       key: "team1Win",
-      label: `${match.team1} win`
+      label: `${teamPlainText(match.team1)} win`
     },
     {
       key: "draw",
@@ -1263,7 +1339,7 @@ function outcomeDefinitions(match) {
     },
     {
       key: "team2Win",
-      label: `${match.team2} win`
+      label: `${teamPlainText(match.team2)} win`
     }
   ];
 }
@@ -1357,7 +1433,7 @@ function renderBiggestPossibleMove(leaderboard, fixtures) {
         <strong>No rank climb currently projected</strong>
         <p>
           ${firstImpact
-            ? `${escapeHtml(firstImpact.match.team1)} v ${escapeHtml(firstImpact.match.team2)} can still add points, but may not change positions immediately.`
+            ? `${teamPlainText(firstImpact.match.team1)} v ${teamPlainText(firstImpact.match.team2)} can still add points, but may not change positions immediately.`
             : "No sweepstake players are involved in the remaining listed matches."}
         </p>
       </div>
@@ -1371,7 +1447,7 @@ function renderBiggestPossibleMove(leaderboard, fixtures) {
       <strong>${escapeHtml(best.player)} could climb ${best.places} place${best.places === 1 ? "" : "s"}</strong>
       <p>
         If <span>${escapeHtml(best.outcome.label)}</span> in
-        ${escapeHtml(best.match.team1)} v ${escapeHtml(best.match.team2)},
+        ${teamPlainText(best.match.team1)} v ${teamPlainText(best.match.team2)},
         ${escapeHtml(best.player)} gains +${best.gainedPoints} and moves from ${best.oldRank} to ${best.newRank}.
       </p>
     </div>
@@ -1408,8 +1484,8 @@ function renderUpcomingFixtures(fixtures) {
 
     const players = match.players && match.players.length > 0
       ? match.players.map(player => {
-          const teams = (player.teams || []).join(", ");
-          return `<li>${player.name}: ${teams}</li>`;
+          const teams = (player.teams || []).map(teamPlainText).join(", ");
+          return `<li>${escapeHtml(player.name)}: ${escapeHtml(teams)}</li>`;
         }).join("")
       : `<li>No sweepstake players involved</li>`;
 
@@ -1421,12 +1497,12 @@ function renderUpcomingFixtures(fixtures) {
     const scoreHtml = hasVisibleScore
       ? `
         <div class="fixture-score">
-          <span>${match.team1}</span>
+          <span>${teamLabelHtml(match.team1)}</span>
           <strong>${match.displayScore1}–${match.displayScore2}</strong>
-          <span>${match.team2}</span>
+          <span>${teamLabelHtml(match.team2)}</span>
         </div>
       `
-      : `<h3>${match.team1} v ${match.team2}</h3>`;
+      : `<h3>${teamLabelHtml(match.team1)} v ${teamLabelHtml(match.team2)}</h3>`;
 
     const playerGains = match.playerGains && match.playerGains.length > 0
       ? match.playerGains.map(gain => `<li>${gain.name} +${gain.points}</li>`).join("")
@@ -1508,7 +1584,7 @@ function renderLatestResults(results) {
 
     row.innerHTML = `
       <div class="result-ticker-score">
-        <strong>${match.team1} ${match.score1}–${match.score2} ${match.team2}</strong>
+        <strong>${teamLabelHtml(match.team1)} ${match.score1}–${match.score2} ${teamLabelHtml(match.team2)}</strong>
         <small>${formatDateTime(match.date)}</small>
       </div>
 
@@ -1595,7 +1671,6 @@ async function init() {
   renderLeaderboard(leaderboard, spoonTeam, badgesByPlayer, mostGoalsTeams);
   renderBonusTracker(bonusData, leaderboard);
   renderPrizePoolSection(leaderboard, playerDetails, bonusData);
-  renderCompetitiveSnapshot(leaderboard, playerDetails, bonusData);
   renderWoodenSpoonRace(playerDetails);
   renderPlayerDetails(playerDetails, spoonTeam, mostGoalsTeams);
   renderLatestResults(latestResults);
