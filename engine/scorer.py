@@ -420,6 +420,7 @@ def build_goal_trackers(matches):
 
     nation_goals = defaultdict(int)
     fastest_goal = None
+    fastest_goals = []
 
     for match in matches:
         if match.get("score1") is None or match.get("score2") is None:
@@ -477,8 +478,12 @@ def build_goal_trackers(matches):
                     "match": f"{match['team1']} {match['score1']}–{match['score2']} {match['team2']}",
                 }
 
+                fastest_goals.append(goal_item)
+
                 if fastest_goal is None or clock_value < fastest_goal["clockSeconds"]:
                     fastest_goal = goal_item
+
+    fastest_goals.sort(key=lambda x: (x["clockSeconds"], x["player"] or "", x["team"] or ""))
 
     golden_boot_race = sorted(
         scorer_totals.values(),
@@ -495,7 +500,7 @@ def build_goal_trackers(matches):
 
     nation_goal_table.sort(key=lambda x: (-x["goals"], x["team"]))
 
-    return golden_boot_race, nation_goal_table, fastest_goal
+    return golden_boot_race, nation_goal_table, fastest_goal, fastest_goals[:10]
 
 
 def build_bonus_points(players, matches):
@@ -590,7 +595,7 @@ def build_bonus_points(players, matches):
                         f"{match['team2']} kept a knockout clean sheet against {match['team1']}"
                     )
 
-    golden_boot_race, nation_goal_table, fastest_goal = build_goal_trackers(matches)
+    golden_boot_race, nation_goal_table, fastest_goal, fastest_goal_race = build_goal_trackers(matches)
 
     if tournament_complete and golden_boot_race:
         top_goals = golden_boot_race[0]["goals"]
@@ -658,6 +663,7 @@ def build_bonus_points(players, matches):
         "goldenBootRace": golden_boot_race[:10],
         "nationGoalTable": nation_goal_table,
         "fastestGoal": fastest_goal,
+        "fastestGoalRace": fastest_goal_race,
         "notes": [
             "Progression bonuses are awarded when teams appear in the relevant knockout stage data.",
             "Knockout clean sheet bonuses are awarded automatically from knockout-stage scores.",
@@ -675,11 +681,6 @@ def calculate(players, matches, previous_leaderboard, bonus_data):
 
     base_scores = defaultdict(int)
     games_played = defaultdict(int)
-    wins = defaultdict(int)
-    draws = defaultdict(int)
-    losses = defaultdict(int)
-    goals_for = defaultdict(int)
-    goals_against = defaultdict(int)
 
     bonus_by_player = {
         row["name"]: row.get("total", 0)
@@ -698,34 +699,11 @@ def calculate(players, matches, previous_leaderboard, bonus_data):
             continue
 
         for player in players:
-            player_name = player["name"]
-
             for team in player["teams"]:
-                normalised_team = normalise_team_name(team)
-
                 for result_team, points in results.items():
-                    if not team_matches(normalised_team, result_team):
-                        continue
-
-                    base_scores[player_name] += points
-                    games_played[player_name] += 1
-
-                    if team_matches(normalised_team, match["team1"]):
-                        team_score = match["score1"]
-                        opponent_score = match["score2"]
-                    else:
-                        team_score = match["score2"]
-                        opponent_score = match["score1"]
-
-                    goals_for[player_name] += team_score
-                    goals_against[player_name] += opponent_score
-
-                    if points == 3:
-                        wins[player_name] += 1
-                    elif points == 1:
-                        draws[player_name] += 1
-                    else:
-                        losses[player_name] += 1
+                    if team_matches(team, result_team):
+                        base_scores[player["name"]] += points
+                        games_played[player["name"]] += 1
 
     leaderboard = []
 
@@ -735,7 +713,6 @@ def calculate(players, matches, previous_leaderboard, bonus_data):
         match_points_total = base_scores[player_name]
         bonus_points_total = bonus_by_player.get(player_name, 0)
         total_points = match_points_total + bonus_points_total
-        goal_difference = goals_for[player_name] - goals_against[player_name]
 
         leaderboard.append({
             "name": player_name,
@@ -744,23 +721,10 @@ def calculate(players, matches, previous_leaderboard, bonus_data):
             "bonusPoints": bonus_points_total,
             "points": total_points,
             "gamesPlayed": games_played[player_name],
-            "wins": wins[player_name],
-            "draws": draws[player_name],
-            "losses": losses[player_name],
-            "goalsFor": goals_for[player_name],
-            "goalsAgainst": goals_against[player_name],
-            "goalDifference": goal_difference,
         })
 
     leaderboard.sort(
-        key=lambda x: (
-            -x["points"],
-            -x["goalDifference"],
-            -x["goalsFor"],
-            -x["wins"],
-            -x["bonusPoints"],
-            x["name"]
-        )
+        key=lambda x: (-x["points"], -x["gamesPlayed"], x["name"])
     )
 
     for index, row in enumerate(leaderboard, start=1):
@@ -812,6 +776,7 @@ def calculate(players, matches, previous_leaderboard, bonus_data):
         row["showMovementUntil"] = None
 
     return leaderboard
+
 
 def build_player_details(players, matches, leaderboard):
     rank_by_player = {
