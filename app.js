@@ -56,72 +56,79 @@ function escapeHtml(value) {
     .replace(/'/g, "&#039;");
 }
 
-const TEAM_FLAGS = {
-  "algeria": "🇩🇿",
-  "argentina": "🇦🇷",
-  "australia": "🇦🇺",
-  "austria": "🇦🇹",
-  "belgium": "🇧🇪",
-  "bosnia": "🇧🇦",
-  "bosnia and herzegovina": "🇧🇦",
-  "brazil": "🇧🇷",
-  "canada": "🇨🇦",
-  "cape verde": "🇨🇻",
-  "colombia": "🇨🇴",
-  "croatia": "🇭🇷",
-  "curacao": "🇨🇼",
-  "curaçao": "🇨🇼",
-  "czech republic": "🇨🇿",
-  "czechia": "🇨🇿",
-  "dr congo": "🇨🇩",
-  "democratic republic of congo": "🇨🇩",
-  "ecuador": "🇪🇨",
-  "egypt": "🇪🇬",
-  "england": "🏴",
-  "france": "🇫🇷",
-  "germany": "🇩🇪",
-  "ghana": "🇬🇭",
-  "haiti": "🇭🇹",
-  "iran": "🇮🇷",
-  "iraq": "🇮🇶",
-  "ivory coast": "🇨🇮",
-  "cote d'ivoire": "🇨🇮",
-  "côte d’ivoire": "🇨🇮",
-  "japan": "🇯🇵",
-  "jordan": "🇯🇴",
-  "mexico": "🇲🇽",
-  "morocco": "🇲🇦",
-  "netherlands": "🇳🇱",
-  "new zealand": "🇳🇿",
-  "norway": "🇳🇴",
-  "panama": "🇵🇦",
-  "paraguay": "🇵🇾",
-  "portugal": "🇵🇹",
-  "qatar": "🇶🇦",
-  "saudi arabia": "🇸🇦",
-  "scotland": "🏴",
-  "senegal": "🇸🇳",
-  "south africa": "🇿🇦",
-  "south korea": "🇰🇷",
-  "spain": "🇪🇸",
-  "sweden": "🇸🇪",
-  "switzerland": "🇨🇭",
-  "tunisia": "🇹🇳",
-  "turkey": "🇹🇷",
-  "united states": "🇺🇸",
-  "usa": "🇺🇸",
-  "uruguay": "🇺🇾",
-  "uzbekistan": "🇺🇿"
+const TEAM_FLAG_CODES = {
+  "algeria": "dz",
+  "argentina": "ar",
+  "australia": "au",
+  "austria": "at",
+  "belgium": "be",
+  "bosnia": "ba",
+  "bosnia and herzegovina": "ba",
+  "brazil": "br",
+  "canada": "ca",
+  "cape verde": "cv",
+  "colombia": "co",
+  "croatia": "hr",
+  "curacao": "cw",
+  "curaçao": "cw",
+  "czech republic": "cz",
+  "czechia": "cz",
+  "dr congo": "cd",
+  "democratic republic of congo": "cd",
+  "ecuador": "ec",
+  "egypt": "eg",
+  "england": "gb-eng",
+  "france": "fr",
+  "germany": "de",
+  "ghana": "gh",
+  "haiti": "ht",
+  "iran": "ir",
+  "iraq": "iq",
+  "ivory coast": "ci",
+  "cote d'ivoire": "ci",
+  "côte d’ivoire": "ci",
+  "japan": "jp",
+  "jordan": "jo",
+  "mexico": "mx",
+  "morocco": "ma",
+  "netherlands": "nl",
+  "new zealand": "nz",
+  "norway": "no",
+  "panama": "pa",
+  "paraguay": "py",
+  "portugal": "pt",
+  "qatar": "qa",
+  "saudi arabia": "sa",
+  "scotland": "gb-sct",
+  "senegal": "sn",
+  "south africa": "za",
+  "south korea": "kr",
+  "spain": "es",
+  "sweden": "se",
+  "switzerland": "ch",
+  "tunisia": "tn",
+  "turkey": "tr",
+  "united states": "us",
+  "usa": "us",
+  "uruguay": "uy",
+  "uzbekistan": "uz"
 };
 
-function flagForTeam(team) {
-  return TEAM_FLAGS[normaliseText(team)] || "";
+function flagCodeForTeam(team) {
+  return TEAM_FLAG_CODES[normaliseText(team)] || "";
+}
+
+function flagImageHtml(team) {
+  const code = flagCodeForTeam(team);
+  if (!code) return "";
+
+  const safeTeam = escapeHtml(String(team || "").trim());
+  return `<img class="team-flag" src="https://flagcdn.com/24x18/${code}.png" srcset="https://flagcdn.com/48x36/${code}.png 2x" width="24" height="18" alt="" aria-hidden="true" loading="lazy" />`;
 }
 
 function teamLabelHtml(team, classes = []) {
   const safeTeam = escapeHtml(String(team || "").trim());
-  const flag = flagForTeam(team);
-  const content = `${flag ? `<span class="team-flag" aria-hidden="true">${flag}</span>` : ""}<span class="team-name-text">${safeTeam}</span>`;
+  const content = `${flagImageHtml(team)}<span class="team-name-text">${safeTeam}</span>`;
 
   if (!classes || classes.length === 0) {
     return `<span class="team-name">${content}</span>`;
@@ -131,9 +138,7 @@ function teamLabelHtml(team, classes = []) {
 }
 
 function teamPlainText(team) {
-  const trimmed = String(team || "").trim();
-  const flag = flagForTeam(trimmed);
-  return `${flag ? `${flag} ` : ""}${trimmed}`;
+  return String(team || "").trim();
 }
 
 function fixtureStatusLabel(match) {
@@ -1016,7 +1021,7 @@ function renderBonusTracker(bonusData, leaderboard) {
     ? awarded.map(item => `
         <li>
           <strong>${item.player}</strong>: +${item.points}
-          ${item.label} — ${teamPlainText(item.team)}
+          ${item.label} — ${teamLabelHtml(item.team)}
           <br />
           <span>${item.reason}</span>
         </li>
@@ -1032,7 +1037,7 @@ function renderBonusTracker(bonusData, leaderboard) {
     return `
       <li class="${index === 0 ? "race-leader" : ""}">
         <strong>${item.player}</strong>
-        <span>${teamPlainText(item.team)} · ${item.goals} goals</span>
+        <span>${teamLabelHtml(item.team)} · ${item.goals} goals</span>
         ${owners ? `<em>Owner: ${owners}</em>` : ""}
       </li>
     `;
@@ -1046,7 +1051,7 @@ function renderBonusTracker(bonusData, leaderboard) {
 
     return `
       <li class="${index === 0 ? "race-leader" : ""}">
-        <strong>${teamPlainText(item.team)}</strong>
+        <strong>${teamLabelHtml(item.team)}</strong>
         <span>${item.goals} goals</span>
         ${owners ? `<em>Owner: ${owners}</em>` : ""}
       </li>
@@ -1057,7 +1062,7 @@ function renderBonusTracker(bonusData, leaderboard) {
     ? `
       <div class="fastest-goal-card">
         <strong>${bonusData.fastestGoal.player}</strong>
-        <span>${teamPlainText(bonusData.fastestGoal.team)} · ${bonusData.fastestGoal.clockDisplay}</span>
+        <span>${teamLabelHtml(bonusData.fastestGoal.team)} · ${bonusData.fastestGoal.clockDisplay}</span>
         <em>${bonusData.fastestGoal.match}</em>
       </div>
     `
@@ -1170,7 +1175,7 @@ function renderPlayerDetails(details, spoonTeam, mostGoalsTeams) {
       const recentResults = team.recentResults && team.recentResults.length > 0
         ? team.recentResults.map(result => `
             <li>
-              ${result.result}: ${teamPlainText(team.team)} ${result.scoreFor}–${result.scoreAgainst} ${teamPlainText(result.opponent)}
+              ${result.result}: ${teamLabelHtml(team.team)} ${result.scoreFor}–${result.scoreAgainst} ${teamLabelHtml(result.opponent)}
               (${result.points} pts)
             </li>
           `).join("")
@@ -1433,7 +1438,7 @@ function renderBiggestPossibleMove(leaderboard, fixtures) {
         <strong>No rank climb currently projected</strong>
         <p>
           ${firstImpact
-            ? `${teamPlainText(firstImpact.match.team1)} v ${teamPlainText(firstImpact.match.team2)} can still add points, but may not change positions immediately.`
+            ? `${teamLabelHtml(firstImpact.match.team1)} v ${teamLabelHtml(firstImpact.match.team2)} can still add points, but may not change positions immediately.`
             : "No sweepstake players are involved in the remaining listed matches."}
         </p>
       </div>
@@ -1447,7 +1452,7 @@ function renderBiggestPossibleMove(leaderboard, fixtures) {
       <strong>${escapeHtml(best.player)} could climb ${best.places} place${best.places === 1 ? "" : "s"}</strong>
       <p>
         If <span>${escapeHtml(best.outcome.label)}</span> in
-        ${teamPlainText(best.match.team1)} v ${teamPlainText(best.match.team2)},
+        ${teamLabelHtml(best.match.team1)} v ${teamLabelHtml(best.match.team2)},
         ${escapeHtml(best.player)} gains +${best.gainedPoints} and moves from ${best.oldRank} to ${best.newRank}.
       </p>
     </div>
