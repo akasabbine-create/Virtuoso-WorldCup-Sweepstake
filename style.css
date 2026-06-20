@@ -2763,3 +2763,60 @@ body {
     padding-top: 8px;
   }
 }
+
+
+/* HARD MOBILE OVERRIDE: keep generated title fully inside viewport */
+@media screen and (max-width: 900px) {
+  html,
+  body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .layered-hero-header {
+    width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    overflow: hidden !important;
+    padding-top: 8px !important;
+  }
+
+  .layered-title-logo {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    overflow: visible !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+
+  .layered-title-logo img {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+    height: auto !important;
+    object-fit: contain !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    transform: none !important;
+  }
+
+  .layered-hero-meta {
+    width: min(92vw, 620px) !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .layered-title-logo img {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+
+  .layered-hero-meta p {
+    font-size: 1rem !important;
+    line-height: 1.42 !important;
+  }
+}
