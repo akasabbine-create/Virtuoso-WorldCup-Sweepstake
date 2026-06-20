@@ -2717,106 +2717,11 @@ body {
 }
 
 
-/* Mobile safety fix for generated title logo */
-@media (max-width: 800px) {
-  .layered-hero-header {
-    padding-top: 10px;
-    padding-bottom: 24px;
-  }
-
-  .layered-title-logo {
-    width: 100%;
-    max-width: 100vw;
-    overflow: hidden;
-  }
-
-  .layered-title-logo img {
-    width: min(96vw, 760px);
-    max-width: 96vw;
-    margin: 0 auto;
-  }
-
-  .layered-hero-meta {
-    width: min(92vw, 620px);
-    margin-top: 0;
-  }
-
-  .layered-hero-meta p {
-    font-size: clamp(1rem, 4.2vw, 1.15rem);
-    line-height: 1.45;
-  }
-
-  .layered-hero-meta .status-card {
-    max-width: 92vw;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
+/* Fix top strip above generated hero */
+main {
+  padding-top: 0;
 }
 
-@media (max-width: 430px) {
-  .layered-title-logo img {
-    width: 98vw;
-    max-width: 98vw;
-  }
-
-  .layered-hero-header {
-    padding-top: 8px;
-  }
-}
-
-
-/* HARD MOBILE OVERRIDE: keep generated title fully inside viewport */
-@media screen and (max-width: 900px) {
-  html,
-  body {
-    max-width: 100%;
-    overflow-x: hidden;
-  }
-
-  .layered-hero-header {
-    width: 100% !important;
-    margin-left: 0 !important;
-    margin-right: 0 !important;
-    overflow: hidden !important;
-    padding-top: 8px !important;
-  }
-
-  .layered-title-logo {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    overflow: visible !important;
-    padding-left: 0 !important;
-    padding-right: 0 !important;
-  }
-
-  .layered-title-logo img {
-    width: 100% !important;
-    max-width: 100% !important;
-    min-width: 0 !important;
-    height: auto !important;
-    object-fit: contain !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-    transform: none !important;
-  }
-
-  .layered-hero-meta {
-    width: min(92vw, 620px) !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .layered-title-logo img {
-    width: 100% !important;
-    max-width: 100% !important;
-  }
-
-  .layered-hero-meta p {
-    font-size: 1rem !important;
-    line-height: 1.42 !important;
-  }
+.layered-hero-header {
+  margin-top: 0;
 }
