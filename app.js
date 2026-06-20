@@ -549,11 +549,8 @@ function addProjectedPrize(payouts, playerName, prize) {
   payouts[playerName].prizes.push(prize);
 }
 
-function renderPrizePoolSection(leaderboard, playerDetails, bonusData) {
-  const container = document.querySelector("#projected-prizes");
 
-  if (!container) return;
-
+function calculateProjectedPayouts(leaderboard, playerDetails, bonusData) {
   const payouts = {};
 
   PRIZE_POOL.places.forEach((place, index) => {
@@ -592,11 +589,170 @@ function renderPrizePoolSection(leaderboard, playerDetails, bonusData) {
     });
   }
 
-  const projectedPayouts = Object.values(payouts).sort((a, b) => {
+  return Object.values(payouts).sort((a, b) => {
     if (b.total !== a.total) return b.total - a.total;
     if (a.firstPrizeOrder !== b.firstPrizeOrder) return a.firstPrizeOrder - b.firstPrizeOrder;
     return a.name.localeCompare(b.name);
   });
+}
+
+function renderCompetitiveSnapshot(leaderboard, playerDetails, bonusData) {
+  renderClosestBattles(leaderboard);
+  renderPodiumWatch(leaderboard);
+  renderPrizeRaceMini(leaderboard, playerDetails, bonusData);
+}
+
+function renderClosestBattles(leaderboard) {
+  const container = document.querySelector("#closest-battles");
+  if (!container) return;
+
+  const players = [...(leaderboard || [])].sort((a, b) => Number(a.rank || 0) - Number(b.rank || 0));
+
+  if (players.length < 2) {
+    container.innerHTML = snapshotEmptyHtml("Closest Battles", "More players needed before battles appear.");
+    return;
+  }
+
+  const pointGroups = [];
+  players.forEach(player => {
+    const points = Number(player.points || 0);
+    const lastGroup = pointGroups[pointGroups.length - 1];
+
+    if (lastGroup && lastGroup.points === points) {
+      lastGroup.players.push(player);
+    } else {
+      pointGroups.push({ points, players: [player] });
+    }
+  });
+
+  const tiedGroups = pointGroups
+    .filter(group => group.players.length > 1)
+    .slice(0, 2)
+    .map(group => ({
+      title: `Level on ${group.points} pts`,
+      detail: group.players.map(player => player.name).join(", ")
+    }));
+
+  const gaps = [];
+  for (let index = 0; index < players.length - 1; index += 1) {
+    const current = players[index];
+    const next = players[index + 1];
+    const gap = Number(current.points || 0) - Number(next.points || 0);
+
+    gaps.push({
+      gap,
+      rank: next.rank || index + 2,
+      title: `${next.name} is ${gap} pt${gap === 1 ? "" : "s"} behind ${current.name}`,
+      detail: `${current.name} ${current.points || 0} pts · ${next.name} ${next.points || 0} pts`
+    });
+  }
+
+  const closestGaps = gaps
+    .filter(item => item.gap > 0)
+    .sort((a, b) => {
+      if (a.gap !== b.gap) return a.gap - b.gap;
+      return Number(a.rank || 99) - Number(b.rank || 99);
+    })
+    .slice(0, 3 - tiedGroups.length);
+
+  const rows = [...tiedGroups, ...closestGaps].slice(0, 3);
+
+  if (rows.length === 0) {
+    container.innerHTML = snapshotEmptyHtml("Closest Battles", "No close point gaps found yet.");
+    return;
+  }
+
+  container.innerHTML = snapshotCardHtml("Closest Battles", "Smallest leaderboard gaps", rows);
+}
+
+function renderPodiumWatch(leaderboard) {
+  const container = document.querySelector("#podium-watch");
+  if (!container) return;
+
+  const players = [...(leaderboard || [])].sort((a, b) => Number(a.rank || 0) - Number(b.rank || 0));
+  const thirdPlace = players[2];
+  const chasing = players.slice(3);
+
+  if (!thirdPlace || chasing.length === 0) {
+    container.innerHTML = snapshotEmptyHtml("Podium Watch", "Podium race will appear once there are enough players.");
+    return;
+  }
+
+  const rows = chasing
+    .map(player => {
+      const gap = Math.max(0, Number(thirdPlace.points || 0) - Number(player.points || 0));
+      return {
+        gap,
+        rank: player.rank,
+        title: `${player.name} is ${gap} pt${gap === 1 ? "" : "s"} off 3rd`,
+        detail: `3rd: ${thirdPlace.name} on ${thirdPlace.points || 0} pts`
+      };
+    })
+    .sort((a, b) => {
+      if (a.gap !== b.gap) return a.gap - b.gap;
+      return Number(a.rank || 99) - Number(b.rank || 99);
+    })
+    .slice(0, 3);
+
+  container.innerHTML = snapshotCardHtml("Podium Watch", "Closest to the money places", rows);
+}
+
+function renderPrizeRaceMini(leaderboard, playerDetails, bonusData) {
+  const container = document.querySelector("#prize-race-mini");
+  if (!container) return;
+
+  const projectedPayouts = calculateProjectedPayouts(leaderboard, playerDetails, bonusData);
+
+  if (projectedPayouts.length === 0) {
+    container.innerHTML = snapshotEmptyHtml("Prize Race", "Projected prizes unavailable.");
+    return;
+  }
+
+  const rows = projectedPayouts.slice(0, 5).map(player => {
+    const labels = player.prizes.map(prize => `${prize.icon} ${prize.label}`).join(" + ");
+    return {
+      title: `£${player.total} ${player.name}`,
+      detail: labels
+    };
+  });
+
+  container.innerHTML = snapshotCardHtml("Prize Race", `Current projection from the £${PRIZE_POOL.total} pot`, rows);
+}
+
+function snapshotEmptyHtml(title, message) {
+  return `
+    <div class="snapshot-card-heading">
+      <span>${escapeHtml(title)}</span>
+    </div>
+    <p class="snapshot-empty">${escapeHtml(message)}</p>
+  `;
+}
+
+function snapshotCardHtml(title, subtitle, rows) {
+  const rowHtml = (rows || []).map(row => `
+    <div class="snapshot-row">
+      <strong>${escapeHtml(row.title)}</strong>
+      <span>${escapeHtml(row.detail)}</span>
+    </div>
+  `).join("");
+
+  return `
+    <div class="snapshot-card-heading">
+      <span>${escapeHtml(title)}</span>
+      <small>${escapeHtml(subtitle)}</small>
+    </div>
+    <div class="snapshot-row-list">
+      ${rowHtml}
+    </div>
+  `;
+}
+
+function renderPrizePoolSection(leaderboard, playerDetails, bonusData) {
+  const container = document.querySelector("#projected-prizes");
+
+  if (!container) return;
+
+  const projectedPayouts = calculateProjectedPayouts(leaderboard, playerDetails, bonusData);
 
   if (projectedPayouts.length === 0) {
     container.innerHTML = `
@@ -1439,6 +1595,7 @@ async function init() {
   renderLeaderboard(leaderboard, spoonTeam, badgesByPlayer, mostGoalsTeams);
   renderBonusTracker(bonusData, leaderboard);
   renderPrizePoolSection(leaderboard, playerDetails, bonusData);
+  renderCompetitiveSnapshot(leaderboard, playerDetails, bonusData);
   renderWoodenSpoonRace(playerDetails);
   renderPlayerDetails(playerDetails, spoonTeam, mostGoalsTeams);
   renderLatestResults(latestResults);
