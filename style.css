@@ -2595,3 +2595,123 @@ body.title-option-broadcast .title-live::before {
 .potential-row .potential-chip .team-flag {
   margin: 0 0.15rem 0 0;
 }
+
+
+/* Layered professional hero: extracted logo + immersive stadium background */
+body {
+  background:
+    linear-gradient(180deg, rgba(7, 27, 42, 0.10) 0%, #071b2a 760px),
+    url("assets/title/hero_stadium_background.jpg") center top / 100% auto no-repeat,
+    #071b2a;
+}
+
+.layered-hero-header {
+  position: relative;
+  isolation: isolate;
+  width: 100vw;
+  margin-left: calc(50% - 50vw);
+  margin-right: calc(50% - 50vw);
+  margin-bottom: 20px;
+  padding: 16px 0 32px;
+  text-align: center;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 50% 14%, rgba(44, 144, 245, 0.22), transparent 54%),
+    linear-gradient(180deg, rgba(4, 13, 22, 0.22) 0%, rgba(7, 27, 42, 0.12) 52%, rgba(7, 27, 42, 0.86) 100%);
+}
+
+.layered-hero-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background: url("assets/title/hero_stadium_background.jpg") center top / cover no-repeat;
+  opacity: 0.95;
+}
+
+.layered-hero-header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, #071b2a 0%, rgba(7, 27, 42, 0.72) 7%, rgba(7, 27, 42, 0.08) 24%, rgba(7, 27, 42, 0.08) 76%, rgba(7, 27, 42, 0.72) 93%, #071b2a 100%),
+    linear-gradient(180deg, rgba(7, 27, 42, 0.04) 0%, rgba(7, 27, 42, 0.06) 56%, #071b2a 100%);
+}
+
+.layered-title-logo {
+  width: min(1220px, 98vw);
+  margin: 0 auto 4px;
+  display: grid;
+  place-items: center;
+}
+
+.layered-title-logo img {
+  display: block;
+  width: min(1120px, 96vw);
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  filter:
+    drop-shadow(0 26px 42px rgba(0, 0, 0, 0.48))
+    drop-shadow(0 0 30px rgba(66, 160, 255, 0.18));
+}
+
+.layered-title-fallback {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.layered-hero-meta {
+  position: relative;
+  z-index: 2;
+  width: min(1200px, 96vw);
+  margin: -6px auto 0;
+  text-align: center;
+}
+
+.layered-hero-meta p {
+  margin-top: 0;
+}
+
+.layered-hero-meta .status-card {
+  width: fit-content;
+  margin: 0 auto;
+  background: rgba(7, 27, 42, 0.68);
+  backdrop-filter: blur(10px);
+}
+
+@media (max-width: 800px) {
+  body {
+    background-size: auto 760px;
+  }
+
+  .layered-hero-header {
+    padding-top: 8px;
+    padding-bottom: 24px;
+  }
+
+  .layered-title-logo {
+    width: 100vw;
+  }
+
+  .layered-title-logo img {
+    width: min(1120px, 112vw);
+    max-width: none;
+  }
+
+  .layered-hero-meta {
+    margin-top: -2px;
+  }
+}
