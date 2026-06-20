@@ -2560,3 +2560,38 @@ body.title-option-broadcast .title-live::before {
 .potential-chip-row .potential-chip .team-name .team-flag {
   margin: 0;
 }
+
+/* Remove the inner oval around flagged team names inside Today's Matches potential point chips. */
+.potential-chip .team-name,
+.potential-chip .team-name-text,
+.potential-chip-row .potential-chip .team-name,
+.potential-chip-row .potential-chip .team-name-text,
+.potential-row .potential-chip .team-name,
+.potential-row .potential-chip .team-name-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}
+
+.potential-chip .team-name-text,
+.potential-chip-row .potential-chip .team-name-text,
+.potential-row .potential-chip .team-name-text {
+  display: inline;
+}
+
+.potential-chip .team-flag,
+.potential-chip-row .potential-chip .team-flag,
+.potential-row .potential-chip .team-flag {
+  margin: 0 0.15rem 0 0;
+}
