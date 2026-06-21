@@ -14,6 +14,7 @@ LATEST_RESULTS_FILE = Path("data/latest_results.json")
 UPCOMING_FIXTURES_FILE = Path("data/upcoming_fixtures.json")
 PLAYER_DETAILS_FILE = Path("data/player_details.json")
 BONUS_POINTS_FILE = Path("data/bonus_points.json")
+DRAMA_FEED_FILE = Path("data/drama_feed.json")
 
 ESPN_URL = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard"
 
@@ -1033,7 +1034,269 @@ def build_upcoming_fixtures(players, matches, limit=12):
     return fallback_future_matches[:limit]
 
 
-def update_history(leaderboard):
+
+def owner_for_team(players, team_name):
+    for player in players:
+        for team in player.get("teams", []):
+            if team_matches(team, team_name):
+                return player.get("name")
+
+    return None
+
+
+def build_wooden_spoon_state(player_details):
+    teams = []
+
+    for player in player_details or []:
+        for team in player.get("teams", []):
+            goals_for = team.get("goalsFor", 0)
+            goals_against = team.get("goalsAgainst", 0)
+
+            teams.append({
+                "owner": player.get("name"),
+                "team": team.get("team"),
+                "points": team.get("points", 0),
+                "gamesPlayed": team.get("gamesPlayed", 0),
+                "goalDifference": goals_for - goals_against,
+                "goalsFor": goals_for,
+            })
+
+    teams.sort(key=lambda row: (
+        row.get("points", 0),
+        -row.get("gamesPlayed", 0),
+        row.get("goalDifference", 0),
+        row.get("goalsFor", 0),
+        row.get("team") or "",
+    ))
+
+    return teams[0] if teams else None
+
+
+def goal_owner_rows(players, rows, goal_key="goals"):
+    if not rows:
+        return []
+
+    top_value = rows[0].get(goal_key, 0)
+    leaders = [row for row in rows if row.get(goal_key, 0) == top_value and top_value]
+
+    output = []
+    seen = set()
+
+    for row in leaders:
+        team = row.get("team")
+        owner = owner_for_team(players, team)
+        key = (owner, team, row.get("player"))
+
+        if key in seen:
+            continue
+
+        seen.add(key)
+        output.append({
+            "owner": owner,
+            "team": team,
+            "player": row.get("player"),
+            "goals": row.get(goal_key, 0),
+        })
+
+    return output
+
+
+def build_drama_state(players, leaderboard, player_details, bonus_data):
+    leader = leaderboard[0] if leaderboard else None
+    spoon = build_wooden_spoon_state(player_details)
+    fastest = None
+
+    fastest_goal = bonus_data.get("fastestGoal") if bonus_data else None
+    if fastest_goal:
+        fastest = {
+            "owner": owner_for_team(players, fastest_goal.get("team")),
+            "team": fastest_goal.get("team"),
+            "player": fastest_goal.get("player"),
+            "clockDisplay": fastest_goal.get("clockDisplay"),
+            "clockSeconds": fastest_goal.get("clockSeconds"),
+        }
+
+    return {
+        "leader": {
+            "owner": leader.get("name"),
+            "points": leader.get("points"),
+            "rank": leader.get("rank"),
+        } if leader else None,
+        "woodenSpoon": spoon,
+        "fastestGoal": fastest,
+        "mostGoalsNation": goal_owner_rows(players, bonus_data.get("nationGoalTable", []) if bonus_data else []),
+        "goldenBoot": goal_owner_rows(players, bonus_data.get("goldenBootRace", []) if bonus_data else []),
+    }
+
+
+def state_key(value, fields):
+    if not value:
+        return None
+
+    return tuple(value.get(field) for field in fields)
+
+
+def rows_key(rows):
+    return sorted(
+        tuple(row.get(field) for field in ("owner", "team", "player", "goals"))
+        for row in rows or []
+    )
+
+
+def names_from_rows(rows):
+    names = []
+
+    for row in rows or []:
+        owner = row.get("owner")
+        team = row.get("team")
+        if owner and team:
+            names.append(f"{owner} ({team})")
+        elif team:
+            names.append(team)
+
+    return ", ".join(names)
+
+
+def drama_item(item_type, icon, label, title, text):
+    return {
+        "type": item_type,
+        "icon": icon,
+        "label": label,
+        "title": title,
+        "text": text,
+    }
+
+
+def build_drama_feed(current_state, previous_state, leaderboard, latest_results):
+    items = []
+
+    previous_state = previous_state or {}
+
+    current_leader = current_state.get("leader")
+    previous_leader = previous_state.get("leader")
+    if current_leader and previous_leader and current_leader.get("owner") != previous_leader.get("owner"):
+        items.append(drama_item(
+            "leader",
+            "👑",
+            "Top spot",
+            f"{current_leader.get('owner')} takes the lead",
+            f"{previous_leader.get('owner')} has been knocked off top spot. {current_leader.get('owner')} now leads on {current_leader.get('points')} pts."
+        ))
+
+    current_spoon = current_state.get("woodenSpoon")
+    previous_spoon = previous_state.get("woodenSpoon")
+    if current_spoon and previous_spoon and state_key(current_spoon, ("owner", "team")) != state_key(previous_spoon, ("owner", "team")):
+        items.append(drama_item(
+            "spoon",
+            "🥄",
+            "Spoon drama",
+            f"{current_spoon.get('owner')} inherits the spoon",
+            f"{current_spoon.get('team')} are now propping things up on {current_spoon.get('points')} pts. Not the trophy anyone wants."
+        ))
+
+    current_fastest = current_state.get("fastestGoal")
+    previous_fastest = previous_state.get("fastestGoal")
+    if current_fastest and previous_fastest and state_key(current_fastest, ("owner", "team", "player", "clockSeconds")) != state_key(previous_fastest, ("owner", "team", "player", "clockSeconds")):
+        items.append(drama_item(
+            "fastest",
+            "⚡",
+            "Fastest goal",
+            f"{current_fastest.get('owner')} grabs the lightning bolt",
+            f"{current_fastest.get('player')} scored for {current_fastest.get('team')} after {current_fastest.get('clockDisplay')}. The £5 prize has a new target."
+        ))
+
+    current_most = current_state.get("mostGoalsNation") or []
+    previous_most = previous_state.get("mostGoalsNation") or []
+    if current_most and previous_most and rows_key(current_most) != rows_key(previous_most):
+        top_goals = current_most[0].get("goals")
+        items.append(drama_item(
+            "goals",
+            "⚽",
+            "Most goals",
+            "Most Goals badge has shifted",
+            f"{names_from_rows(current_most)} now lead the nation scoring race on {top_goals} goals."
+        ))
+
+    current_boot = current_state.get("goldenBoot") or []
+    previous_boot = previous_state.get("goldenBoot") or []
+    if current_boot and previous_boot and rows_key(current_boot) != rows_key(previous_boot):
+        top_goals = current_boot[0].get("goals")
+        items.append(drama_item(
+            "goals",
+            "🥾",
+            "Golden Boot",
+            "Golden Boot race update",
+            f"{names_from_rows(current_boot)} now control the Golden Boot badge on {top_goals} goals."
+        ))
+
+    movers = [row for row in leaderboard or [] if row.get("movement", 0) > 0]
+    movers.sort(key=lambda row: row.get("movement", 0), reverse=True)
+    if movers:
+        top_mover = movers[0]
+        items.append(drama_item(
+            "mover",
+            "📈",
+            "Big mover",
+            f"{top_mover.get('name')} storms up {top_mover.get('movement')} places",
+            f"That is the biggest climb showing on the leaderboard right now."
+        ))
+
+    if not items:
+        if current_spoon:
+            items.append(drama_item(
+                "spoon",
+                "🥄",
+                "Spoon watch",
+                f"{current_spoon.get('owner')} is holding the spoon",
+                f"{current_spoon.get('team')} are currently bottom of the pile on {current_spoon.get('points')} pts."
+            ))
+
+        if current_fastest:
+            items.append(drama_item(
+                "fastest",
+                "⚡",
+                "Fastest goal",
+                f"{current_fastest.get('owner')} owns the lightning bolt",
+                f"{current_fastest.get('player')} for {current_fastest.get('team')} is still the fastest goal at {current_fastest.get('clockDisplay')}."
+            ))
+
+        if current_most:
+            items.append(drama_item(
+                "goals",
+                "⚽",
+                "Goal machine",
+                "Most Goals race is live",
+                f"{names_from_rows(current_most)} lead the way in the nation goals race."
+            ))
+
+        if current_leader:
+            items.append(drama_item(
+                "leader",
+                "👑",
+                "Top spot",
+                f"{current_leader.get('owner')} is the player to catch",
+                f"{current_leader.get('points')} pts on the board. Everyone else is chasing."
+            ))
+
+    return {
+        "generatedAt": datetime.now(timezone.utc).isoformat(),
+        "items": items[:5],
+        "state": current_state,
+    }
+
+
+def previous_drama_state_from_history():
+    history = load(HISTORY_FILE, default=[])
+
+    for snapshot in reversed(history or []):
+        state = snapshot.get("dramaState")
+        if state:
+            return state
+
+    return None
+
+
+def update_history(leaderboard, drama_state=None):
     history = load(HISTORY_FILE, default=[])
 
     snapshot_players = [
@@ -1047,6 +1310,7 @@ def update_history(leaderboard):
 
     if history:
         previous_players = history[-1].get("players", [])
+        previous_drama_state = history[-1].get("dramaState")
 
         previous_simple = [
             {
@@ -1057,13 +1321,14 @@ def update_history(leaderboard):
             for row in previous_players
         ]
 
-        if previous_simple == snapshot_players:
+        if previous_simple == snapshot_players and previous_drama_state == drama_state:
             save(HISTORY_FILE, history)
             return
 
     snapshot = {
         "timestamp": datetime.now(timezone.utc).isoformat(),
-        "players": snapshot_players
+        "players": snapshot_players,
+        "dramaState": drama_state,
     }
 
     history.append(snapshot)
@@ -1103,6 +1368,9 @@ if __name__ == "__main__":
     upcoming_fixtures = build_upcoming_fixtures(players, matches)
     player_details = build_player_details(players, matches, leaderboard)
     status = build_status(matches)
+    previous_drama_state = previous_drama_state_from_history()
+    drama_state = build_drama_state(players, leaderboard, player_details, bonus_data)
+    drama_feed = build_drama_feed(drama_state, previous_drama_state, leaderboard, latest_results)
 
     save(MATCHES_FILE, matches)
     save(BONUS_POINTS_FILE, bonus_data)
@@ -1111,6 +1379,7 @@ if __name__ == "__main__":
     save(UPCOMING_FIXTURES_FILE, upcoming_fixtures)
     save(PLAYER_DETAILS_FILE, player_details)
     save(STATUS_FILE, status)
-    update_history(leaderboard)
+    save(DRAMA_FEED_FILE, drama_feed)
+    update_history(leaderboard, drama_state)
 
     print("Updated dashboard data")
