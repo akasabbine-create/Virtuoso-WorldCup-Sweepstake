@@ -978,7 +978,7 @@ function renderPrizePoolSection(leaderboard, playerDetails, bonusData) {
   const fastestGoalTeam = bonusData?.fastestGoal?.team;
   const prizeHighlights = [
     spoonTeam ? { team: spoonTeam.team, className: "wooden-spoon-country" } : null,
-    fastestGoalTeam ? { team: fastestGoalTeam, className: "prize-highlight-country" } : null
+    fastestGoalTeam ? { team: fastestGoalTeam, className: "wooden-spoon-country" } : null
   ].filter(Boolean);
 
   const payoutHtml = projectedPayouts.map(player => {
@@ -1020,7 +1020,8 @@ function injectDramaFeedStyles() {
   const style = document.createElement("style");
   style.id = "drama-feed-styles";
   style.textContent = `
-    .prize-highlight-country {
+    .prize-highlight-country,
+    .prize-payout-teams .wooden-spoon-country {
       color: #ffd166;
       border-color: rgba(255, 209, 102, 0.48);
       background: rgba(255, 209, 102, 0.10);
