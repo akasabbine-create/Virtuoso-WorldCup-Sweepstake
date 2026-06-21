@@ -73,13 +73,13 @@
     "date": "2026-06-21T00:00Z",
     "team1": "Ecuador",
     "team2": "Curacao",
-    "score1": null,
-    "score2": null,
+    "score1": 0,
+    "score2": 0,
     "displayScore1": 0,
     "displayScore2": 0,
-    "status": "Second Half",
-    "completed": false,
-    "live": true,
+    "status": "Full Time",
+    "completed": true,
+    "live": false,
     "isToday": true,
     "footballDayStart": "2026-06-20T05:00:00+00:00",
     "footballDayEnd": "2026-06-21T05:00:00+00:00",
@@ -97,7 +97,16 @@
         ]
       }
     ],
-    "playerGains": []
+    "playerGains": [
+      {
+        "name": "Charlie",
+        "points": 1
+      },
+      {
+        "name": "Phillipa",
+        "points": 1
+      }
+    ]
   },
   {
     "date": "2026-06-21T04:00Z",
