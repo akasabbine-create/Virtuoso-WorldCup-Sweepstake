@@ -3363,3 +3363,48 @@ body.title-option-broadcast .layered-hero-header::after {
       ) !important;
   }
 }
+
+/* =========================================================
+   Desktop hero spacing polish
+   Tightens the vertical gaps above/below the title on desktop
+   and removes the outer wrapper bubble around update-status pills.
+   Mobile no-box hero remains controlled by the mobile rules above.
+   ========================================================= */
+@media screen and (min-width: 901px) {
+  .layered-hero-header,
+  body.title-option-broadcast .layered-hero-header {
+    min-height: clamp(500px, 45vw, 620px) !important;
+    margin-bottom: 12px !important;
+    padding-top: clamp(8px, 1.4vw, 20px) !important;
+    padding-bottom: clamp(18px, 2.2vw, 30px) !important;
+    justify-content: flex-start !important;
+  }
+
+  .layered-title-logo {
+    margin-top: 0 !important;
+  }
+
+  .layered-hero-meta {
+    margin-top: 6px !important;
+  }
+
+  .cards {
+    margin-top: 12px !important;
+  }
+}
+
+/* Status pills: remove the additional outer capsule highlight, keep the individual pills. */
+.layered-hero-meta .status-card,
+.status-card {
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+.status-card span {
+  background: rgba(16, 45, 68, 0.82) !important;
+  border: 1px solid rgba(88, 166, 255, 0.22) !important;
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16) !important;
+}
