@@ -1167,7 +1167,49 @@ def drama_item(item_type, icon, label, title, text):
     }
 
 
-def build_drama_feed(current_state, previous_state, leaderboard, latest_results):
+
+def player_total_wins(detail):
+    return sum(int(team.get("wins", 0) or 0) for team in detail.get("teams", []))
+
+
+def player_total_games(detail):
+    return sum(int(team.get("gamesPlayed", 0) or 0) for team in detail.get("teams", []))
+
+
+def stinker_drama_item(player_details):
+    candidates = []
+
+    for detail in player_details or []:
+        games = player_total_games(detail)
+        wins = player_total_wins(detail)
+        points = int(detail.get("matchPoints", detail.get("points", 0)) or 0)
+
+        if games > 0 and wins == 0:
+            candidates.append({
+                "name": detail.get("name"),
+                "points": points,
+                "rank": int(detail.get("rank", 999) or 999),
+                "games": games,
+                "teams": [team.get("team") for team in detail.get("teams", []) if team.get("team")],
+            })
+
+    if not candidates:
+        return None
+
+    candidates.sort(key=lambda row: (row["points"], -row["games"], -row["rank"]))
+    player = candidates[0]
+    teams = ", ".join(player["teams"]) if player["teams"] else "Their teams"
+
+    return drama_item(
+        "stinker",
+        "😬",
+        "Stinker watch",
+        f"{player['name']} is having a stinker",
+        f"{teams} have played {player['games']} matches without a win. That is a long old watch."
+    )
+
+
+def build_drama_feed(current_state, previous_state, leaderboard, latest_results, player_details=None):
     items = []
 
     previous_state = previous_state or {}
@@ -1185,13 +1227,18 @@ def build_drama_feed(current_state, previous_state, leaderboard, latest_results)
 
     current_spoon = current_state.get("woodenSpoon")
     previous_spoon = previous_state.get("woodenSpoon")
-    if current_spoon and previous_spoon and state_key(current_spoon, ("owner", "team")) != state_key(previous_spoon, ("owner", "team")):
+    spoon_changed = (
+        current_spoon and previous_spoon and
+        state_key(current_spoon, ("owner", "team")) != state_key(previous_spoon, ("owner", "team"))
+    )
+
+    if spoon_changed:
         items.append(drama_item(
             "spoon",
             "🥄",
             "Spoon drama",
             f"{current_spoon.get('owner')} inherits the spoon",
-            f"{current_spoon.get('team')} are now propping things up on {current_spoon.get('points')} pts. Not the trophy anyone wants."
+            f"{current_spoon.get('team')} are now propping things up on {current_spoon.get('points')} pts with GD {current_spoon.get('goalDifference')}. Not the trophy anyone wants."
         ))
 
     current_fastest = current_state.get("fastestGoal")
@@ -1229,7 +1276,7 @@ def build_drama_feed(current_state, previous_state, leaderboard, latest_results)
             f"{names_from_rows(current_boot)} now control the Golden Boot badge on {top_goals} goals."
         ))
 
-    movers = [row for row in leaderboard or [] if row.get("movement", 0) > 0]
+    movers = [row for row in leaderboard or [] if row.get("movement", 0) >= 4]
     movers.sort(key=lambda row: row.get("movement", 0), reverse=True)
     if movers:
         top_mover = movers[0]
@@ -1241,12 +1288,24 @@ def build_drama_feed(current_state, previous_state, leaderboard, latest_results)
             f"That is the biggest climb showing on the leaderboard right now."
         ))
 
+    if current_spoon and not any(item.get("type") == "spoon" for item in items):
+        items.append(drama_item(
+            "spoon",
+            "🥄",
+            "Spoon watch",
+            f"{current_spoon.get('owner')} has the spoon",
+            f"{current_spoon.get('team')} are bottom of the pile on {current_spoon.get('points')} pts with GD {current_spoon.get('goalDifference')}."
+        ))
+
+    stinker = stinker_drama_item(player_details or [])
+    if stinker and not any(item.get("type") == "stinker" for item in items):
+        items.append(stinker)
+
     return {
         "generatedAt": datetime.now(timezone.utc).isoformat(),
         "items": items[:5],
         "state": current_state,
     }
-
 
 def previous_drama_state_from_history():
     history = load(HISTORY_FILE, default=[])
@@ -1333,7 +1392,7 @@ if __name__ == "__main__":
     status = build_status(matches)
     previous_drama_state = previous_drama_state_from_history()
     drama_state = build_drama_state(players, leaderboard, player_details, bonus_data)
-    drama_feed = build_drama_feed(drama_state, previous_drama_state, leaderboard, latest_results)
+    drama_feed = build_drama_feed(drama_state, previous_drama_state, leaderboard, latest_results, player_details)
 
     save(MATCHES_FILE, matches)
     save(BONUS_POINTS_FILE, bonus_data)
