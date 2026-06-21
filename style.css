@@ -3294,3 +3294,72 @@ body.title-option-broadcast .layered-hero-header::after {
     max-width: 84vw !important;
   }
 }
+
+
+/* Mobile progress-card blend polish
+   Keep the no-box mobile hero, but let the Tournament Progress panel sit
+   naturally on the stadium/page background rather than under a heavy dark wash. */
+@media screen and (max-width: 700px) {
+  .layered-hero-header {
+    margin-bottom: 18px;
+  }
+
+  .layered-hero-header::after {
+    background:
+      radial-gradient(circle at 50% 34%,
+        rgba(58, 152, 244, 0.12) 0%,
+        rgba(7, 27, 42, 0.08) 48%,
+        rgba(7, 27, 42, 0.34) 72%,
+        rgba(7, 27, 42, 0.72) 100%
+      ),
+      linear-gradient(180deg,
+        rgba(7, 27, 42, 0.03) 0%,
+        rgba(7, 27, 42, 0.10) 56%,
+        rgba(7, 27, 42, 0.42) 80%,
+        rgba(7, 27, 42, 0.78) 100%
+      );
+  }
+
+  .tournament-progress-section,
+  .tournament-progress {
+    position: relative;
+    z-index: 2;
+  }
+
+  .tournament-progress,
+  .progress-card,
+  #tournament-progress {
+    background:
+      linear-gradient(180deg,
+        rgba(12, 42, 64, 0.72),
+        rgba(8, 30, 48, 0.56)
+      ) !important;
+    border-color: rgba(88, 166, 255, 0.32) !important;
+    box-shadow:
+      0 18px 34px rgba(0, 0, 0, 0.18),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+    backdrop-filter: blur(10px);
+  }
+
+  .tournament-progress::before,
+  .progress-card::before,
+  #tournament-progress::before {
+    opacity: 0.18 !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .layered-hero-header {
+    margin-bottom: 14px;
+  }
+
+  .tournament-progress,
+  .progress-card,
+  #tournament-progress {
+    background:
+      linear-gradient(180deg,
+        rgba(12, 42, 64, 0.66),
+        rgba(8, 30, 48, 0.50)
+      ) !important;
+  }
+}
