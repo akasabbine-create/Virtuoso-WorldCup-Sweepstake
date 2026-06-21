@@ -662,7 +662,7 @@ function renderTournamentProgressMini(status) {
   progress.innerHTML = `
     <span class="mini-progress-label">Tournament progress</span>
     <strong>${completed} of ${total}</strong>
-    <span>${percent}% complete</span>
+    <span class="mini-progress-percent">${percent}% complete</span>
     <span class="progress-mini" aria-hidden="true"><span style="width: ${percent}%"></span></span>
   `;
 }
@@ -1027,6 +1027,19 @@ function injectDramaFeedStyles() {
       box-shadow: inset 0 0 0 1px rgba(255, 209, 102, 0.10);
     }
 
+    .layered-hero-meta p,
+    .generated-title-header > p,
+    .page-header > p {
+      display: none;
+    }
+
+    .mini-progress-percent {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
     .progress-mini {
       display: block;
       width: 100%;
@@ -1048,11 +1061,11 @@ function injectDramaFeedStyles() {
     .tournament-progress-mini {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       width: fit-content;
       max-width: 100%;
       margin: 0 auto 14px;
-      padding: 8px 12px;
+      padding: 7px 11px;
       border: 1px solid rgba(95, 169, 255, 0.18);
       border-radius: 999px;
       background: rgba(7, 30, 47, 0.72);
@@ -1181,6 +1194,11 @@ function injectDramaFeedStyles() {
         justify-content: center;
         flex-wrap: wrap;
         border-radius: 18px;
+        font-size: 0.9rem;
+      }
+
+      .mini-progress-percent {
+        font-size: 0.76rem;
       }
 
       .drama-feed-grid {
