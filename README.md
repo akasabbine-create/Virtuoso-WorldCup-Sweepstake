@@ -16,3 +16,7 @@ Leaderboard ranks are sorted by total points, then goal difference, then goals s
 ## Mobile hero fix
 
 The layered hero now includes a mobile-specific CSS override so the transparent header scales inside narrow phone screens without cropping the right-hand side of the title.
+
+## Mobile hero blend polish
+
+The mobile hero has an additional CSS pass that softens the stadium edges and fades the image into the page background on smaller screens.

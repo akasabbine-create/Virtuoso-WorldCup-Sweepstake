@@ -3106,3 +3106,84 @@ body.title-option-broadcast .layered-hero-header::after {
     padding-bottom: 28px !important;
   }
 }
+
+/* =========================================================
+   Mobile hero blend polish
+   Makes the stadium hero fade into the page on phones rather
+   than appearing as a hard rectangular panel.
+   ========================================================= */
+@media screen and (max-width: 640px) {
+  .layered-hero-header,
+  body.title-option-broadcast .layered-hero-header {
+    margin-bottom: 28px !important;
+    padding: 38px 14px 38px !important;
+    background:
+      radial-gradient(circle at 50% 34%, rgba(35, 145, 255, 0.16), transparent 46%),
+      linear-gradient(180deg,
+        rgba(7, 27, 42, 0.06) 0%,
+        rgba(7, 27, 42, 0.10) 42%,
+        rgba(7, 27, 42, 0.58) 74%,
+        #071b2a 100%
+      ) !important;
+  }
+
+  .layered-hero-header::before,
+  body.title-option-broadcast .layered-hero-header::before {
+    background-position: center top !important;
+    background-size: cover !important;
+    opacity: 0.88 !important;
+    transform: scale(1.07) !important;
+  }
+
+  .layered-hero-header::after,
+  body.title-option-broadcast .layered-hero-header::after {
+    background:
+      linear-gradient(180deg,
+        rgba(7, 27, 42, 0.02) 0%,
+        rgba(7, 27, 42, 0.06) 38%,
+        rgba(7, 27, 42, 0.72) 78%,
+        #071b2a 100%
+      ),
+      linear-gradient(90deg,
+        #071b2a 0%,
+        rgba(7, 27, 42, 0.58) 5%,
+        rgba(7, 27, 42, 0.04) 24%,
+        rgba(7, 27, 42, 0.04) 76%,
+        rgba(7, 27, 42, 0.58) 95%,
+        #071b2a 100%
+      ) !important;
+  }
+
+  .layered-title-logo img {
+    width: 86vw !important;
+    max-width: 86vw !important;
+    filter:
+      drop-shadow(0 16px 28px rgba(0, 0, 0, 0.48))
+      drop-shadow(0 0 20px rgba(76, 169, 255, 0.12)) !important;
+  }
+
+  .layered-hero-meta {
+    margin-top: 12px !important;
+  }
+
+  .layered-hero-meta .status-card,
+  .status-card {
+    background: rgba(7, 27, 42, 0.34) !important;
+    border-color: rgba(160, 205, 255, 0.22) !important;
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.18) !important;
+    backdrop-filter: blur(10px) !important;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .layered-title-logo img {
+    width: 84vw !important;
+    max-width: 84vw !important;
+  }
+
+  .layered-hero-header,
+  body.title-option-broadcast .layered-hero-header {
+    padding-top: 34px !important;
+    padding-bottom: 34px !important;
+  }
+}
