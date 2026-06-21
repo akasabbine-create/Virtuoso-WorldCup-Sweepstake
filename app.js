@@ -324,19 +324,16 @@ function makeRulesCollapsible() {
     const button = document.createElement("button");
     button.className = "rules-collapse-toggle";
     button.type = "button";
-    button.setAttribute("aria-expanded", index < 2 ? "true" : "false");
+    button.setAttribute("aria-expanded", "false");
 
     button.innerHTML = `
       <span>${title}</span>
-      <span class="rules-collapse-chevron">${index < 2 ? "−" : "+"}</span>
+      <span class="rules-collapse-chevron">+</span>
     `;
 
     const body = document.createElement("div");
     body.className = "rules-collapse-body";
-
-    if (index >= 2) {
-      body.hidden = true;
-    }
+    body.hidden = true;
 
     bodyChildren.forEach(child => body.appendChild(child));
 
@@ -352,7 +349,7 @@ function makeRulesCollapsible() {
 
     card.appendChild(button);
     card.appendChild(body);
-    card.classList.toggle("is-open", index < 2);
+    card.classList.toggle("is-open", false);
   });
 }
 
@@ -588,6 +585,27 @@ function playerTeamsCompactHtml(leaderboard, playerName) {
   return teams ? `<span class="player-team-flags">${teams}</span>` : "";
 }
 
+function playerTeamsCompactHighlightedHtml(leaderboard, playerName, highlights = []) {
+  const player = (leaderboard || []).find(item => item.name === playerName);
+  const teams = player?.teams || [];
+
+  if (teams.length === 0) return "";
+
+  const teamHtml = teams.map(team => {
+    const classes = [];
+
+    highlights.forEach(highlight => {
+      if (highlight?.team && normaliseText(highlight.team) === normaliseText(team)) {
+        classes.push(highlight.className);
+      }
+    });
+
+    return teamLabelHtml(team, classes);
+  }).join(" ");
+
+  return `<span class="player-team-flags">${teamHtml}</span>`;
+}
+
 function ordinal(value) {
   const number = Number(value || 0);
   const suffix = number % 10 === 1 && number % 100 !== 11
@@ -624,8 +642,19 @@ function renderStatus(status) {
 
   const completed = status.completedMatches ?? 0;
   const total = status.totalTournamentMatches ?? 104;
+  const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+  const completedCard = completedEl.closest(".card");
+  const completedHeading = completedCard?.querySelector("h2");
 
-  completedEl.textContent = `${completed} of ${total}`;
+  if (completedHeading) {
+    completedHeading.textContent = "⚽ Tournament Progress";
+  }
+
+  completedEl.innerHTML = `
+    <span>${completed} of ${total}</span>
+    <span class="small-card-text">${percent}% complete</span>
+    <span class="progress-mini" aria-hidden="true"><span style="width: ${percent}%"></span></span>
+  `;
 }
 
 function renderSummaryCards(leaderboard, playerDetails) {
@@ -900,11 +929,18 @@ function renderPrizePoolSection(leaderboard, playerDetails, bonusData) {
     return;
   }
 
+  const spoonTeam = findWoodenSpoonTeam(playerDetails);
+  const fastestGoalTeam = bonusData?.fastestGoal?.team;
+  const prizeHighlights = [
+    spoonTeam ? { team: spoonTeam.team, className: "wooden-spoon-country" } : null,
+    fastestGoalTeam ? { team: fastestGoalTeam, className: "fastest-goal-country" } : null
+  ].filter(Boolean);
+
   const payoutHtml = projectedPayouts.map(player => {
     const prizeTags = player.prizes.map(prize => `
       <span>${prize.icon} ${prize.label} £${prize.amount}</span>
     `).join("");
-    const teamFlags = playerTeamsCompactHtml(leaderboard, player.name);
+    const teamFlags = playerTeamsCompactHighlightedHtml(leaderboard, player.name, prizeHighlights);
 
     return `
       <div class="prize-payout-item">
@@ -939,6 +975,39 @@ function injectDramaFeedStyles() {
   const style = document.createElement("style");
   style.id = "drama-feed-styles";
   style.textContent = `
+    .fastest-goal-country {
+      color: #ffd166;
+      border-color: rgba(255, 173, 90, 0.55);
+      background: rgba(255, 173, 90, 0.12);
+      box-shadow: inset 0 0 0 1px rgba(255, 209, 102, 0.12);
+    }
+
+    .progress-mini {
+      display: block;
+      width: 100%;
+      height: 8px;
+      margin-top: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(95, 169, 255, 0.14);
+      border: 1px solid rgba(95, 169, 255, 0.18);
+    }
+
+    .progress-mini span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #5fb5ff, #ffd166);
+    }
+
+    #insight-strip.insight-strip-single {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    #insight-strip.insight-strip-single .biggest-mover-card {
+      max-width: none;
+    }
+
     .drama-feed-section {
       margin-top: 26px;
     }
@@ -1037,7 +1106,40 @@ function injectDramaFeedStyles() {
         grid-template-columns: 1fr;
       }
 
-      .drama-feed-section {
+      .fastest-goal-country {
+      color: #ffd166;
+      border-color: rgba(255, 173, 90, 0.55);
+      background: rgba(255, 173, 90, 0.12);
+      box-shadow: inset 0 0 0 1px rgba(255, 209, 102, 0.12);
+    }
+
+    .progress-mini {
+      display: block;
+      width: 100%;
+      height: 8px;
+      margin-top: 10px;
+      border-radius: 999px;
+      overflow: hidden;
+      background: rgba(95, 169, 255, 0.14);
+      border: 1px solid rgba(95, 169, 255, 0.18);
+    }
+
+    .progress-mini span {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #5fb5ff, #ffd166);
+    }
+
+    #insight-strip.insight-strip-single {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    #insight-strip.insight-strip-single .biggest-mover-card {
+      max-width: none;
+    }
+
+    .drama-feed-section {
         margin-top: 20px;
       }
 
@@ -1071,73 +1173,8 @@ function dramaItemHtml(item) {
   `;
 }
 
-function buildFallbackDramaItems(leaderboard, playerDetails, bonusData, latestResults) {
-  const items = [];
-  const leader = Array.isArray(leaderboard) && leaderboard.length > 0 ? leaderboard[0] : null;
-  const latestMatch = Array.isArray(latestResults) && latestResults.length > 0 ? latestResults[0] : null;
-
-  if (latestMatch && Array.isArray(latestMatch.playerGains) && latestMatch.playerGains.length > 0) {
-    const topGain = [...latestMatch.playerGains].sort((a, b) => Number(b.points || 0) - Number(a.points || 0))[0];
-    items.push({
-      type: "mover",
-      icon: "📈",
-      label: "Latest swing",
-      title: `${topGain.name} banks +${topGain.points}`,
-      text: `${latestMatch.team1} ${latestMatch.score1}–${latestMatch.score2} ${latestMatch.team2} has just added points to the board.`
-    });
-  }
-
-  const spoonTeams = sortWoodenSpoonTeams(flattenPlayerTeams(playerDetails || []));
-  const spoon = spoonTeams[0];
-  if (spoon) {
-    items.push({
-      type: "spoon",
-      icon: "🥄",
-      label: "Spoon watch",
-      title: `${spoon.playerName} is holding the spoon`,
-      text: `${spoon.team} is currently propping up the race on ${spoon.points} pts. Not the prize anyone wanted.`
-    });
-  }
-
-  const fastestGoalRace = Array.isArray(bonusData?.fastestGoalRace) && bonusData.fastestGoalRace.length > 0
-    ? bonusData.fastestGoalRace
-    : (bonusData?.fastestGoal ? [bonusData.fastestGoal] : []);
-  const fastest = fastestGoalRace[0];
-  if (fastest) {
-    const owner = findOwnerForTeam(leaderboard, fastest.team);
-    items.push({
-      type: "fastest",
-      icon: "⚡",
-      label: "Fastest goal",
-      title: `${owner?.name || fastest.team} owns the lightning bolt`,
-      text: `${fastest.player} scored for ${fastest.team} after ${fastest.clockDisplay}. That is the £5 fastest-goal target for now.`
-    });
-  }
-
-  const topNationGoals = Math.max(0, ...(bonusData?.nationGoalTable || []).map(item => Number(item.goals || 0)));
-  const topNation = (bonusData?.nationGoalTable || []).find(item => Number(item.goals || 0) === topNationGoals && topNationGoals > 0);
-  if (topNation) {
-    const owner = findOwnerForTeam(leaderboard, topNation.team);
-    items.push({
-      type: "goals",
-      icon: "⚽",
-      label: "Goal machine",
-      title: `${topNation.team} lead the scoring race`,
-      text: `${owner?.name || "Their owner"} will be watching closely: ${topNation.team} have ${topNation.goals} goals so far.`
-    });
-  }
-
-  if (leader) {
-    items.push({
-      type: "leader",
-      icon: "👑",
-      label: "Top spot",
-      title: `${leader.name} is the player to catch`,
-      text: `${leader.points} pts on the board. Everyone else is chasing from here.`
-    });
-  }
-
-  return items.slice(0, 5);
+function buildFallbackDramaItems() {
+  return [];
 }
 
 function renderDramaFeed(dramaData, leaderboard, playerDetails, bonusData, latestResults) {
@@ -1150,9 +1187,7 @@ function renderDramaFeed(dramaData, leaderboard, playerDetails, bonusData, lates
   const anchorSection = bonusTracker ? bonusTracker.closest("section") : null;
   if (!anchorSection) return;
 
-  const items = Array.isArray(dramaData?.items) && dramaData.items.length > 0
-    ? dramaData.items
-    : buildFallbackDramaItems(leaderboard, playerDetails, bonusData, latestResults);
+  const items = Array.isArray(dramaData?.items) ? dramaData.items : [];
 
   if (!items.length) return;
 
@@ -1177,17 +1212,7 @@ function renderInsightStrip(leaderboard, latestResults) {
 
   const section = document.createElement("section");
   section.id = "insight-strip";
-  section.className = "insight-strip";
-
-  const latestMatch = latestResults && latestResults.length > 0
-    ? latestResults[0]
-    : null;
-
-  const latestGains = latestMatch?.playerGains && latestMatch.playerGains.length > 0
-    ? latestMatch.playerGains.map(gain => `
-        <span>${gain.name} +${gain.points}</span>
-      `).join("")
-    : `<span>No player gained points</span>`;
+  section.className = "insight-strip insight-strip-single";
 
   const upwardMovers = (leaderboard || [])
     .filter(player => (player.movement || 0) > 0)
@@ -1202,31 +1227,15 @@ function renderInsightStrip(leaderboard, latestResults) {
   const moverHtml = upwardMovers.length > 0 || downwardMovers.length > 0
     ? `
       ${upwardMovers.map(player => `
-        <span class="insight-chip positive">${player.name} ▲ ${player.movement}</span>
+        <span class="insight-chip positive">${escapeHtml(player.name)} ▲ ${player.movement}</span>
       `).join("")}
       ${downwardMovers.map(player => `
-        <span class="insight-chip negative">${player.name} ▼ ${Math.abs(player.movement)}</span>
+        <span class="insight-chip negative">${escapeHtml(player.name)} ▼ ${Math.abs(player.movement)}</span>
       `).join("")}
     `
     : `<span class="insight-chip">No ranking movement yet</span>`;
 
   section.innerHTML = `
-    <div class="insight-card latest-swing-card">
-      <div class="insight-label">Latest Points Swing</div>
-      ${
-        latestMatch
-          ? `
-            <h3>${teamLabelHtml(latestMatch.team1)} ${latestMatch.score1}–${latestMatch.score2} ${teamLabelHtml(latestMatch.team2)}</h3>
-            <p>${formatDateTime(latestMatch.date)}</p>
-            <div class="insight-chip-row">${latestGains}</div>
-          `
-          : `
-            <h3>No completed result yet</h3>
-            <p>Latest points swing will appear after the next completed match.</p>
-          `
-      }
-    </div>
-
     <div class="insight-card biggest-mover-card">
       <div class="insight-label">Biggest Movers</div>
       <h3>Leaderboard movement</h3>
