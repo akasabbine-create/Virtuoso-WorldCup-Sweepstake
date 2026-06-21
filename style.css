@@ -2767,3 +2767,24 @@ main {
     max-width: 88vw !important;
   }
 }
+
+
+/* Status pills cleanup: remove only the outer wrapper bubble, keep the three inner pills */
+.status-card {
+  padding: 0 !important;
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+}
+
+.layered-hero-meta .status-card {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+
+.status-card span {
+  background: rgba(16, 45, 68, 0.78);
+  border: 1px solid rgba(88, 166, 255, 0.12);
+}
