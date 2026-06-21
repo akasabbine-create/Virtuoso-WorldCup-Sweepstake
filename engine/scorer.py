@@ -1241,43 +1241,6 @@ def build_drama_feed(current_state, previous_state, leaderboard, latest_results)
             f"That is the biggest climb showing on the leaderboard right now."
         ))
 
-    if not items:
-        if current_spoon:
-            items.append(drama_item(
-                "spoon",
-                "🥄",
-                "Spoon watch",
-                f"{current_spoon.get('owner')} is holding the spoon",
-                f"{current_spoon.get('team')} are currently bottom of the pile on {current_spoon.get('points')} pts."
-            ))
-
-        if current_fastest:
-            items.append(drama_item(
-                "fastest",
-                "⚡",
-                "Fastest goal",
-                f"{current_fastest.get('owner')} owns the lightning bolt",
-                f"{current_fastest.get('player')} for {current_fastest.get('team')} is still the fastest goal at {current_fastest.get('clockDisplay')}."
-            ))
-
-        if current_most:
-            items.append(drama_item(
-                "goals",
-                "⚽",
-                "Goal machine",
-                "Most Goals race is live",
-                f"{names_from_rows(current_most)} lead the way in the nation goals race."
-            ))
-
-        if current_leader:
-            items.append(drama_item(
-                "leader",
-                "👑",
-                "Top spot",
-                f"{current_leader.get('owner')} is the player to catch",
-                f"{current_leader.get('points')} pts on the board. Everyone else is chasing."
-            ))
-
     return {
         "generatedAt": datetime.now(timezone.utc).isoformat(),
         "items": items[:5],
