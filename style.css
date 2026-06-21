@@ -2768,23 +2768,253 @@ main {
   }
 }
 
+/* =========================================================
+   Final cinematic layered hero
+   Background and title are now separate production assets.
+   ========================================================= */
+body {
+  background:
+    radial-gradient(circle at top left, rgba(88, 166, 255, 0.09), transparent 32rem),
+    radial-gradient(circle at top right, rgba(255, 209, 102, 0.07), transparent 30rem),
+    #071b2a;
+}
 
-/* Status pills cleanup: remove only the outer wrapper bubble, keep the three inner pills */
-.status-card {
-  padding: 0 !important;
-  background: transparent !important;
-  border-color: transparent !important;
-  box-shadow: none !important;
+main {
+  padding-top: 0;
+}
+
+.layered-hero-header {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100vw;
+  min-height: clamp(560px, 54vw, 720px);
+  margin: 0 calc(50% - 50vw) 30px;
+  padding: clamp(32px, 5vw, 60px) 20px clamp(28px, 4vw, 48px);
+  overflow: hidden;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at 50% 36%, rgba(8, 31, 49, 0.08), rgba(7, 27, 42, 0.60) 74%, #071b2a 100%);
+}
+
+.layered-hero-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  background-image: url("assets/title/hero_stadium_background.jpg");
+  background-image: image-set(
+    url("assets/title/hero_stadium_background.webp") type("image/webp"),
+    url("assets/title/hero_stadium_background.jpg") type("image/jpeg")
+  );
+  background-position: center top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  transform: scale(1.015);
+}
+
+.layered-hero-header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 42%, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.08) 44%, rgba(7, 27, 42, 0.48) 78%, #071b2a 100%),
+    linear-gradient(90deg, #071b2a 0%, rgba(7, 27, 42, 0.52) 8%, rgba(7, 27, 42, 0.05) 25%, rgba(7, 27, 42, 0.05) 75%, rgba(7, 27, 42, 0.52) 92%, #071b2a 100%),
+    linear-gradient(180deg, rgba(2, 8, 15, 0.12) 0%, rgba(2, 8, 15, 0.02) 48%, #071b2a 100%);
+}
+
+.layered-title-logo {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  width: min(1120px, 94vw);
+  margin: 0 auto;
+}
+
+.layered-title-picture {
+  display: block;
+  width: 100%;
+}
+
+.layered-title-logo img {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  filter:
+    drop-shadow(0 24px 36px rgba(0, 0, 0, 0.52))
+    drop-shadow(0 0 32px rgba(76, 169, 255, 0.20))
+    drop-shadow(0 0 24px rgba(255, 209, 102, 0.12));
+}
+
+.layered-hero-meta {
+  position: relative;
+  z-index: 3;
+  width: min(980px, 92vw);
+  margin: clamp(10px, 1.6vw, 18px) auto 0;
+  text-align: center;
+}
+
+.layered-hero-meta p {
+  max-width: 860px;
+  margin: 0 auto 10px;
+  color: #eff7ff;
+  font-size: clamp(0.95rem, 1.25vw, 1.1rem);
+  font-weight: 800;
+  line-height: 1.45;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.72);
 }
 
 .layered-hero-meta .status-card {
-  background: transparent !important;
-  border: 0 !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
+  background: rgba(7, 27, 42, 0.72);
+  border-color: rgba(255, 255, 255, 0.16);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(12px);
 }
 
-.status-card span {
-  background: rgba(16, 45, 68, 0.78);
-  border: 1px solid rgba(88, 166, 255, 0.12);
+.cards {
+  margin-top: 18px;
+}
+
+@media (max-width: 900px) {
+  .layered-hero-header {
+    min-height: clamp(460px, 92vw, 620px);
+    padding: 30px 14px 34px;
+  }
+
+  .layered-hero-header::before {
+    background-image: url("assets/title/hero_stadium_background_mobile.jpg");
+    background-image: image-set(
+      url("assets/title/hero_stadium_background_mobile.webp") type("image/webp"),
+      url("assets/title/hero_stadium_background_mobile.jpg") type("image/jpeg")
+    );
+    background-position: center top;
+  }
+
+  .layered-title-logo,
+  .layered-title-logo img {
+    width: min(96vw, 760px) !important;
+    max-width: 96vw !important;
+  }
+
+  .layered-hero-meta {
+    width: min(92vw, 720px);
+    margin-top: 8px;
+  }
+}
+
+@media (max-width: 520px) {
+  .layered-hero-header {
+    min-height: 420px;
+    padding-top: 22px;
+    padding-bottom: 26px;
+  }
+
+  .layered-title-logo,
+  .layered-title-logo img {
+    width: 98vw !important;
+    max-width: 98vw !important;
+  }
+
+  .layered-hero-meta p {
+    font-size: 0.86rem;
+  }
+
+  .layered-hero-meta .status-card {
+    transform: scale(0.94);
+    transform-origin: top center;
+  }
+}
+
+/* Specificity lock: this beats the older title-option prototype rules above. */
+body.title-option-broadcast .layered-hero-header {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100vw;
+  min-height: clamp(560px, 54vw, 720px);
+  margin: 0 calc(50% - 50vw) 30px;
+  padding: clamp(32px, 5vw, 60px) 20px clamp(28px, 4vw, 48px);
+  overflow: hidden;
+  text-align: center;
+  background:
+    radial-gradient(ellipse at 50% 36%, rgba(8, 31, 49, 0.08), rgba(7, 27, 42, 0.60) 74%, #071b2a 100%);
+}
+
+body.title-option-broadcast .layered-hero-header::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  left: 0;
+  top: 0;
+  width: auto;
+  height: auto;
+  min-width: 0;
+  transform: scale(1.015);
+  z-index: -3;
+  pointer-events: none;
+  background-image: url("assets/title/hero_stadium_background.jpg");
+  background-image: image-set(
+    url("assets/title/hero_stadium_background.webp") type("image/webp"),
+    url("assets/title/hero_stadium_background.jpg") type("image/jpeg")
+  );
+  background-position: center top;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 1;
+}
+
+body.title-option-broadcast .layered-hero-header::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  left: 0;
+  top: 0;
+  width: auto;
+  height: auto;
+  transform: none;
+  z-index: -2;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 42%, rgba(0, 0, 0, 0.00) 0%, rgba(0, 0, 0, 0.08) 44%, rgba(7, 27, 42, 0.48) 78%, #071b2a 100%),
+    linear-gradient(90deg, #071b2a 0%, rgba(7, 27, 42, 0.52) 8%, rgba(7, 27, 42, 0.05) 25%, rgba(7, 27, 42, 0.05) 75%, rgba(7, 27, 42, 0.52) 92%, #071b2a 100%),
+    linear-gradient(180deg, rgba(2, 8, 15, 0.12) 0%, rgba(2, 8, 15, 0.02) 48%, #071b2a 100%);
+}
+
+@media (max-width: 900px) {
+  body.title-option-broadcast .layered-hero-header {
+    min-height: clamp(460px, 92vw, 620px);
+    padding: 30px 14px 34px;
+  }
+
+  body.title-option-broadcast .layered-hero-header::before {
+    background-image: url("assets/title/hero_stadium_background_mobile.jpg");
+    background-image: image-set(
+      url("assets/title/hero_stadium_background_mobile.webp") type("image/webp"),
+      url("assets/title/hero_stadium_background_mobile.jpg") type("image/jpeg")
+    );
+    background-position: center top;
+  }
+}
+
+@media (max-width: 520px) {
+  body.title-option-broadcast .layered-hero-header {
+    min-height: 420px;
+    padding-top: 22px;
+    padding-bottom: 26px;
+  }
 }

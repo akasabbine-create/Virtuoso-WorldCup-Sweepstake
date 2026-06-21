@@ -1,1 +1,10 @@
 # Virtuoso-WorldCup-Sweepstake
+
+## Hero assets
+
+The hero/header is layered:
+- `assets/title/hero_stadium_background.*` is the stadium background from the approved layered-hero version.
+- `assets/title/header_true_transparent.png` is the true transparent title/header overlay supplied by Rob.
+- `assets/title/world_cup_sweepstake_logo.png` is kept as an alias of the same transparent header for compatibility.
+
+The latest site layout and feature files from the uploaded zip have been kept intact.
