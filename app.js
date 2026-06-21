@@ -932,6 +932,244 @@ function renderPrizePoolSection(leaderboard, playerDetails, bonusData) {
   `;
 }
 
+
+function injectDramaFeedStyles() {
+  if (document.querySelector("#drama-feed-styles")) return;
+
+  const style = document.createElement("style");
+  style.id = "drama-feed-styles";
+  style.textContent = `
+    .drama-feed-section {
+      margin-top: 26px;
+    }
+
+    .drama-feed-section h2 {
+      margin-bottom: 8px;
+    }
+
+    .drama-feed-note {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .drama-feed-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .drama-item {
+      position: relative;
+      overflow: hidden;
+      min-height: 145px;
+      padding: 18px;
+      border: 1px solid rgba(95, 169, 255, 0.22);
+      border-radius: 18px;
+      background: linear-gradient(135deg, rgba(13, 48, 74, 0.92), rgba(7, 30, 47, 0.92));
+      box-shadow: var(--shadow);
+    }
+
+    .drama-item::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 5px;
+      background: linear-gradient(180deg, #ffd166, #5fb5ff);
+    }
+
+    .drama-item::after {
+      content: "";
+      position: absolute;
+      right: -36px;
+      top: -42px;
+      width: 130px;
+      height: 130px;
+      border-radius: 999px;
+      background: rgba(95, 169, 255, 0.10);
+      pointer-events: none;
+    }
+
+    .drama-item.spoon::before { background: linear-gradient(180deg, #ffd166, #ffad5a); }
+    .drama-item.fastest::before { background: linear-gradient(180deg, #ffad5a, #ffd166); }
+    .drama-item.goals::before { background: linear-gradient(180deg, #30e06f, #5fb5ff); }
+    .drama-item.leader::before { background: linear-gradient(180deg, #ffd166, #30e06f); }
+    .drama-item.mover::before { background: linear-gradient(180deg, #30e06f, #9bd7ff); }
+
+    .drama-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-bottom: 10px;
+      padding: 5px 10px;
+      border: 1px solid rgba(154, 215, 255, 0.18);
+      border-radius: 999px;
+      color: #dbeafe;
+      font-size: 0.78rem;
+      font-weight: 900;
+      letter-spacing: 0.09em;
+      text-transform: uppercase;
+      background: rgba(3, 18, 30, 0.28);
+    }
+
+    .drama-item h3 {
+      margin: 0 0 8px;
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+      line-height: 1.12;
+    }
+
+    .drama-item p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.96rem;
+      line-height: 1.38;
+    }
+
+    .drama-item strong,
+    .drama-highlight {
+      color: var(--gold);
+    }
+
+    @media (max-width: 900px) {
+      .drama-feed-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .drama-feed-section {
+        margin-top: 20px;
+      }
+
+      .drama-item {
+        min-height: auto;
+        padding: 16px;
+      }
+
+      .drama-item p {
+        font-size: 0.92rem;
+      }
+    }
+  `;
+
+  document.head.appendChild(style);
+}
+
+function dramaItemHtml(item) {
+  const type = escapeHtml(item.type || "general");
+  const icon = escapeHtml(item.icon || "🔥");
+  const label = escapeHtml(item.label || item.type || "Drama");
+  const title = escapeHtml(item.title || "Sweepstake update");
+  const text = escapeHtml(item.text || "Something has changed in the sweepstake.");
+
+  return `
+    <article class="drama-item ${type}">
+      <div class="drama-label"><span>${icon}</span><span>${label}</span></div>
+      <h3>${title}</h3>
+      <p>${text}</p>
+    </article>
+  `;
+}
+
+function buildFallbackDramaItems(leaderboard, playerDetails, bonusData, latestResults) {
+  const items = [];
+  const leader = Array.isArray(leaderboard) && leaderboard.length > 0 ? leaderboard[0] : null;
+  const latestMatch = Array.isArray(latestResults) && latestResults.length > 0 ? latestResults[0] : null;
+
+  if (latestMatch && Array.isArray(latestMatch.playerGains) && latestMatch.playerGains.length > 0) {
+    const topGain = [...latestMatch.playerGains].sort((a, b) => Number(b.points || 0) - Number(a.points || 0))[0];
+    items.push({
+      type: "mover",
+      icon: "📈",
+      label: "Latest swing",
+      title: `${topGain.name} banks +${topGain.points}`,
+      text: `${latestMatch.team1} ${latestMatch.score1}–${latestMatch.score2} ${latestMatch.team2} has just added points to the board.`
+    });
+  }
+
+  const spoonTeams = sortWoodenSpoonTeams(flattenPlayerTeams(playerDetails || []));
+  const spoon = spoonTeams[0];
+  if (spoon) {
+    items.push({
+      type: "spoon",
+      icon: "🥄",
+      label: "Spoon watch",
+      title: `${spoon.playerName} is holding the spoon`,
+      text: `${spoon.team} is currently propping up the race on ${spoon.points} pts. Not the prize anyone wanted.`
+    });
+  }
+
+  const fastestGoalRace = Array.isArray(bonusData?.fastestGoalRace) && bonusData.fastestGoalRace.length > 0
+    ? bonusData.fastestGoalRace
+    : (bonusData?.fastestGoal ? [bonusData.fastestGoal] : []);
+  const fastest = fastestGoalRace[0];
+  if (fastest) {
+    const owner = findOwnerForTeam(leaderboard, fastest.team);
+    items.push({
+      type: "fastest",
+      icon: "⚡",
+      label: "Fastest goal",
+      title: `${owner?.name || fastest.team} owns the lightning bolt`,
+      text: `${fastest.player} scored for ${fastest.team} after ${fastest.clockDisplay}. That is the £5 fastest-goal target for now.`
+    });
+  }
+
+  const topNationGoals = Math.max(0, ...(bonusData?.nationGoalTable || []).map(item => Number(item.goals || 0)));
+  const topNation = (bonusData?.nationGoalTable || []).find(item => Number(item.goals || 0) === topNationGoals && topNationGoals > 0);
+  if (topNation) {
+    const owner = findOwnerForTeam(leaderboard, topNation.team);
+    items.push({
+      type: "goals",
+      icon: "⚽",
+      label: "Goal machine",
+      title: `${topNation.team} lead the scoring race`,
+      text: `${owner?.name || "Their owner"} will be watching closely: ${topNation.team} have ${topNation.goals} goals so far.`
+    });
+  }
+
+  if (leader) {
+    items.push({
+      type: "leader",
+      icon: "👑",
+      label: "Top spot",
+      title: `${leader.name} is the player to catch`,
+      text: `${leader.points} pts on the board. Everyone else is chasing from here.`
+    });
+  }
+
+  return items.slice(0, 5);
+}
+
+function renderDramaFeed(dramaData, leaderboard, playerDetails, bonusData, latestResults) {
+  injectDramaFeedStyles();
+
+  const existing = document.querySelector("#drama-feed-section");
+  if (existing) existing.remove();
+
+  const bonusTracker = document.querySelector("#bonus-tracker");
+  const anchorSection = bonusTracker ? bonusTracker.closest("section") : null;
+  if (!anchorSection) return;
+
+  const items = Array.isArray(dramaData?.items) && dramaData.items.length > 0
+    ? dramaData.items
+    : buildFallbackDramaItems(leaderboard, playerDetails, bonusData, latestResults);
+
+  if (!items.length) return;
+
+  const section = document.createElement("section");
+  section.id = "drama-feed-section";
+  section.className = "drama-feed-section";
+  section.innerHTML = `
+    <h2>🔥 Sweepstake Drama</h2>
+    <p class="drama-feed-note">The latest twists, takeovers and office-banter moments from the sweepstake.</p>
+    <div class="drama-feed-grid">
+      ${items.slice(0, 5).map(dramaItemHtml).join("")}
+    </div>
+  `;
+
+  anchorSection.insertAdjacentElement("beforebegin", section);
+}
+
 function renderInsightStrip(leaderboard, latestResults) {
   const cards = document.querySelector(".cards");
 
@@ -1755,6 +1993,7 @@ async function init() {
   let playerDetails = [];
   let bonusData = null;
   let latestResults = [];
+  let dramaData = null;
   let spoonTeam = null;
   let badgesByPlayer = {};
   let mostGoalsTeams = [];
@@ -1811,6 +2050,12 @@ async function init() {
     }
   }
 
+  try {
+    dramaData = await loadJson("data/drama_feed.json");
+  } catch (error) {
+    console.warn("Drama feed not available yet; using current dashboard state instead.");
+  }
+
   leaderboard = addGoalDifferenceToLeaderboard(leaderboard, playerDetails);
 
   const badgeData = findCurrentBadgeHolders(leaderboard, playerDetails, bonusData);
@@ -1845,6 +2090,7 @@ async function init() {
     renderUpcomingFixtures(upcomingFixtures);
     renderBiggestPossibleMove(leaderboard, upcomingFixtures);
     renderMatchdayStorylines(leaderboard, upcomingFixtures);
+    renderDramaFeed(dramaData, leaderboard, playerDetails, bonusData, latestResults);
   } catch (error) {
     console.error(error);
 
@@ -1856,6 +2102,7 @@ async function init() {
 
     renderBiggestPossibleMove(leaderboard, []);
     renderMatchdayStorylines(leaderboard, []);
+    renderDramaFeed(dramaData, leaderboard, playerDetails, bonusData, latestResults);
   }
 }
 
