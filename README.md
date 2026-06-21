@@ -12,3 +12,7 @@ The latest site layout and feature files from the uploaded zip have been kept in
 ## Leaderboard tie-breakers
 
 Leaderboard ranks are sorted by total points, then goal difference, then goals scored, then fewer games played, then player name.
+
+## Mobile hero fix
+
+The layered hero now includes a mobile-specific CSS override so the transparent header scales inside narrow phone screens without cropping the right-hand side of the title.

@@ -3018,3 +3018,91 @@ body.title-option-broadcast .layered-hero-header::after {
     padding-bottom: 26px;
   }
 }
+
+/* =========================================================
+   Mobile hero fix
+   Keeps the desktop layered hero unchanged, but scales the
+   transparent title safely inside narrow phone screens.
+   ========================================================= */
+@media screen and (max-width: 640px) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  .layered-hero-header,
+  body.title-option-broadcast .layered-hero-header {
+    width: 100% !important;
+    min-height: auto !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    margin-bottom: 24px !important;
+    padding: 34px 14px 32px !important;
+    justify-content: flex-start !important;
+    overflow: hidden !important;
+  }
+
+  .layered-hero-header::before,
+  body.title-option-broadcast .layered-hero-header::before {
+    background-position: center top !important;
+    background-size: cover !important;
+    transform: scale(1.04) !important;
+  }
+
+  .layered-title-logo,
+  .layered-title-picture,
+  .layered-title-logo picture {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    overflow: visible !important;
+  }
+
+  .layered-title-logo img {
+    width: 88vw !important;
+    max-width: 88vw !important;
+    min-width: 0 !important;
+    height: auto !important;
+    margin: 0 auto !important;
+    object-fit: contain !important;
+    transform: none !important;
+  }
+
+  .layered-hero-meta {
+    width: min(92vw, 420px) !important;
+    margin-top: 10px !important;
+  }
+
+  .layered-hero-meta p {
+    max-width: 100% !important;
+    font-size: 0.84rem !important;
+    line-height: 1.35 !important;
+  }
+
+  .layered-hero-meta .status-card,
+  .status-card {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    transform: none !important;
+  }
+
+  .status-card span {
+    white-space: nowrap !important;
+  }
+}
+
+@media screen and (max-width: 390px) {
+  .layered-title-logo img {
+    width: 84vw !important;
+    max-width: 84vw !important;
+  }
+
+  .layered-hero-header,
+  body.title-option-broadcast .layered-hero-header {
+    padding-top: 30px !important;
+    padding-bottom: 28px !important;
+  }
+}
