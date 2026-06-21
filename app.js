@@ -396,14 +396,62 @@ function playerGoalDifferenceFromDetails(playerName, playerDetails) {
   return details.teams.reduce((total, team) => total + goalDifference(team), 0);
 }
 
+function playerGoalsForFromDetails(playerName, playerDetails) {
+  const details = (playerDetails || []).find(item => item.name === playerName);
+
+  if (!details || !Array.isArray(details.teams)) {
+    return 0;
+  }
+
+  return details.teams.reduce((total, team) => total + Number(team.goalsFor || 0), 0);
+}
+
 function addGoalDifferenceToLeaderboard(leaderboard, playerDetails) {
   return (leaderboard || []).map(player => ({
     ...player,
     goalDifference: player.goalDifference
       ?? player.combinedGoalDifference
       ?? player.gd
-      ?? playerGoalDifferenceFromDetails(player.name, playerDetails)
+      ?? playerGoalDifferenceFromDetails(player.name, playerDetails),
+    goalsFor: player.goalsFor
+      ?? player.goalsScored
+      ?? playerGoalsForFromDetails(player.name, playerDetails)
   }));
+}
+
+function rankLeaderboardByTieBreakers(leaderboard) {
+  const ranked = [...(leaderboard || [])].sort((a, b) => {
+    if ((b.points ?? 0) !== (a.points ?? 0)) {
+      return (b.points ?? 0) - (a.points ?? 0);
+    }
+
+    if ((b.goalDifference ?? 0) !== (a.goalDifference ?? 0)) {
+      return (b.goalDifference ?? 0) - (a.goalDifference ?? 0);
+    }
+
+    if ((b.goalsFor ?? 0) !== (a.goalsFor ?? 0)) {
+      return (b.goalsFor ?? 0) - (a.goalsFor ?? 0);
+    }
+
+    if ((a.gamesPlayed ?? 0) !== (b.gamesPlayed ?? 0)) {
+      return (a.gamesPlayed ?? 0) - (b.gamesPlayed ?? 0);
+    }
+
+    return String(a.name || "").localeCompare(String(b.name || ""));
+  });
+
+  return ranked.map((player, index) => {
+    const newRank = index + 1;
+    const oldRank = Number(player.rank || newRank);
+    const movement = Number(player.movement || 0) + (oldRank - newRank);
+
+    return {
+      ...player,
+      rank: newRank,
+      movement,
+      movementDirection: movement > 0 ? "up" : movement < 0 ? "down" : "same"
+    };
+  });
 }
 
 function playerOwnsTeam(player, teamName) {
@@ -2154,7 +2202,9 @@ async function init() {
     console.warn("Drama feed not available yet; using current dashboard state instead.");
   }
 
-  leaderboard = addGoalDifferenceToLeaderboard(leaderboard, playerDetails);
+  leaderboard = rankLeaderboardByTieBreakers(
+    addGoalDifferenceToLeaderboard(leaderboard, playerDetails)
+  );
 
   const badgeData = findCurrentBadgeHolders(leaderboard, playerDetails, bonusData);
   spoonTeam = badgeData.spoonTeam;

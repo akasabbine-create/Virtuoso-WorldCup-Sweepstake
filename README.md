@@ -8,3 +8,7 @@ The hero/header is layered:
 - `assets/title/world_cup_sweepstake_logo.png` is kept as an alias of the same transparent header for compatibility.
 
 The latest site layout and feature files from the uploaded zip have been kept intact.
+
+## Leaderboard tie-breakers
+
+Leaderboard ranks are sorted by total points, then goal difference, then goals scored, then fewer games played, then player name.

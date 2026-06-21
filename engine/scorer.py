@@ -682,6 +682,8 @@ def calculate(players, matches, previous_leaderboard, bonus_data):
 
     base_scores = defaultdict(int)
     games_played = defaultdict(int)
+    goals_for = defaultdict(int)
+    goals_against = defaultdict(int)
 
     bonus_by_player = {
         row["name"]: row.get("total", 0)
@@ -706,6 +708,13 @@ def calculate(players, matches, previous_leaderboard, bonus_data):
                         base_scores[player["name"]] += points
                         games_played[player["name"]] += 1
 
+                        if team_matches(result_team, match.get("team1")):
+                            goals_for[player["name"]] += match.get("score1") or 0
+                            goals_against[player["name"]] += match.get("score2") or 0
+                        elif team_matches(result_team, match.get("team2")):
+                            goals_for[player["name"]] += match.get("score2") or 0
+                            goals_against[player["name"]] += match.get("score1") or 0
+
     leaderboard = []
 
     for player in players:
@@ -722,10 +731,19 @@ def calculate(players, matches, previous_leaderboard, bonus_data):
             "bonusPoints": bonus_points_total,
             "points": total_points,
             "gamesPlayed": games_played[player_name],
+            "goalsFor": goals_for[player_name],
+            "goalsAgainst": goals_against[player_name],
+            "goalDifference": goals_for[player_name] - goals_against[player_name],
         })
 
     leaderboard.sort(
-        key=lambda x: (-x["points"], -x["gamesPlayed"], x["name"])
+        key=lambda x: (
+            -x["points"],
+            -x.get("goalDifference", 0),
+            -x.get("goalsFor", 0),
+            x.get("gamesPlayed", 0),
+            x["name"],
+        )
     )
 
     for index, row in enumerate(leaderboard, start=1):
