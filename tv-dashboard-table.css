@@ -33,7 +33,9 @@
 }
 
 .tv-team-cell {
+  display: table-cell;
   min-width: 0;
+  vertical-align: middle;
 }
 
 .tv-dashboard .tv-team-cell .team-name {
