@@ -1,15 +1,354 @@
+.tv-dashboard {
+  gap: 12px;
+  padding: 16px 24px 12px;
+}
+
 .tv-topbar {
   align-items: center;
-  min-height: 86px;
+  gap: 20px;
+  min-height: 58px;
+}
+
+.tv-eyebrow,
+.tv-section-heading span,
+.tv-summary-stat span {
+  font-size: clamp(0.72rem, 0.72vw, 0.95rem);
 }
 
 .tv-topbar h1 {
-  font-size: clamp(1.9rem, 2.2vw, 3.1rem);
+  font-size: clamp(1.35rem, 1.55vw, 2.15rem);
   line-height: 1;
   opacity: 0.9;
 }
 
+.tv-topbar-stats {
+  grid-template-columns: repeat(3, minmax(130px, 1fr));
+  gap: 8px;
+  min-width: min(42vw, 650px);
+}
+
 .tv-summary-stat {
-  min-height: 78px;
-  padding: 12px 15px;
+  min-height: 52px;
+  padding: 8px 10px;
+}
+
+.tv-summary-stat strong {
+  margin-top: 3px;
+  font-size: clamp(0.9rem, 0.82vw, 1.15rem);
+}
+
+.tv-stage-grid {
+  gap: 12px;
+}
+
+.tv-stage-grid-leaderboard {
+  grid-template-columns: minmax(0, 1fr) minmax(285px, 19vw);
+}
+
+.tv-panel-primary,
+.tv-panel-full,
+.tv-mini-panel,
+.tv-two-column > .tv-panel {
+  padding: 14px;
+}
+
+.tv-side-stack {
+  grid-template-rows: minmax(170px, 0.72fr) minmax(0, 1.28fr);
+  gap: 12px;
+}
+
+.tv-section-heading {
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.tv-section-heading h2 {
+  font-size: clamp(1.25rem, 1.55vw, 2rem);
+  line-height: 1;
+}
+
+.tv-leaderboard-table th,
+.tv-leaderboard-table td {
+  padding: clamp(4px, 0.42vw, 8px) clamp(5px, 0.48vw, 9px);
+}
+
+.tv-leaderboard-table th {
+  font-size: clamp(0.72rem, 0.62vw, 0.88rem);
+}
+
+.tv-leaderboard-table td {
+  font-size: clamp(0.86rem, 0.78vw, 1.05rem);
+  line-height: 1.03;
+}
+
+.tv-leaderboard-table th:nth-child(1),
+.tv-leaderboard-table td:nth-child(1) {
+  width: 7%;
+}
+
+.tv-leaderboard-table th:nth-child(2),
+.tv-leaderboard-table td:nth-child(2) {
+  width: 13%;
+}
+
+.tv-leaderboard-table th:nth-child(3),
+.tv-leaderboard-table td:nth-child(3) {
+  width: 43%;
+}
+
+.tv-leaderboard-table th:nth-child(4),
+.tv-leaderboard-table td:nth-child(4) {
+  width: 11%;
+}
+
+.tv-leaderboard-table th:nth-child(5),
+.tv-leaderboard-table td:nth-child(5) {
+  width: 12%;
+}
+
+.tv-leaderboard-table th:nth-child(6),
+.tv-leaderboard-table td:nth-child(6) {
+  width: 14%;
+}
+
+.tv-rank-cell {
+  min-width: 72px;
+}
+
+.tv-player-cell {
+  min-width: 120px;
+}
+
+.tv-team-cell {
+  gap: 4px;
+  min-width: 0;
+}
+
+.tv-dashboard .team-name,
+.tv-dashboard .tv-team-cell .team-name {
+  gap: 5px;
+  margin: 1px 3px 1px 0;
+  padding: 3px 6px;
+  font-size: clamp(0.68rem, 0.63vw, 0.86rem);
+}
+
+.tv-dashboard .team-flag {
+  width: 20px;
+  height: 15px;
+}
+
+.tv-points-cell {
+  font-size: clamp(1rem, 0.95vw, 1.28rem) !important;
+}
+
+.tv-badge-cell {
+  min-width: 0;
+}
+
+.tv-dashboard .badge-icon {
+  width: 24px;
+  height: 24px;
+  margin: 0 1px;
+  font-size: 0.9rem;
+}
+
+.tv-dashboard .badge-empty {
+  font-size: 0.95rem;
+}
+
+.tv-leader-score {
+  margin: 8px 0 8px;
+  font-size: clamp(2.1rem, 2.7vw, 3.5rem);
+}
+
+.tv-team-row {
+  gap: 5px;
+}
+
+.tv-mini-panel p {
+  font-size: clamp(0.86rem, 0.82vw, 1.08rem);
+}
+
+.tv-spoon-list,
+.tv-prize-list,
+.tv-mover-list,
+.tv-result-strip,
+.tv-badge-race-card ol {
+  gap: 6px;
+}
+
+.tv-spoon-list li,
+.tv-mover-row,
+.tv-prize-row,
+.tv-result-strip div,
+.tv-badge-race-card li {
+  gap: 2px;
+  padding: 8px 10px;
+}
+
+.tv-spoon-list strong,
+.tv-mover-row span,
+.tv-prize-row strong,
+.tv-result-strip strong,
+.tv-badge-race-card li strong {
+  font-size: clamp(0.9rem, 0.85vw, 1.18rem);
+}
+
+.tv-spoon-list em,
+.tv-mover-row em,
+.tv-prize-row em,
+.tv-result-strip span,
+.tv-badge-race-card small,
+.tv-badge-race-card > span {
+  font-size: clamp(0.76rem, 0.72vw, 0.95rem);
+}
+
+.tv-mover-row {
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+
+.tv-mover-row strong {
+  font-size: clamp(1.35rem, 1.65vw, 2.25rem);
+}
+
+.tv-mover-reason {
+  grid-column: 1 / -1;
+  color: var(--tv-blue);
+  font-size: clamp(0.78rem, 0.78vw, 1.02rem);
+  font-weight: 850;
+  line-height: 1.2;
+}
+
+.tv-empty-state {
+  min-height: 45%;
+}
+
+.tv-empty-state strong {
+  font-size: clamp(1.35rem, 1.5vw, 2rem);
+}
+
+.tv-empty-state span {
+  font-size: clamp(0.95rem, 0.95vw, 1.25rem);
+}
+
+.tv-progress-hero {
+  min-height: 30%;
+}
+
+.tv-progress-hero strong {
+  font-size: clamp(4rem, 6vw, 8rem);
+}
+
+.tv-progress-hero span {
+  font-size: clamp(1rem, 1.05vw, 1.45rem);
+}
+
+.tv-progress-bar {
+  height: 22px;
+  margin: 10px 0 16px;
+}
+
+.tv-match-grid {
+  gap: 10px;
+}
+
+.tv-match-card {
+  min-height: 190px;
+  padding: 12px;
+}
+
+.tv-match-meta {
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.tv-match-meta strong,
+.tv-match-card em {
+  font-size: clamp(0.78rem, 0.75vw, 1rem);
+}
+
+.tv-match-card h3 {
+  gap: 6px;
+  margin-bottom: 8px;
+  font-size: clamp(1rem, 1.08vw, 1.45rem);
+}
+
+.tv-match-card p {
+  font-size: clamp(0.82rem, 0.78vw, 1.05rem);
+}
+
+.tv-prize-total {
+  gap: 14px;
+  margin-bottom: 12px;
+  padding: 12px;
+}
+
+.tv-prize-total span {
+  font-size: clamp(0.95rem, 0.9vw, 1.18rem);
+}
+
+.tv-prize-total strong {
+  font-size: clamp(2.4rem, 3vw, 4rem);
+}
+
+.tv-prize-row span {
+  font-size: clamp(1.2rem, 1.35vw, 1.8rem);
+}
+
+.tv-badge-race-grid {
+  gap: 8px;
+}
+
+.tv-badge-race-card {
+  padding: 10px;
+}
+
+.tv-badge-race-card h3 {
+  font-size: clamp(1rem, 1.05vw, 1.45rem);
+}
+
+.tv-badge-race-card ol {
+  margin-top: 8px;
+}
+
+.tv-badge-race-card li {
+  padding: 7px 9px;
+}
+
+.tv-stage-indicator {
+  gap: 8px;
+}
+
+.tv-stage-indicator span {
+  min-width: 98px;
+  padding: 5px 10px;
+  font-size: 0.78rem;
+}
+
+.tv-footer-ticker {
+  gap: 18px;
+  min-height: 26px;
+  font-size: clamp(0.78rem, 0.72vw, 0.95rem);
+}
+
+.tv-loading-panel span {
+  font-size: clamp(0.95rem, 1vw, 1.35rem);
+}
+
+.tv-loading-panel strong {
+  font-size: clamp(1.7rem, 2.6vw, 3.6rem);
+}
+
+@media (max-width: 1500px) {
+  .tv-dashboard {
+    padding: 14px 18px 10px;
+  }
+
+  .tv-topbar-stats {
+    min-width: min(46vw, 560px);
+  }
+
+  .tv-stage-grid-leaderboard {
+    grid-template-columns: minmax(0, 1fr) 275px;
+  }
 }
