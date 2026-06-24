@@ -112,13 +112,13 @@
     "date": "2026-06-24T02:00Z",
     "team1": "Colombia",
     "team2": "DR Congo",
-    "score1": null,
-    "score2": null,
-    "displayScore1": 0,
+    "score1": 1,
+    "score2": 0,
+    "displayScore1": 1,
     "displayScore2": 0,
-    "status": "Second Half",
-    "completed": false,
-    "live": true,
+    "status": "Full Time",
+    "completed": true,
+    "live": false,
     "isToday": true,
     "footballDayStart": "2026-06-23T05:00:00+00:00",
     "footballDayEnd": "2026-06-24T05:00:00+00:00",
@@ -136,6 +136,11 @@
         ]
       }
     ],
-    "playerGains": []
+    "playerGains": [
+      {
+        "name": "Rob",
+        "points": 3
+      }
+    ]
   }
 ]
