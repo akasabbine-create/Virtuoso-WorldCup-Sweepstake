@@ -73,13 +73,13 @@
     "date": "2026-06-25T23:00Z",
     "team1": "Japan",
     "team2": "Sweden",
-    "score1": null,
-    "score2": null,
+    "score1": 1,
+    "score2": 1,
     "displayScore1": 1,
     "displayScore2": 1,
-    "status": "Second Half",
-    "completed": false,
-    "live": true,
+    "status": "Full Time",
+    "completed": true,
+    "live": false,
     "isToday": true,
     "footballDayStart": "2026-06-25T05:00:00+00:00",
     "footballDayEnd": "2026-06-26T05:00:00+00:00",
@@ -97,19 +97,28 @@
         ]
       }
     ],
-    "playerGains": []
+    "playerGains": [
+      {
+        "name": "Declan",
+        "points": 1
+      },
+      {
+        "name": "Nick",
+        "points": 1
+      }
+    ]
   },
   {
     "date": "2026-06-25T23:00Z",
     "team1": "Tunisia",
     "team2": "Netherlands",
-    "score1": null,
-    "score2": null,
+    "score1": 1,
+    "score2": 3,
     "displayScore1": 1,
     "displayScore2": 3,
-    "status": "Second Half",
-    "completed": false,
-    "live": true,
+    "status": "Full Time",
+    "completed": true,
+    "live": false,
     "isToday": true,
     "footballDayStart": "2026-06-25T05:00:00+00:00",
     "footballDayEnd": "2026-06-26T05:00:00+00:00",
@@ -127,7 +136,12 @@
         ]
       }
     ],
-    "playerGains": []
+    "playerGains": [
+      {
+        "name": "Seb",
+        "points": 3
+      }
+    ]
   },
   {
     "date": "2026-06-26T02:00Z",
