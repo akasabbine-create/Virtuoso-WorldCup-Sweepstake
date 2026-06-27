@@ -3885,24 +3885,95 @@ body.title-option-broadcast .layered-hero-header::after {
   display: none !important;
 }
 
-/* Main leaderboard podium restore
-   Restores the original row-based top-three styling. Do not add td/cell backgrounds here. */
-#board tbody tr.top-three:hover,
-#board tbody tr.leader:hover {
+/* ============================================================
+   FINAL FIX - MAIN LEADERBOARD TOP 3
+   ------------------------------------------------------------
+   This intentionally uses ONE FLAT CELL BACKGROUND per podium row.
+   The earlier problem was caused by gradients/backgrounds restarting
+   in every table cell, creating a visible column/grid effect. Flat
+   colours remove that effect while keeping the original podium look.
+   ============================================================ */
+
+/* Keep ordinary leaderboard table behaviour */
+#board {
+  border-collapse: collapse !important;
+  border-spacing: 0 !important;
+}
+
+/* Stop row/hover transforms changing podium rows */
+#board tbody tr.leader,
+#board tbody tr.top-three,
+#board tbody tr.leader:hover,
+#board tbody tr.top-three:hover {
   transform: none !important;
 }
 
-#board tbody tr.leader:hover {
-  background:
-    linear-gradient(90deg, rgba(255, 209, 102, 0.34), rgba(242, 204, 96, 0.16), rgba(8, 31, 49, 0.88)) !important;
+/* Remove any row gradients so they cannot restart behind cells */
+#board tbody tr.leader,
+#board tbody tr.top-three,
+#board tbody tr.leader:hover,
+#board tbody tr.top-three:hover {
+  background: transparent !important;
+  background-image: none !important;
 }
 
-#board tbody tr.top-three:nth-child(2):hover {
-  background:
-    linear-gradient(90deg, rgba(201, 209, 217, 0.3), rgba(88, 166, 255, 0.16), rgba(8, 31, 49, 0.88)) !important;
+/* FIRST PLACE - one flat full-row band */
+#board tbody tr.leader > td,
+#board tbody tr.leader:hover > td {
+  background: rgba(255, 209, 102, 0.19) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border-bottom-color: rgba(255, 209, 102, 0.36) !important;
 }
 
-#board tbody tr.top-three:nth-child(3):hover {
-  background:
-    linear-gradient(90deg, rgba(191, 97, 36, 0.34), rgba(210, 153, 34, 0.13), rgba(8, 31, 49, 0.9)) !important;
+/* SECOND PLACE - one flat full-row band */
+#board tbody tr.top-three:nth-child(2) > td,
+#board tbody tr.top-three:nth-child(2):hover > td {
+  background: rgba(88, 166, 255, 0.20) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border-bottom-color: rgba(201, 209, 217, 0.30) !important;
+}
+
+/* THIRD PLACE - one flat full-row band */
+#board tbody tr.top-three:nth-child(3) > td,
+#board tbody tr.top-three:nth-child(3):hover > td {
+  background: rgba(191, 97, 36, 0.18) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border-bottom-color: rgba(191, 97, 36, 0.30) !important;
+}
+
+/* Left podium stripe only, not every column */
+#board tbody tr.leader > td:first-child,
+#board tbody tr.leader:hover > td:first-child {
+  box-shadow: inset 6px 0 0 #ffd166 !important;
+  color: #ffd166 !important;
+}
+
+#board tbody tr.top-three:nth-child(2) > td:first-child,
+#board tbody tr.top-three:nth-child(2):hover > td:first-child {
+  box-shadow: inset 6px 0 0 #c9d1d9 !important;
+  color: #e6edf3 !important;
+}
+
+#board tbody tr.top-three:nth-child(3) > td:first-child,
+#board tbody tr.top-three:nth-child(3):hover > td:first-child {
+  box-shadow: inset 6px 0 0 #bf6124 !important;
+  color: #ffb86b !important;
+}
+
+#board tbody tr.leader td:last-child strong {
+  border-color: rgba(255, 209, 102, 0.55) !important;
+  color: #ffd166 !important;
+}
+
+#board tbody tr.top-three:nth-child(2) td:last-child strong {
+  border-color: rgba(201, 209, 217, 0.48) !important;
+  color: #e6edf3 !important;
+}
+
+#board tbody tr.top-three:nth-child(3) td:last-child strong {
+  border-color: rgba(191, 97, 36, 0.48) !important;
+  color: #ffb86b !important;
 }

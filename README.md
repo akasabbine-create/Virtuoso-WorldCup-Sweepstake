@@ -72,3 +72,7 @@ Main-site top-three rows now remove all individual cell backgrounds and draw pod
 ## Leaderboard podium styling restore
 
 The main leaderboard top-three rows have been restored to the original row-based styling. The later cell-level podium background overrides were removed because they caused the unwanted grid effect.
+
+## Main leaderboard top-three fix
+
+The main leaderboard podium rows now use flat full-row bands so the old column/grid effect cannot appear.
