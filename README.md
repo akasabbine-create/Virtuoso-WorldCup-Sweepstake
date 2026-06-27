@@ -56,3 +56,7 @@ The main site now includes a knockout bracket driven from `data/matches.json`. T
 ## Knockout/TV fix pass
 
 This version restores clean podium row styling, makes bracket ownership inline beside teams, adds a TV knockout stage, and tightens the TV leaderboard so team chips do not stack vertically.
+
+## Podium row visual fix
+
+The main and TV leaderboards now use flat full-row podium bands for 1st, 2nd and 3rd place. This removes the blocky per-column grid effect introduced by later TV/knockout styling passes.
