@@ -3933,3 +3933,67 @@ body.title-option-broadcast .layered-hero-header::after {
     min-width: 980px;
   }
 }
+
+
+/* Final fix: restore clean, full-row podium styling and remove arbitrary knockout highlighting. */
+#board tbody tr.leader,
+#board tbody tr.top-three:nth-child(1) {
+  background: linear-gradient(90deg, rgba(255, 209, 102, 0.34), rgba(242, 204, 96, 0.16), rgba(8, 31, 49, 0.88)) !important;
+  box-shadow: inset 6px 0 0 #ffd166, inset 0 1px 0 rgba(255, 209, 102, 0.34), inset 0 -1px 0 rgba(255, 209, 102, 0.22) !important;
+}
+
+#board tbody tr.top-three:nth-child(2) {
+  background: linear-gradient(90deg, rgba(201, 209, 217, 0.30), rgba(88, 166, 255, 0.16), rgba(8, 31, 49, 0.88)) !important;
+  box-shadow: inset 6px 0 0 #c9d1d9, inset 0 1px 0 rgba(201, 209, 217, 0.28), inset 0 -1px 0 rgba(201, 209, 217, 0.18) !important;
+}
+
+#board tbody tr.top-three:nth-child(3) {
+  background: linear-gradient(90deg, rgba(191, 97, 36, 0.34), rgba(210, 153, 34, 0.13), rgba(8, 31, 49, 0.9)) !important;
+  box-shadow: inset 6px 0 0 #bf6124, inset 0 1px 0 rgba(191, 97, 36, 0.28), inset 0 -1px 0 rgba(191, 97, 36, 0.18) !important;
+}
+
+#board tbody tr.leader td,
+#board tbody tr.top-three td,
+#board tbody tr.leader:hover td,
+#board tbody tr.top-three:hover td {
+  background: transparent !important;
+  box-shadow: none !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+#board tbody tr.leader:hover,
+#board tbody tr.top-three:hover {
+  transform: none !important;
+}
+
+.knockout-team-card.top-knockout-card {
+  background: rgba(2, 18, 31, 0.58) !important;
+  border-color: rgba(88, 166, 255, 0.16) !important;
+}
+
+.bracket-team-owned {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.bracket-owner-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.08rem 0.42rem;
+  border: 1px solid rgba(126, 211, 255, 0.24);
+  border-radius: 999px;
+  background: rgba(126, 211, 255, 0.08);
+  color: #8ee7ff;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.bracket-owners {
+  display: none !important;
+}

@@ -1,5 +1,5 @@
 (function () {
-  const STAGE_DURATIONS = [22000, 15000, 18000, 20000];
+  const STAGE_DURATIONS = [30000, 15000, 18000, 18000, 20000];
   const params = new URLSearchParams(window.location.search);
   const autoScrollEnabled = params.get("autoscroll") === "true";
 
@@ -134,11 +134,12 @@
         ${leaderboardStage(state)}
         ${movementProgressStage(state)}
         ${matchesStage(state)}
+        ${knockoutStage(state)}
         ${prizesBadgesStage(state)}
       </section>
 
       <nav class="tv-stage-indicator" aria-label="Presentation stage">
-        ${["Leaderboard", "Movers", "Matches", "Prizes"].map((label, index) => `
+        ${["Leaderboard", "Movers", "Matches", "Knockouts", "Prizes"].map((label, index) => `
           <span class="${index === 0 ? "is-active" : ""}" data-tv-stage-dot="${index}">
             ${label}
           </span>
@@ -243,9 +244,33 @@
     `;
   }
 
-  function prizesBadgesStage(state) {
+  function knockoutStage(state) {
     return `
       <article class="tv-stage" data-tv-stage="3">
+        <div class="tv-stage-grid tv-two-column tv-knockout-stage-grid">
+          <section class="tv-panel tv-drift tv-autoscroll-area">
+            <div class="tv-section-heading">
+              <span>Stage 4</span>
+              <h2>Knockout Picture</h2>
+            </div>
+            ${renderTvKnockoutPicture(state)}
+          </section>
+
+          <section class="tv-panel tv-drift tv-drift-alt tv-autoscroll-area">
+            <div class="tv-section-heading">
+              <span>Stage 4</span>
+              <h2>Bonus Impact</h2>
+            </div>
+            ${renderTvKnockoutBonusImpact(state)}
+          </section>
+        </div>
+      </article>
+    `;
+  }
+
+  function prizesBadgesStage(state) {
+    return `
+      <article class="tv-stage" data-tv-stage="4">
         <div class="tv-stage-grid tv-two-column">
           <section class="tv-panel tv-drift tv-autoscroll-area">
             <div class="tv-section-heading">
@@ -269,7 +294,7 @@
 
   function renderLeaderboardRows(state) {
     if (!state.leaderboard.length) {
-      return `<tr><td colspan="6">No leaderboard data found.</td></tr>`;
+      return `<tr><td colspan="10">No leaderboard data found.</td></tr>`;
     }
 
     return state.leaderboard.map(player => {
@@ -488,6 +513,68 @@
         </article>
       `;
     }).join("");
+  }
+
+  function knockoutTrackerRows(state) {
+    const tracker = state.bonusData?.knockoutTracker || state.bonusData || {};
+    return Array.isArray(tracker.rows) ? tracker.rows : [];
+  }
+
+  function renderTvKnockoutPicture(state) {
+    const fixtures = knockoutTvFixtures(state).slice(0, 4);
+    const rows = knockoutTrackerRows(state);
+    const stageCounts = state.bonusData?.knockoutTracker?.stageCounts || state.bonusData?.stageCounts || {};
+
+    return `
+      <div class="tv-knockout-summary-strip">
+        <div><span>R32</span><strong>${escapeHtml(stageCounts.round_of_32 || 0)}</strong><em>+5</em></div>
+        <div><span>R16</span><strong>${escapeHtml(stageCounts.round_of_16 || 0)}</strong><em>+5</em></div>
+        <div><span>QF</span><strong>${escapeHtml(stageCounts.quarter_final || 0)}</strong><em>+5</em></div>
+        <div><span>SF</span><strong>${escapeHtml(stageCounts.semi_final || 0)}</strong><em>+10</em></div>
+        <div><span>Final</span><strong>${escapeHtml(stageCounts.final || 0)}</strong><em>+10</em></div>
+      </div>
+      <div class="tv-knockout-fixture-list">
+        ${fixtures.length ? fixtures.map(match => {
+          const owned = [];
+          [match.team1, match.team2].forEach(teamName => {
+            (state.leaderboard || []).forEach(player => {
+              if (playerOwnsTeam(player, teamName)) owned.push(`${teamLabelHtml(teamName)} <b>${escapeHtml(player.name)}</b>`);
+            });
+          });
+          return `
+            <article>
+              <span>${formatDateTime(match.date)}</span>
+              <strong>${teamLabelHtml(match.team1)} <em>v</em> ${teamLabelHtml(match.team2)}</strong>
+              <small>${owned.length ? owned.join(" · ") : "No sweepstake owners found"}</small>
+              <mark>Win +3 · Qualify +5 · Clean sheet +2</mark>
+            </article>
+          `;
+        }).join("") : `<div class="tv-empty-state"><strong>No knockout fixtures yet</strong><span>Fixtures will appear once the knockout feed updates.</span></div>`}
+      </div>
+    `;
+  }
+
+  function renderTvKnockoutBonusImpact(state) {
+    const rows = knockoutTrackerRows(state)
+      .sort((a, b) => Number(b.total || 0) - Number(a.total || 0) || String(a.owner || "").localeCompare(String(b.owner || "")))
+      .slice(0, 8);
+
+    if (!rows.length) {
+      return `<div class="tv-empty-state"><strong>No knockout bonuses awarded yet</strong><span>Bonus impact will appear as teams qualify.</span></div>`;
+    }
+
+    return `
+      <div class="tv-knockout-bonus-list">
+        ${rows.map(row => `
+          <article>
+            <span>${escapeHtml(row.owner || "Unknown")}</span>
+            <strong>${teamLabelHtml(row.team)}</strong>
+            <em>+${escapeHtml(row.total || 0)} pts</em>
+            <small>${(row.stageBonuses || []).map(item => `${stageShortLabel(item.stage)} +${item.points}`).join(" · ") || "Knockout bonus"}</small>
+          </article>
+        `).join("")}
+      </div>
+    `;
   }
 
   function renderPrizePool(state) {

@@ -1702,7 +1702,7 @@ function renderKnockoutTracker(knockoutData, leaderboard) {
         `).join("");
 
         return `
-          <article class="knockout-team-card ${index === 0 ? "top-knockout-card" : ""}">
+          <article class="knockout-team-card">
             <div class="knockout-team-header">
               <span class="knockout-owner">${row.owner}</span>
               <strong>${row.total} bonus pts</strong>
@@ -1834,11 +1834,17 @@ function teamIsPlaceholder(name) {
   return !name || /TBD|Winner|Loser|Group .*Place|Group .*Winner|Group .*2nd Place|Third Place/i.test(String(name));
 }
 
-function bracketTeamHtml(name) {
+function bracketTeamHtml(name, owner) {
   if (teamIsPlaceholder(name)) {
     return `<span class="bracket-team bracket-team-placeholder"><span class="bracket-shield">◆</span>${escapeHtml(name || "TBD")}</span>`;
   }
-  return `<span class="bracket-team">${teamLabelHtml(name)}</span>`;
+
+  return `
+    <span class="bracket-team bracket-team-owned">
+      ${teamLabelHtml(name)}
+      ${owner ? `<span class="bracket-owner-pill">${escapeHtml(owner)}</span>` : ""}
+    </span>
+  `;
 }
 
 function renderKnockoutBracket(matches, leaderboard) {
@@ -1890,15 +1896,14 @@ function renderKnockoutBracket(matches, leaderboard) {
                       <span class="bracket-time">${formatDateTime(match.date)}</span>
                       <div class="bracket-teams">
                         <div class="bracket-team-row ${match.winner1 ? "winner" : ""}">
-                          ${bracketTeamHtml(match.team1)}
+                          ${bracketTeamHtml(match.team1, owner1)}
                           ${match.completed ? `<strong>${escapeHtml(match.score1 ?? match.displayScore1 ?? "")}</strong>` : ""}
                         </div>
                         <div class="bracket-team-row ${match.winner2 ? "winner" : ""}">
-                          ${bracketTeamHtml(match.team2)}
+                          ${bracketTeamHtml(match.team2, owner2)}
                           ${match.completed ? `<strong>${escapeHtml(match.score2 ?? match.displayScore2 ?? "")}</strong>` : ""}
                         </div>
                       </div>
-                      ${(owner1 || owner2) ? `<p class="bracket-owners">${owner1 ? `${escapeHtml(owner1)} owns ${teamLabelHtml(match.team1)}` : ""}${owner1 && owner2 ? " · " : ""}${owner2 ? `${escapeHtml(owner2)} owns ${teamLabelHtml(match.team2)}` : ""}</p>` : ""}
                     </article>
                   `;
                 }).join("") : `<article class="bracket-match bracket-placeholder"><span class="bracket-time">TBD</span><div class="bracket-teams"><div class="bracket-team-row">${bracketTeamHtml("TBD")}</div><div class="bracket-team-row">${bracketTeamHtml("TBD")}</div></div></article>`}

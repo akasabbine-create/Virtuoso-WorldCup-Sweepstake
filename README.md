@@ -52,3 +52,7 @@ Knockout bonus handling is now live:
 ## Knockout bracket and TV knockout polish
 
 The main site now includes a knockout bracket driven from `data/matches.json`. TV mode also prioritises upcoming knockout fixtures and shows match, bonus and clean-sheet points on offer.
+
+## Knockout/TV fix pass
+
+This version restores clean podium row styling, makes bracket ownership inline beside teams, adds a TV knockout stage, and tightens the TV leaderboard so team chips do not stack vertically.
