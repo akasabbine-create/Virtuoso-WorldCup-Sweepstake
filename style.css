@@ -3663,3 +3663,114 @@ body.title-option-broadcast .layered-hero-header::after {
     grid-column: 1 / -1;
   }
 }
+
+
+/* Knockout refinement pass */
+/* Keep top-three leaderboard rows looking like solid podium rows, not hover/grid blocks. */
+#board tbody tr.top-three:hover,
+#board tbody tr.leader:hover {
+  transform: none;
+}
+
+#board tbody tr.leader:hover {
+  background:
+    linear-gradient(90deg, rgba(255, 209, 102, 0.34), rgba(242, 204, 96, 0.16), rgba(8, 31, 49, 0.88));
+}
+
+#board tbody tr.top-three:nth-child(2):hover {
+  background:
+    linear-gradient(90deg, rgba(201, 209, 217, 0.3), rgba(88, 166, 255, 0.16), rgba(8, 31, 49, 0.88));
+}
+
+#board tbody tr.top-three:nth-child(3):hover {
+  background:
+    linear-gradient(90deg, rgba(191, 97, 36, 0.34), rgba(210, 153, 34, 0.13), rgba(8, 31, 49, 0.9));
+}
+
+#board tbody tr.top-three td,
+#board tbody tr.leader td {
+  background: transparent !important;
+}
+
+.team-bonus-pill {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.35rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 209, 102, 0.28);
+  background: rgba(255, 209, 102, 0.10);
+  color: #ffd166;
+  font-size: 0.72rem;
+  font-weight: 900;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.player-collapse-teams .team-bonus-pill {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+  padding: 0.1rem 0.36rem;
+  font-size: 0.68rem;
+}
+
+.team-breakdown-header span {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.35rem;
+  color: #ffd166;
+  font-weight: 900;
+}
+
+.team-breakdown-header span em {
+  font-style: normal;
+  color: #8ee7ff;
+  border: 1px solid rgba(126, 211, 255, 0.24);
+  border-radius: 999px;
+  padding: 0.1rem 0.42rem;
+  background: rgba(126, 211, 255, 0.08);
+}
+
+.awarded-summary-card ul {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.awarded-summary-card li {
+  min-width: 0;
+}
+
+.awarded-summary-card li em {
+  justify-self: start;
+}
+
+.knockout-main-grid-single {
+  grid-template-columns: 1fr;
+}
+
+.knockout-qualified-panel-wide {
+  min-width: 0;
+}
+
+.knockout-team-grid-wide {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media screen and (max-width: 1100px) {
+  .knockout-team-grid-wide,
+  .awarded-summary-card ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .knockout-team-grid-wide,
+  .awarded-summary-card ul {
+    grid-template-columns: 1fr;
+  }
+
+  .team-bonus-pill {
+    font-size: 0.66rem;
+  }
+}
