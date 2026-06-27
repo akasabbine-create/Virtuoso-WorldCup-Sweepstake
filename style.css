@@ -4112,3 +4112,115 @@ body.title-option-broadcast .layered-hero-header::after {
 #board tbody tr.top-three:nth-child(3) td:first-child {
   box-shadow: none !important;
 }
+
+
+/* ============================================================
+   TRUE MAIN LEADERBOARD PODIUM ROW FIX
+   ------------------------------------------------------------
+   Fixes the main-site grid/block effect by removing cell-level
+   podium backgrounds and drawing the top-3 highlight as one row
+   overlay instead.
+   ============================================================ */
+
+body:not(.tv-mode) table.leaderboard-table,
+body:not(.tv-mode) #leaderboard-table {
+  border-collapse: separate !important;
+  border-spacing: 0 !important;
+}
+
+body:not(.tv-mode) table.leaderboard-table tbody tr.rank-1,
+body:not(.tv-mode) table.leaderboard-table tbody tr.rank-2,
+body:not(.tv-mode) table.leaderboard-table tbody tr.rank-3,
+body:not(.tv-mode) table.leaderboard-table tbody tr.podium-row,
+body:not(.tv-mode) #leaderboard-table tbody tr.rank-1,
+body:not(.tv-mode) #leaderboard-table tbody tr.rank-2,
+body:not(.tv-mode) #leaderboard-table tbody tr.rank-3,
+body:not(.tv-mode) #leaderboard-table tbody tr.podium-row {
+  position: relative !important;
+  isolation: isolate !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+body:not(.tv-mode) table.leaderboard-table tbody tr.rank-1::before,
+body:not(.tv-mode) table.leaderboard-table tbody tr.rank-2::before,
+body:not(.tv-mode) table.leaderboard-table tbody tr.rank-3::before,
+body:not(.tv-mode) table.leaderboard-table tbody tr.podium-row::before,
+body:not(.tv-mode) #leaderboard-table tbody tr.rank-1::before,
+body:not(.tv-mode) #leaderboard-table tbody tr.rank-2::before,
+body:not(.tv-mode) #leaderboard-table tbody tr.rank-3::before,
+body:not(.tv-mode) #leaderboard-table tbody tr.podium-row::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: -1 !important;
+  pointer-events: none !important;
+}
+
+/* Continuous row colour bands */
+body:not(.tv-mode) table.leaderboard-table tbody tr.rank-1::before,
+body:not(.tv-mode) #leaderboard-table tbody tr.rank-1::before,
+body:not(.tv-mode) table.leaderboard-table tbody tr.podium-row:nth-child(1)::before,
+body:not(.tv-mode) #leaderboard-table tbody tr.podium-row:nth-child(1)::before {
+  background: linear-gradient(90deg, rgba(255, 211, 95, 0.28), rgba(255, 211, 95, 0.10) 42%, rgba(255, 211, 95, 0.04) 100%) !important;
+}
+
+body:not(.tv-mode) table.leaderboard-table tbody tr.rank-2::before,
+body:not(.tv-mode) #leaderboard-table tbody tr.rank-2::before,
+body:not(.tv-mode) table.leaderboard-table tbody tr.podium-row:nth-child(2)::before,
+body:not(.tv-mode) #leaderboard-table tbody tr.podium-row:nth-child(2)::before {
+  background: linear-gradient(90deg, rgba(190, 225, 255, 0.25), rgba(91, 169, 255, 0.13) 42%, rgba(91, 169, 255, 0.05) 100%) !important;
+}
+
+body:not(.tv-mode) table.leaderboard-table tbody tr.rank-3::before,
+body:not(.tv-mode) #leaderboard-table tbody tr.rank-3::before,
+body:not(.tv-mode) table.leaderboard-table tbody tr.podium-row:nth-child(3)::before,
+body:not(.tv-mode) #leaderboard-table tbody tr.podium-row:nth-child(3)::before {
+  background: linear-gradient(90deg, rgba(205, 116, 47, 0.28), rgba(205, 116, 47, 0.12) 42%, rgba(205, 116, 47, 0.05) 100%) !important;
+}
+
+/* This is the important part: no podium cell is allowed to shade itself. */
+body:not(.tv-mode) table.leaderboard-table tbody tr.rank-1 > td,
+body:not(.tv-mode) table.leaderboard-table tbody tr.rank-2 > td,
+body:not(.tv-mode) table.leaderboard-table tbody tr.rank-3 > td,
+body:not(.tv-mode) table.leaderboard-table tbody tr.podium-row > td,
+body:not(.tv-mode) #leaderboard-table tbody tr.rank-1 > td,
+body:not(.tv-mode) #leaderboard-table tbody tr.rank-2 > td,
+body:not(.tv-mode) #leaderboard-table tbody tr.rank-3 > td,
+body:not(.tv-mode) #leaderboard-table tbody tr.podium-row > td {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+}
+
+/* Keep only the left medal stripe. */
+body:not(.tv-mode) table.leaderboard-table tbody tr.rank-1 > td:first-child,
+body:not(.tv-mode) #leaderboard-table tbody tr.rank-1 > td:first-child {
+  border-left: 7px solid #ffd35f !important;
+}
+body:not(.tv-mode) table.leaderboard-table tbody tr.rank-2 > td:first-child,
+body:not(.tv-mode) #leaderboard-table tbody tr.rank-2 > td:first-child {
+  border-left: 7px solid #d6ecff !important;
+}
+body:not(.tv-mode) table.leaderboard-table tbody tr.rank-3 > td:first-child,
+body:not(.tv-mode) #leaderboard-table tbody tr.rank-3 > td:first-child {
+  border-left: 7px solid #e07a2f !important;
+}
+
+/* No hover colour change on podium rows. */
+body:not(.tv-mode) table.leaderboard-table tbody tr.rank-1:hover > td,
+body:not(.tv-mode) table.leaderboard-table tbody tr.rank-2:hover > td,
+body:not(.tv-mode) table.leaderboard-table tbody tr.rank-3:hover > td,
+body:not(.tv-mode) table.leaderboard-table tbody tr.podium-row:hover > td,
+body:not(.tv-mode) #leaderboard-table tbody tr.rank-1:hover > td,
+body:not(.tv-mode) #leaderboard-table tbody tr.rank-2:hover > td,
+body:not(.tv-mode) #leaderboard-table tbody tr.rank-3:hover > td,
+body:not(.tv-mode) #leaderboard-table tbody tr.podium-row:hover > td {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+}
+

@@ -64,3 +64,7 @@ The main and TV leaderboards now use flat full-row podium bands for 1st, 2nd and
 ## Main leaderboard podium row correction
 
 The main site leaderboard podium rows are forced back to continuous full-row bands. The final override at the end of `style.css` prevents later knockout/TV styles from applying per-cell backgrounds that caused the grid/block effect.
+
+## True main leaderboard podium row fix
+
+Main-site top-three rows now remove all individual cell backgrounds and draw podium styling as one continuous row overlay.
