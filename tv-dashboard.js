@@ -1,5 +1,5 @@
 (function () {
-  const STAGE_DURATIONS = [20000, 15000, 15000, 15000];
+  const STAGE_DURATIONS = [22000, 15000, 18000, 20000];
   const params = new URLSearchParams(window.location.search);
   const autoScrollEnabled = params.get("autoscroll") === "true";
 
@@ -80,6 +80,7 @@
       bonusData,
       latestResults,
       upcomingFixtures,
+      matchesData,
       status
     ] = await Promise.all([
       loadOptionalJson("data/leaderboard.json", []),
@@ -87,6 +88,7 @@
       loadOptionalJson("data/bonus_points.json", null),
       loadOptionalJson("data/latest_results.json", []),
       loadOptionalJson("data/upcoming_fixtures.json", []),
+      loadOptionalJson("data/matches.json", []),
       loadOptionalJson("data/status.json", null)
     ]);
 
@@ -101,6 +103,7 @@
       bonusData,
       latestResults,
       upcomingFixtures,
+      matchesData,
       status,
       spoonTeam: badgeData.spoonTeam,
       badgesByPlayer: badgeData.badgesByPlayer,
@@ -172,10 +175,14 @@
               <thead>
                 <tr>
                   <th>Rank</th>
+                  <th>Move</th>
                   <th>Player</th>
                   <th>Teams</th>
-                  <th>Total Points</th>
-                  <th>Goal Difference</th>
+                  <th>Played</th>
+                  <th>GD</th>
+                  <th>Match</th>
+                  <th>Bonus</th>
+                  <th>Total</th>
                   <th>Badges</th>
                 </tr>
               </thead>
@@ -228,8 +235,8 @@
             <span>Stage 3</span>
             <h2>Next Matches</h2>
           </div>
-          <div class="tv-match-grid">
-            ${renderUpcomingMatches(state.upcomingFixtures)}
+          <div class="tv-match-grid tv-knockout-match-grid">
+            ${renderUpcomingMatches(knockoutTvFixtures(state), state.leaderboard)}
           </div>
         </section>
       </article>
@@ -275,10 +282,14 @@
       return `
         <tr class="${rankClass}">
           <td class="tv-rank-cell">${medal(player.rank)} ${player.rank}</td>
+          <td class="tv-move-cell">${Number(player.movement || 0) === 0 ? "—" : `${Number(player.movement) > 0 ? "▲" : "▼"} ${Math.abs(Number(player.movement))}`}</td>
           <td class="tv-player-cell">${escapeHtml(player.name)}</td>
           <td class="tv-team-cell">${teams}</td>
-          <td class="tv-points-cell">${escapeHtml(player.points ?? 0)}</td>
+          <td>${escapeHtml(player.gamesPlayed ?? 0)}</td>
           <td class="tv-gd-cell">${formatGoalDifference(player.goalDifference ?? 0)}</td>
+          <td>${escapeHtml(player.matchPoints ?? player.points ?? 0)}</td>
+          <td class="tv-bonus-cell">${escapeHtml(player.bonusPoints ?? 0)}</td>
+          <td class="tv-points-cell">${escapeHtml(player.points ?? 0)}</td>
           <td class="tv-badge-cell">${badgeHtml(state.badgesByPlayer[player.name])}</td>
         </tr>
       `;
@@ -402,34 +413,78 @@
     `;
   }
 
-  function renderUpcomingMatches(fixtures) {
+
+  function tvMatchStageKey(match) {
+    const slug = match?.raw?.season?.slug || match?.stage || "";
+    const map = {
+      "round-of-32": "round_of_32",
+      "round-of-16": "round_of_16",
+      quarterfinals: "quarter_final",
+      semifinals: "semi_final",
+      final: "final",
+      "3rd-place-match": "third_place"
+    };
+    return map[slug] || slug;
+  }
+
+  function isTvKnockoutMatch(match) {
+    return ["round_of_32", "round_of_16", "quarter_final", "semi_final", "final", "third_place"].includes(tvMatchStageKey(match));
+  }
+
+  function knockoutTvFixtures(state) {
+    const knockout = [...(state.matchesData || [])]
+      .filter(match => isTvKnockoutMatch(match) && !match.completed)
+      .sort((a, b) => new Date(a.date || 0) - new Date(b.date || 0));
+    return knockout.length ? knockout.slice(0, 4) : (state.upcomingFixtures || []).slice(0, 4);
+  }
+
+  function fixtureImpactText(match, leaderboard) {
+    const players = (match.players || []).slice(0, 4);
+    if (!players.length) return "Potential +5 progression bonus if owned teams advance.";
+    const names = players.map(player => player.name).filter(Boolean);
+    if (names.length === 1) return `${names[0]} can gain knockout progression points.`;
+    if (names.length >= 2) return `${names.slice(0, 2).join(" and ")} have a direct knockout swing.`;
+    return "Knockout progression points on offer.";
+  }
+
+  function renderUpcomingMatches(fixtures, leaderboard = []) {
     const matches = [...(fixtures || [])]
       .filter(match => !match.completed)
       .sort((a, b) => new Date(a.date || 0) - new Date(b.date || 0));
-    const visibleMatches = (matches.length ? matches : fixtures || []).slice(0, 8);
+    const visibleMatches = matches.slice(0, 4);
 
     if (!visibleMatches.length) {
       return `
         <div class="tv-empty-state">
-          <strong>No upcoming matches found</strong>
-          <span>The fixture feed has no future matches for the current football day.</span>
+          <strong>No upcoming knockout matches found</strong>
+          <span>The fixture feed has no future knockout matches ready yet.</span>
         </div>
       `;
     }
 
     return visibleMatches.map(match => {
       const statusClass = fixtureStatusClass(match);
-      const players = (match.players || []).slice(0, 4).map(player => player.name).join(", ");
+      const playerBits = [];
+      [match.team1, match.team2].forEach(teamName => {
+        (leaderboard || []).forEach(player => {
+          if (playerOwnsTeam(player, teamName)) playerBits.push(`${escapeHtml(player.name)}: ${teamLabelHtml(teamName)}`);
+        });
+      });
+      const players = playerBits.slice(0, 4).join(" ");
 
       return `
-        <article class="tv-match-card">
+        <article class="tv-match-card tv-knockout-match-card">
           <div class="tv-match-meta">
             <span class="fixture-status ${statusClass}">${fixtureStatusLabel(match)}</span>
             <strong>${formatTimeOnly(match.date)}</strong>
           </div>
           <h3>${teamLabelHtml(match.team1)} <span>v</span> ${teamLabelHtml(match.team2)}</h3>
-          <p>${formatDateTime(match.date)}</p>
-          <em>${players ? `Players: ${escapeHtml(players)}` : "No sweepstake players involved"}</em>
+          <div class="tv-fixture-info-grid">
+            <p><span>Fixture</span>${formatDateTime(match.date)}</p>
+            <p><span>Points on offer</span>Win +3 · Qualify +5 · Clean sheet +2</p>
+          </div>
+          <em>${players ? `Sweepstake interest ${players}` : "No sweepstake players involved"}</em>
+          <small class="tv-fixture-impact">${fixtureImpactText(match, leaderboard)}</small>
         </article>
       `;
     }).join("");

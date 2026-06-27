@@ -48,3 +48,7 @@ Knockout bonus handling is now live:
 - Knockout clean sheets add +2 from the Round of 32 onwards.
 - Penalty shootout winners count as the match winner for sweepstake points because the progressing team is what matters.
 - `data/knockout_tracker.json` powers the visible Knockout Tracker section for bonus transparency.
+
+## Knockout bracket and TV knockout polish
+
+The main site now includes a knockout bracket driven from `data/matches.json`. TV mode also prioritises upcoming knockout fixtures and shows match, bonus and clean-sheet points on offer.

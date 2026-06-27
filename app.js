@@ -1566,12 +1566,6 @@ function renderBonusTracker(bonusData, leaderboard) {
       ${fastestGoal}
       <p class="bonus-note">Current fastest goal owner gets the badge. £5 prize awarded at tournament end.</p>
     </div>
-
-    <div class="bonus-race-card awarded-bonus-card awarded-summary-card">
-      <h3>🏆 Awarded Bonus Summary</h3>
-      <p class="bonus-note">Grouped totals by player. The Knockout Tracker below shows the team-by-team impact.</p>
-      <ul>${awardedHtml}</ul>
-    </div>
   `;
 }
 
@@ -1792,6 +1786,118 @@ function renderWoodenSpoonRace(playerDetails) {
 
     container.appendChild(card);
   });
+}
+
+
+function matchStageKey(match) {
+  const slug = match?.raw?.season?.slug || match?.stage || "";
+  const map = {
+    "round-of-32": "round_of_32",
+    "round-of-16": "round_of_16",
+    quarterfinals: "quarter_final",
+    semifinals: "semi_final",
+    final: "final",
+    "3rd-place-match": "third_place"
+  };
+  return map[slug] || slug;
+}
+
+function matchStageLabel(match) {
+  const key = matchStageKey(match);
+  const map = {
+    round_of_32: "Round of 32",
+    round_of_16: "Round of 16",
+    quarter_final: "Quarter-final",
+    semi_final: "Semi-final",
+    final: "Final",
+    third_place: "Third place"
+  };
+  return map[key] || "Knockout";
+}
+
+function isKnockoutMatch(match) {
+  return ["round_of_32", "round_of_16", "quarter_final", "semi_final", "final", "third_place"].includes(matchStageKey(match));
+}
+
+function teamIsPlaceholder(name) {
+  return !name || /TBD|Winner|Loser|Group .*Place|Group .*Winner|Group .*2nd Place|Third Place/i.test(String(name));
+}
+
+function bracketTeamHtml(name) {
+  if (teamIsPlaceholder(name)) {
+    return `<span class="bracket-team bracket-team-placeholder"><span class="bracket-shield">◆</span>${escapeHtml(name || "TBD")}</span>`;
+  }
+  return `<span class="bracket-team">${teamLabelHtml(name)}</span>`;
+}
+
+function renderKnockoutBracket(matches, leaderboard) {
+  const container = document.querySelector("#knockout-bracket");
+  if (!container) return;
+
+  const knockoutMatches = [...(matches || [])]
+    .filter(isKnockoutMatch)
+    .sort((a, b) => new Date(a.date || 0) - new Date(b.date || 0));
+
+  if (!knockoutMatches.length) {
+    container.innerHTML = `
+      <div class="knockout-empty-card">
+        <h3>No knockout fixtures yet</h3>
+        <p>The bracket will populate as soon as knockout matches appear in the fixture feed.</p>
+      </div>
+    `;
+    return;
+  }
+
+  const stageOrder = ["round_of_32", "round_of_16", "quarter_final", "semi_final", "final"];
+  const stageTitles = {
+    round_of_32: "Round of 32",
+    round_of_16: "Round of 16",
+    quarter_final: "Quarter-final",
+    semi_final: "Semi-final",
+    final: "Final"
+  };
+
+  const ownerByTeam = new Map();
+  (leaderboard || []).forEach(player => {
+    (player.teams || []).forEach(team => ownerByTeam.set(normaliseTeamName(team), player.name));
+  });
+
+  container.innerHTML = `
+    <div class="knockout-bracket-scroll">
+      <div class="knockout-bracket-grid">
+        ${stageOrder.map(stage => {
+          const stageMatches = knockoutMatches.filter(match => matchStageKey(match) === stage);
+          return `
+            <section class="bracket-stage bracket-stage-${stage}">
+              <h3>${stageTitles[stage]}</h3>
+              <div class="bracket-match-stack">
+                ${stageMatches.length ? stageMatches.map(match => {
+                  const owner1 = ownerByTeam.get(normaliseTeamName(match.team1));
+                  const owner2 = ownerByTeam.get(normaliseTeamName(match.team2));
+                  return `
+                    <article class="bracket-match ${match.completed ? "is-complete" : ""}">
+                      <span class="bracket-time">${formatDateTime(match.date)}</span>
+                      <div class="bracket-teams">
+                        <div class="bracket-team-row ${match.winner1 ? "winner" : ""}">
+                          ${bracketTeamHtml(match.team1)}
+                          ${match.completed ? `<strong>${escapeHtml(match.score1 ?? match.displayScore1 ?? "")}</strong>` : ""}
+                        </div>
+                        <div class="bracket-team-row ${match.winner2 ? "winner" : ""}">
+                          ${bracketTeamHtml(match.team2)}
+                          ${match.completed ? `<strong>${escapeHtml(match.score2 ?? match.displayScore2 ?? "")}</strong>` : ""}
+                        </div>
+                      </div>
+                      ${(owner1 || owner2) ? `<p class="bracket-owners">${owner1 ? `${escapeHtml(owner1)} owns ${teamLabelHtml(match.team1)}` : ""}${owner1 && owner2 ? " · " : ""}${owner2 ? `${escapeHtml(owner2)} owns ${teamLabelHtml(match.team2)}` : ""}</p>` : ""}
+                    </article>
+                  `;
+                }).join("") : `<article class="bracket-match bracket-placeholder"><span class="bracket-time">TBD</span><div class="bracket-teams"><div class="bracket-team-row">${bracketTeamHtml("TBD")}</div><div class="bracket-team-row">${bracketTeamHtml("TBD")}</div></div></article>`}
+              </div>
+            </section>
+          `;
+        }).join("")}
+      </div>
+    </div>
+  `;
 }
 
 function renderPlayerDetails(details, spoonTeam, mostGoalsTeams, knockoutData) {
@@ -2329,6 +2435,7 @@ async function init() {
   let playerDetails = [];
   let bonusData = null;
   let latestResults = [];
+  let matchesData = [];
   let dramaData = null;
   let spoonTeam = null;
   let badgesByPlayer = {};
@@ -2387,6 +2494,12 @@ async function init() {
   }
 
   try {
+    matchesData = await loadJson("data/matches.json");
+  } catch (error) {
+    console.warn("Match data not available for knockout bracket yet.");
+  }
+
+  try {
     dramaData = await loadJson("data/drama_feed.json");
   } catch (error) {
     console.warn("Drama feed not available yet; using current dashboard state instead.");
@@ -2406,6 +2519,7 @@ async function init() {
   renderLeaderboard(leaderboard, spoonTeam, badgesByPlayer, mostGoalsTeams);
   renderBonusTracker(bonusData, leaderboard);
   renderKnockoutTracker(bonusData?.knockoutTracker || bonusData, leaderboard);
+  renderKnockoutBracket(matchesData, leaderboard);
   renderPrizePoolSection(leaderboard, playerDetails, bonusData);
   renderWoodenSpoonRace(playerDetails);
   renderPlayerDetails(playerDetails, spoonTeam, mostGoalsTeams, bonusData?.knockoutTracker || bonusData);
