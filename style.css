@@ -4063,3 +4063,52 @@ body.title-option-broadcast .layered-hero-header::after {
 #board tbody tr.top-three:nth-of-type(3):hover > td {
   background: rgba(191, 97, 36, 0.20) !important;
 }
+
+/* Main leaderboard final podium override
+   Force the normal site leaderboard back to the original continuous full-row bands.
+   This must stay at the very end of style.css so later knockout/TV polish cannot
+   re-apply per-cell backgrounds that create the grid/block effect. */
+#board tbody tr.leader,
+#board tbody tr.top-three:first-child,
+#board tbody tr.top-three:nth-child(1) {
+  background: linear-gradient(90deg, rgba(255, 209, 102, 0.34) 0%, rgba(242, 204, 96, 0.16) 42%, rgba(8, 31, 49, 0.88) 100%) !important;
+  background-image: linear-gradient(90deg, rgba(255, 209, 102, 0.34) 0%, rgba(242, 204, 96, 0.16) 42%, rgba(8, 31, 49, 0.88) 100%) !important;
+  box-shadow: inset 6px 0 0 #ffd166, inset 0 1px 0 rgba(255, 209, 102, 0.34), inset 0 -1px 0 rgba(255, 209, 102, 0.22) !important;
+}
+
+#board tbody tr.top-three:nth-child(2) {
+  background: linear-gradient(90deg, rgba(201, 209, 217, 0.30) 0%, rgba(88, 166, 255, 0.16) 42%, rgba(8, 31, 49, 0.88) 100%) !important;
+  background-image: linear-gradient(90deg, rgba(201, 209, 217, 0.30) 0%, rgba(88, 166, 255, 0.16) 42%, rgba(8, 31, 49, 0.88) 100%) !important;
+  box-shadow: inset 6px 0 0 #c9d1d9, inset 0 1px 0 rgba(201, 209, 217, 0.28), inset 0 -1px 0 rgba(201, 209, 217, 0.18) !important;
+}
+
+#board tbody tr.top-three:nth-child(3) {
+  background: linear-gradient(90deg, rgba(191, 97, 36, 0.34) 0%, rgba(210, 153, 34, 0.13) 42%, rgba(8, 31, 49, 0.90) 100%) !important;
+  background-image: linear-gradient(90deg, rgba(191, 97, 36, 0.34) 0%, rgba(210, 153, 34, 0.13) 42%, rgba(8, 31, 49, 0.90) 100%) !important;
+  box-shadow: inset 6px 0 0 #bf6124, inset 0 1px 0 rgba(191, 97, 36, 0.28), inset 0 -1px 0 rgba(191, 97, 36, 0.18) !important;
+}
+
+#board tbody tr.leader > td,
+#board tbody tr.top-three > td,
+#board tbody tr.leader:hover > td,
+#board tbody tr.top-three:hover > td {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+#board tbody tr.leader:hover,
+#board tbody tr.top-three:hover {
+  transform: none !important;
+  filter: none !important;
+}
+
+#board tbody tr.leader td:first-child,
+#board tbody tr.top-three td:first-child,
+#board tbody tr.top-three:nth-child(2) td:first-child,
+#board tbody tr.top-three:nth-child(3) td:first-child {
+  box-shadow: none !important;
+}

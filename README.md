@@ -60,3 +60,7 @@ This version restores clean podium row styling, makes bracket ownership inline b
 ## Podium row visual fix
 
 The main and TV leaderboards now use flat full-row podium bands for 1st, 2nd and 3rd place. This removes the blocky per-column grid effect introduced by later TV/knockout styling passes.
+
+## Main leaderboard podium row correction
+
+The main site leaderboard podium rows are forced back to continuous full-row bands. The final override at the end of `style.css` prevents later knockout/TV styles from applying per-cell backgrounds that caused the grid/block effect.
