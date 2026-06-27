@@ -68,3 +68,7 @@ The main site leaderboard podium rows are forced back to continuous full-row ban
 ## True main leaderboard podium row fix
 
 Main-site top-three rows now remove all individual cell backgrounds and draw podium styling as one continuous row overlay.
+
+## Leaderboard podium styling restore
+
+The main leaderboard top-three rows have been restored to the original row-based styling. The later cell-level podium background overrides were removed because they caused the unwanted grid effect.

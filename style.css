@@ -3666,32 +3666,6 @@ body.title-option-broadcast .layered-hero-header::after {
 
 
 /* Knockout refinement pass */
-/* Keep top-three leaderboard rows looking like solid podium rows, not hover/grid blocks. */
-#board tbody tr.top-three:hover,
-#board tbody tr.leader:hover {
-  transform: none;
-}
-
-#board tbody tr.leader:hover {
-  background:
-    linear-gradient(90deg, rgba(255, 209, 102, 0.34), rgba(242, 204, 96, 0.16), rgba(8, 31, 49, 0.88));
-}
-
-#board tbody tr.top-three:nth-child(2):hover {
-  background:
-    linear-gradient(90deg, rgba(201, 209, 217, 0.3), rgba(88, 166, 255, 0.16), rgba(8, 31, 49, 0.88));
-}
-
-#board tbody tr.top-three:nth-child(3):hover {
-  background:
-    linear-gradient(90deg, rgba(191, 97, 36, 0.34), rgba(210, 153, 34, 0.13), rgba(8, 31, 49, 0.9));
-}
-
-#board tbody tr.top-three td,
-#board tbody tr.leader td {
-  background: transparent !important;
-}
-
 .team-bonus-pill {
   display: inline-flex;
   align-items: center;
@@ -3775,57 +3749,7 @@ body.title-option-broadcast .layered-hero-header::after {
   }
 }
 
-
-/* Final knockout/UI polish */
-#board tbody tr.leader td,
-#board tbody tr.top-three:nth-child(1) td {
-  background: rgba(255, 209, 102, 0.14) !important;
-}
-
-#board tbody tr.top-three:nth-child(2) td {
-  background: rgba(121, 192, 255, 0.16) !important;
-}
-
-#board tbody tr.top-three:nth-child(3) td {
-  background: rgba(191, 97, 36, 0.16) !important;
-}
-
-#board tbody tr.leader,
-#board tbody tr.top-three {
-  background: transparent !important;
-}
-
-#board tbody tr.leader:hover td,
-#board tbody tr.top-three:hover td {
-  filter: none !important;
-  transform: none !important;
-}
-
-#board tbody tr.leader:hover td {
-  background: rgba(255, 209, 102, 0.14) !important;
-}
-
-#board tbody tr.top-three:nth-child(2):hover td {
-  background: rgba(121, 192, 255, 0.16) !important;
-}
-
-#board tbody tr.top-three:nth-child(3):hover td {
-  background: rgba(191, 97, 36, 0.16) !important;
-}
-
-#board tbody tr.top-three td:first-child,
-#board tbody tr.leader td:first-child {
-  box-shadow: inset 6px 0 0 rgba(255, 209, 102, 0.95);
-}
-
-#board tbody tr.top-three:nth-child(2) td:first-child {
-  box-shadow: inset 6px 0 0 rgba(201, 209, 217, 0.95);
-}
-
-#board tbody tr.top-three:nth-child(3) td:first-child {
-  box-shadow: inset 6px 0 0 rgba(191, 97, 36, 0.95);
-}
-
+/* Knockout bracket layout */
 .knockout-bracket-section {
   position: relative;
 }
@@ -3934,44 +3858,7 @@ body.title-option-broadcast .layered-hero-header::after {
   }
 }
 
-
-/* Final fix: restore clean, full-row podium styling and remove arbitrary knockout highlighting. */
-#board tbody tr.leader,
-#board tbody tr.top-three:nth-child(1) {
-  background: linear-gradient(90deg, rgba(255, 209, 102, 0.34), rgba(242, 204, 96, 0.16), rgba(8, 31, 49, 0.88)) !important;
-  box-shadow: inset 6px 0 0 #ffd166, inset 0 1px 0 rgba(255, 209, 102, 0.34), inset 0 -1px 0 rgba(255, 209, 102, 0.22) !important;
-}
-
-#board tbody tr.top-three:nth-child(2) {
-  background: linear-gradient(90deg, rgba(201, 209, 217, 0.30), rgba(88, 166, 255, 0.16), rgba(8, 31, 49, 0.88)) !important;
-  box-shadow: inset 6px 0 0 #c9d1d9, inset 0 1px 0 rgba(201, 209, 217, 0.28), inset 0 -1px 0 rgba(201, 209, 217, 0.18) !important;
-}
-
-#board tbody tr.top-three:nth-child(3) {
-  background: linear-gradient(90deg, rgba(191, 97, 36, 0.34), rgba(210, 153, 34, 0.13), rgba(8, 31, 49, 0.9)) !important;
-  box-shadow: inset 6px 0 0 #bf6124, inset 0 1px 0 rgba(191, 97, 36, 0.28), inset 0 -1px 0 rgba(191, 97, 36, 0.18) !important;
-}
-
-#board tbody tr.leader td,
-#board tbody tr.top-three td,
-#board tbody tr.leader:hover td,
-#board tbody tr.top-three:hover td {
-  background: transparent !important;
-  box-shadow: none !important;
-  transform: none !important;
-  filter: none !important;
-}
-
-#board tbody tr.leader:hover,
-#board tbody tr.top-three:hover {
-  transform: none !important;
-}
-
-.knockout-team-card.top-knockout-card {
-  background: rgba(2, 18, 31, 0.58) !important;
-  border-color: rgba(88, 166, 255, 0.16) !important;
-}
-
+/* Knockout bracket inline ownership */
 .bracket-team-owned {
   display: inline-flex;
   align-items: center;
@@ -3998,229 +3885,24 @@ body.title-option-broadcast .layered-hero-header::after {
   display: none !important;
 }
 
-/* Podium row final reset - flat row bands, no per-cell/grid shading.
-   This deliberately uses a single flat colour per podium row to match the earlier clean leaderboard style. */
-#board tbody tr.leader,
-#board tbody tr.top-three {
-  background: transparent !important;
-  background-image: none !important;
-  box-shadow: none !important;
-  filter: none !important;
+/* Main leaderboard podium restore
+   Restores the original row-based top-three styling. Do not add td/cell backgrounds here. */
+#board tbody tr.top-three:hover,
+#board tbody tr.leader:hover {
   transform: none !important;
 }
 
-#board tbody tr.leader > td,
-#board tbody tr.top-three:nth-of-type(1) > td {
-  background: rgba(255, 209, 102, 0.20) !important;
-  background-image: none !important;
-  border-bottom-color: rgba(255, 209, 102, 0.36) !important;
-  box-shadow: none !important;
+#board tbody tr.leader:hover {
+  background:
+    linear-gradient(90deg, rgba(255, 209, 102, 0.34), rgba(242, 204, 96, 0.16), rgba(8, 31, 49, 0.88)) !important;
 }
 
-#board tbody tr.top-three:nth-of-type(2) > td {
-  background: rgba(88, 166, 255, 0.20) !important;
-  background-image: none !important;
-  border-bottom-color: rgba(201, 209, 217, 0.32) !important;
-  box-shadow: none !important;
+#board tbody tr.top-three:nth-child(2):hover {
+  background:
+    linear-gradient(90deg, rgba(201, 209, 217, 0.3), rgba(88, 166, 255, 0.16), rgba(8, 31, 49, 0.88)) !important;
 }
 
-#board tbody tr.top-three:nth-of-type(3) > td {
-  background: rgba(191, 97, 36, 0.20) !important;
-  background-image: none !important;
-  border-bottom-color: rgba(191, 97, 36, 0.32) !important;
-  box-shadow: none !important;
+#board tbody tr.top-three:nth-child(3):hover {
+  background:
+    linear-gradient(90deg, rgba(191, 97, 36, 0.34), rgba(210, 153, 34, 0.13), rgba(8, 31, 49, 0.9)) !important;
 }
-
-#board tbody tr.leader > td:first-child,
-#board tbody tr.top-three:nth-of-type(1) > td:first-child {
-  box-shadow: inset 6px 0 0 #ffd166 !important;
-}
-
-#board tbody tr.top-three:nth-of-type(2) > td:first-child {
-  box-shadow: inset 6px 0 0 #c9d1d9 !important;
-}
-
-#board tbody tr.top-three:nth-of-type(3) > td:first-child {
-  box-shadow: inset 6px 0 0 #bf6124 !important;
-}
-
-#board tbody tr.leader:hover > td,
-#board tbody tr.top-three:hover > td {
-  background-image: none !important;
-  filter: none !important;
-  transform: none !important;
-}
-
-#board tbody tr.leader:hover > td,
-#board tbody tr.top-three:nth-of-type(1):hover > td {
-  background: rgba(255, 209, 102, 0.20) !important;
-}
-
-#board tbody tr.top-three:nth-of-type(2):hover > td {
-  background: rgba(88, 166, 255, 0.20) !important;
-}
-
-#board tbody tr.top-three:nth-of-type(3):hover > td {
-  background: rgba(191, 97, 36, 0.20) !important;
-}
-
-/* Main leaderboard final podium override
-   Force the normal site leaderboard back to the original continuous full-row bands.
-   This must stay at the very end of style.css so later knockout/TV polish cannot
-   re-apply per-cell backgrounds that create the grid/block effect. */
-#board tbody tr.leader,
-#board tbody tr.top-three:first-child,
-#board tbody tr.top-three:nth-child(1) {
-  background: linear-gradient(90deg, rgba(255, 209, 102, 0.34) 0%, rgba(242, 204, 96, 0.16) 42%, rgba(8, 31, 49, 0.88) 100%) !important;
-  background-image: linear-gradient(90deg, rgba(255, 209, 102, 0.34) 0%, rgba(242, 204, 96, 0.16) 42%, rgba(8, 31, 49, 0.88) 100%) !important;
-  box-shadow: inset 6px 0 0 #ffd166, inset 0 1px 0 rgba(255, 209, 102, 0.34), inset 0 -1px 0 rgba(255, 209, 102, 0.22) !important;
-}
-
-#board tbody tr.top-three:nth-child(2) {
-  background: linear-gradient(90deg, rgba(201, 209, 217, 0.30) 0%, rgba(88, 166, 255, 0.16) 42%, rgba(8, 31, 49, 0.88) 100%) !important;
-  background-image: linear-gradient(90deg, rgba(201, 209, 217, 0.30) 0%, rgba(88, 166, 255, 0.16) 42%, rgba(8, 31, 49, 0.88) 100%) !important;
-  box-shadow: inset 6px 0 0 #c9d1d9, inset 0 1px 0 rgba(201, 209, 217, 0.28), inset 0 -1px 0 rgba(201, 209, 217, 0.18) !important;
-}
-
-#board tbody tr.top-three:nth-child(3) {
-  background: linear-gradient(90deg, rgba(191, 97, 36, 0.34) 0%, rgba(210, 153, 34, 0.13) 42%, rgba(8, 31, 49, 0.90) 100%) !important;
-  background-image: linear-gradient(90deg, rgba(191, 97, 36, 0.34) 0%, rgba(210, 153, 34, 0.13) 42%, rgba(8, 31, 49, 0.90) 100%) !important;
-  box-shadow: inset 6px 0 0 #bf6124, inset 0 1px 0 rgba(191, 97, 36, 0.28), inset 0 -1px 0 rgba(191, 97, 36, 0.18) !important;
-}
-
-#board tbody tr.leader > td,
-#board tbody tr.top-three > td,
-#board tbody tr.leader:hover > td,
-#board tbody tr.top-three:hover > td {
-  background: transparent !important;
-  background-color: transparent !important;
-  background-image: none !important;
-  box-shadow: none !important;
-  filter: none !important;
-  transform: none !important;
-}
-
-#board tbody tr.leader:hover,
-#board tbody tr.top-three:hover {
-  transform: none !important;
-  filter: none !important;
-}
-
-#board tbody tr.leader td:first-child,
-#board tbody tr.top-three td:first-child,
-#board tbody tr.top-three:nth-child(2) td:first-child,
-#board tbody tr.top-three:nth-child(3) td:first-child {
-  box-shadow: none !important;
-}
-
-
-/* ============================================================
-   TRUE MAIN LEADERBOARD PODIUM ROW FIX
-   ------------------------------------------------------------
-   Fixes the main-site grid/block effect by removing cell-level
-   podium backgrounds and drawing the top-3 highlight as one row
-   overlay instead.
-   ============================================================ */
-
-body:not(.tv-mode) table.leaderboard-table,
-body:not(.tv-mode) #leaderboard-table {
-  border-collapse: separate !important;
-  border-spacing: 0 !important;
-}
-
-body:not(.tv-mode) table.leaderboard-table tbody tr.rank-1,
-body:not(.tv-mode) table.leaderboard-table tbody tr.rank-2,
-body:not(.tv-mode) table.leaderboard-table tbody tr.rank-3,
-body:not(.tv-mode) table.leaderboard-table tbody tr.podium-row,
-body:not(.tv-mode) #leaderboard-table tbody tr.rank-1,
-body:not(.tv-mode) #leaderboard-table tbody tr.rank-2,
-body:not(.tv-mode) #leaderboard-table tbody tr.rank-3,
-body:not(.tv-mode) #leaderboard-table tbody tr.podium-row {
-  position: relative !important;
-  isolation: isolate !important;
-  background: transparent !important;
-  background-color: transparent !important;
-  background-image: none !important;
-  box-shadow: none !important;
-}
-
-body:not(.tv-mode) table.leaderboard-table tbody tr.rank-1::before,
-body:not(.tv-mode) table.leaderboard-table tbody tr.rank-2::before,
-body:not(.tv-mode) table.leaderboard-table tbody tr.rank-3::before,
-body:not(.tv-mode) table.leaderboard-table tbody tr.podium-row::before,
-body:not(.tv-mode) #leaderboard-table tbody tr.rank-1::before,
-body:not(.tv-mode) #leaderboard-table tbody tr.rank-2::before,
-body:not(.tv-mode) #leaderboard-table tbody tr.rank-3::before,
-body:not(.tv-mode) #leaderboard-table tbody tr.podium-row::before {
-  content: "" !important;
-  position: absolute !important;
-  inset: 0 !important;
-  z-index: -1 !important;
-  pointer-events: none !important;
-}
-
-/* Continuous row colour bands */
-body:not(.tv-mode) table.leaderboard-table tbody tr.rank-1::before,
-body:not(.tv-mode) #leaderboard-table tbody tr.rank-1::before,
-body:not(.tv-mode) table.leaderboard-table tbody tr.podium-row:nth-child(1)::before,
-body:not(.tv-mode) #leaderboard-table tbody tr.podium-row:nth-child(1)::before {
-  background: linear-gradient(90deg, rgba(255, 211, 95, 0.28), rgba(255, 211, 95, 0.10) 42%, rgba(255, 211, 95, 0.04) 100%) !important;
-}
-
-body:not(.tv-mode) table.leaderboard-table tbody tr.rank-2::before,
-body:not(.tv-mode) #leaderboard-table tbody tr.rank-2::before,
-body:not(.tv-mode) table.leaderboard-table tbody tr.podium-row:nth-child(2)::before,
-body:not(.tv-mode) #leaderboard-table tbody tr.podium-row:nth-child(2)::before {
-  background: linear-gradient(90deg, rgba(190, 225, 255, 0.25), rgba(91, 169, 255, 0.13) 42%, rgba(91, 169, 255, 0.05) 100%) !important;
-}
-
-body:not(.tv-mode) table.leaderboard-table tbody tr.rank-3::before,
-body:not(.tv-mode) #leaderboard-table tbody tr.rank-3::before,
-body:not(.tv-mode) table.leaderboard-table tbody tr.podium-row:nth-child(3)::before,
-body:not(.tv-mode) #leaderboard-table tbody tr.podium-row:nth-child(3)::before {
-  background: linear-gradient(90deg, rgba(205, 116, 47, 0.28), rgba(205, 116, 47, 0.12) 42%, rgba(205, 116, 47, 0.05) 100%) !important;
-}
-
-/* This is the important part: no podium cell is allowed to shade itself. */
-body:not(.tv-mode) table.leaderboard-table tbody tr.rank-1 > td,
-body:not(.tv-mode) table.leaderboard-table tbody tr.rank-2 > td,
-body:not(.tv-mode) table.leaderboard-table tbody tr.rank-3 > td,
-body:not(.tv-mode) table.leaderboard-table tbody tr.podium-row > td,
-body:not(.tv-mode) #leaderboard-table tbody tr.rank-1 > td,
-body:not(.tv-mode) #leaderboard-table tbody tr.rank-2 > td,
-body:not(.tv-mode) #leaderboard-table tbody tr.rank-3 > td,
-body:not(.tv-mode) #leaderboard-table tbody tr.podium-row > td {
-  background: transparent !important;
-  background-color: transparent !important;
-  background-image: none !important;
-  box-shadow: none !important;
-}
-
-/* Keep only the left medal stripe. */
-body:not(.tv-mode) table.leaderboard-table tbody tr.rank-1 > td:first-child,
-body:not(.tv-mode) #leaderboard-table tbody tr.rank-1 > td:first-child {
-  border-left: 7px solid #ffd35f !important;
-}
-body:not(.tv-mode) table.leaderboard-table tbody tr.rank-2 > td:first-child,
-body:not(.tv-mode) #leaderboard-table tbody tr.rank-2 > td:first-child {
-  border-left: 7px solid #d6ecff !important;
-}
-body:not(.tv-mode) table.leaderboard-table tbody tr.rank-3 > td:first-child,
-body:not(.tv-mode) #leaderboard-table tbody tr.rank-3 > td:first-child {
-  border-left: 7px solid #e07a2f !important;
-}
-
-/* No hover colour change on podium rows. */
-body:not(.tv-mode) table.leaderboard-table tbody tr.rank-1:hover > td,
-body:not(.tv-mode) table.leaderboard-table tbody tr.rank-2:hover > td,
-body:not(.tv-mode) table.leaderboard-table tbody tr.rank-3:hover > td,
-body:not(.tv-mode) table.leaderboard-table tbody tr.podium-row:hover > td,
-body:not(.tv-mode) #leaderboard-table tbody tr.rank-1:hover > td,
-body:not(.tv-mode) #leaderboard-table tbody tr.rank-2:hover > td,
-body:not(.tv-mode) #leaderboard-table tbody tr.rank-3:hover > td,
-body:not(.tv-mode) #leaderboard-table tbody tr.podium-row:hover > td {
-  background: transparent !important;
-  background-color: transparent !important;
-  background-image: none !important;
-}
-
