@@ -1,0 +1,69 @@
+.tv-leaderboard-table {
+  table-layout: fixed;
+}
+
+.tv-leaderboard-table th:nth-child(1),
+.tv-leaderboard-table td:nth-child(1) {
+  width: 8%;
+}
+
+.tv-leaderboard-table th:nth-child(2),
+.tv-leaderboard-table td:nth-child(2) {
+  width: 14%;
+}
+
+.tv-leaderboard-table th:nth-child(3),
+.tv-leaderboard-table td:nth-child(3) {
+  width: 42%;
+}
+
+.tv-leaderboard-table th:nth-child(4),
+.tv-leaderboard-table td:nth-child(4) {
+  width: 12%;
+}
+
+.tv-leaderboard-table th:nth-child(5),
+.tv-leaderboard-table td:nth-child(5) {
+  width: 12%;
+}
+
+.tv-leaderboard-table th:nth-child(6),
+.tv-leaderboard-table td:nth-child(6) {
+  width: 12%;
+}
+
+.tv-team-cell {
+  display: table-cell;
+  min-width: 0;
+  vertical-align: middle;
+}
+
+.tv-dashboard .tv-team-cell .team-name {
+  font-size: clamp(0.9rem, 0.95vw, 1.28rem);
+}
+
+.tv-badge-cell {
+  min-width: 0;
+}
+
+.tv-dashboard .badge-icon {
+  width: 38px;
+  height: 38px;
+  font-size: 1.35rem;
+}
+
+@media (max-width: 1500px) {
+  .tv-leaderboard-table th:nth-child(3),
+  .tv-leaderboard-table td:nth-child(3) {
+    width: 38%;
+  }
+
+  .tv-leaderboard-table th:nth-child(4),
+  .tv-leaderboard-table td:nth-child(4),
+  .tv-leaderboard-table th:nth-child(5),
+  .tv-leaderboard-table td:nth-child(5),
+  .tv-leaderboard-table th:nth-child(6),
+  .tv-leaderboard-table td:nth-child(6) {
+    width: 13%;
+  }
+}
