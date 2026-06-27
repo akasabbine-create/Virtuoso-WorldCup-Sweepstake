@@ -47,6 +47,17 @@ function normaliseText(value) {
   return String(value || "").trim().toLowerCase();
 }
 
+function normaliseTeamName(value) {
+  const raw = typeof value === "object" && value !== null
+    ? (value.team || value.name || value.displayName || value.shortDisplayName || "")
+    : value;
+
+  return normaliseText(raw)
+    .replace(/&/g, "and")
+    .replace(/[’']/g, "")
+    .replace(/\s+/g, " ");
+}
+
 function escapeHtml(value) {
   return String(value ?? "")
     .replace(/&/g, "&amp;")
@@ -2427,6 +2438,15 @@ function renderLatestResults(results) {
   });
 }
 
+function safeRender(label, callback) {
+  try {
+    return callback();
+  } catch (error) {
+    console.error(`${label} failed`, error);
+    return null;
+  }
+}
+
 async function init() {
   updateStaticPageText();
   makeRulesCollapsible();
@@ -2514,16 +2534,16 @@ async function init() {
   badgesByPlayer = badgeData.badgesByPlayer;
   mostGoalsTeams = badgeData.mostGoalsTeams || [];
 
-  renderSummaryCards(leaderboard, playerDetails);
-  renderInsightStrip(leaderboard, latestResults);
-  renderLeaderboard(leaderboard, spoonTeam, badgesByPlayer, mostGoalsTeams);
-  renderBonusTracker(bonusData, leaderboard);
-  renderKnockoutTracker(bonusData?.knockoutTracker || bonusData, leaderboard);
-  renderKnockoutBracket(matchesData, leaderboard);
-  renderPrizePoolSection(leaderboard, playerDetails, bonusData);
-  renderWoodenSpoonRace(playerDetails);
-  renderPlayerDetails(playerDetails, spoonTeam, mostGoalsTeams, bonusData?.knockoutTracker || bonusData);
-  renderLatestResults(latestResults);
+  safeRender("Summary cards", () => renderSummaryCards(leaderboard, playerDetails));
+  safeRender("Insight strip", () => renderInsightStrip(leaderboard, latestResults));
+  safeRender("Leaderboard", () => renderLeaderboard(leaderboard, spoonTeam, badgesByPlayer, mostGoalsTeams));
+  safeRender("Bonus tracker", () => renderBonusTracker(bonusData, leaderboard));
+  safeRender("Knockout tracker", () => renderKnockoutTracker(bonusData?.knockoutTracker || bonusData, leaderboard));
+  safeRender("Knockout bracket", () => renderKnockoutBracket(matchesData, leaderboard));
+  safeRender("Prize pool", () => renderPrizePoolSection(leaderboard, playerDetails, bonusData));
+  safeRender("Wooden spoon race", () => renderWoodenSpoonRace(playerDetails));
+  safeRender("Player details", () => renderPlayerDetails(playerDetails, spoonTeam, mostGoalsTeams, bonusData?.knockoutTracker || bonusData));
+  safeRender("Latest results", () => renderLatestResults(latestResults));
 
   try {
     const status = await loadJson("data/status.json");
@@ -2540,10 +2560,10 @@ async function init() {
 
   try {
     const upcomingFixtures = await loadJson("data/upcoming_fixtures.json");
-    renderUpcomingFixtures(upcomingFixtures);
-    renderBiggestPossibleMove(leaderboard, upcomingFixtures);
-    renderMatchdayStorylines(leaderboard, upcomingFixtures);
-    renderDramaFeed(dramaData, leaderboard, playerDetails, bonusData, latestResults);
+    safeRender("Upcoming fixtures", () => renderUpcomingFixtures(upcomingFixtures));
+    safeRender("Biggest possible move", () => renderBiggestPossibleMove(leaderboard, upcomingFixtures));
+    safeRender("Matchday storylines", () => renderMatchdayStorylines(leaderboard, upcomingFixtures));
+    safeRender("Drama feed", () => renderDramaFeed(dramaData, leaderboard, playerDetails, bonusData, latestResults));
   } catch (error) {
     console.error(error);
 
@@ -2553,9 +2573,9 @@ async function init() {
       upcomingEl.textContent = "Upcoming fixtures not available yet.";
     }
 
-    renderBiggestPossibleMove(leaderboard, []);
-    renderMatchdayStorylines(leaderboard, []);
-    renderDramaFeed(dramaData, leaderboard, playerDetails, bonusData, latestResults);
+    safeRender("Biggest possible move fallback", () => renderBiggestPossibleMove(leaderboard, []));
+    safeRender("Matchday storylines fallback", () => renderMatchdayStorylines(leaderboard, []));
+    safeRender("Drama feed", () => renderDramaFeed(dramaData, leaderboard, playerDetails, bonusData, latestResults));
   }
 }
 
