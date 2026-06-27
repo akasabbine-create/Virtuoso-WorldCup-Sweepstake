@@ -329,3 +329,43 @@
 .tv-knockout-fixture-list mark { display: inline-flex; margin-top: 8px; padding: 4px 7px; border-radius: 999px; background: rgba(255,209,102,.12); color: #ffd166; font-weight: 900; }
 .tv-knockout-bonus-list article { display: grid; grid-template-columns: auto 1fr auto; gap: 4px 10px; align-items: center; }
 .tv-knockout-bonus-list small { grid-column: 1 / -1; }
+
+/* Final TV podium row repair: keep top 3 as continuous row bands, not per-cell blocks. */
+.tv-leaderboard-table {
+  border-collapse: separate !important;
+}
+
+.tv-leaderboard-table tbody tr:nth-child(1),
+.tv-leaderboard-table tbody tr.tv-rank-leader {
+  background: linear-gradient(90deg, rgba(245, 190, 74, .30), rgba(245, 190, 74, .12) 30%, rgba(5, 18, 44, .88) 100%) !important;
+  box-shadow: inset 4px 0 0 #f5be4a !important;
+}
+
+.tv-leaderboard-table tbody tr:nth-child(2),
+.tv-leaderboard-table tbody tr.tv-rank-podium:nth-child(2) {
+  background: linear-gradient(90deg, rgba(210, 220, 232, .24), rgba(88, 166, 255, .12) 30%, rgba(5, 18, 44, .88) 100%) !important;
+  box-shadow: inset 4px 0 0 #d6dee8 !important;
+}
+
+.tv-leaderboard-table tbody tr:nth-child(3),
+.tv-leaderboard-table tbody tr.tv-rank-podium:nth-child(3) {
+  background: linear-gradient(90deg, rgba(202, 125, 73, .24), rgba(202, 125, 73, .10) 30%, rgba(5, 18, 44, .88) 100%) !important;
+  box-shadow: inset 4px 0 0 #c98252 !important;
+}
+
+.tv-leaderboard-table tbody tr:nth-child(1) > td,
+.tv-leaderboard-table tbody tr:nth-child(2) > td,
+.tv-leaderboard-table tbody tr:nth-child(3) > td,
+.tv-leaderboard-table tbody tr.tv-rank-leader > td,
+.tv-leaderboard-table tbody tr.tv-rank-podium > td {
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.tv-leaderboard-table tbody tr:nth-child(1) > td:first-child,
+.tv-leaderboard-table tbody tr:nth-child(2) > td:first-child,
+.tv-leaderboard-table tbody tr:nth-child(3) > td:first-child {
+  box-shadow: none !important;
+}
