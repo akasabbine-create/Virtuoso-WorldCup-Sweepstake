@@ -1562,6 +1562,151 @@ function renderBonusTracker(bonusData, leaderboard) {
   `;
 }
 
+
+function stageShortLabel(stage) {
+  const map = {
+    round_of_32: "R32",
+    round_of_16: "R16",
+    quarter_final: "QF",
+    semi_final: "SF",
+    final: "Final",
+    winner: "Winner"
+  };
+
+  return map[stage] || stage;
+}
+
+function renderKnockoutTracker(knockoutData, leaderboard) {
+  const container = document.querySelector("#knockout-tracker");
+
+  if (!container) return;
+
+  const tracker = knockoutData?.rows
+    ? knockoutData
+    : (knockoutData?.knockoutTracker || knockoutData || {});
+
+  const rows = tracker.rows || [];
+  const awardedItems = tracker.awardedItems || [];
+
+  if (!rows.length) {
+    container.innerHTML = `
+      <div class="knockout-empty-card">
+        <h3>No knockout bonuses awarded yet</h3>
+        <p>As soon as qualified teams appear in the knockout fixtures, this section will show exactly which player and team received each bonus.</p>
+      </div>
+    `;
+    return;
+  }
+
+  const activeRows = rows
+    .filter(row => Number(row.total || 0) > 0)
+    .sort((a, b) => Number(b.total || 0) - Number(a.total || 0) || String(a.owner || "").localeCompare(String(b.owner || "")));
+
+  const topRows = activeRows.slice(0, 8);
+  const recentItems = awardedItems.slice(0, 10);
+
+  const totalAwarded = activeRows.reduce((sum, row) => sum + Number(row.total || 0), 0);
+  const teamsQualified = activeRows.length;
+  const cleanSheets = rows.reduce((sum, row) => sum + (row.cleanSheets || []).length, 0);
+
+  const stageOrder = ["round_of_32", "round_of_16", "quarter_final", "semi_final", "final", "winner"];
+
+  const stageSummary = stageOrder.map(stage => {
+    const count = rows.filter(row => (row.stageBonuses || []).some(item => item.stage === stage)).length;
+    const stageMeta = (tracker.stages || []).find(item => item.key === stage);
+
+    return `
+      <div class="knockout-stage-chip ${count ? "stage-active" : ""}">
+        <span>${stageShortLabel(stage)}</span>
+        <strong>${count}</strong>
+        <small>${stageMeta?.points ? `+${stageMeta.points}` : ""}</small>
+      </div>
+    `;
+  }).join("");
+
+  const leaderboardByPlayer = Object.fromEntries((leaderboard || []).map(player => [player.name, player]));
+
+  const contendersHtml = topRows.length
+    ? topRows.map((row, index) => {
+        const player = leaderboardByPlayer[row.owner] || {};
+        const stageBadges = (row.stageBonuses || []).map(item => `
+          <span class="knockout-bonus-pill">${stageShortLabel(item.stage)} +${item.points}</span>
+        `).join("");
+
+        const cleanSheetBadges = (row.cleanSheets || []).map(item => `
+          <span class="knockout-bonus-pill clean-sheet-pill">CS +${item.points}</span>
+        `).join("");
+
+        return `
+          <article class="knockout-team-card ${index === 0 ? "top-knockout-card" : ""}">
+            <div class="knockout-team-header">
+              <span class="knockout-owner">${row.owner}</span>
+              <strong>${row.total} bonus pts</strong>
+            </div>
+            <h3>${teamLabelHtml(row.team)}</h3>
+            <p>Rank ${player.rank || "—"} · Total ${player.points ?? "—"} pts · Bonus ${player.bonusPoints ?? row.total}</p>
+            <div class="knockout-bonus-pills">
+              ${stageBadges || `<span class="knockout-bonus-pill muted">No progression yet</span>`}
+              ${cleanSheetBadges}
+            </div>
+          </article>
+        `;
+      }).join("")
+    : `
+      <div class="knockout-empty-card">
+        <h3>No teams have qualified for knockout bonuses yet</h3>
+        <p>This will come alive as soon as the knockout fixtures start filling with real teams.</p>
+      </div>
+    `;
+
+  const awardedHtml = recentItems.length
+    ? recentItems.map(item => `
+        <li>
+          <span class="knockout-award-player">${item.owner}</span>
+          <span>${teamLabelHtml(item.team)}</span>
+          <strong>+${item.points}</strong>
+          <em>${item.label}</em>
+          <small>${item.reason}</small>
+        </li>
+      `).join("")
+    : `<li><span>No awarded knockout bonuses yet.</span></li>`;
+
+  container.innerHTML = `
+    <div class="knockout-overview-card">
+      <div>
+        <span class="knockout-eyebrow">Knockout bonus points</span>
+        <h3>${totalAwarded} pts awarded</h3>
+        <p>${teamsQualified} teams have active knockout bonuses. ${cleanSheets} knockout clean sheets tracked.</p>
+      </div>
+      <div class="knockout-stage-grid">
+        ${stageSummary}
+      </div>
+    </div>
+
+    <div class="knockout-main-grid">
+      <div class="knockout-qualified-panel">
+        <div class="knockout-panel-header">
+          <h3>Qualified teams & bonus impact</h3>
+          <span>Top bonus earners</span>
+        </div>
+        <div class="knockout-team-grid">
+          ${contendersHtml}
+        </div>
+      </div>
+
+      <div class="knockout-awards-panel">
+        <div class="knockout-panel-header">
+          <h3>Bonus transparency log</h3>
+          <span>Latest awards</span>
+        </div>
+        <ul class="knockout-awards-list">
+          ${awardedHtml}
+        </ul>
+      </div>
+    </div>
+  `;
+}
+
 function renderWoodenSpoonRace(playerDetails) {
   const container = document.querySelector("#wooden-spoon-race");
 
@@ -2215,6 +2360,7 @@ async function init() {
   renderInsightStrip(leaderboard, latestResults);
   renderLeaderboard(leaderboard, spoonTeam, badgesByPlayer, mostGoalsTeams);
   renderBonusTracker(bonusData, leaderboard);
+  renderKnockoutTracker(bonusData?.knockoutTracker || bonusData, leaderboard);
   renderPrizePoolSection(leaderboard, playerDetails, bonusData);
   renderWoodenSpoonRace(playerDetails);
   renderPlayerDetails(playerDetails, spoonTeam, mostGoalsTeams);

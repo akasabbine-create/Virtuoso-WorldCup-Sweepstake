@@ -38,3 +38,13 @@ The layered hero now includes a mobile-specific CSS override so the transparent 
 ## Mobile hero blend polish
 
 The mobile hero has an additional CSS pass that softens the stadium edges and fades the image into the page background on smaller screens.
+
+## Knockout tracker
+
+Knockout bonus handling is now live:
+
+- Progression bonuses are awarded as soon as ESPN shows a real team in the relevant knockout fixture.
+- Round of 32 +5, Round of 16 +5, quarter-final +5, semi-final +10, final +10, winner +15.
+- Knockout clean sheets add +2 from the Round of 32 onwards.
+- Penalty shootout winners count as the match winner for sweepstake points because the progressing team is what matters.
+- `data/knockout_tracker.json` powers the visible Knockout Tracker section for bonus transparency.

@@ -3408,3 +3408,258 @@ body.title-option-broadcast .layered-hero-header::after {
   border: 1px solid rgba(88, 166, 255, 0.22) !important;
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16) !important;
 }
+
+/* Knockout Tracker */
+.knockout-tracker-section {
+  position: relative;
+}
+
+.knockout-tracker {
+  display: grid;
+  gap: 1rem;
+}
+
+.knockout-overview-card,
+.knockout-qualified-panel,
+.knockout-awards-panel,
+.knockout-empty-card {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 92% 0%, rgba(255, 203, 87, 0.18), transparent 30%),
+    linear-gradient(135deg, rgba(17, 55, 82, 0.92), rgba(5, 26, 42, 0.94));
+  border: 1px solid rgba(88, 166, 255, 0.25);
+  border-radius: 18px;
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.18);
+}
+
+.knockout-overview-card {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.8fr) 1.4fr;
+  gap: 1rem;
+  align-items: center;
+  padding: 1.1rem;
+  border-left: 5px solid #ffd166;
+}
+
+.knockout-eyebrow,
+.knockout-panel-header span {
+  display: inline-block;
+  color: #7fd3ff;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.knockout-overview-card h3 {
+  margin: 0.15rem 0;
+  color: #ffd166;
+  font-size: clamp(1.8rem, 4vw, 3.1rem);
+  line-height: 1;
+}
+
+.knockout-overview-card p,
+.knockout-team-card p,
+.knockout-empty-card p {
+  margin: 0;
+  color: rgba(226, 241, 255, 0.8);
+}
+
+.knockout-stage-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.knockout-stage-chip {
+  display: grid;
+  gap: 0.1rem;
+  place-items: center;
+  min-height: 72px;
+  padding: 0.6rem 0.4rem;
+  background: rgba(2, 18, 31, 0.55);
+  border: 1px solid rgba(88, 166, 255, 0.16);
+  border-radius: 14px;
+}
+
+.knockout-stage-chip.stage-active {
+  background: linear-gradient(135deg, rgba(255, 209, 102, 0.24), rgba(18, 99, 71, 0.2));
+  border-color: rgba(255, 209, 102, 0.42);
+}
+
+.knockout-stage-chip span {
+  color: rgba(226, 241, 255, 0.8);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.knockout-stage-chip strong {
+  color: #fff;
+  font-size: 1.25rem;
+}
+
+.knockout-stage-chip small {
+  color: #ffd166;
+  font-weight: 800;
+}
+
+.knockout-main-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+  gap: 1rem;
+}
+
+.knockout-qualified-panel,
+.knockout-awards-panel,
+.knockout-empty-card {
+  padding: 1rem;
+}
+
+.knockout-panel-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.85rem;
+}
+
+.knockout-panel-header h3,
+.knockout-empty-card h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 1.15rem;
+}
+
+.knockout-team-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.knockout-team-card {
+  padding: 0.85rem;
+  background: rgba(2, 18, 31, 0.58);
+  border: 1px solid rgba(88, 166, 255, 0.16);
+  border-radius: 14px;
+}
+
+.knockout-team-card.top-knockout-card {
+  background: linear-gradient(135deg, rgba(255, 209, 102, 0.20), rgba(2, 18, 31, 0.58));
+  border-color: rgba(255, 209, 102, 0.42);
+}
+
+.knockout-team-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.45rem;
+}
+
+.knockout-owner {
+  color: #7fd3ff;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.knockout-team-header strong {
+  color: #ffd166;
+}
+
+.knockout-team-card h3 {
+  margin: 0 0 0.45rem;
+  color: #fff;
+  font-size: 1.05rem;
+}
+
+.knockout-bonus-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.65rem;
+}
+
+.knockout-bonus-pill {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(255, 209, 102, 0.28);
+  border-radius: 999px;
+  padding: 0.2rem 0.5rem;
+  color: #ffe08a;
+  background: rgba(255, 209, 102, 0.11);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.knockout-bonus-pill.clean-sheet-pill {
+  color: #8ee7ff;
+  border-color: rgba(126, 211, 255, 0.3);
+  background: rgba(126, 211, 255, 0.1);
+}
+
+.knockout-bonus-pill.muted {
+  color: rgba(226, 241, 255, 0.65);
+  border-color: rgba(226, 241, 255, 0.14);
+  background: rgba(226, 241, 255, 0.06);
+}
+
+.knockout-awards-list {
+  display: grid;
+  gap: 0.55rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.knockout-awards-list li {
+  display: grid;
+  grid-template-columns: 90px 1fr auto;
+  gap: 0.35rem 0.55rem;
+  align-items: center;
+  padding: 0.65rem;
+  background: rgba(2, 18, 31, 0.55);
+  border: 1px solid rgba(88, 166, 255, 0.14);
+  border-radius: 12px;
+}
+
+.knockout-award-player {
+  color: #fff;
+  font-weight: 900;
+}
+
+.knockout-awards-list strong {
+  color: #ffd166;
+  font-size: 1.05rem;
+}
+
+.knockout-awards-list em,
+.knockout-awards-list small {
+  grid-column: 2 / -1;
+  color: rgba(226, 241, 255, 0.75);
+  font-style: normal;
+}
+
+@media screen and (max-width: 900px) {
+  .knockout-overview-card,
+  .knockout-main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .knockout-stage-grid,
+  .knockout-team-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .knockout-awards-list li {
+    grid-template-columns: 1fr auto;
+  }
+
+  .knockout-award-player,
+  .knockout-awards-list em,
+  .knockout-awards-list small {
+    grid-column: 1 / -1;
+  }
+}
