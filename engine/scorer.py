@@ -618,6 +618,83 @@ def knockout_match_label(match):
     return f"{match.get('team1')} v {match.get('team2')}"
 
 
+def build_progression_awards(matches):
+    """Return valid knockout progression awards.
+
+    Round of 32 is awarded from confirmed Round-of-32 fixtures because a real
+    team appearing there means it qualified from the group stage.
+
+    Later rounds are awarded only from the winner/progressing team of a
+    completed previous-round match. This prevents both teams in a future fixture
+    being incorrectly awarded the next round before they have played each other.
+    """
+    next_stage_by_completed_stage = {
+        "round_of_32": "round_of_16",
+        "round_of_16": "quarter_final",
+        "quarter_final": "semi_final",
+        "semi_final": "final",
+    }
+
+    awards = []
+    seen = set()
+
+    def add_award(team, stage, match, reason):
+        team = normalise_team_name(team)
+
+        if not team or is_placeholder_team(team) or stage not in PROGRESSION_BONUSES:
+            return
+
+        key = (team, stage)
+
+        if key in seen:
+            return
+
+        seen.add(key)
+        label, points = PROGRESSION_BONUSES[stage]
+        awards.append({
+            "team": team,
+            "stage": stage,
+            "label": label,
+            "points": points,
+            "date": match.get("date"),
+            "match": knockout_match_label(match),
+            "reason": reason,
+        })
+
+    for match in matches:
+        stage = get_match_stage(match)
+
+        # Reaching the Round of 32 is known once the real team appears in a
+        # confirmed Round-of-32 fixture.
+        if stage == "round_of_32":
+            for team in [match.get("team1"), match.get("team2")]:
+                team = normalise_team_name(team)
+                add_award(
+                    team,
+                    "round_of_32",
+                    match,
+                    f"{team} qualified for the Round of 32"
+                )
+
+        # Reaching later rounds is only known once the previous round has been
+        # completed and a winner/progressing team is available.
+        next_stage = next_stage_by_completed_stage.get(stage)
+
+        if next_stage and match.get("score1") is not None and match.get("score2") is not None:
+            winner_team = normalise_team_name(match_winner(match))
+
+            if winner_team:
+                next_label = PROGRESSION_BONUSES[next_stage][0].replace("Reach ", "")
+                add_award(
+                    winner_team,
+                    next_stage,
+                    match,
+                    f"{winner_team} progressed to the {next_label} by winning {knockout_match_label(match)}"
+                )
+
+    return awards
+
+
 def build_knockout_tracker(players, matches, player_bonuses=None):
     stage_order = [
         ("round_of_32", "Round of 32", 5),
@@ -649,41 +726,41 @@ def build_knockout_tracker(players, matches, player_bonuses=None):
     seen_stage = set()
     seen_clean_sheets = set()
 
+    for award in build_progression_awards(matches):
+        team = normalise_team_name(award.get("team"))
+        stage = award.get("stage")
+
+        if team not in by_team:
+            continue
+
+        key = (team, stage)
+
+        if key in seen_stage:
+            continue
+
+        seen_stage.add(key)
+        label = award.get("label")
+        points = award.get("points", 0)
+
+        item = {
+            "stage": stage,
+            "label": label,
+            "shortLabel": dict((k, v) for k, v, _ in stage_order).get(stage, label),
+            "team": team,
+            "owner": team_to_owner.get(team),
+            "points": points,
+            "date": award.get("date"),
+            "match": award.get("match"),
+            "reason": award.get("reason"),
+            "status": "awarded",
+        }
+
+        by_team[team]["stageBonuses"].append(item)
+        by_team[team]["total"] += points
+        stage_summary.append(item)
+
     for match in matches:
         stage = get_match_stage(match)
-
-        if stage in PROGRESSION_BONUSES:
-            label, points = PROGRESSION_BONUSES[stage]
-
-            for team in [match.get("team1"), match.get("team2")]:
-                team = normalise_team_name(team)
-
-                if is_placeholder_team(team) or team not in by_team:
-                    continue
-
-                key = (team, stage)
-
-                if key in seen_stage:
-                    continue
-
-                seen_stage.add(key)
-
-                item = {
-                    "stage": stage,
-                    "label": label,
-                    "shortLabel": dict((k, v) for k, v, _ in stage_order).get(stage, label),
-                    "team": team,
-                    "owner": team_to_owner.get(team),
-                    "points": points,
-                    "date": match.get("date"),
-                    "match": knockout_match_label(match),
-                    "reason": f"{team} qualified for the {label.replace('Reach ', '')}",
-                    "status": "awarded",
-                }
-
-                by_team[team]["stageBonuses"].append(item)
-                by_team[team]["total"] += points
-                stage_summary.append(item)
 
         if stage == "final" and match.get("score1") is not None and match.get("score2") is not None:
             winner_team = match_winner(match)
@@ -764,7 +841,7 @@ def build_knockout_tracker(players, matches, player_bonuses=None):
         "awardedItems": sorted(stage_summary, key=lambda row: (row.get("date") or "", row.get("owner") or ""), reverse=True),
         "stageSummary": stage_summary,
         "notes": [
-            "Progression bonuses are awarded as soon as ESPN shows a real team in the relevant knockout fixture.",
+            "Round of 32 bonuses are awarded from confirmed fixtures; later progression bonuses are awarded only after the previous knockout match is completed.",
             "Penalty shootout winners count as the match winner for sweepstake points because the progressing team is what matters.",
             "Knockout clean sheet bonuses start from the Round of 32 and apply to all knockout-stage matches.",
         ],
@@ -789,31 +866,27 @@ def build_bonus_points(players, matches):
     stage_awards_seen = set()
     clean_sheet_awards_seen = set()
 
+    for award in build_progression_awards(matches):
+        team = normalise_team_name(award.get("team"))
+        stage = award.get("stage")
+        key = (team, stage)
+
+        if key in stage_awards_seen:
+            continue
+
+        stage_awards_seen.add(key)
+
+        add_bonus(
+            player_bonuses,
+            team_to_players,
+            team,
+            award.get("label"),
+            award.get("points", 0),
+            award.get("reason")
+        )
+
     for match in matches:
         stage = get_match_stage(match)
-
-        if stage in PROGRESSION_BONUSES:
-            label, points = PROGRESSION_BONUSES[stage]
-
-            for team in [match.get("team1"), match.get("team2")]:
-                team = normalise_team_name(team)
-
-                if is_placeholder_team(team):
-                    continue
-
-                key = (team, stage)
-
-                if key not in stage_awards_seen:
-                    stage_awards_seen.add(key)
-
-                    add_bonus(
-                        player_bonuses,
-                        team_to_players,
-                        team,
-                        label,
-                        points,
-                        f"{team} qualified for the {label.replace('Reach ', '')}"
-                    )
 
         if stage == "final" and match.get("score1") is not None and match.get("score2") is not None:
             winner_team = match_winner(match)
@@ -935,7 +1008,7 @@ def build_bonus_points(players, matches):
         "fastestGoal": fastest_goal,
         "fastestGoalRace": fastest_goal_race,
         "notes": [
-            "Progression bonuses are awarded as soon as a team qualifies for each knockout stage.",
+            "Round of 32 bonuses are awarded from confirmed fixtures; later progression bonuses are awarded only when a team progresses by winning the previous knockout round.",
             "Penalty shootout winners count as the match winner for sweepstake points because the progressing team is what matters.",
             "Knockout clean sheet bonuses are awarded automatically from knockout-stage scores.",
             "Golden Boot and most goals by nation are tracked during the tournament and awarded when the tournament is complete.",
