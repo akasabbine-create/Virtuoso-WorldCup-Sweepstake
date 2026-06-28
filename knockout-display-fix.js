@@ -35,6 +35,19 @@
     return map[stage] || "Progress";
   }
 
+  function stageDisplayLabel(stage) {
+    const map = {
+      group: "Group stage",
+      round_of_32: "Round of 32",
+      round_of_16: "Round of 16",
+      quarter_final: "Quarter-final",
+      semi_final: "Semi-final",
+      final: "Final",
+      third_place: "Third place"
+    };
+    return map[stage] || "Knockout";
+  }
+
   function isKnockoutPotentialMatch(match) {
     const stage = typeof matchStageKey === "function" ? matchStageKey(match) : "";
     return ["round_of_32", "round_of_16", "quarter_final", "semi_final", "final"].includes(stage);
@@ -149,7 +162,8 @@
       }
 
       .knockout-player-card,
-      .knockout-eliminated-card {
+      .knockout-eliminated-card,
+      .knockout-out-card {
         border: 1px solid rgba(95, 169, 255, 0.24);
         border-radius: 18px;
         background: rgba(3, 18, 30, 0.36);
@@ -160,8 +174,13 @@
         box-shadow: inset 4px 0 0 rgba(255, 209, 102, 0.82);
       }
 
+      .knockout-out-card {
+        box-shadow: inset 4px 0 0 rgba(255, 107, 107, 0.72);
+      }
+
       .knockout-player-topline,
-      .knockout-eliminated-topline {
+      .knockout-eliminated-topline,
+      .knockout-out-topline {
         display: flex;
         justify-content: space-between;
         gap: 12px;
@@ -170,9 +189,13 @@
       }
 
       .knockout-player-topline strong,
-      .knockout-eliminated-topline strong {
+      .knockout-eliminated-topline strong,
+      .knockout-out-topline strong,
+      .knockout-eliminated-topline h3,
+      .knockout-out-topline h3 {
         color: #fff;
         font-size: 1.08rem;
+        margin: 0;
       }
 
       .knockout-player-topline span {
@@ -180,8 +203,15 @@
         font-weight: 900;
       }
 
+      .knockout-out-topline span,
+      .knockout-eliminated-topline span {
+        color: var(--muted);
+        font-weight: 800;
+      }
+
       .knockout-qualified-team-list,
-      .knockout-eliminated-team-list {
+      .knockout-eliminated-team-list,
+      .knockout-out-player-list {
         display: grid;
         gap: 8px;
       }
@@ -200,27 +230,58 @@
         justify-content: flex-end;
       }
 
+      .knockout-out-card,
       .knockout-eliminated-card {
         margin-top: 14px;
+      }
+
+      .knockout-eliminated-card {
         border-color: rgba(255, 255, 255, 0.12);
         background: rgba(3, 18, 30, 0.22);
       }
 
-      .knockout-eliminated-card h3 {
-        margin: 0 0 10px;
+      .knockout-out-card {
+        border-color: rgba(255, 107, 107, 0.22);
+        background: rgba(35, 13, 21, 0.22);
       }
 
-      .knockout-eliminated-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        justify-content: space-between;
+      .knockout-eliminated-row,
+      .knockout-out-row {
+        display: grid;
+        grid-template-columns: 110px minmax(0, 1fr);
+        gap: 10px;
+        align-items: start;
         padding: 9px 0;
         border-top: 1px solid rgba(255, 255, 255, 0.08);
       }
 
-      .knockout-eliminated-row:first-child {
+      .knockout-eliminated-row:first-child,
+      .knockout-out-row:first-child {
         border-top: 0;
+      }
+
+      .knockout-out-team-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .knockout-out-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 9px;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 107, 107, 0.22);
+        background: rgba(255, 107, 107, 0.08);
+      }
+
+      .knockout-out-chip small {
+        color: #ffb4b4;
+        font-size: 0.72rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
       }
 
       .potential-chip small {
@@ -234,7 +295,10 @@
       @media (max-width: 700px) {
         .knockout-qualified-team-row,
         .knockout-player-topline,
-        .knockout-eliminated-topline {
+        .knockout-eliminated-topline,
+        .knockout-out-topline,
+        .knockout-eliminated-row,
+        .knockout-out-row {
           grid-template-columns: 1fr;
           flex-direction: column;
         }
@@ -246,6 +310,124 @@
     `;
 
     document.head.appendChild(style);
+  }
+
+  function knockoutWinner(match) {
+    if (Number(match.score1) > Number(match.score2)) return match.team1;
+    if (Number(match.score2) > Number(match.score1)) return match.team2;
+    if (match.winner1) return match.team1;
+    if (match.winner2) return match.team2;
+    return null;
+  }
+
+  function knockoutLoser(match) {
+    const winner = knockoutWinner(match);
+    if (!winner) return null;
+    if (normalise(winner) === normalise(match.team1)) return match.team2;
+    if (normalise(winner) === normalise(match.team2)) return match.team1;
+    return null;
+  }
+
+  function buildKnockedOutTeams(rows, matches, leaderboard) {
+    const teamsByName = new Map();
+
+    (leaderboard || []).forEach(player => {
+      (player.teams || []).forEach(team => {
+        teamsByName.set(normalise(team), {
+          owner: player.name,
+          team,
+          stage: "group",
+          stageLabel: "Group stage"
+        });
+      });
+    });
+
+    // Any team with a knockout stage bonus did get out of the group, so remove
+    // the default group-stage exit unless a completed knockout loss puts it back.
+    (rows || []).forEach(row => {
+      if ((row.stageBonuses || []).length > 0) {
+        teamsByName.delete(normalise(row.team));
+      }
+    });
+
+    (matches || []).forEach(match => {
+      const stage = typeof matchStageKey === "function" ? matchStageKey(match) : "";
+      const isKnockout = ["round_of_32", "round_of_16", "quarter_final", "semi_final", "final"].includes(stage);
+      const isComplete = match.completed || (match.score1 !== null && match.score1 !== undefined && match.score2 !== null && match.score2 !== undefined);
+
+      if (!isKnockout || !isComplete) return;
+
+      const loser = knockoutLoser(match);
+      if (!loser) return;
+
+      const owner = (leaderboard || []).find(player => (player.teams || []).some(team => normalise(team) === normalise(loser)))?.name;
+      if (!owner) return;
+
+      teamsByName.set(normalise(loser), {
+        owner,
+        team: loser,
+        stage,
+        stageLabel: stageDisplayLabel(stage)
+      });
+    });
+
+    return [...teamsByName.values()].sort((a, b) => {
+      if (a.owner !== b.owner) return String(a.owner || "").localeCompare(String(b.owner || ""));
+      return String(a.team || "").localeCompare(String(b.team || ""));
+    });
+  }
+
+  async function renderKnockedOutSection(rows, leaderboard) {
+    const target = document.querySelector("#knockout-out-dynamic");
+    if (!target) return;
+
+    let matches = [];
+    try {
+      matches = await loadJson("data/matches.json");
+    } catch (error) {
+      console.warn("Could not load match data for knocked out section", error);
+    }
+
+    const knockedOutTeams = buildKnockedOutTeams(rows, matches, leaderboard);
+    const byPlayer = new Map();
+
+    knockedOutTeams.forEach(item => {
+      if (!byPlayer.has(item.owner)) {
+        byPlayer.set(item.owner, []);
+      }
+      byPlayer.get(item.owner).push(item);
+    });
+
+    const players = [...byPlayer.entries()].sort((a, b) => String(a[0] || "").localeCompare(String(b[0] || "")));
+
+    if (!players.length) {
+      target.innerHTML = "";
+      return;
+    }
+
+    target.innerHTML = `
+      <div class="knockout-out-card">
+        <div class="knockout-out-topline">
+          <h3>Knocked out teams</h3>
+          <span>${knockedOutTeams.length} team${knockedOutTeams.length === 1 ? "" : "s"}</span>
+        </div>
+        <div class="knockout-out-player-list">
+          ${players.map(([owner, teams]) => `
+            <div class="knockout-out-row">
+              <strong>${safeText(owner)}</strong>
+              <span class="knockout-out-team-list">
+                ${teams.map(item => `
+                  <span class="knockout-out-chip">
+                    ${teamLabelHtml(item.team)}
+                    <small>${safeText(item.stageLabel)}</small>
+                  </span>
+                `).join("")}
+              </span>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+    `;
   }
 
   window.renderKnockoutTracker = function renderKnockoutTracker(knockoutData, leaderboard) {
@@ -389,9 +571,12 @@
           <div class="knockout-player-summary-grid">
             ${qualifiedHtml || `<div class="knockout-empty-card"><h3>No qualified players found</h3></div>`}
           </div>
+          <div id="knockout-out-dynamic"></div>
           ${outHtml}
         </div>
       </div>
     `;
+
+    renderKnockedOutSection(rows, leaderboard);
   };
 }());
