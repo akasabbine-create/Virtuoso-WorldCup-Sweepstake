@@ -302,7 +302,7 @@
               "homeAway": "away",
               "winner": false,
               "advance": false,
-              "form": "WDLWD",
+              "form": "LWDLW",
               "score": "0",
               "records": [
                 {
@@ -1806,7 +1806,7 @@
               "order": 0,
               "homeAway": "home",
               "winner": false,
-              "form": "LWDDW",
+              "form": "WLWDD",
               "score": "1",
               "records": [
                 {
@@ -19709,7 +19709,7 @@
               "order": 1,
               "homeAway": "away",
               "winner": false,
-              "form": "WDLWD",
+              "form": "LWDLW",
               "score": "1",
               "records": [
                 {
@@ -21298,7 +21298,7 @@
               "homeAway": "home",
               "winner": true,
               "advance": true,
-              "form": "LWDDW",
+              "form": "WLWDD",
               "score": "6",
               "records": [
                 {
@@ -40111,7 +40111,7 @@
               "homeAway": "away",
               "winner": false,
               "advance": false,
-              "form": "LWDDW",
+              "form": "WLWDD",
               "score": "1",
               "records": [
                 {
@@ -43334,7 +43334,7 @@
               "homeAway": "home",
               "winner": true,
               "advance": true,
-              "form": "WDLWD",
+              "form": "LWDLW",
               "score": "1",
               "records": [
                 {
@@ -58915,15 +58915,15 @@
     "id": "760486",
     "team1": "South Africa",
     "team2": "Canada",
-    "score1": null,
-    "score2": null,
+    "score1": 0,
+    "score2": 1,
     "displayScore1": 0,
-    "displayScore2": 0,
+    "displayScore2": 1,
     "winner1": false,
-    "winner2": false,
-    "status": "Second Half",
-    "completed": false,
-    "live": true,
+    "winner2": true,
+    "status": "Full Time",
+    "completed": true,
+    "live": false,
     "date": "2026-06-28T19:00Z",
     "name": "Canada at South Africa",
     "shortName": "CAN @ RSA",
@@ -58948,17 +58948,17 @@
           "timeValid": true,
           "recent": true,
           "status": {
-            "clock": 4260.0,
-            "displayClock": "71'",
+            "clock": 5400.0,
+            "displayClock": "90'+6'",
             "period": 2,
             "type": {
-              "id": "26",
-              "name": "STATUS_SECOND_HALF",
-              "state": "in",
-              "completed": false,
-              "description": "Second Half",
-              "detail": "71'",
-              "shortDetail": "71'"
+              "id": "28",
+              "name": "STATUS_FULL_TIME",
+              "state": "post",
+              "completed": true,
+              "description": "Full Time",
+              "detail": "FT",
+              "shortDetail": "FT"
             }
           },
           "venue": {
@@ -58969,20 +58969,6 @@
               "country": "USA"
             }
           },
-          "tickets": [
-            {
-              "summary": "Tickets as low as $1,575",
-              "numberAvailable": 2,
-              "links": [
-                {
-                  "href": "https://www.vividseats.com/world-cup-soccer-tickets-sofi-stadium-6-28-2026--sports-soccer/production/5080724?wsUser=717"
-                },
-                {
-                  "href": "https://www.vividseats.com/sofi-stadium-tickets/venue/21877?wsUser=717"
-                }
-              ]
-            }
-          ],
           "format": {
             "regulation": {
               "periods": 2
@@ -59056,7 +59042,8 @@
               "order": 0,
               "homeAway": "home",
               "winner": false,
-              "form": "WDLWD",
+              "advance": false,
+              "form": "LWDLW",
               "score": "0",
               "team": {
                 "id": "467",
@@ -59172,7 +59159,7 @@
                 {
                   "name": "foulsCommitted",
                   "abbreviation": "FC",
-                  "displayValue": "7"
+                  "displayValue": "10"
                 },
                 {
                   "name": "wonCorners",
@@ -59187,12 +59174,12 @@
                 {
                   "name": "possessionPct",
                   "abbreviation": "PP",
-                  "displayValue": "59.2"
+                  "displayValue": "58.2"
                 },
                 {
                   "name": "shotAssists",
                   "abbreviation": "SHAST",
-                  "displayValue": "3"
+                  "displayValue": "5"
                 },
                 {
                   "name": "shotsOnTarget",
@@ -59207,7 +59194,7 @@
                 {
                   "name": "totalShots",
                   "abbreviation": "SHOT",
-                  "displayValue": "4"
+                  "displayValue": "6"
                 }
               ]
             },
@@ -59217,9 +59204,10 @@
               "type": "team",
               "order": 1,
               "homeAway": "away",
-              "winner": false,
-              "form": "LWDDW",
-              "score": "0",
+              "winner": true,
+              "advance": true,
+              "form": "WLWDD",
+              "score": "1",
               "team": {
                 "id": "206",
                 "uid": "s:600~t:206",
@@ -59334,7 +59322,7 @@
                 {
                   "name": "foulsCommitted",
                   "abbreviation": "FC",
-                  "displayValue": "11"
+                  "displayValue": "16"
                 },
                 {
                   "name": "wonCorners",
@@ -59349,27 +59337,27 @@
                 {
                   "name": "possessionPct",
                   "abbreviation": "PP",
-                  "displayValue": "40.8"
+                  "displayValue": "41.8"
                 },
                 {
                   "name": "shotAssists",
                   "abbreviation": "SHAST",
-                  "displayValue": "8"
+                  "displayValue": "10"
                 },
                 {
                   "name": "shotsOnTarget",
                   "abbreviation": "SOG",
-                  "displayValue": "5"
+                  "displayValue": "7"
                 },
                 {
                   "name": "totalGoals",
                   "abbreviation": "G",
-                  "displayValue": "0"
+                  "displayValue": "1"
                 },
                 {
                   "name": "totalShots",
                   "abbreviation": "SHOT",
-                  "displayValue": "9"
+                  "displayValue": "12"
                 }
               ]
             }
@@ -59463,289 +59451,54 @@
                   "position": "SUB"
                 }
               ]
+            },
+            {
+              "type": {
+                "id": "173",
+                "text": "Goal - Volley"
+              },
+              "clock": {
+                "value": 5400.0,
+                "displayValue": "90'+2'"
+              },
+              "team": {
+                "id": "206"
+              },
+              "scoreValue": 1,
+              "scoringPlay": true,
+              "redCard": false,
+              "yellowCard": false,
+              "penaltyKick": false,
+              "ownGoal": false,
+              "shootout": false,
+              "athletesInvolved": [
+                {
+                  "id": "270505",
+                  "displayName": "Stephen Eustáquio",
+                  "shortName": "S. Eustáquio",
+                  "fullName": "Stephen Eustáquio",
+                  "jersey": "7",
+                  "team": {
+                    "id": "206"
+                  },
+                  "links": [
+                    {
+                      "rel": [
+                        "playercard",
+                        "desktop",
+                        "athlete"
+                      ],
+                      "href": "https://www.espn.com/soccer/player/_/id/270505/stephen-eustaquio",
+                      "isHidden": false
+                    }
+                  ],
+                  "position": "CM-L"
+                }
+              ]
             }
           ],
           "odds": [
-            {
-              "overUnder": 2.5,
-              "link": {
-                "language": "en-US",
-                "rel": [
-                  "game",
-                  "desktop",
-                  "bets"
-                ],
-                "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34319504",
-                "text": "Game",
-                "shortText": "Game",
-                "isExternal": true,
-                "isPremium": false,
-                "isHidden": false
-              },
-              "provider": {
-                "id": "100",
-                "name": "DraftKings",
-                "priority": 1,
-                "displayName": "DraftKings",
-                "logos": [
-                  {
-                    "href": "https://a.espncdn.com/i/betting/Draftkings_Light.svg",
-                    "rel": [
-                      "light"
-                    ]
-                  },
-                  {
-                    "href": "https://a.espncdn.com/i/betting/Draftkings_Dark.svg",
-                    "rel": [
-                      "dark"
-                    ]
-                  }
-                ]
-              },
-              "drawOdds": {
-                "moneyLine": 240,
-                "link": {
-                  "language": "en-US",
-                  "rel": [
-                    "draw",
-                    "desktop",
-                    "bets",
-                    "draftkings"
-                  ],
-                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34319504%3Foutcomes%3D0ML85277519_2",
-                  "text": "Draw Bet",
-                  "shortText": "Draw Bet",
-                  "isExternal": true,
-                  "isPremium": false,
-                  "isHidden": false
-                }
-              },
-              "total": {
-                "displayName": "Total",
-                "shortDisplayName": "Total",
-                "over": {
-                  "open": {
-                    "line": "o2.5",
-                    "odds": "+110"
-                  },
-                  "close": {
-                    "line": "o2.5",
-                    "odds": "+120"
-                  },
-                  "current": {
-                    "line": "o0.5",
-                    "odds": "-103",
-                    "link": {
-                      "rel": [
-                        "over",
-                        "bets"
-                      ],
-                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34319504%3Foutcomes%3D0OU85277553O50_1",
-                      "tracking": {
-                        "campaign": "betting-integrations",
-                        "tags": {
-                          "league": "fifa.world",
-                          "sport": "soccer",
-                          "gameId": 760486,
-                          "betSide": "over",
-                          "betType": "straight",
-                          "betDetails": "Over:0.5"
-                        }
-                      }
-                    }
-                  }
-                },
-                "under": {
-                  "open": {
-                    "line": "u2.5",
-                    "odds": "-135"
-                  },
-                  "close": {
-                    "line": "u2.5",
-                    "odds": "-150"
-                  },
-                  "current": {
-                    "line": "u0.5",
-                    "odds": "-115",
-                    "link": {
-                      "rel": [
-                        "under",
-                        "bets"
-                      ],
-                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34319504%3Foutcomes%3D0OU85277553U50_3",
-                      "tracking": {
-                        "campaign": "betting-integrations",
-                        "tags": {
-                          "league": "fifa.world",
-                          "sport": "soccer",
-                          "gameId": 760486,
-                          "betSide": "under",
-                          "betType": "straight",
-                          "betDetails": "Under:0.5"
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "pointSpread": {
-                "displayName": "Spread",
-                "shortDisplayName": "Spread",
-                "home": {
-                  "open": {
-                    "line": "+0.5",
-                    "odds": "+115"
-                  },
-                  "close": {
-                    "line": "+0.5",
-                    "odds": "-105"
-                  },
-                  "current": {
-                    "line": "+0.5",
-                    "odds": "-275",
-                    "link": {
-                      "rel": [
-                        "homeSpread",
-                        "bets"
-                      ],
-                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34319504%3Foutcomes%3D0HC85277554P50_1",
-                      "tracking": {
-                        "campaign": "betting-integrations",
-                        "tags": {
-                          "league": "fifa.world",
-                          "sport": "soccer",
-                          "gameId": 760486,
-                          "betSide": "home",
-                          "betType": "straight",
-                          "betDetails": "Spread:RSA+0.5"
-                        }
-                      }
-                    }
-                  }
-                },
-                "away": {
-                  "open": {
-                    "line": "-0.5",
-                    "odds": "-145"
-                  },
-                  "close": {
-                    "line": "-0.5",
-                    "odds": "-125"
-                  },
-                  "current": {
-                    "line": "-0.5",
-                    "odds": "+210",
-                    "link": {
-                      "rel": [
-                        "awaySpread",
-                        "bets"
-                      ],
-                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34319504%3Foutcomes%3D0HC85277554N50_3",
-                      "tracking": {
-                        "campaign": "betting-integrations",
-                        "tags": {
-                          "league": "fifa.world",
-                          "sport": "soccer",
-                          "gameId": 760486,
-                          "betSide": "away",
-                          "betType": "straight",
-                          "betDetails": "Spread:CAN-0.5"
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "moneyline": {
-                "displayName": "Moneyline",
-                "shortDisplayName": "ML",
-                "home": {
-                  "open": {
-                    "odds": "+475"
-                  },
-                  "close": {
-                    "odds": "+380"
-                  },
-                  "current": {
-                    "odds": "+600",
-                    "link": {
-                      "rel": [
-                        "home",
-                        "bets"
-                      ],
-                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34319504%3Foutcomes%3D0ML85277542_1",
-                      "tracking": {
-                        "campaign": "betting-integrations",
-                        "tags": {
-                          "league": "fifa.world",
-                          "sport": "soccer",
-                          "gameId": 760486,
-                          "betSide": "home",
-                          "betType": "straight"
-                        }
-                      }
-                    }
-                  }
-                },
-                "away": {
-                  "open": {
-                    "odds": "-135"
-                  },
-                  "close": {
-                    "odds": "-115"
-                  },
-                  "current": {
-                    "odds": "+200",
-                    "link": {
-                      "rel": [
-                        "away",
-                        "bets"
-                      ],
-                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34319504%3Foutcomes%3D0ML85277542_3",
-                      "tracking": {
-                        "campaign": "betting-integrations",
-                        "tags": {
-                          "league": "fifa.world",
-                          "sport": "soccer",
-                          "gameId": 760486,
-                          "betSide": "away",
-                          "betType": "straight"
-                        }
-                      }
-                    }
-                  }
-                },
-                "draw": {
-                  "open": {
-                    "odds": "+245"
-                  },
-                  "close": {
-                    "odds": "+240"
-                  },
-                  "current": {
-                    "odds": "-140",
-                    "link": {
-                      "rel": [
-                        "draw",
-                        "bets"
-                      ],
-                      "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34319504%3Foutcomes%3D0ML85277542_2",
-                      "tracking": {
-                        "campaign": "betting-integrations",
-                        "tags": {
-                          "league": "fifa.world",
-                          "sport": "soccer",
-                          "gameId": 760486,
-                          "betSide": "draw",
-                          "betType": "straight"
-                        }
-                      }
-                    }
-                  }
-                }
-              },
-              "details": "CAN -115"
-            }
+            null
           ],
           "wasSuspended": false,
           "playByPlayAvailable": true,
@@ -59753,17 +59506,17 @@
         }
       ],
       "status": {
-        "clock": 4260.0,
-        "displayClock": "71'",
+        "clock": 5400.0,
+        "displayClock": "90'+6'",
         "period": 2,
         "type": {
-          "id": "26",
-          "name": "STATUS_SECOND_HALF",
-          "state": "in",
-          "completed": false,
-          "description": "Second Half",
-          "detail": "71'",
-          "shortDetail": "71'"
+          "id": "28",
+          "name": "STATUS_FULL_TIME",
+          "state": "post",
+          "completed": true,
+          "description": "Full Time",
+          "detail": "FT",
+          "shortDetail": "FT"
         }
       },
       "venue": {
@@ -59773,16 +59526,28 @@
         {
           "language": "en-US",
           "rel": [
-            "live",
+            "summary",
             "desktop",
             "event"
           ],
-          "href": "https://www.espn.com/soccer/match/_/gameId/760486",
-          "text": "Gamecast",
-          "shortText": "Live",
+          "href": "https://www.espn.com/soccer/match/_/gameId/760486/canada-south-africa",
+          "text": "Summary",
+          "shortText": "Summary",
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "highlights",
+            "desktop"
+          ],
+          "href": "https://www.espn.com/soccer/video/_/gameId/760486",
+          "text": "Highlights",
+          "shortText": "Highlights",
+          "isExternal": false,
+          "isPremium": false
         },
         {
           "language": "en-US",
@@ -59794,20 +59559,6 @@
           "href": "https://www.espn.com/soccer/matchstats/_/gameId/760486",
           "text": "Statistics",
           "shortText": "Statistics",
-          "isExternal": false,
-          "isPremium": false,
-          "isHidden": false
-        },
-        {
-          "language": "en-US",
-          "rel": [
-            "bracket",
-            "desktop",
-            "event"
-          ],
-          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
-          "text": "Bracket",
-          "shortText": "Bracket",
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
@@ -60733,8 +60484,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $641",
-              "numberAvailable": 2120,
+              "summary": "Tickets as low as $614",
+              "numberAvailable": 2041,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-gillette-stadium-6-29-2026--sports-soccer/production/5080727?wsUser=717"
@@ -63176,6 +62927,20 @@
           "href": "https://www.espn.com/soccer/matchstats/_/gameId/760490",
           "text": "Statistics",
           "shortText": "Statistics",
+          "isExternal": false,
+          "isPremium": false,
+          "isHidden": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "bracket",
+            "desktop",
+            "event"
+          ],
+          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
+          "text": "Bracket",
+          "shortText": "Bracket",
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
@@ -65775,8 +65540,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $454",
-              "numberAvailable": 2487,
+              "summary": "Tickets as low as $458",
+              "numberAvailable": 2447,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-lumen-field-7-1-2026--sports-soccer/production/5080832?wsUser=717"
@@ -66619,8 +66384,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $1,651",
-              "numberAvailable": 1866,
+              "summary": "Tickets as low as $1,653",
+              "numberAvailable": 1884,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-levis-stadium-7-1-2026--sports-soccer/production/5080829?wsUser=717"
@@ -67386,20 +67151,6 @@
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
-        },
-        {
-          "language": "en-US",
-          "rel": [
-            "bracket",
-            "desktop",
-            "event"
-          ],
-          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
-          "text": "Bracket",
-          "shortText": "Bracket",
-          "isExternal": false,
-          "isPremium": false,
-          "isHidden": false
         }
       ]
     }
@@ -67463,8 +67214,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $1,039",
-              "numberAvailable": 2466,
+              "summary": "Tickets as low as $1,045",
+              "numberAvailable": 2545,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-sofi-stadium-7-2-2026--sports-soccer/production/5080836?wsUser=717"
@@ -68323,7 +68074,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $1,901",
-              "numberAvailable": 638,
+              "numberAvailable": 628,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-bmo-field-7-2-2026--sports-soccer/production/5080833?wsUser=717"
@@ -69086,20 +68837,6 @@
           "href": "https://www.espn.com/soccer/matchstats/_/gameId/760496",
           "text": "Statistics",
           "shortText": "Statistics",
-          "isExternal": false,
-          "isPremium": false,
-          "isHidden": false
-        },
-        {
-          "language": "en-US",
-          "rel": [
-            "bracket",
-            "desktop",
-            "event"
-          ],
-          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
-          "text": "Bracket",
-          "shortText": "Bracket",
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
@@ -70010,8 +69747,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $688",
-              "numberAvailable": 2603,
+              "summary": "Tickets as low as $719",
+              "numberAvailable": 2568,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-att-stadium-7-3-2026--sports-soccer/production/5080843?wsUser=717"
@@ -70792,20 +70529,6 @@
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
-        },
-        {
-          "language": "en-US",
-          "rel": [
-            "bracket",
-            "desktop",
-            "event"
-          ],
-          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
-          "text": "Bracket",
-          "shortText": "Bracket",
-          "isExternal": false,
-          "isPremium": false,
-          "isHidden": false
         }
       ]
     }
@@ -70869,8 +70592,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $2,511",
-              "numberAvailable": 1977,
+              "summary": "Tickets as low as $2,566",
+              "numberAvailable": 1973,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-hard-rock-stadium-7-3-2026--sports-soccer/production/5080839?wsUser=717"
@@ -71715,8 +71438,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $1,294",
-              "numberAvailable": 3242,
+              "summary": "Tickets as low as $1,275",
+              "numberAvailable": 3243,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-geha-field-at-arrowhead-stadium-7-3-2026--sports-soccer/production/5080842?wsUser=717"
@@ -72482,27 +72205,13 @@
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
-        },
-        {
-          "language": "en-US",
-          "rel": [
-            "bracket",
-            "desktop",
-            "event"
-          ],
-          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
-          "text": "Bracket",
-          "shortText": "Bracket",
-          "isExternal": false,
-          "isPremium": false,
-          "isHidden": false
         }
       ]
     }
   },
   {
     "id": "760502",
-    "team1": "Round of 32 1 Winner",
+    "team1": "Canada",
     "team2": "Round of 32 3 Winner",
     "score1": null,
     "score2": null,
@@ -72514,14 +72223,14 @@
     "completed": false,
     "live": false,
     "date": "2026-07-04T17:00Z",
-    "name": "Round of 32 3 Winner at Round of 32 1 Winner",
-    "shortName": "RD32 @ RD32",
+    "name": "Round of 32 3 Winner at Canada",
+    "shortName": "RD32 @ CAN",
     "raw": {
       "id": "760502",
       "uid": "s:600~l:606~e:760502",
       "date": "2026-07-04T17:00Z",
-      "name": "Round of 32 3 Winner at Round of 32 1 Winner",
-      "shortName": "RD32 @ RD32",
+      "name": "Round of 32 3 Winner at Canada",
+      "shortName": "RD32 @ CAN",
       "season": {
         "year": 2026,
         "type": 13800,
@@ -72624,28 +72333,202 @@
           "broadcast": "",
           "competitors": [
             {
-              "id": "131525",
-              "uid": "s:600~t:131525",
+              "id": "206",
+              "uid": "s:600~t:206",
               "type": "team",
               "order": 0,
               "homeAway": "home",
               "winner": false,
+              "form": "WLWDD",
               "score": "0",
               "team": {
-                "id": "131525",
-                "uid": "s:600~t:131525",
-                "abbreviation": "RD32",
-                "displayName": "Round of 32 1 Winner",
-                "shortDisplayName": "RD32 W1",
-                "name": "Round of 32 1 Winner",
-                "location": "Round of 32 1 Winner",
-                "color": "000000",
+                "id": "206",
+                "uid": "s:600~t:206",
+                "abbreviation": "CAN",
+                "displayName": "Canada",
+                "shortDisplayName": "Canada",
+                "name": "Canada",
+                "location": "Canada",
+                "color": "ed2224",
                 "alternateColor": "000000",
-                "isActive": false,
-                "logo": "",
-                "links": []
+                "isActive": true,
+                "logo": "https://a.espncdn.com/i/teamlogos/countries/500/can.png",
+                "links": [
+                  {
+                    "rel": [
+                      "clubhouse",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "https://www.espn.com/soccer/team/_/id/206/canada",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false,
+                    "isHidden": false
+                  },
+                  {
+                    "rel": [
+                      "stats",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "https://www.espn.com/soccer/team/stats/_/id/206/canada",
+                    "text": "Stats",
+                    "isExternal": false,
+                    "isPremium": false,
+                    "isHidden": false
+                  },
+                  {
+                    "rel": [
+                      "stats",
+                      "sportscenter",
+                      "app",
+                      "team"
+                    ],
+                    "href": "sportscenter://x-callback-url/showClubhouse?uid=s:600~t:206&section=stats",
+                    "text": "Stats",
+                    "isExternal": false,
+                    "isPremium": false,
+                    "isHidden": false
+                  },
+                  {
+                    "rel": [
+                      "schedule",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "https://www.espn.com/soccer/team/fixtures/_/id/206/canada",
+                    "text": "Fixtures",
+                    "isExternal": false,
+                    "isPremium": false,
+                    "isHidden": false
+                  },
+                  {
+                    "rel": [
+                      "schedule",
+                      "sportscenter",
+                      "app",
+                      "team"
+                    ],
+                    "href": "sportscenter://x-callback-url/showClubhouse?uid=s:600~t:206&section=scores",
+                    "text": "Fixtures",
+                    "isExternal": false,
+                    "isPremium": false,
+                    "isHidden": false
+                  },
+                  {
+                    "rel": [
+                      "squad",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "https://www.espn.com/soccer/team/squad/_/id/206/canada",
+                    "text": "Squad",
+                    "isExternal": false,
+                    "isPremium": false,
+                    "isHidden": false
+                  },
+                  {
+                    "rel": [
+                      "squad",
+                      "sportscenter",
+                      "app",
+                      "team"
+                    ],
+                    "href": "sportscenter://x-callback-url/showClubhouse?uid=s:600~t:206&section=squad",
+                    "text": "Squad",
+                    "isExternal": false,
+                    "isPremium": false,
+                    "isHidden": false
+                  }
+                ],
+                "venue": {
+                  "id": "7605"
+                }
               },
-              "statistics": []
+              "statistics": [],
+              "leaders": [
+                {
+                  "name": "goals",
+                  "displayName": "Goals",
+                  "shortDisplayName": "Goals",
+                  "abbreviation": "G",
+                  "leaders": [
+                    {
+                      "displayValue": "3",
+                      "value": 3.0,
+                      "athlete": {
+                        "id": "273499",
+                        "displayName": "Jonathan David",
+                        "shortName": "J. David",
+                        "fullName": "Jonathan David",
+                        "jersey": "10",
+                        "active": true,
+                        "team": {
+                          "id": "206"
+                        },
+                        "links": [
+                          {
+                            "rel": [
+                              "playercard",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "https://www.espn.com/soccer/player/_/id/273499/jonathan-david",
+                            "isHidden": false
+                          }
+                        ],
+                        "position": {
+                          "abbreviation": "F"
+                        }
+                      },
+                      "team": {
+                        "id": "206"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "goalsLeaders",
+                  "displayName": "Goals",
+                  "shortDisplayName": "Goals",
+                  "abbreviation": "G",
+                  "leaders": [
+                    {
+                      "displayValue": "3",
+                      "value": 3.0,
+                      "athlete": {
+                        "id": "273499",
+                        "displayName": "Jonathan David",
+                        "shortName": "J. David",
+                        "fullName": "Jonathan David",
+                        "jersey": "10",
+                        "active": true,
+                        "team": {
+                          "id": "206"
+                        },
+                        "links": [
+                          {
+                            "rel": [
+                              "playercard",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "https://www.espn.com/soccer/player/_/id/273499/jonathan-david",
+                            "isHidden": false
+                          }
+                        ],
+                        "position": {
+                          "abbreviation": "F"
+                        }
+                      },
+                      "team": {
+                        "id": "206"
+                      }
+                    }
+                  ]
+                }
+              ]
             },
             {
               "id": "131527",
@@ -72705,7 +72588,7 @@
             "desktop",
             "event"
           ],
-          "href": "https://www.espn.com/soccer/match/_/gameId/760502/round-of-32-3-winner-round-of-32-1-winner",
+          "href": "https://www.espn.com/soccer/match/_/gameId/760502/round-of-32-3-winner-canada",
           "text": "Summary",
           "shortText": "Summary",
           "isExternal": false,
@@ -72722,20 +72605,6 @@
           "href": "https://www.espn.com/soccer/matchstats/_/gameId/760502",
           "text": "Statistics",
           "shortText": "Statistics",
-          "isExternal": false,
-          "isPremium": false,
-          "isHidden": false
-        },
-        {
-          "language": "en-US",
-          "rel": [
-            "bracket",
-            "desktop",
-            "event"
-          ],
-          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
-          "text": "Bracket",
-          "shortText": "Bracket",
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
@@ -73697,20 +73566,6 @@
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
-        },
-        {
-          "language": "en-US",
-          "rel": [
-            "bracket",
-            "desktop",
-            "event"
-          ],
-          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
-          "text": "Bracket",
-          "shortText": "Bracket",
-          "isExternal": false,
-          "isPremium": false,
-          "isHidden": false
         }
       ]
     }
@@ -73937,6 +73792,20 @@
           "href": "https://www.espn.com/soccer/matchstats/_/gameId/760507",
           "text": "Statistics",
           "shortText": "Statistics",
+          "isExternal": false,
+          "isPremium": false,
+          "isHidden": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "bracket",
+            "desktop",
+            "event"
+          ],
+          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
+          "text": "Bracket",
+          "shortText": "Bracket",
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
@@ -75141,20 +75010,6 @@
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
-        },
-        {
-          "language": "en-US",
-          "rel": [
-            "bracket",
-            "desktop",
-            "event"
-          ],
-          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
-          "text": "Bracket",
-          "shortText": "Bracket",
-          "isExternal": false,
-          "isPremium": false,
-          "isHidden": false
         }
       ]
     }
@@ -75381,20 +75236,6 @@
           "href": "https://www.espn.com/soccer/matchstats/_/gameId/760513",
           "text": "Statistics",
           "shortText": "Statistics",
-          "isExternal": false,
-          "isPremium": false,
-          "isHidden": false
-        },
-        {
-          "language": "en-US",
-          "rel": [
-            "bracket",
-            "desktop",
-            "event"
-          ],
-          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
-          "text": "Bracket",
-          "shortText": "Bracket",
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
@@ -75882,20 +75723,6 @@
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
-        },
-        {
-          "language": "en-US",
-          "rel": [
-            "bracket",
-            "desktop",
-            "event"
-          ],
-          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
-          "text": "Bracket",
-          "shortText": "Bracket",
-          "isExternal": false,
-          "isPremium": false,
-          "isHidden": false
         }
       ]
     }
@@ -76371,20 +76198,6 @@
           "href": "https://www.espn.com/soccer/matchstats/_/gameId/760517",
           "text": "Statistics",
           "shortText": "Statistics",
-          "isExternal": false,
-          "isPremium": false,
-          "isHidden": false
-        },
-        {
-          "language": "en-US",
-          "rel": [
-            "bracket",
-            "desktop",
-            "event"
-          ],
-          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
-          "text": "Bracket",
-          "shortText": "Bracket",
           "isExternal": false,
           "isPremium": false,
           "isHidden": false

@@ -3,7 +3,7 @@
   "playerBonuses": [
     {
       "name": "Declan",
-      "total": 15,
+      "total": 22,
       "items": [
         {
           "label": "Reach Round of 32",
@@ -11,6 +11,14 @@
           "points": 5,
           "displayPoints": 5,
           "reason": "Canada qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 16",
+          "team": "Canada",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Canada progressed to the Round of 16 by winning South Africa 0–1 Canada",
           "status": "awarded"
         },
         {
@@ -27,6 +35,14 @@
           "points": 5,
           "displayPoints": 5,
           "reason": "Sweden qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Knockout clean sheet",
+          "team": "Canada",
+          "points": 2,
+          "displayPoints": 2,
+          "reason": "Canada kept a knockout clean sheet against South Africa",
           "status": "awarded"
         }
       ]
@@ -388,6 +404,53 @@
     ],
     "rows": [
       {
+        "owner": "Declan",
+        "team": "Canada",
+        "stageBonuses": [
+          {
+            "stage": "round_of_32",
+            "label": "Reach Round of 32",
+            "shortLabel": "Round of 32",
+            "team": "Canada",
+            "owner": "Declan",
+            "points": 5,
+            "date": "2026-06-28T19:00Z",
+            "match": "South Africa 0–1 Canada",
+            "reason": "Canada qualified for the Round of 32",
+            "status": "awarded"
+          },
+          {
+            "stage": "round_of_16",
+            "label": "Reach Round of 16",
+            "shortLabel": "Round of 16",
+            "team": "Canada",
+            "owner": "Declan",
+            "points": 5,
+            "date": "2026-06-28T19:00Z",
+            "match": "South Africa 0–1 Canada",
+            "reason": "Canada progressed to the Round of 16 by winning South Africa 0–1 Canada",
+            "status": "awarded"
+          }
+        ],
+        "cleanSheets": [
+          {
+            "stage": "round_of_32",
+            "label": "Knockout clean sheet",
+            "shortLabel": "+2 clean sheet",
+            "team": "Canada",
+            "owner": "Declan",
+            "points": 2,
+            "date": "2026-06-28T19:00Z",
+            "match": "South Africa 0–1 Canada",
+            "opponent": "South Africa",
+            "reason": "Canada kept a knockout clean sheet against South Africa",
+            "status": "awarded"
+          }
+        ],
+        "winnerBonus": null,
+        "total": 12
+      },
+      {
         "owner": "Charlie",
         "team": "Germany",
         "stageBonuses": [
@@ -401,27 +464,6 @@
             "date": "2026-06-29T20:30Z",
             "match": "Germany v Paraguay",
             "reason": "Germany qualified for the Round of 32",
-            "status": "awarded"
-          }
-        ],
-        "cleanSheets": [],
-        "winnerBonus": null,
-        "total": 5
-      },
-      {
-        "owner": "Declan",
-        "team": "Canada",
-        "stageBonuses": [
-          {
-            "stage": "round_of_32",
-            "label": "Reach Round of 32",
-            "shortLabel": "Round of 32",
-            "team": "Canada",
-            "owner": "Declan",
-            "points": 5,
-            "date": "2026-06-28T19:00Z",
-            "match": "South Africa v Canada",
-            "reason": "Canada qualified for the Round of 32",
             "status": "awarded"
           }
         ],
@@ -1029,7 +1071,7 @@
             "owner": "Seb",
             "points": 5,
             "date": "2026-06-28T19:00Z",
-            "match": "South Africa v Canada",
+            "match": "South Africa 0–1 Canada",
             "reason": "South Africa qualified for the Round of 32",
             "status": "awarded"
           }
@@ -1557,7 +1599,7 @@
         "owner": "Seb",
         "points": 5,
         "date": "2026-06-28T19:00Z",
-        "match": "South Africa v Canada",
+        "match": "South Africa 0–1 Canada",
         "reason": "South Africa qualified for the Round of 32",
         "status": "awarded"
       },
@@ -1569,8 +1611,33 @@
         "owner": "Declan",
         "points": 5,
         "date": "2026-06-28T19:00Z",
-        "match": "South Africa v Canada",
+        "match": "South Africa 0–1 Canada",
         "reason": "Canada qualified for the Round of 32",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_16",
+        "label": "Reach Round of 16",
+        "shortLabel": "Round of 16",
+        "team": "Canada",
+        "owner": "Declan",
+        "points": 5,
+        "date": "2026-06-28T19:00Z",
+        "match": "South Africa 0–1 Canada",
+        "reason": "Canada progressed to the Round of 16 by winning South Africa 0–1 Canada",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_32",
+        "label": "Knockout clean sheet",
+        "shortLabel": "+2 clean sheet",
+        "team": "Canada",
+        "owner": "Declan",
+        "points": 2,
+        "date": "2026-06-28T19:00Z",
+        "match": "South Africa 0–1 Canada",
+        "opponent": "South Africa",
+        "reason": "Canada kept a knockout clean sheet against South Africa",
         "status": "awarded"
       }
     ],
@@ -1583,7 +1650,7 @@
         "owner": "Seb",
         "points": 5,
         "date": "2026-06-28T19:00Z",
-        "match": "South Africa v Canada",
+        "match": "South Africa 0–1 Canada",
         "reason": "South Africa qualified for the Round of 32",
         "status": "awarded"
       },
@@ -1595,8 +1662,20 @@
         "owner": "Declan",
         "points": 5,
         "date": "2026-06-28T19:00Z",
-        "match": "South Africa v Canada",
+        "match": "South Africa 0–1 Canada",
         "reason": "Canada qualified for the Round of 32",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_16",
+        "label": "Reach Round of 16",
+        "shortLabel": "Round of 16",
+        "team": "Canada",
+        "owner": "Declan",
+        "points": 5,
+        "date": "2026-06-28T19:00Z",
+        "match": "South Africa 0–1 Canada",
+        "reason": "Canada progressed to the Round of 16 by winning South Africa 0–1 Canada",
         "status": "awarded"
       },
       {
@@ -1958,6 +2037,19 @@
         "match": "Colombia v Ghana",
         "reason": "Ghana qualified for the Round of 32",
         "status": "awarded"
+      },
+      {
+        "stage": "round_of_32",
+        "label": "Knockout clean sheet",
+        "shortLabel": "+2 clean sheet",
+        "team": "Canada",
+        "owner": "Declan",
+        "points": 2,
+        "date": "2026-06-28T19:00Z",
+        "match": "South Africa 0–1 Canada",
+        "opponent": "South Africa",
+        "reason": "Canada kept a knockout clean sheet against South Africa",
+        "status": "awarded"
       }
     ],
     "notes": [
@@ -2032,11 +2124,11 @@
       "goals": 10
     },
     {
-      "team": "Argentina",
-      "goals": 8
+      "team": "Canada",
+      "goals": 9
     },
     {
-      "team": "Canada",
+      "team": "Argentina",
       "goals": 8
     },
     {
