@@ -6,18 +6,22 @@ Why this is needed:
 ESPN fixture dates are UTC, while the bracket page displays the local North
 American fixture day. Late Round of 32 games such as Colombia v Ghana can fall
 on 4 July in UTC, even though ESPN's bracket correctly treats them as 3 July
-Round of 32 fixtures. If the scorer classifies stages using the raw UTC date
-first, it can incorrectly count that match as Round of 16.
+Round of 32 fixtures.
 
-The fix below:
-- trusts explicit ESPN round labels first when present
-- uses the Americas/New_York event day as the date fallback
-- only awards later progression bonuses after the previous knockout match is
-  completed, as handled inside engine.scorer.build_progression_awards
+This version adds the repository root to sys.path first, so it works when
+GitHub Actions runs `python scripts/update.py`.
 """
 
 from datetime import date
+from pathlib import Path
+import sys
 from zoneinfo import ZoneInfo
+
+# When GitHub runs `python scripts/update.py`, Python starts with /scripts on
+# sys.path. Add the repo root so `import engine.scorer` works.
+REPO_ROOT = Path(__file__).resolve().parents[1]
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
 
 import engine.scorer as scorer
 
