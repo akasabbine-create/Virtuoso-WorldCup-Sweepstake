@@ -57156,11 +57156,11 @@
     "team2": "Austria",
     "score1": null,
     "score2": null,
-    "displayScore1": 0,
+    "displayScore1": 1,
     "displayScore2": 1,
     "winner1": false,
     "winner2": false,
-    "status": "First Half",
+    "status": "Halftime",
     "completed": false,
     "live": true,
     "date": "2026-06-28T02:00Z",
@@ -57187,17 +57187,17 @@
           "timeValid": true,
           "recent": true,
           "status": {
-            "clock": 1800.0,
-            "displayClock": "30'",
+            "clock": 2700.0,
+            "displayClock": "45'+4'",
             "period": 1,
             "type": {
-              "id": "25",
-              "name": "STATUS_FIRST_HALF",
+              "id": "23",
+              "name": "STATUS_HALFTIME",
               "state": "in",
               "completed": false,
-              "description": "First Half",
-              "detail": "30'",
-              "shortDetail": "30'"
+              "description": "Halftime",
+              "detail": "HT",
+              "shortDetail": "HT"
             }
           },
           "venue": {
@@ -57295,7 +57295,7 @@
               "homeAway": "home",
               "winner": false,
               "form": "WLWWD",
-              "score": "0",
+              "score": "1",
               "records": [
                 {
                   "name": "All Splits",
@@ -57433,27 +57433,27 @@
                 {
                   "name": "possessionPct",
                   "abbreviation": "PP",
-                  "displayValue": "52.3"
+                  "displayValue": "57.1"
                 },
                 {
                   "name": "shotAssists",
                   "abbreviation": "SHAST",
-                  "displayValue": "1"
+                  "displayValue": "6"
                 },
                 {
                   "name": "shotsOnTarget",
                   "abbreviation": "SOG",
-                  "displayValue": "0"
+                  "displayValue": "2"
                 },
                 {
                   "name": "totalGoals",
                   "abbreviation": "G",
-                  "displayValue": "0"
+                  "displayValue": "1"
                 },
                 {
                   "name": "totalShots",
                   "abbreviation": "SHOT",
-                  "displayValue": "1"
+                  "displayValue": "7"
                 }
               ]
             },
@@ -57588,12 +57588,12 @@
                 {
                   "name": "foulsCommitted",
                   "abbreviation": "FC",
-                  "displayValue": "2"
+                  "displayValue": "4"
                 },
                 {
                   "name": "wonCorners",
                   "abbreviation": "CW",
-                  "displayValue": "0"
+                  "displayValue": "2"
                 },
                 {
                   "name": "goalAssists",
@@ -57603,7 +57603,7 @@
                 {
                   "name": "possessionPct",
                   "abbreviation": "PP",
-                  "displayValue": "47.7"
+                  "displayValue": "42.9"
                 },
                 {
                   "name": "shotAssists",
@@ -57623,7 +57623,7 @@
                 {
                   "name": "totalShots",
                   "abbreviation": "SHOT",
-                  "displayValue": "2"
+                  "displayValue": "5"
                 }
               ]
             }
@@ -57716,6 +57716,50 @@
                   "position": "F"
                 }
               ]
+            },
+            {
+              "type": {
+                "id": "70",
+                "text": "Goal"
+              },
+              "clock": {
+                "value": 2642.0,
+                "displayValue": "45'"
+              },
+              "team": {
+                "id": "624"
+              },
+              "scoreValue": 1,
+              "scoringPlay": true,
+              "redCard": false,
+              "yellowCard": false,
+              "penaltyKick": false,
+              "ownGoal": false,
+              "shootout": false,
+              "athletesInvolved": [
+                {
+                  "id": "364590",
+                  "displayName": "Rafik Belghali",
+                  "shortName": "R. Belghali",
+                  "fullName": "Rafik Belghali",
+                  "jersey": "17",
+                  "team": {
+                    "id": "624"
+                  },
+                  "links": [
+                    {
+                      "rel": [
+                        "playercard",
+                        "desktop",
+                        "athlete"
+                      ],
+                      "href": "https://www.espn.com/soccer/player/_/id/364590/rafik-belghali",
+                      "isHidden": false
+                    }
+                  ],
+                  "position": "RB"
+                }
+              ]
             }
           ],
           "odds": [
@@ -57787,7 +57831,7 @@
                   },
                   "current": {
                     "line": "o2.5",
-                    "odds": "+104",
+                    "odds": "-181",
                     "link": {
                       "rel": [
                         "over",
@@ -57819,7 +57863,7 @@
                   },
                   "current": {
                     "line": "u2.5",
-                    "odds": "-118",
+                    "odds": "+149",
                     "link": {
                       "rel": [
                         "under",
@@ -57855,7 +57899,7 @@
                   },
                   "current": {
                     "line": "+0.5",
-                    "odds": "+125",
+                    "odds": "-390",
                     "link": {
                       "rel": [
                         "homeSpread",
@@ -57887,7 +57931,7 @@
                   },
                   "current": {
                     "line": "-0.5",
-                    "odds": "-160",
+                    "odds": "+285",
                     "link": {
                       "rel": [
                         "awaySpread",
@@ -57920,7 +57964,7 @@
                     "odds": "+250"
                   },
                   "current": {
-                    "odds": "+650",
+                    "odds": "+340",
                     "link": {
                       "rel": [
                         "home",
@@ -57948,7 +57992,7 @@
                     "odds": "+270"
                   },
                   "current": {
-                    "odds": "-150",
+                    "odds": "+250",
                     "link": {
                       "rel": [
                         "away",
@@ -57976,7 +58020,7 @@
                     "odds": "+105"
                   },
                   "current": {
-                    "odds": "+205",
+                    "odds": "-125",
                     "link": {
                       "rel": [
                         "draw",
@@ -58006,17 +58050,17 @@
         }
       ],
       "status": {
-        "clock": 1800.0,
-        "displayClock": "30'",
+        "clock": 2700.0,
+        "displayClock": "45'+4'",
         "period": 1,
         "type": {
-          "id": "25",
-          "name": "STATUS_FIRST_HALF",
+          "id": "23",
+          "name": "STATUS_HALFTIME",
           "state": "in",
           "completed": false,
-          "description": "First Half",
-          "detail": "30'",
-          "shortDetail": "30'"
+          "description": "Halftime",
+          "detail": "HT",
+          "shortDetail": "HT"
         }
       },
       "venue": {
@@ -58075,10 +58119,10 @@
     "score1": null,
     "score2": null,
     "displayScore1": 0,
-    "displayScore2": 1,
+    "displayScore2": 2,
     "winner1": false,
     "winner2": false,
-    "status": "First Half",
+    "status": "Halftime",
     "completed": false,
     "live": true,
     "date": "2026-06-28T02:00Z",
@@ -58105,17 +58149,17 @@
           "timeValid": true,
           "recent": true,
           "status": {
-            "clock": 1800.0,
-            "displayClock": "30'",
+            "clock": 2700.0,
+            "displayClock": "45'+6'",
             "period": 1,
             "type": {
-              "id": "25",
-              "name": "STATUS_FIRST_HALF",
+              "id": "23",
+              "name": "STATUS_HALFTIME",
               "state": "in",
               "completed": false,
-              "description": "First Half",
-              "detail": "30'",
-              "shortDetail": "30'"
+              "description": "Halftime",
+              "detail": "HT",
+              "shortDetail": "HT"
             }
           },
           "venue": {
@@ -58336,12 +58380,12 @@
                 {
                   "name": "foulsCommitted",
                   "abbreviation": "FC",
-                  "displayValue": "1"
+                  "displayValue": "5"
                 },
                 {
                   "name": "wonCorners",
                   "abbreviation": "CW",
-                  "displayValue": "0"
+                  "displayValue": "1"
                 },
                 {
                   "name": "goalAssists",
@@ -58351,12 +58395,12 @@
                 {
                   "name": "possessionPct",
                   "abbreviation": "PP",
-                  "displayValue": "19.3"
+                  "displayValue": "28.4"
                 },
                 {
                   "name": "shotAssists",
                   "abbreviation": "SHAST",
-                  "displayValue": "0"
+                  "displayValue": "1"
                 },
                 {
                   "name": "shotsOnTarget",
@@ -58371,7 +58415,7 @@
                 {
                   "name": "totalShots",
                   "abbreviation": "SHOT",
-                  "displayValue": "0"
+                  "displayValue": "3"
                 }
               ]
             },
@@ -58383,7 +58427,7 @@
               "homeAway": "away",
               "winner": false,
               "form": "WWWWW",
-              "score": "1",
+              "score": "2",
               "records": [
                 {
                   "name": "All Splits",
@@ -58506,12 +58550,12 @@
                 {
                   "name": "foulsCommitted",
                   "abbreviation": "FC",
-                  "displayValue": "1"
+                  "displayValue": "5"
                 },
                 {
                   "name": "wonCorners",
                   "abbreviation": "CW",
-                  "displayValue": "3"
+                  "displayValue": "2"
                 },
                 {
                   "name": "goalAssists",
@@ -58521,27 +58565,27 @@
                 {
                   "name": "possessionPct",
                   "abbreviation": "PP",
-                  "displayValue": "80.7"
+                  "displayValue": "71.6"
                 },
                 {
                   "name": "shotAssists",
                   "abbreviation": "SHAST",
-                  "displayValue": "2"
+                  "displayValue": "3"
                 },
                 {
                   "name": "shotsOnTarget",
                   "abbreviation": "SOG",
-                  "displayValue": "2"
+                  "displayValue": "3"
                 },
                 {
                   "name": "totalGoals",
                   "abbreviation": "G",
-                  "displayValue": "1"
+                  "displayValue": "2"
                 },
                 {
                   "name": "totalShots",
                   "abbreviation": "SHOT",
-                  "displayValue": "4"
+                  "displayValue": "5"
                 }
               ]
             }
@@ -58634,6 +58678,50 @@
                   "position": "LM"
                 }
               ]
+            },
+            {
+              "type": {
+                "id": "98",
+                "text": "Penalty - Scored"
+              },
+              "clock": {
+                "value": 1810.0,
+                "displayValue": "31'"
+              },
+              "team": {
+                "id": "202"
+              },
+              "scoreValue": 1,
+              "scoringPlay": true,
+              "redCard": false,
+              "yellowCard": false,
+              "penaltyKick": true,
+              "ownGoal": false,
+              "shootout": false,
+              "athletesInvolved": [
+                {
+                  "id": "219713",
+                  "displayName": "Lautaro Martínez",
+                  "shortName": "L. Martínez",
+                  "fullName": "Lautaro Martínez",
+                  "jersey": "22",
+                  "team": {
+                    "id": "202"
+                  },
+                  "links": [
+                    {
+                      "rel": [
+                        "playercard",
+                        "desktop",
+                        "athlete"
+                      ],
+                      "href": "https://www.espn.com/soccer/player/_/id/219713/lautaro-martinez",
+                      "isHidden": false
+                    }
+                  ],
+                  "position": "CF-R"
+                }
+              ]
             }
           ],
           "odds": [
@@ -58690,7 +58778,7 @@
                   },
                   "current": {
                     "line": "o3.5",
-                    "odds": "-137",
+                    "odds": "-110",
                     "link": {
                       "rel": [
                         "over",
@@ -58722,7 +58810,7 @@
                   },
                   "current": {
                     "line": "u3.5",
-                    "odds": "+115",
+                    "odds": "-108",
                     "link": {
                       "rel": [
                         "under",
@@ -58758,7 +58846,7 @@
                   },
                   "current": {
                     "line": "+3.5",
-                    "odds": "-170",
+                    "odds": "-195",
                     "link": {
                       "rel": [
                         "homeSpread",
@@ -58790,7 +58878,7 @@
                   },
                   "current": {
                     "line": "-3.5",
-                    "odds": "+130",
+                    "odds": "+145",
                     "link": {
                       "rel": [
                         "awaySpread",
@@ -58823,7 +58911,7 @@
                     "odds": "+1800"
                   },
                   "current": {
-                    "odds": "+10000",
+                    "odds": "+25000",
                     "link": {
                       "rel": [
                         "home",
@@ -58878,7 +58966,7 @@
                     "odds": "+750"
                   },
                   "current": {
-                    "odds": "+2200",
+                    "odds": "+5000",
                     "link": {
                       "rel": [
                         "draw",
@@ -58908,17 +58996,17 @@
         }
       ],
       "status": {
-        "clock": 1800.0,
-        "displayClock": "30'",
+        "clock": 2700.0,
+        "displayClock": "45'+6'",
         "period": 1,
         "type": {
-          "id": "25",
-          "name": "STATUS_FIRST_HALF",
+          "id": "23",
+          "name": "STATUS_HALFTIME",
           "state": "in",
           "completed": false,
-          "description": "First Half",
-          "detail": "30'",
-          "shortDetail": "30'"
+          "description": "Halftime",
+          "detail": "HT",
+          "shortDetail": "HT"
         }
       },
       "venue": {
@@ -59041,8 +59129,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $519",
-              "numberAvailable": 1627,
+              "summary": "Tickets as low as $534",
+              "numberAvailable": 1297,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-sofi-stadium-6-28-2026--sports-soccer/production/5080724?wsUser=717"
@@ -60682,20 +60770,6 @@
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
-        },
-        {
-          "language": "en-US",
-          "rel": [
-            "bracket",
-            "desktop",
-            "event"
-          ],
-          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
-          "text": "Bracket",
-          "shortText": "Bracket",
-          "isExternal": false,
-          "isPremium": false,
-          "isHidden": false
         }
       ]
     }
@@ -60759,8 +60833,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $709",
-              "numberAvailable": 2350,
+              "summary": "Tickets as low as $702",
+              "numberAvailable": 2346,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-gillette-stadium-6-29-2026--sports-soccer/production/5080727?wsUser=717"
@@ -62179,7 +62253,7 @@
                   },
                   "close": {
                     "line": "-0.5",
-                    "odds": "+105",
+                    "odds": "+110",
                     "link": {
                       "rel": [
                         "homeSpread",
@@ -62207,7 +62281,7 @@
                   },
                   "close": {
                     "line": "+0.5",
-                    "odds": "-135",
+                    "odds": "-140",
                     "link": {
                       "rel": [
                         "awaySpread",
@@ -62237,7 +62311,7 @@
                     "odds": "+110"
                   },
                   "close": {
-                    "odds": "+110",
+                    "odds": "+115",
                     "link": {
                       "rel": [
                         "home",
@@ -62262,7 +62336,7 @@
                     "odds": "+275"
                   },
                   "close": {
-                    "odds": "+280",
+                    "odds": "+270",
                     "link": {
                       "rel": [
                         "away",
@@ -62308,7 +62382,7 @@
                   }
                 }
               },
-              "details": "NED +110"
+              "details": "NED +115"
             }
           ],
           "wasSuspended": false,
@@ -62950,7 +63024,7 @@
                   },
                   "close": {
                     "line": "o2.5",
-                    "odds": "-110",
+                    "odds": "-115",
                     "link": {
                       "rel": [
                         "over",
@@ -63268,8 +63342,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $838",
-              "numberAvailable": 2852,
+              "summary": "Tickets as low as $901",
+              "numberAvailable": 2864,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-metlife-stadium-6-30-2026--sports-soccer/production/5080730?wsUser=717"
@@ -63882,7 +63956,7 @@
                   },
                   "close": {
                     "line": "+1.5",
-                    "odds": "-105",
+                    "odds": "+100",
                     "link": {
                       "rel": [
                         "awaySpread",
@@ -64626,20 +64700,6 @@
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
-        },
-        {
-          "language": "en-US",
-          "rel": [
-            "bracket",
-            "desktop",
-            "event"
-          ],
-          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
-          "text": "Bracket",
-          "shortText": "Bracket",
-          "isExternal": false,
-          "isPremium": false,
-          "isHidden": false
         }
       ]
     }
@@ -64704,7 +64764,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $987",
-              "numberAvailable": 2700,
+              "numberAvailable": 2646,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-mercedes-benz-stadium-7-1-2026--sports-soccer/production/5080828?wsUser=717"
@@ -65836,20 +65896,6 @@
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
-        },
-        {
-          "language": "en-US",
-          "rel": [
-            "bracket",
-            "desktop",
-            "event"
-          ],
-          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
-          "text": "Bracket",
-          "shortText": "Bracket",
-          "isExternal": false,
-          "isPremium": false,
-          "isHidden": false
         }
       ]
     }
@@ -65914,7 +65960,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $1,527",
-              "numberAvailable": 2123,
+              "numberAvailable": 2115,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-levis-stadium-7-1-2026--sports-soccer/production/5080829?wsUser=717"
@@ -66542,7 +66588,7 @@
                   },
                   "close": {
                     "line": "+1.5",
-                    "odds": "-140",
+                    "odds": "-135",
                     "link": {
                       "rel": [
                         "awaySpread",
@@ -67203,8 +67249,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $2,889",
-              "numberAvailable": 220,
+              "summary": "Tickets as low as $3,203",
+              "numberAvailable": 200,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-bmo-field-7-2-2026--sports-soccer/production/5080833?wsUser=717"
@@ -68162,20 +68208,6 @@
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
-        },
-        {
-          "language": "en-US",
-          "rel": [
-            "bracket",
-            "desktop",
-            "event"
-          ],
-          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
-          "text": "Bracket",
-          "shortText": "Bracket",
-          "isExternal": false,
-          "isPremium": false,
-          "isHidden": false
         }
       ]
     }
@@ -69021,6 +69053,20 @@
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "bracket",
+            "desktop",
+            "event"
+          ],
+          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
+          "text": "Bracket",
+          "shortText": "Bracket",
+          "isExternal": false,
+          "isPremium": false,
+          "isHidden": false
         }
       ]
     }
@@ -69085,7 +69131,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $2,620",
-              "numberAvailable": 1941,
+              "numberAvailable": 1940,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-hard-rock-stadium-7-3-2026--sports-soccer/production/5080839?wsUser=717"
@@ -69930,8 +69976,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $1,533",
-              "numberAvailable": 2782,
+              "summary": "Tickets as low as $1,621",
+              "numberAvailable": 2799,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-geha-field-at-arrowhead-stadium-7-3-2026--sports-soccer/production/5080842?wsUser=717"
@@ -70698,20 +70744,6 @@
           "href": "https://www.espn.com/soccer/matchstats/_/gameId/760502",
           "text": "Statistics",
           "shortText": "Statistics",
-          "isExternal": false,
-          "isPremium": false,
-          "isHidden": false
-        },
-        {
-          "language": "en-US",
-          "rel": [
-            "bracket",
-            "desktop",
-            "event"
-          ],
-          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
-          "text": "Bracket",
-          "shortText": "Bracket",
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
@@ -72346,20 +72378,6 @@
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
-        },
-        {
-          "language": "en-US",
-          "rel": [
-            "bracket",
-            "desktop",
-            "event"
-          ],
-          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
-          "text": "Bracket",
-          "shortText": "Bracket",
-          "isExternal": false,
-          "isPremium": false,
-          "isHidden": false
         }
       ]
     }
@@ -72586,20 +72604,6 @@
           "href": "https://www.espn.com/soccer/matchstats/_/gameId/760510",
           "text": "Statistics",
           "shortText": "Statistics",
-          "isExternal": false,
-          "isPremium": false,
-          "isHidden": false
-        },
-        {
-          "language": "en-US",
-          "rel": [
-            "bracket",
-            "desktop",
-            "event"
-          ],
-          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
-          "text": "Bracket",
-          "shortText": "Bracket",
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
@@ -72832,6 +72836,20 @@
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "bracket",
+            "desktop",
+            "event"
+          ],
+          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
+          "text": "Bracket",
+          "shortText": "Bracket",
+          "isExternal": false,
+          "isPremium": false,
+          "isHidden": false
         }
       ]
     }
@@ -73061,6 +73079,20 @@
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "bracket",
+            "desktop",
+            "event"
+          ],
+          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
+          "text": "Bracket",
+          "shortText": "Bracket",
+          "isExternal": false,
+          "isPremium": false,
+          "isHidden": false
         }
       ]
     }
@@ -73287,20 +73319,6 @@
           "href": "https://www.espn.com/soccer/matchstats/_/gameId/760513",
           "text": "Statistics",
           "shortText": "Statistics",
-          "isExternal": false,
-          "isPremium": false,
-          "isHidden": false
-        },
-        {
-          "language": "en-US",
-          "rel": [
-            "bracket",
-            "desktop",
-            "event"
-          ],
-          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
-          "text": "Bracket",
-          "shortText": "Bracket",
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
@@ -74249,6 +74267,20 @@
           "href": "https://www.espn.com/soccer/matchstats/_/gameId/760517",
           "text": "Statistics",
           "shortText": "Statistics",
+          "isExternal": false,
+          "isPremium": false,
+          "isHidden": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "bracket",
+            "desktop",
+            "event"
+          ],
+          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
+          "text": "Bracket",
+          "shortText": "Bracket",
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
