@@ -270,28 +270,6 @@
       ]
     },
     {
-      "name": "Rob",
-      "total": 10,
-      "items": [
-        {
-          "label": "Reach Round of 16",
-          "team": "Colombia",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Colombia qualified for the Round of 16",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 16",
-          "team": "Ghana",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Ghana qualified for the Round of 16",
-          "status": "awarded"
-        }
-      ]
-    },
-    {
       "name": "Charlie",
       "total": 5,
       "items": [
@@ -349,6 +327,11 @@
     },
     {
       "name": "Jake",
+      "total": 0,
+      "items": []
+    },
+    {
+      "name": "Rob",
       "total": 0,
       "items": []
     }
@@ -934,48 +917,6 @@
         "total": 5
       },
       {
-        "owner": "Rob",
-        "team": "Colombia",
-        "stageBonuses": [
-          {
-            "stage": "round_of_16",
-            "label": "Reach Round of 16",
-            "shortLabel": "Round of 16",
-            "team": "Colombia",
-            "owner": "Rob",
-            "points": 5,
-            "date": "2026-07-04T01:30Z",
-            "match": "Colombia v Ghana",
-            "reason": "Colombia qualified for the Round of 16",
-            "status": "awarded"
-          }
-        ],
-        "cleanSheets": [],
-        "winnerBonus": null,
-        "total": 5
-      },
-      {
-        "owner": "Rob",
-        "team": "Ghana",
-        "stageBonuses": [
-          {
-            "stage": "round_of_16",
-            "label": "Reach Round of 16",
-            "shortLabel": "Round of 16",
-            "team": "Ghana",
-            "owner": "Rob",
-            "points": 5,
-            "date": "2026-07-04T01:30Z",
-            "match": "Colombia v Ghana",
-            "reason": "Ghana qualified for the Round of 16",
-            "status": "awarded"
-          }
-        ],
-        "cleanSheets": [],
-        "winnerBonus": null,
-        "total": 5
-      },
-      {
         "owner": "Ryan",
         "team": "Norway",
         "stageBonuses": [
@@ -1165,6 +1106,22 @@
       },
       {
         "owner": "Rob",
+        "team": "Colombia",
+        "stageBonuses": [],
+        "cleanSheets": [],
+        "winnerBonus": null,
+        "total": 0
+      },
+      {
+        "owner": "Rob",
+        "team": "Ghana",
+        "stageBonuses": [],
+        "cleanSheets": [],
+        "winnerBonus": null,
+        "total": 0
+      },
+      {
+        "owner": "Rob",
         "team": "Panama",
         "stageBonuses": [],
         "cleanSheets": [],
@@ -1189,30 +1146,6 @@
       }
     ],
     "awardedItems": [
-      {
-        "stage": "round_of_16",
-        "label": "Reach Round of 16",
-        "shortLabel": "Round of 16",
-        "team": "Colombia",
-        "owner": "Rob",
-        "points": 5,
-        "date": "2026-07-04T01:30Z",
-        "match": "Colombia v Ghana",
-        "reason": "Colombia qualified for the Round of 16",
-        "status": "awarded"
-      },
-      {
-        "stage": "round_of_16",
-        "label": "Reach Round of 16",
-        "shortLabel": "Round of 16",
-        "team": "Ghana",
-        "owner": "Rob",
-        "points": 5,
-        "date": "2026-07-04T01:30Z",
-        "match": "Colombia v Ghana",
-        "reason": "Ghana qualified for the Round of 16",
-        "status": "awarded"
-      },
       {
         "stage": "round_of_32",
         "label": "Reach Round of 32",
@@ -1934,34 +1867,10 @@
         "match": "Argentina v Cape Verde",
         "reason": "Cape Verde qualified for the Round of 32",
         "status": "awarded"
-      },
-      {
-        "stage": "round_of_16",
-        "label": "Reach Round of 16",
-        "shortLabel": "Round of 16",
-        "team": "Colombia",
-        "owner": "Rob",
-        "points": 5,
-        "date": "2026-07-04T01:30Z",
-        "match": "Colombia v Ghana",
-        "reason": "Colombia qualified for the Round of 16",
-        "status": "awarded"
-      },
-      {
-        "stage": "round_of_16",
-        "label": "Reach Round of 16",
-        "shortLabel": "Round of 16",
-        "team": "Ghana",
-        "owner": "Rob",
-        "points": 5,
-        "date": "2026-07-04T01:30Z",
-        "match": "Colombia v Ghana",
-        "reason": "Ghana qualified for the Round of 16",
-        "status": "awarded"
       }
     ],
     "notes": [
-      "Progression bonuses are awarded as soon as ESPN shows a real team in the relevant knockout fixture.",
+      "Round of 32 bonuses are awarded from confirmed fixtures; later progression bonuses are awarded only after the previous knockout match is completed.",
       "Penalty shootout winners count as the match winner for sweepstake points because the progressing team is what matters.",
       "Knockout clean sheet bonuses start from the Round of 32 and apply to all knockout-stage matches."
     ]
@@ -2314,7 +2223,7 @@
     }
   ],
   "notes": [
-    "Progression bonuses are awarded as soon as a team qualifies for each knockout stage.",
+    "Round of 32 bonuses are awarded from confirmed fixtures; later progression bonuses are awarded only when a team progresses by winning the previous knockout round.",
     "Penalty shootout winners count as the match winner for sweepstake points because the progressing team is what matters.",
     "Knockout clean sheet bonuses are awarded automatically from knockout-stage scores.",
     "Golden Boot and most goals by nation are tracked during the tournament and awarded when the tournament is complete.",
