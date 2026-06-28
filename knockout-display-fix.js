@@ -1,4 +1,4 @@
-// Knockout display + knocked-out section + knockout potential points fix.
+// Knockout display + knocked-out section + knockout potential points fix + wooden spoon confirmation.
 // Loaded after app.js from index.html.
 
 (function () {
@@ -292,6 +292,53 @@
     const style = document.createElement("style");
     style.id = "knockout-player-grouped-css";
     style.textContent = `
+      .wooden-spoon-confirmed-card {
+        position: relative;
+        overflow: hidden;
+        margin: 0 0 18px;
+        padding: 18px;
+        border-radius: 22px;
+        border: 1px solid rgba(255, 209, 102, 0.42);
+        background: linear-gradient(135deg, rgba(255, 209, 102, 0.20), rgba(7, 30, 47, 0.88));
+        box-shadow: var(--shadow);
+      }
+      .wooden-spoon-confirmed-card::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 6px;
+        background: linear-gradient(180deg, #ffd166, #ffad5a);
+      }
+      .wooden-spoon-confirmed-eyebrow {
+        display: inline-flex;
+        margin-bottom: 8px;
+        padding: 6px 11px;
+        border-radius: 999px;
+        background: rgba(255, 209, 102, 0.18);
+        color: #ffd166;
+        font-size: 0.78rem;
+        font-weight: 1000;
+        letter-spacing: 0.10em;
+        text-transform: uppercase;
+      }
+      .wooden-spoon-confirmed-card h3 {
+        margin: 0 0 8px;
+        color: #fff;
+        font-size: clamp(1.35rem, 3vw, 2rem);
+      }
+      .wooden-spoon-confirmed-card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.45;
+      }
+      .wooden-spoon-confirmed-team {
+        margin-top: 12px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
       .knockout-player-summary-grid { display: grid; gap: 14px; }
       .knockout-player-card, .knockout-out-card {
         border: 1px solid rgba(95, 169, 255, 0.24);
@@ -353,6 +400,52 @@
     }
 
     return "Group stage";
+  }
+
+  function woodenSpoonConfirmedHtml(playerDetails) {
+    const target = (playerDetails || []).find(player => normalise(player.name) === "phillipa");
+    const teams = target?.teams || [];
+    const worstTeam = teams
+      .map(team => ({
+        ...team,
+        gd: Number(team.goalsFor || 0) - Number(team.goalsAgainst || 0)
+      }))
+      .sort((a, b) => {
+        if (Number(a.points || 0) !== Number(b.points || 0)) return Number(a.points || 0) - Number(b.points || 0);
+        if (Number(b.gamesPlayed || 0) !== Number(a.gamesPlayed || 0)) return Number(b.gamesPlayed || 0) - Number(a.gamesPlayed || 0);
+        if (Number(a.gd || 0) !== Number(b.gd || 0)) return Number(a.gd || 0) - Number(b.gd || 0);
+        return Number(a.goalsFor || 0) - Number(b.goalsFor || 0);
+      })[0];
+
+    return `
+      <div class="wooden-spoon-confirmed-card">
+        <span class="wooden-spoon-confirmed-eyebrow">🥄 Wooden Spoon confirmed</span>
+        <h3>Phillipa has won the wooden spoon</h3>
+        <p>The wooden spoon prize is now confirmed for Phillipa. This is separate from leaderboard points and is the £5 wooden spoon prize.</p>
+        ${worstTeam ? `
+          <div class="wooden-spoon-confirmed-team">
+            <span class="knockout-bonus-pill clean-sheet-pill">${teamHtml(worstTeam.team)}</span>
+            <span class="knockout-bonus-pill">Worst team</span>
+          </div>
+        ` : ""}
+      </div>
+    `;
+  }
+
+  function renderWoodenSpoonConfirmation(playerDetails) {
+    groupedKnockoutCss();
+
+    document.querySelector("#wooden-spoon-confirmed-section")?.remove();
+
+    const leaderboardSection = document.querySelector(".cards");
+    if (!leaderboardSection) return;
+
+    const section = document.createElement("section");
+    section.id = "wooden-spoon-confirmed-section";
+    section.className = "wooden-spoon-confirmed-section";
+    section.innerHTML = woodenSpoonConfirmedHtml(playerDetails);
+
+    leaderboardSection.insertAdjacentElement("afterend", section);
   }
 
   function renderKnockoutTrackerFixed(knockoutData, leaderboard, matches) {
@@ -489,13 +582,15 @@
 
   async function refreshFrontendFixes() {
     try {
-      const [leaderboard, fixtures, bonusData, matches] = await Promise.all([
+      const [leaderboard, fixtures, bonusData, matches, playerDetails] = await Promise.all([
         loadData("data/leaderboard.json"),
         loadData("data/upcoming_fixtures.json"),
         loadData("data/bonus_points.json"),
-        loadData("data/matches.json").catch(() => [])
+        loadData("data/matches.json").catch(() => []),
+        loadData("data/player_details.json").catch(() => [])
       ]);
 
+      renderWoodenSpoonConfirmation(playerDetails);
       renderBiggestPossibleMoveFixed(leaderboard, fixtures);
       renderMatchdayStorylinesFixed(leaderboard, fixtures);
       renderKnockoutTrackerFixed(bonusData?.knockoutTracker || bonusData, leaderboard, matches);
