@@ -48,6 +48,44 @@
       ]
     },
     {
+      "name": "Maelan",
+      "total": 20,
+      "items": [
+        {
+          "label": "Reach Round of 32",
+          "team": "Brazil",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Brazil qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 16",
+          "team": "Brazil",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Brazil progressed to the Round of 16 by winning Brazil 2–1 Japan",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 32",
+          "team": "Ivory Coast",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Ivory Coast qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 32",
+          "team": "Switzerland",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Switzerland qualified for the Round of 32",
+          "status": "awarded"
+        }
+      ]
+    },
+    {
       "name": "Jason",
       "total": 15,
       "items": [
@@ -103,36 +141,6 @@
           "points": 5,
           "displayPoints": 5,
           "reason": "Portugal qualified for the Round of 32",
-          "status": "awarded"
-        }
-      ]
-    },
-    {
-      "name": "Maelan",
-      "total": 15,
-      "items": [
-        {
-          "label": "Reach Round of 32",
-          "team": "Brazil",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Brazil qualified for the Round of 32",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 32",
-          "team": "Ivory Coast",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Ivory Coast qualified for the Round of 32",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 32",
-          "team": "Switzerland",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Switzerland qualified for the Round of 32",
           "status": "awarded"
         }
       ]
@@ -451,6 +459,39 @@
         "total": 12
       },
       {
+        "owner": "Maelan",
+        "team": "Brazil",
+        "stageBonuses": [
+          {
+            "stage": "round_of_32",
+            "label": "Reach Round of 32",
+            "shortLabel": "Round of 32",
+            "team": "Brazil",
+            "owner": "Maelan",
+            "points": 5,
+            "date": "2026-06-29T17:00Z",
+            "match": "Brazil 2–1 Japan",
+            "reason": "Brazil qualified for the Round of 32",
+            "status": "awarded"
+          },
+          {
+            "stage": "round_of_16",
+            "label": "Reach Round of 16",
+            "shortLabel": "Round of 16",
+            "team": "Brazil",
+            "owner": "Maelan",
+            "points": 5,
+            "date": "2026-06-29T17:00Z",
+            "match": "Brazil 2–1 Japan",
+            "reason": "Brazil progressed to the Round of 16 by winning Brazil 2–1 Japan",
+            "status": "awarded"
+          }
+        ],
+        "cleanSheets": [],
+        "winnerBonus": null,
+        "total": 10
+      },
+      {
         "owner": "Charlie",
         "team": "Germany",
         "stageBonuses": [
@@ -683,27 +724,6 @@
       },
       {
         "owner": "Maelan",
-        "team": "Brazil",
-        "stageBonuses": [
-          {
-            "stage": "round_of_32",
-            "label": "Reach Round of 32",
-            "shortLabel": "Round of 32",
-            "team": "Brazil",
-            "owner": "Maelan",
-            "points": 5,
-            "date": "2026-06-29T17:00Z",
-            "match": "Brazil v Japan",
-            "reason": "Brazil qualified for the Round of 32",
-            "status": "awarded"
-          }
-        ],
-        "cleanSheets": [],
-        "winnerBonus": null,
-        "total": 5
-      },
-      {
-        "owner": "Maelan",
         "team": "Ivory Coast",
         "stageBonuses": [
           {
@@ -861,7 +881,7 @@
             "owner": "Nick",
             "points": 5,
             "date": "2026-06-29T17:00Z",
-            "match": "Brazil v Japan",
+            "match": "Brazil 2–1 Japan",
             "reason": "Japan qualified for the Round of 32",
             "status": "awarded"
           }
@@ -1575,7 +1595,7 @@
         "owner": "Nick",
         "points": 5,
         "date": "2026-06-29T17:00Z",
-        "match": "Brazil v Japan",
+        "match": "Brazil 2–1 Japan",
         "reason": "Japan qualified for the Round of 32",
         "status": "awarded"
       },
@@ -1587,8 +1607,20 @@
         "owner": "Maelan",
         "points": 5,
         "date": "2026-06-29T17:00Z",
-        "match": "Brazil v Japan",
+        "match": "Brazil 2–1 Japan",
         "reason": "Brazil qualified for the Round of 32",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_16",
+        "label": "Reach Round of 16",
+        "shortLabel": "Round of 16",
+        "team": "Brazil",
+        "owner": "Maelan",
+        "points": 5,
+        "date": "2026-06-29T17:00Z",
+        "match": "Brazil 2–1 Japan",
+        "reason": "Brazil progressed to the Round of 16 by winning Brazil 2–1 Japan",
         "status": "awarded"
       },
       {
@@ -1686,7 +1718,7 @@
         "owner": "Maelan",
         "points": 5,
         "date": "2026-06-29T17:00Z",
-        "match": "Brazil v Japan",
+        "match": "Brazil 2–1 Japan",
         "reason": "Brazil qualified for the Round of 32",
         "status": "awarded"
       },
@@ -1698,8 +1730,20 @@
         "owner": "Nick",
         "points": 5,
         "date": "2026-06-29T17:00Z",
-        "match": "Brazil v Japan",
+        "match": "Brazil 2–1 Japan",
         "reason": "Japan qualified for the Round of 32",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_16",
+        "label": "Reach Round of 16",
+        "shortLabel": "Round of 16",
+        "team": "Brazil",
+        "owner": "Maelan",
+        "points": 5,
+        "date": "2026-06-29T17:00Z",
+        "match": "Brazil 2–1 Japan",
+        "reason": "Brazil progressed to the Round of 16 by winning Brazil 2–1 Japan",
         "status": "awarded"
       },
       {
@@ -2124,11 +2168,19 @@
       "goals": 10
     },
     {
+      "team": "Brazil",
+      "goals": 9
+    },
+    {
       "team": "Canada",
       "goals": 9
     },
     {
       "team": "Argentina",
+      "goals": 8
+    },
+    {
+      "team": "Japan",
       "goals": 8
     },
     {
@@ -2142,14 +2194,6 @@
     {
       "team": "USA",
       "goals": 8
-    },
-    {
-      "team": "Brazil",
-      "goals": 7
-    },
-    {
-      "team": "Japan",
-      "goals": 7
     },
     {
       "team": "Sweden",
