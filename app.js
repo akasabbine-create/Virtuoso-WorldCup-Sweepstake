@@ -47,6 +47,17 @@ function normaliseText(value) {
   return String(value || "").trim().toLowerCase();
 }
 
+function normaliseTeamName(value) {
+  const raw = typeof value === "object" && value !== null
+    ? (value.team || value.name || value.displayName || value.shortDisplayName || "")
+    : value;
+
+  return normaliseText(raw)
+    .replace(/&/g, "and")
+    .replace(/[’']/g, "")
+    .replace(/\s+/g, " ");
+}
+
 function escapeHtml(value) {
   return String(value ?? "")
     .replace(/&/g, "&amp;")
@@ -760,11 +771,14 @@ function renderSummaryCards(leaderboard, playerDetails) {
   if (!spoonTeam) {
     spoonEl.textContent = "No data";
   } else {
+    const spoonConfirmed = normaliseText(spoonTeam.playerName) === "phillipa";
     spoonEl.innerHTML = `
       ${escapeHtml(spoonTeam.playerName)} — ${teamLabelHtml(spoonTeam.team, ["wooden-spoon-country"])}
       <br />
       <span class="small-card-text">
-        ${spoonTeam.points} pts, ${spoonTeam.gamesPlayed} played, GD ${spoonTeam.goalDifference}
+        ${spoonConfirmed
+          ? `Confirmed wooden spoon winner · £${PRIZE_POOL.woodenSpoon.amount} prize`
+          : `${spoonTeam.points} pts, ${spoonTeam.gamesPlayed} played, GD ${spoonTeam.goalDifference}`}
       </span>
     `;
   }
@@ -1384,7 +1398,7 @@ function renderInsightStrip(leaderboard, latestResults) {
   if (existing) existing.remove();
 }
 
-function renderLeaderboard(data, spoonTeam, badgesByPlayer, mostGoalsTeams) {
+function renderLeaderboard(data, spoonTeam, badgesByPlayer, mostGoalsTeams, teamStatusLookup) {
   const tbody = document.querySelector("#board tbody");
 
   if (!tbody) return;
@@ -1411,8 +1425,15 @@ function renderLeaderboard(data, spoonTeam, badgesByPlayer, mostGoalsTeams) {
       tr.classList.add("top-three");
     }
 
+    if (playerIsFullyEliminated(player, teamStatusLookup)) {
+      tr.classList.add("player-eliminated-row");
+    }
+
     const teams = (player.teams || []).map(team => {
-      const classes = teamHighlightClasses(team, player.name, spoonTeam, mostGoalsTeams);
+      const classes = [
+        ...teamHighlightClasses(team, player.name, spoonTeam, mostGoalsTeams),
+        ...teamEliminationClasses(team, teamStatusLookup)
+      ];
       return teamNameHtml(team, classes);
     }).join(", ");
 
@@ -1458,13 +1479,25 @@ function renderBonusTracker(bonusData, leaderboard) {
     });
   });
 
-  const awardedHtml = awarded.length > 0
-    ? awarded.map(item => `
+  const playerTotals = new Map();
+  awarded.forEach(item => {
+    const current = playerTotals.get(item.player) || { player: item.player, total: 0, count: 0, teams: new Set() };
+    current.total += Number(item.points || 0);
+    current.count += 1;
+    if (item.team) current.teams.add(item.team);
+    playerTotals.set(item.player, current);
+  });
+
+  const awardedSummary = [...playerTotals.values()]
+    .sort((a, b) => b.total - a.total || a.player.localeCompare(b.player))
+    .slice(0, 8);
+
+  const awardedHtml = awardedSummary.length > 0
+    ? awardedSummary.map(item => `
         <li>
-          <strong>${item.player}</strong>: +${item.points}
-          ${item.label} — ${teamLabelHtml(item.team)}
-          <br />
-          <span>${item.reason}</span>
+          <strong>${escapeHtml(item.player)}</strong>
+          <span>${item.count} award${item.count === 1 ? "" : "s"} · ${[...item.teams].slice(0, 3).map(team => teamLabelHtml(team)).join(", ")}</span>
+          <em>+${item.total} bonus pts</em>
         </li>
       `).join("")
     : `<li>No bonus points awarded yet.</li>`;
@@ -1554,10 +1587,174 @@ function renderBonusTracker(bonusData, leaderboard) {
       ${fastestGoal}
       <p class="bonus-note">Current fastest goal owner gets the badge. £5 prize awarded at tournament end.</p>
     </div>
+  `;
+}
 
-    <div class="bonus-race-card awarded-bonus-card">
-      <h3>Awarded Bonus Points</h3>
-      <ul>${awardedHtml}</ul>
+
+function stageShortLabel(stage) {
+  const map = {
+    round_of_32: "R32",
+    round_of_16: "R16",
+    quarter_final: "QF",
+    semi_final: "SF",
+    final: "Final",
+    winner: "Winner"
+  };
+
+  return map[stage] || stage;
+}
+
+function knockoutRowsFromData(knockoutData) {
+  const tracker = knockoutData?.rows
+    ? knockoutData
+    : (knockoutData?.knockoutTracker || knockoutData || {});
+
+  return tracker.rows || [];
+}
+
+function buildTeamBonusLookup(knockoutData) {
+  const lookup = new Map();
+
+  knockoutRowsFromData(knockoutData).forEach(row => {
+    const owner = normaliseText(row.owner || "");
+    const team = normaliseText(row.team || "");
+
+    if (!owner || !team) return;
+
+    lookup.set(`${owner}::${team}`, {
+      points: Number(row.total || 0),
+      stageBonuses: row.stageBonuses || [],
+      cleanSheets: row.cleanSheets || []
+    });
+  });
+
+  return lookup;
+}
+
+function teamBonusFor(lookup, playerName, teamName) {
+  if (!lookup) return null;
+  const item = lookup.get(`${normaliseText(playerName || "")}::${normaliseText(teamName || "")}`);
+  return item && Number(item.points || 0) > 0 ? item : null;
+}
+
+function teamBonusPillHtml(bonus) {
+  if (!bonus) return "";
+
+  const bits = [
+    ...(bonus.stageBonuses || []).map(item => `${stageShortLabel(item.stage)} +${item.points}`),
+    ...(bonus.cleanSheets || []).map(item => `CS +${item.points}`)
+  ];
+
+  return `
+    <span class="team-bonus-pill" title="${escapeHtml(bits.join(" · "))}">
+      +${Number(bonus.points || 0)} bonus
+    </span>
+  `;
+}
+
+function renderKnockoutTracker(knockoutData, leaderboard) {
+  const container = document.querySelector("#knockout-tracker");
+
+  if (!container) return;
+
+  const tracker = knockoutData?.rows
+    ? knockoutData
+    : (knockoutData?.knockoutTracker || knockoutData || {});
+
+  const rows = tracker.rows || [];
+  const awardedItems = tracker.awardedItems || [];
+
+  if (!rows.length) {
+    container.innerHTML = `
+      <div class="knockout-empty-card">
+        <h3>No knockout bonuses awarded yet</h3>
+        <p>As soon as qualified teams appear in the knockout fixtures, this section will show exactly which player and team received each bonus.</p>
+      </div>
+    `;
+    return;
+  }
+
+  const activeRows = rows
+    .filter(row => Number(row.total || 0) > 0)
+    .sort((a, b) => Number(b.total || 0) - Number(a.total || 0) || String(a.owner || "").localeCompare(String(b.owner || "")));
+
+  const topRows = activeRows.slice(0, 8);
+  const totalAwarded = activeRows.reduce((sum, row) => sum + Number(row.total || 0), 0);
+  const teamsQualified = activeRows.length;
+  const cleanSheets = rows.reduce((sum, row) => sum + (row.cleanSheets || []).length, 0);
+
+  const stageOrder = ["round_of_32", "round_of_16", "quarter_final", "semi_final", "final", "winner"];
+
+  const stageSummary = stageOrder.map(stage => {
+    const count = rows.filter(row => (row.stageBonuses || []).some(item => item.stage === stage)).length;
+    const stageMeta = (tracker.stages || []).find(item => item.key === stage);
+
+    return `
+      <div class="knockout-stage-chip ${count ? "stage-active" : ""}">
+        <span>${stageShortLabel(stage)}</span>
+        <strong>${count}</strong>
+        <small>${stageMeta?.points ? `+${stageMeta.points}` : ""}</small>
+      </div>
+    `;
+  }).join("");
+
+  const leaderboardByPlayer = Object.fromEntries((leaderboard || []).map(player => [player.name, player]));
+
+  const contendersHtml = topRows.length
+    ? topRows.map((row, index) => {
+        const player = leaderboardByPlayer[row.owner] || {};
+        const stageBadges = (row.stageBonuses || []).map(item => `
+          <span class="knockout-bonus-pill">${stageShortLabel(item.stage)} +${item.points}</span>
+        `).join("");
+
+        const cleanSheetBadges = (row.cleanSheets || []).map(item => `
+          <span class="knockout-bonus-pill clean-sheet-pill">CS +${item.points}</span>
+        `).join("");
+
+        return `
+          <article class="knockout-team-card">
+            <div class="knockout-team-header">
+              <span class="knockout-owner">${row.owner}</span>
+              <strong>${row.total} bonus pts</strong>
+            </div>
+            <h3>${teamLabelHtml(row.team)}</h3>
+            <p>Rank ${player.rank || "—"} · Total ${player.points ?? "—"} pts · Bonus ${player.bonusPoints ?? row.total}</p>
+            <div class="knockout-bonus-pills">
+              ${stageBadges || `<span class="knockout-bonus-pill muted">No progression yet</span>`}
+              ${cleanSheetBadges}
+            </div>
+          </article>
+        `;
+      }).join("")
+    : `
+      <div class="knockout-empty-card">
+        <h3>No teams have qualified for knockout bonuses yet</h3>
+        <p>This will come alive as soon as the knockout fixtures start filling with real teams.</p>
+      </div>
+    `;
+
+  container.innerHTML = `
+    <div class="knockout-overview-card">
+      <div>
+        <span class="knockout-eyebrow">Knockout bonus points</span>
+        <h3>${totalAwarded} pts awarded</h3>
+        <p>${teamsQualified} teams have active knockout bonuses. ${cleanSheets} knockout clean sheets tracked.</p>
+      </div>
+      <div class="knockout-stage-grid">
+        ${stageSummary}
+      </div>
+    </div>
+
+    <div class="knockout-main-grid knockout-main-grid-single">
+      <div class="knockout-qualified-panel knockout-qualified-panel-wide">
+        <div class="knockout-panel-header">
+          <h3>Qualified teams & bonus impact</h3>
+          <span>Team-by-team transparency</span>
+        </div>
+        <div class="knockout-team-grid knockout-team-grid-wide">
+          ${contendersHtml}
+        </div>
+      </div>
     </div>
   `;
 }
@@ -1612,7 +1809,316 @@ function renderWoodenSpoonRace(playerDetails) {
   });
 }
 
-function renderPlayerDetails(details, spoonTeam, mostGoalsTeams) {
+
+function matchStageKey(match) {
+  const slug = match?.raw?.season?.slug || match?.stage || "";
+  const map = {
+    "round-of-32": "round_of_32",
+    "round-of-16": "round_of_16",
+    quarterfinals: "quarter_final",
+    semifinals: "semi_final",
+    final: "final",
+    "3rd-place-match": "third_place"
+  };
+  return map[slug] || slug;
+}
+
+function matchStageLabel(match) {
+  const key = matchStageKey(match);
+  const map = {
+    round_of_32: "Round of 32",
+    round_of_16: "Round of 16",
+    quarter_final: "Quarter-final",
+    semi_final: "Semi-final",
+    final: "Final",
+    third_place: "Third place"
+  };
+  return map[key] || "Knockout";
+}
+
+function isKnockoutMatch(match) {
+  return ["round_of_32", "round_of_16", "quarter_final", "semi_final", "final", "third_place"].includes(matchStageKey(match));
+}
+
+function matchTeams(match) {
+  return [match?.team1, match?.team2].filter(Boolean);
+}
+
+function matchInvolvesTeam(match, teamName) {
+  const target = normaliseTeamName(teamName);
+  return matchTeams(match).some(team => normaliseTeamName(team) === target);
+}
+
+function matchIsComplete(match) {
+  return Boolean(match?.completed || match?.raw?.status?.type?.completed);
+}
+
+function matchScoreForTeam(match, teamName) {
+  const target = normaliseTeamName(teamName);
+  const teamIsOne = normaliseTeamName(match?.team1) === target;
+  const teamIsTwo = normaliseTeamName(match?.team2) === target;
+
+  if (!teamIsOne && !teamIsTwo) return null;
+
+  const scoreFor = Number(teamIsOne ? match.score1 : match.score2);
+  const scoreAgainst = Number(teamIsOne ? match.score2 : match.score1);
+
+  if (!Number.isFinite(scoreFor) || !Number.isFinite(scoreAgainst)) return null;
+
+  return {
+    opponent: teamIsOne ? match.team2 : match.team1,
+    scoreFor,
+    scoreAgainst
+  };
+}
+
+function teamLostMatch(match, teamName) {
+  const score = matchScoreForTeam(match, teamName);
+  return Boolean(score && score.scoreFor < score.scoreAgainst);
+}
+
+function teamMatchPointsFromScore(score) {
+  if (!score) return 0;
+  if (score.scoreFor > score.scoreAgainst) return 3;
+  if (score.scoreFor === score.scoreAgainst) return 1;
+  return 0;
+}
+
+function buildTeamStatusLookup(leaderboard, playerDetails, knockoutData, matches) {
+  const rows = knockoutRowsFromData(knockoutData);
+  const bonusByTeam = new Map();
+
+  rows.forEach(row => {
+    const key = normaliseTeamName(row.team);
+    if (!key) return;
+    const existing = bonusByTeam.get(key) || [];
+    existing.push(row);
+    bonusByTeam.set(key, existing);
+  });
+
+  const ownedTeams = new Map();
+
+  (leaderboard || []).forEach(player => {
+    (player.teams || []).forEach(team => {
+      ownedTeams.set(normaliseTeamName(team), {
+        playerName: player.name,
+        team
+      });
+    });
+  });
+
+  (playerDetails || []).forEach(player => {
+    (player.teams || []).forEach(team => {
+      ownedTeams.set(normaliseTeamName(team.team), {
+        playerName: player.name,
+        team: team.team
+      });
+    });
+  });
+
+  const lookup = new Map();
+
+  ownedTeams.forEach((owned, key) => {
+    const teamMatches = (matches || [])
+      .filter(match => matchInvolvesTeam(match, owned.team))
+      .sort((a, b) => new Date(a.date || 0) - new Date(b.date || 0));
+
+    const completed = teamMatches.filter(matchIsComplete);
+    const future = teamMatches.filter(match =>
+      !matchIsComplete(match) &&
+      !teamIsPlaceholder(match.team1) &&
+      !teamIsPlaceholder(match.team2)
+    );
+    const knockoutLoss = [...completed].reverse().find(match => isKnockoutMatch(match) && teamLostMatch(match, owned.team));
+    const latestCompleted = completed[completed.length - 1];
+    const hasBonusRow = (bonusByTeam.get(key) || []).some(row => Number(row.total || 0) > 0);
+    const eliminated = Boolean(knockoutLoss || (!hasBonusRow && future.length === 0 && latestCompleted));
+
+    lookup.set(key, {
+      ...owned,
+      eliminated,
+      stage: knockoutLoss ? matchStageLabel(knockoutLoss) : "Group stage",
+      latestCompleted,
+      futureMatches: future.length
+    });
+  });
+
+  return lookup;
+}
+
+function teamStatusFor(lookup, teamName) {
+  return lookup?.get(normaliseTeamName(teamName)) || null;
+}
+
+function teamEliminationClasses(teamName, statusLookup) {
+  const status = teamStatusFor(statusLookup, teamName);
+  return status?.eliminated ? ["knocked-out-team"] : [];
+}
+
+function playerIsFullyEliminated(player, statusLookup) {
+  const teams = player?.teams || [];
+  return teams.length > 0 && teams.every(team => teamStatusFor(statusLookup, team)?.eliminated);
+}
+
+function teamIsPlaceholder(name) {
+  return !name || /TBD|Winner|Loser|Group .*Place|Group .*Winner|Group .*2nd Place|Third Place/i.test(String(name));
+}
+
+function bracketTeamHtml(name, owner) {
+  if (teamIsPlaceholder(name)) {
+    return `<span class="bracket-team bracket-team-placeholder"><span class="bracket-shield">◆</span>${escapeHtml(name || "TBD")}</span>`;
+  }
+
+  return `
+    <span class="bracket-team bracket-team-owned">
+      ${teamLabelHtml(name)}
+      ${owner ? `<span class="bracket-owner-pill">${escapeHtml(owner)}</span>` : ""}
+    </span>
+  `;
+}
+
+function renderKnockoutBracket(matches, leaderboard) {
+  const container = document.querySelector("#knockout-bracket");
+  if (!container) return;
+
+  const knockoutMatches = [...(matches || [])]
+    .filter(isKnockoutMatch)
+    .sort((a, b) => new Date(a.date || 0) - new Date(b.date || 0));
+
+  if (!knockoutMatches.length) {
+    container.innerHTML = `
+      <div class="knockout-empty-card">
+        <h3>No knockout fixtures yet</h3>
+        <p>The bracket will populate as soon as knockout matches appear in the fixture feed.</p>
+      </div>
+    `;
+    return;
+  }
+
+  const stageOrder = ["round_of_32", "round_of_16", "quarter_final", "semi_final", "final"];
+  const stageTitles = {
+    round_of_32: "Round of 32",
+    round_of_16: "Round of 16",
+    quarter_final: "Quarter-final",
+    semi_final: "Semi-final",
+    final: "Final"
+  };
+
+  const ownerByTeam = new Map();
+  (leaderboard || []).forEach(player => {
+    (player.teams || []).forEach(team => ownerByTeam.set(normaliseTeamName(team), player.name));
+  });
+
+  container.innerHTML = `
+    <div class="knockout-bracket-scroll">
+      <div class="knockout-bracket-grid">
+        ${stageOrder.map(stage => {
+          const stageMatches = knockoutMatches.filter(match => matchStageKey(match) === stage);
+          return `
+            <section class="bracket-stage bracket-stage-${stage}">
+              <h3>${stageTitles[stage]}</h3>
+              <div class="bracket-match-stack">
+                ${stageMatches.length ? stageMatches.map(match => {
+                  const owner1 = ownerByTeam.get(normaliseTeamName(match.team1));
+                  const owner2 = ownerByTeam.get(normaliseTeamName(match.team2));
+                  return `
+                    <article class="bracket-match ${match.completed ? "is-complete" : ""}">
+                      <span class="bracket-time">${formatDateTime(match.date)}</span>
+                      <div class="bracket-teams">
+                        <div class="bracket-team-row ${match.winner1 ? "winner" : ""}">
+                          ${bracketTeamHtml(match.team1, owner1)}
+                          ${match.completed ? `<strong>${escapeHtml(match.score1 ?? match.displayScore1 ?? "")}</strong>` : ""}
+                        </div>
+                        <div class="bracket-team-row ${match.winner2 ? "winner" : ""}">
+                          ${bracketTeamHtml(match.team2, owner2)}
+                          ${match.completed ? `<strong>${escapeHtml(match.score2 ?? match.displayScore2 ?? "")}</strong>` : ""}
+                        </div>
+                      </div>
+                    </article>
+                  `;
+                }).join("") : `<article class="bracket-match bracket-placeholder"><span class="bracket-time">TBD</span><div class="bracket-teams"><div class="bracket-team-row">${bracketTeamHtml("TBD")}</div><div class="bracket-team-row">${bracketTeamHtml("TBD")}</div></div></article>`}
+              </div>
+            </section>
+          `;
+        }).join("")}
+      </div>
+    </div>
+  `;
+}
+
+function matchBonusItemsForTeam(teamBonus, match) {
+  if (!teamBonus || !match) return [];
+
+  const matchDate = match.date ? new Date(match.date).toISOString().slice(0, 10) : "";
+  const matchText = `${match.team1} ${match.score1}–${match.score2} ${match.team2}`;
+  const sameMatch = item => {
+    const itemDate = item.date ? new Date(item.date).toISOString().slice(0, 10) : "";
+    return (itemDate && itemDate === matchDate) || normaliseText(item.match) === normaliseText(matchText);
+  };
+
+  return [
+    ...(teamBonus.stageBonuses || []).filter(sameMatch).map(item => ({
+      label: `${stageShortLabel(item.stage)} +${item.points}`,
+      className: "match-bonus-pill"
+    })),
+    ...(teamBonus.cleanSheets || []).filter(sameMatch).map(item => ({
+      label: `Clean sheet +${item.points}`,
+      className: "match-bonus-pill clean-sheet-pill"
+    }))
+  ];
+}
+
+function teamMatchRowsHtml(teamName, teamBonus, matchesData) {
+  const rows = (matchesData || [])
+    .filter(match => matchIsComplete(match) && matchInvolvesTeam(match, teamName))
+    .sort((a, b) => new Date(a.date || 0) - new Date(b.date || 0));
+
+  if (!rows.length) return "";
+
+  return rows.map(match => {
+    const score = matchScoreForTeam(match, teamName);
+    const result = score
+      ? score.scoreFor > score.scoreAgainst ? "W" : score.scoreFor === score.scoreAgainst ? "D" : "L"
+      : "–";
+    const points = teamMatchPointsFromScore(score);
+    const bonusItems = matchBonusItemsForTeam(teamBonus, match);
+    const bonusHtml = bonusItems.map(item => `<span class="${item.className}">${escapeHtml(item.label)}</span>`).join("");
+
+    return `
+      <li class="match-breakdown-row">
+        <span class="match-breakdown-main">
+          <strong>${result}</strong>
+          ${teamLabelHtml(teamName)}
+          ${score ? `${score.scoreFor}–${score.scoreAgainst}` : "v"}
+          ${teamLabelHtml(score?.opponent || "")}
+        </span>
+        <span class="match-breakdown-meta">
+          <span>${formatDateTime(match.date)}</span>
+          <span>${points} match pts</span>
+          ${bonusHtml}
+        </span>
+      </li>
+    `;
+  }).join("");
+}
+
+function recentResultsRowsHtml(team) {
+  return team.recentResults && team.recentResults.length > 0
+    ? team.recentResults.map(result => `
+        <li class="match-breakdown-row">
+          <span class="match-breakdown-main">
+            <strong>${result.result}</strong>
+            ${teamLabelHtml(team.team)} ${result.scoreFor}–${result.scoreAgainst} ${teamLabelHtml(result.opponent)}
+          </span>
+          <span class="match-breakdown-meta">
+            <span>${result.points} match pts</span>
+          </span>
+        </li>
+      `).join("")
+    : `<li>No completed matches yet</li>`;
+}
+
+function renderPlayerDetails(details, spoonTeam, mostGoalsTeams, knockoutData, matchesData = [], teamStatusLookup) {
   const container = document.querySelector("#player-details");
 
   if (!container) return;
@@ -1624,6 +2130,8 @@ function renderPlayerDetails(details, spoonTeam, mostGoalsTeams) {
     return;
   }
 
+  const bonusLookup = buildTeamBonusLookup(knockoutData);
+
   details.forEach(player => {
     const card = document.createElement("div");
     card.className = "player-card player-collapsible-card";
@@ -1632,28 +2140,37 @@ function renderPlayerDetails(details, spoonTeam, mostGoalsTeams) {
       card.classList.add("wooden-spoon-card");
     }
 
+    if (playerIsFullyEliminated(
+      { ...player, teams: (player.teams || []).map(team => team.team) },
+      teamStatusLookup
+    )) {
+      card.classList.add("player-eliminated-card");
+    }
+
     const teams = (player.teams || []).map(team => {
       const isSpoonTeam = spoonTeam
         && player.name === spoonTeam.playerName
         && team.team === spoonTeam.team;
 
-      const teamClasses = teamHighlightClasses(team.team, player.name, spoonTeam, mostGoalsTeams);
+      const teamClasses = [
+        ...teamHighlightClasses(team.team, player.name, spoonTeam, mostGoalsTeams),
+        ...teamEliminationClasses(team.team, teamStatusLookup)
+      ];
+      const teamBonus = teamBonusFor(bonusLookup, player.name, team.team);
       const teamName = teamNameHtml(team.team, teamClasses);
-
-      const recentResults = team.recentResults && team.recentResults.length > 0
-        ? team.recentResults.map(result => `
-            <li>
-              ${result.result}: ${teamLabelHtml(team.team)} ${result.scoreFor}–${result.scoreAgainst} ${teamLabelHtml(result.opponent)}
-              (${result.points} pts)
-            </li>
-          `).join("")
-        : `<li>No completed matches yet</li>`;
+      const teamBonusPill = teamBonusPillHtml(teamBonus);
+      const teamStatus = teamStatusFor(teamStatusLookup, team.team);
+      const matchRows = teamMatchRowsHtml(team.team, teamBonus, matchesData) || recentResultsRowsHtml(team);
 
       return `
-        <div class="team-breakdown ${isSpoonTeam ? "wooden-spoon-team" : ""}">
+        <div class="team-breakdown ${isSpoonTeam ? "wooden-spoon-team" : ""} ${teamStatus?.eliminated ? "team-breakdown-eliminated" : ""}">
           <div class="team-breakdown-header">
-            <strong>${teamName}</strong>
-            <span>${team.points} pts</span>
+            <strong>${teamName} ${teamBonusPill}</strong>
+            <span>
+              ${team.points} match pts
+              ${teamBonus ? `<em>+${Number(teamBonus.points || 0)} bonus</em>` : ""}
+              ${teamStatus?.eliminated ? `<em>Out: ${escapeHtml(teamStatus.stage)}</em>` : ""}
+            </span>
           </div>
 
           <div class="team-stats team-form-stats">
@@ -1664,15 +2181,19 @@ function renderPlayerDetails(details, spoonTeam, mostGoalsTeams) {
             <span>GD ${formatGoalDifference(goalDifference(team))}</span>
           </div>
 
-          <ul>${recentResults}</ul>
+          <ul class="match-breakdown-list">${matchRows}</ul>
         </div>
       `;
     }).join("");
 
     const teamNames = (player.teams || [])
       .map(team => {
-        const classes = teamHighlightClasses(team.team, player.name, spoonTeam, mostGoalsTeams);
-        return teamNameHtml(team.team, classes);
+        const classes = [
+          ...teamHighlightClasses(team.team, player.name, spoonTeam, mostGoalsTeams),
+          ...teamEliminationClasses(team.team, teamStatusLookup)
+        ];
+        const teamBonus = teamBonusFor(bonusLookup, player.name, team.team);
+        return `${teamNameHtml(team.team, classes)}${teamBonusPillHtml(teamBonus)}`;
       })
       .join(", ");
 
@@ -2131,6 +2652,15 @@ function renderLatestResults(results) {
   });
 }
 
+function safeRender(label, callback) {
+  try {
+    return callback();
+  } catch (error) {
+    console.error(`${label} failed`, error);
+    return null;
+  }
+}
+
 async function init() {
   updateStaticPageText();
   makeRulesCollapsible();
@@ -2139,6 +2669,7 @@ async function init() {
   let playerDetails = [];
   let bonusData = null;
   let latestResults = [];
+  let matchesData = [];
   let dramaData = null;
   let spoonTeam = null;
   let badgesByPlayer = {};
@@ -2197,6 +2728,12 @@ async function init() {
   }
 
   try {
+    matchesData = await loadJson("data/matches.json");
+  } catch (error) {
+    console.warn("Match data not available for knockout bracket yet.");
+  }
+
+  try {
     dramaData = await loadJson("data/drama_feed.json");
   } catch (error) {
     console.warn("Drama feed not available yet; using current dashboard state instead.");
@@ -2210,15 +2747,30 @@ async function init() {
   spoonTeam = badgeData.spoonTeam;
   badgesByPlayer = badgeData.badgesByPlayer;
   mostGoalsTeams = badgeData.mostGoalsTeams || [];
+  const teamStatusLookup = buildTeamStatusLookup(
+    leaderboard,
+    playerDetails,
+    bonusData?.knockoutTracker || bonusData,
+    matchesData
+  );
 
-  renderSummaryCards(leaderboard, playerDetails);
-  renderInsightStrip(leaderboard, latestResults);
-  renderLeaderboard(leaderboard, spoonTeam, badgesByPlayer, mostGoalsTeams);
-  renderBonusTracker(bonusData, leaderboard);
-  renderPrizePoolSection(leaderboard, playerDetails, bonusData);
-  renderWoodenSpoonRace(playerDetails);
-  renderPlayerDetails(playerDetails, spoonTeam, mostGoalsTeams);
-  renderLatestResults(latestResults);
+  safeRender("Summary cards", () => renderSummaryCards(leaderboard, playerDetails));
+  safeRender("Insight strip", () => renderInsightStrip(leaderboard, latestResults));
+  safeRender("Leaderboard", () => renderLeaderboard(leaderboard, spoonTeam, badgesByPlayer, mostGoalsTeams, teamStatusLookup));
+  safeRender("Bonus tracker", () => renderBonusTracker(bonusData, leaderboard));
+  safeRender("Knockout tracker", () => renderKnockoutTracker(bonusData?.knockoutTracker || bonusData, leaderboard));
+  safeRender("Knockout bracket", () => renderKnockoutBracket(matchesData, leaderboard));
+  safeRender("Prize pool", () => renderPrizePoolSection(leaderboard, playerDetails, bonusData));
+  safeRender("Wooden spoon race", () => renderWoodenSpoonRace(playerDetails));
+  safeRender("Player details", () => renderPlayerDetails(
+    playerDetails,
+    spoonTeam,
+    mostGoalsTeams,
+    bonusData?.knockoutTracker || bonusData,
+    matchesData,
+    teamStatusLookup
+  ));
+  safeRender("Latest results", () => renderLatestResults(latestResults));
 
   try {
     const status = await loadJson("data/status.json");
@@ -2235,10 +2787,10 @@ async function init() {
 
   try {
     const upcomingFixtures = await loadJson("data/upcoming_fixtures.json");
-    renderUpcomingFixtures(upcomingFixtures);
-    renderBiggestPossibleMove(leaderboard, upcomingFixtures);
-    renderMatchdayStorylines(leaderboard, upcomingFixtures);
-    renderDramaFeed(dramaData, leaderboard, playerDetails, bonusData, latestResults);
+    safeRender("Upcoming fixtures", () => renderUpcomingFixtures(upcomingFixtures));
+    safeRender("Biggest possible move", () => renderBiggestPossibleMove(leaderboard, upcomingFixtures));
+    safeRender("Matchday storylines", () => renderMatchdayStorylines(leaderboard, upcomingFixtures));
+    safeRender("Drama feed", () => renderDramaFeed(dramaData, leaderboard, playerDetails, bonusData, latestResults));
   } catch (error) {
     console.error(error);
 
@@ -2248,9 +2800,9 @@ async function init() {
       upcomingEl.textContent = "Upcoming fixtures not available yet.";
     }
 
-    renderBiggestPossibleMove(leaderboard, []);
-    renderMatchdayStorylines(leaderboard, []);
-    renderDramaFeed(dramaData, leaderboard, playerDetails, bonusData, latestResults);
+    safeRender("Biggest possible move fallback", () => renderBiggestPossibleMove(leaderboard, []));
+    safeRender("Matchday storylines fallback", () => renderMatchdayStorylines(leaderboard, []));
+    safeRender("Drama feed", () => renderDramaFeed(dramaData, leaderboard, playerDetails, bonusData, latestResults));
   }
 }
 

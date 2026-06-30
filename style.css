@@ -3408,3 +3408,702 @@ body.title-option-broadcast .layered-hero-header::after {
   border: 1px solid rgba(88, 166, 255, 0.22) !important;
   box-shadow: 0 8px 22px rgba(0, 0, 0, 0.16) !important;
 }
+
+/* Knockout Tracker */
+.knockout-tracker-section {
+  position: relative;
+}
+
+.knockout-tracker {
+  display: grid;
+  gap: 1rem;
+}
+
+.knockout-overview-card,
+.knockout-qualified-panel,
+.knockout-awards-panel,
+.knockout-empty-card {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 92% 0%, rgba(255, 203, 87, 0.18), transparent 30%),
+    linear-gradient(135deg, rgba(17, 55, 82, 0.92), rgba(5, 26, 42, 0.94));
+  border: 1px solid rgba(88, 166, 255, 0.25);
+  border-radius: 18px;
+  box-shadow: 0 20px 44px rgba(0, 0, 0, 0.18);
+}
+
+.knockout-overview-card {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.8fr) 1.4fr;
+  gap: 1rem;
+  align-items: center;
+  padding: 1.1rem;
+  border-left: 5px solid #ffd166;
+}
+
+.knockout-eyebrow,
+.knockout-panel-header span {
+  display: inline-block;
+  color: #7fd3ff;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.knockout-overview-card h3 {
+  margin: 0.15rem 0;
+  color: #ffd166;
+  font-size: clamp(1.8rem, 4vw, 3.1rem);
+  line-height: 1;
+}
+
+.knockout-overview-card p,
+.knockout-team-card p,
+.knockout-empty-card p {
+  margin: 0;
+  color: rgba(226, 241, 255, 0.8);
+}
+
+.knockout-stage-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.knockout-stage-chip {
+  display: grid;
+  gap: 0.1rem;
+  place-items: center;
+  min-height: 72px;
+  padding: 0.6rem 0.4rem;
+  background: rgba(2, 18, 31, 0.55);
+  border: 1px solid rgba(88, 166, 255, 0.16);
+  border-radius: 14px;
+}
+
+.knockout-stage-chip.stage-active {
+  background: linear-gradient(135deg, rgba(255, 209, 102, 0.24), rgba(18, 99, 71, 0.2));
+  border-color: rgba(255, 209, 102, 0.42);
+}
+
+.knockout-stage-chip span {
+  color: rgba(226, 241, 255, 0.8);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.knockout-stage-chip strong {
+  color: #fff;
+  font-size: 1.25rem;
+}
+
+.knockout-stage-chip small {
+  color: #ffd166;
+  font-weight: 800;
+}
+
+.knockout-main-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(320px, 0.75fr);
+  gap: 1rem;
+}
+
+.knockout-qualified-panel,
+.knockout-awards-panel,
+.knockout-empty-card {
+  padding: 1rem;
+}
+
+.knockout-panel-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 0.85rem;
+}
+
+.knockout-panel-header h3,
+.knockout-empty-card h3 {
+  margin: 0;
+  color: #fff;
+  font-size: 1.15rem;
+}
+
+.knockout-team-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.knockout-team-card {
+  padding: 0.85rem;
+  background: rgba(2, 18, 31, 0.58);
+  border: 1px solid rgba(88, 166, 255, 0.16);
+  border-radius: 14px;
+}
+
+.knockout-team-card.top-knockout-card {
+  background: linear-gradient(135deg, rgba(255, 209, 102, 0.20), rgba(2, 18, 31, 0.58));
+  border-color: rgba(255, 209, 102, 0.42);
+}
+
+.knockout-team-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.45rem;
+}
+
+.knockout-owner {
+  color: #7fd3ff;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.knockout-team-header strong {
+  color: #ffd166;
+}
+
+.knockout-team-card h3 {
+  margin: 0 0 0.45rem;
+  color: #fff;
+  font-size: 1.05rem;
+}
+
+.knockout-bonus-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.65rem;
+}
+
+.knockout-bonus-pill {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(255, 209, 102, 0.28);
+  border-radius: 999px;
+  padding: 0.2rem 0.5rem;
+  color: #ffe08a;
+  background: rgba(255, 209, 102, 0.11);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.knockout-bonus-pill.clean-sheet-pill {
+  color: #8ee7ff;
+  border-color: rgba(126, 211, 255, 0.3);
+  background: rgba(126, 211, 255, 0.1);
+}
+
+.knockout-bonus-pill.muted {
+  color: rgba(226, 241, 255, 0.65);
+  border-color: rgba(226, 241, 255, 0.14);
+  background: rgba(226, 241, 255, 0.06);
+}
+
+.knockout-awards-list {
+  display: grid;
+  gap: 0.55rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.knockout-awards-list li {
+  display: grid;
+  grid-template-columns: 90px 1fr auto;
+  gap: 0.35rem 0.55rem;
+  align-items: center;
+  padding: 0.65rem;
+  background: rgba(2, 18, 31, 0.55);
+  border: 1px solid rgba(88, 166, 255, 0.14);
+  border-radius: 12px;
+}
+
+.knockout-award-player {
+  color: #fff;
+  font-weight: 900;
+}
+
+.knockout-awards-list strong {
+  color: #ffd166;
+  font-size: 1.05rem;
+}
+
+.knockout-awards-list em,
+.knockout-awards-list small {
+  grid-column: 2 / -1;
+  color: rgba(226, 241, 255, 0.75);
+  font-style: normal;
+}
+
+@media screen and (max-width: 900px) {
+  .knockout-overview-card,
+  .knockout-main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .knockout-stage-grid,
+  .knockout-team-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .knockout-awards-list li {
+    grid-template-columns: 1fr auto;
+  }
+
+  .knockout-award-player,
+  .knockout-awards-list em,
+  .knockout-awards-list small {
+    grid-column: 1 / -1;
+  }
+}
+
+
+/* Knockout refinement pass */
+.team-bonus-pill {
+  display: inline-flex;
+  align-items: center;
+  margin-left: 0.35rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 209, 102, 0.28);
+  background: rgba(255, 209, 102, 0.10);
+  color: #ffd166;
+  font-size: 0.72rem;
+  font-weight: 900;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.player-collapse-teams .team-bonus-pill {
+  margin-left: 0.25rem;
+  margin-right: 0.25rem;
+  padding: 0.1rem 0.36rem;
+  font-size: 0.68rem;
+}
+
+.team-name.knocked-out-team {
+  position: relative;
+  opacity: 0.58;
+  filter: grayscale(0.75);
+  text-decoration: line-through;
+  text-decoration-color: rgba(255, 107, 107, 0.82);
+  text-decoration-thickness: 2px;
+}
+
+.team-name.knocked-out-team .team-name-text {
+  text-decoration: line-through;
+  text-decoration-color: rgba(255, 107, 107, 0.82);
+  text-decoration-thickness: 2px;
+}
+
+#board tr.player-eliminated-row {
+  opacity: 0.62;
+}
+
+#board tr.player-eliminated-row td {
+  text-decoration: line-through;
+  text-decoration-color: rgba(255, 107, 107, 0.72);
+  text-decoration-thickness: 2px;
+}
+
+#board tr.player-eliminated-row .badge-icon,
+#board tr.player-eliminated-row .team-name,
+#board tr.player-eliminated-row td:last-child strong {
+  filter: grayscale(0.85);
+}
+
+.player-eliminated-card {
+  opacity: 0.72;
+}
+
+.team-breakdown-eliminated {
+  border-color: rgba(255, 107, 107, 0.26);
+  background:
+    linear-gradient(145deg, rgba(255, 107, 107, 0.08), rgba(8, 31, 49, 0.78));
+}
+
+.team-breakdown-header span {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.35rem;
+  color: #ffd166;
+  font-weight: 900;
+}
+
+.team-breakdown-header span em {
+  font-style: normal;
+  color: #8ee7ff;
+  border: 1px solid rgba(126, 211, 255, 0.24);
+  border-radius: 999px;
+  padding: 0.1rem 0.42rem;
+  background: rgba(126, 211, 255, 0.08);
+}
+
+.team-breakdown-eliminated .team-breakdown-header span em:last-child {
+  color: #ffb4b4;
+  border-color: rgba(255, 107, 107, 0.28);
+  background: rgba(255, 107, 107, 0.08);
+}
+
+.match-breakdown-list {
+  display: grid;
+  gap: 0.45rem;
+  padding-left: 0;
+  list-style: none;
+}
+
+.match-breakdown-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.65rem;
+  align-items: center;
+  margin: 0;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid rgba(88, 166, 255, 0.13);
+  border-radius: 0.7rem;
+  background: rgba(3, 18, 30, 0.30);
+}
+
+.match-breakdown-main,
+.match-breakdown-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.match-breakdown-main {
+  min-width: 0;
+  color: #eef6ff;
+  font-weight: 800;
+}
+
+.match-breakdown-main > strong {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 999px;
+  background: rgba(88, 166, 255, 0.12);
+  border: 1px solid rgba(88, 166, 255, 0.2);
+  color: #ffffff;
+  font-size: 0.8rem;
+}
+
+.match-breakdown-meta {
+  justify-content: flex-end;
+  color: #c9d1d9;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.match-breakdown-meta > span {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 0.22rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(8, 31, 49, 0.78);
+  border: 1px solid rgba(88, 166, 255, 0.15);
+}
+
+.match-bonus-pill {
+  color: #ffd166 !important;
+  border-color: rgba(255, 209, 102, 0.28) !important;
+  background: rgba(255, 209, 102, 0.10) !important;
+}
+
+.match-bonus-pill.clean-sheet-pill {
+  color: #8ee7ff !important;
+  border-color: rgba(126, 211, 255, 0.30) !important;
+  background: rgba(126, 211, 255, 0.10) !important;
+}
+
+.awarded-summary-card ul {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.awarded-summary-card li {
+  min-width: 0;
+}
+
+.awarded-summary-card li em {
+  justify-self: start;
+}
+
+.knockout-main-grid-single {
+  grid-template-columns: 1fr;
+}
+
+.knockout-qualified-panel-wide {
+  min-width: 0;
+}
+
+.knockout-team-grid-wide {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media screen and (max-width: 1100px) {
+  .knockout-team-grid-wide,
+  .awarded-summary-card ul {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .match-breakdown-row {
+    grid-template-columns: 1fr;
+  }
+
+  .match-breakdown-meta {
+    justify-content: flex-start;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .knockout-team-grid-wide,
+  .awarded-summary-card ul {
+    grid-template-columns: 1fr;
+  }
+
+  .team-bonus-pill {
+    font-size: 0.66rem;
+  }
+}
+
+/* Knockout bracket layout */
+.knockout-bracket-section {
+  position: relative;
+}
+
+.knockout-bracket {
+  margin-top: 1rem;
+}
+
+.knockout-bracket-scroll {
+  overflow-x: auto;
+  padding-bottom: 0.5rem;
+}
+
+.knockout-bracket-grid {
+  display: grid;
+  grid-template-columns: minmax(260px, 1.25fr) minmax(240px, 1fr) minmax(220px, 0.95fr) minmax(210px, 0.85fr) minmax(210px, 0.8fr);
+  gap: 1rem;
+  min-width: 1180px;
+}
+
+.bracket-stage h3 {
+  margin: 0 0 0.8rem;
+  color: #e6edf3;
+  font-size: 1rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.bracket-match-stack {
+  display: grid;
+  gap: 0.85rem;
+}
+
+.bracket-stage-round_of_16 .bracket-match-stack { padding-top: 2.4rem; gap: 2.2rem; }
+.bracket-stage-quarter_final .bracket-match-stack { padding-top: 6.4rem; gap: 5rem; }
+.bracket-stage-semi_final .bracket-match-stack { padding-top: 12rem; gap: 9rem; }
+.bracket-stage-final .bracket-match-stack { padding-top: 20rem; }
+
+.bracket-match {
+  position: relative;
+  min-height: 104px;
+  padding: 0.85rem;
+  border: 1px solid rgba(88, 166, 255, 0.24);
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(16, 45, 68, 0.88), rgba(5, 24, 39, 0.94));
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.16);
+}
+
+.bracket-match::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -1rem;
+  width: 1rem;
+  border-top: 1px solid rgba(88, 166, 255, 0.24);
+}
+
+.bracket-stage-final .bracket-match::after { display: none; }
+
+.bracket-time {
+  display: block;
+  color: #c9d1d9;
+  font-size: 0.78rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.bracket-teams {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.bracket-team-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  color: #e6edf3;
+  font-size: 0.95rem;
+  font-weight: 850;
+}
+
+.bracket-team-row.winner {
+  color: #ffd166;
+}
+
+.bracket-team-placeholder {
+  color: #8fa8bb;
+}
+
+.bracket-shield {
+  opacity: 0.65;
+  margin-right: 0.35rem;
+}
+
+.bracket-owners {
+  margin: 0.65rem 0 0;
+  color: #8fd3ff;
+  font-size: 0.72rem;
+  line-height: 1.35;
+}
+
+@media screen and (max-width: 900px) {
+  .knockout-bracket-grid {
+    min-width: 980px;
+  }
+}
+
+/* Knockout bracket inline ownership */
+.bracket-team-owned {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.bracket-owner-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.08rem 0.42rem;
+  border: 1px solid rgba(126, 211, 255, 0.24);
+  border-radius: 999px;
+  background: rgba(126, 211, 255, 0.08);
+  color: #8ee7ff;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.bracket-owners {
+  display: none !important;
+}
+
+/* ============================================================
+   FINAL FIX - MAIN LEADERBOARD TOP 3
+   ------------------------------------------------------------
+   This intentionally uses ONE FLAT CELL BACKGROUND per podium row.
+   The earlier problem was caused by gradients/backgrounds restarting
+   in every table cell, creating a visible column/grid effect. Flat
+   colours remove that effect while keeping the original podium look.
+   ============================================================ */
+
+/* Keep ordinary leaderboard table behaviour */
+#board {
+  border-collapse: collapse !important;
+  border-spacing: 0 !important;
+}
+
+/* Stop row/hover transforms changing podium rows */
+#board tbody tr.leader,
+#board tbody tr.top-three,
+#board tbody tr.leader:hover,
+#board tbody tr.top-three:hover {
+  transform: none !important;
+}
+
+/* Remove any row gradients so they cannot restart behind cells */
+#board tbody tr.leader,
+#board tbody tr.top-three,
+#board tbody tr.leader:hover,
+#board tbody tr.top-three:hover {
+  background: transparent !important;
+  background-image: none !important;
+}
+
+/* FIRST PLACE - one flat full-row band */
+#board tbody tr.leader > td,
+#board tbody tr.leader:hover > td {
+  background: rgba(255, 209, 102, 0.19) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border-bottom-color: rgba(255, 209, 102, 0.36) !important;
+}
+
+/* SECOND PLACE - one flat full-row band */
+#board tbody tr.top-three:nth-child(2) > td,
+#board tbody tr.top-three:nth-child(2):hover > td {
+  background: rgba(88, 166, 255, 0.20) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border-bottom-color: rgba(201, 209, 217, 0.30) !important;
+}
+
+/* THIRD PLACE - one flat full-row band */
+#board tbody tr.top-three:nth-child(3) > td,
+#board tbody tr.top-three:nth-child(3):hover > td {
+  background: rgba(191, 97, 36, 0.18) !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  border-bottom-color: rgba(191, 97, 36, 0.30) !important;
+}
+
+/* Left podium stripe only, not every column */
+#board tbody tr.leader > td:first-child,
+#board tbody tr.leader:hover > td:first-child {
+  box-shadow: inset 6px 0 0 #ffd166 !important;
+  color: #ffd166 !important;
+}
+
+#board tbody tr.top-three:nth-child(2) > td:first-child,
+#board tbody tr.top-three:nth-child(2):hover > td:first-child {
+  box-shadow: inset 6px 0 0 #c9d1d9 !important;
+  color: #e6edf3 !important;
+}
+
+#board tbody tr.top-three:nth-child(3) > td:first-child,
+#board tbody tr.top-three:nth-child(3):hover > td:first-child {
+  box-shadow: inset 6px 0 0 #bf6124 !important;
+  color: #ffb86b !important;
+}
+
+#board tbody tr.leader td:last-child strong {
+  border-color: rgba(255, 209, 102, 0.55) !important;
+  color: #ffd166 !important;
+}
+
+#board tbody tr.top-three:nth-child(2) td:last-child strong {
+  border-color: rgba(201, 209, 217, 0.48) !important;
+  color: #e6edf3 !important;
+}
+
+#board tbody tr.top-three:nth-child(3) td:last-child strong {
+  border-color: rgba(191, 97, 36, 0.48) !important;
+  color: #ffb86b !important;
+}

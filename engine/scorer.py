@@ -15,6 +15,7 @@ UPCOMING_FIXTURES_FILE = Path("data/upcoming_fixtures.json")
 PLAYER_DETAILS_FILE = Path("data/player_details.json")
 BONUS_POINTS_FILE = Path("data/bonus_points.json")
 DRAMA_FEED_FILE = Path("data/drama_feed.json")
+KNOCKOUT_TRACKER_FILE = Path("data/knockout_tracker.json")
 
 ESPN_URL = "https://site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/scoreboard"
 
@@ -252,6 +253,8 @@ def fetch_espn_day(day):
             "score2": away["score"] if completed else None,
             "displayScore1": display_score1,
             "displayScore2": display_score2,
+            "winner1": bool(home.get("winner")),
+            "winner2": bool(away.get("winner")),
             "status": status_description,
             "completed": completed,
             "live": bool(not completed and is_live_or_in_progress_status(status_description)),
@@ -298,6 +301,49 @@ def fetch_matches():
     return all_matches
 
 
+def match_winner(match):
+    s1 = match.get("score1")
+    s2 = match.get("score2")
+
+    if s1 is None or s2 is None:
+        return None
+
+    if s1 > s2:
+        return match.get("team1")
+
+    if s2 > s1:
+        return match.get("team2")
+
+    # Knockout matches can be level after extra time but still have a progressing
+    # team in the ESPN data. For sweepstake scoring, the progressing team gets
+    # the win because the competition outcome is what matters.
+    if is_knockout_stage(get_match_stage(match)):
+        if match.get("winner1"):
+            return match.get("team1")
+
+        if match.get("winner2"):
+            return match.get("team2")
+
+        raw = match.get("raw", {}) or {}
+        competition = (raw.get("competitions") or [{}])[0]
+        competitors = competition.get("competitors", [])
+
+        for competitor in competitors:
+            if not competitor.get("winner"):
+                continue
+
+            team = competitor.get("team", {})
+            team_name = normalise_team_name(team.get("displayName") or team.get("name"))
+
+            if team_matches(team_name, match.get("team1")):
+                return match.get("team1")
+
+            if team_matches(team_name, match.get("team2")):
+                return match.get("team2")
+
+    return None
+
+
 def match_points(match):
     s1 = match.get("score1")
     s2 = match.get("score2")
@@ -307,14 +353,44 @@ def match_points(match):
 
     t1 = match["team1"]
     t2 = match["team2"]
+    winner = match_winner(match)
 
-    if s1 > s2:
+    if winner and team_matches(winner, t1):
         return {t1: 3, t2: 0}
 
-    if s2 > s1:
+    if winner and team_matches(winner, t2):
         return {t1: 0, t2: 3}
 
     return {t1: 1, t2: 1}
+
+
+def knockout_stage_by_date(match):
+    match_date = parse_datetime(match.get("date"))
+
+    if not match_date:
+        return None
+
+    day = match_date.date()
+
+    if date(2026, 6, 28) <= day <= date(2026, 7, 3):
+        return "round_of_32"
+
+    if date(2026, 7, 4) <= day <= date(2026, 7, 7):
+        return "round_of_16"
+
+    if date(2026, 7, 9) <= day <= date(2026, 7, 12):
+        return "quarter_final"
+
+    if date(2026, 7, 14) <= day <= date(2026, 7, 15):
+        return "semi_final"
+
+    if day == date(2026, 7, 18):
+        return "third_place"
+
+    if day == date(2026, 7, 19):
+        return "final"
+
+    return None
 
 
 def get_match_stage(match):
@@ -334,23 +410,30 @@ def get_match_stage(match):
     if "group" in text:
         return "group"
 
-    if "round of 32" in text or "round-of-32" in text or "rd of 32" in text:
-        return "round_of_32"
-
-    if "round of 16" in text or "round-of-16" in text or "rd of 16" in text:
-        return "round_of_16"
-
-    if "quarter" in text:
-        return "quarter_final"
-
-    if "semi" in text:
-        return "semi_final"
+    date_stage = knockout_stage_by_date(match)
+    if date_stage:
+        return date_stage
 
     if "3rd-place" in text or "third-place" in text or "3rd place" in text:
         return "third_place"
 
-    if "final" in text:
+    if "final" in text and "semifinal" not in text and "semi-final" not in text:
         return "final"
+
+    if "semi" in text:
+        return "semi_final"
+
+    if "quarter" in text:
+        return "quarter_final"
+
+    if "round of 16" in text or "round-of-16" in text or "rd of 16" in text:
+        return "round_of_16"
+
+    if "round of 32" in text or "round-of-32" in text or "rd of 32" in text:
+        return "round_of_32"
+
+    if "group" in text:
+        return "group"
 
     return "unknown"
 
@@ -364,6 +447,27 @@ def is_knockout_stage(stage):
         "final",
         "third_place",
     }
+
+
+def is_placeholder_team(team):
+    text = str(team or "").strip().lower()
+
+    if not text:
+        return True
+
+    placeholder_terms = [
+        "winner",
+        "loser",
+        "third place",
+        "3rd place",
+        "group",
+        "round of",
+        "quarterfinal",
+        "semifinal",
+        "semi-final",
+    ]
+
+    return any(term in text for term in placeholder_terms)
 
 
 def build_team_to_players(players):
@@ -504,6 +608,246 @@ def build_goal_trackers(matches):
     return golden_boot_race, nation_goal_table, fastest_goal, fastest_goals[:10]
 
 
+def knockout_match_label(match):
+    s1 = match.get("score1")
+    s2 = match.get("score2")
+
+    if s1 is not None and s2 is not None:
+        return f"{match.get('team1')} {s1}–{s2} {match.get('team2')}"
+
+    return f"{match.get('team1')} v {match.get('team2')}"
+
+
+def build_progression_awards(matches):
+    """Return valid knockout progression awards.
+
+    Round of 32 is awarded from confirmed Round-of-32 fixtures because a real
+    team appearing there means it qualified from the group stage.
+
+    Later rounds are awarded only from the winner/progressing team of a
+    completed previous-round match. This prevents both teams in a future fixture
+    being incorrectly awarded the next round before they have played each other.
+    """
+    next_stage_by_completed_stage = {
+        "round_of_32": "round_of_16",
+        "round_of_16": "quarter_final",
+        "quarter_final": "semi_final",
+        "semi_final": "final",
+    }
+
+    awards = []
+    seen = set()
+
+    def add_award(team, stage, match, reason):
+        team = normalise_team_name(team)
+
+        if not team or is_placeholder_team(team) or stage not in PROGRESSION_BONUSES:
+            return
+
+        key = (team, stage)
+
+        if key in seen:
+            return
+
+        seen.add(key)
+        label, points = PROGRESSION_BONUSES[stage]
+        awards.append({
+            "team": team,
+            "stage": stage,
+            "label": label,
+            "points": points,
+            "date": match.get("date"),
+            "match": knockout_match_label(match),
+            "reason": reason,
+        })
+
+    for match in matches:
+        stage = get_match_stage(match)
+
+        # Reaching the Round of 32 is known once the real team appears in a
+        # confirmed Round-of-32 fixture.
+        if stage == "round_of_32":
+            for team in [match.get("team1"), match.get("team2")]:
+                team = normalise_team_name(team)
+                add_award(
+                    team,
+                    "round_of_32",
+                    match,
+                    f"{team} qualified for the Round of 32"
+                )
+
+        # Reaching later rounds is only known once the previous round has been
+        # completed and a winner/progressing team is available.
+        next_stage = next_stage_by_completed_stage.get(stage)
+
+        if next_stage and match.get("score1") is not None and match.get("score2") is not None:
+            winner_team = normalise_team_name(match_winner(match))
+
+            if winner_team:
+                next_label = PROGRESSION_BONUSES[next_stage][0].replace("Reach ", "")
+                add_award(
+                    winner_team,
+                    next_stage,
+                    match,
+                    f"{winner_team} progressed to the {next_label} by winning {knockout_match_label(match)}"
+                )
+
+    return awards
+
+
+def build_knockout_tracker(players, matches, player_bonuses=None):
+    stage_order = [
+        ("round_of_32", "Round of 32", 5),
+        ("round_of_16", "Round of 16", 5),
+        ("quarter_final", "Quarter-final", 5),
+        ("semi_final", "Semi-final", 10),
+        ("final", "Final", 10),
+        ("winner", "Winner", 15),
+    ]
+
+    team_to_owner = {}
+    tracked = []
+
+    for player in players:
+        for team in player.get("teams", []):
+            team_name = normalise_team_name(team)
+            team_to_owner[team_name] = player.get("name")
+            tracked.append({
+                "owner": player.get("name"),
+                "team": team_name,
+                "stageBonuses": [],
+                "cleanSheets": [],
+                "winnerBonus": None,
+                "total": 0,
+            })
+
+    by_team = {row["team"]: row for row in tracked}
+    stage_summary = []
+    seen_stage = set()
+    seen_clean_sheets = set()
+
+    for award in build_progression_awards(matches):
+        team = normalise_team_name(award.get("team"))
+        stage = award.get("stage")
+
+        if team not in by_team:
+            continue
+
+        key = (team, stage)
+
+        if key in seen_stage:
+            continue
+
+        seen_stage.add(key)
+        label = award.get("label")
+        points = award.get("points", 0)
+
+        item = {
+            "stage": stage,
+            "label": label,
+            "shortLabel": dict((k, v) for k, v, _ in stage_order).get(stage, label),
+            "team": team,
+            "owner": team_to_owner.get(team),
+            "points": points,
+            "date": award.get("date"),
+            "match": award.get("match"),
+            "reason": award.get("reason"),
+            "status": "awarded",
+        }
+
+        by_team[team]["stageBonuses"].append(item)
+        by_team[team]["total"] += points
+        stage_summary.append(item)
+
+    for match in matches:
+        stage = get_match_stage(match)
+
+        if stage == "final" and match.get("score1") is not None and match.get("score2") is not None:
+            winner_team = match_winner(match)
+
+            if winner_team and not is_placeholder_team(winner_team) and winner_team in by_team:
+                label, points = WINNER_BONUS
+                item = {
+                    "stage": "winner",
+                    "label": label,
+                    "shortLabel": "Winner",
+                    "team": winner_team,
+                    "owner": team_to_owner.get(winner_team),
+                    "points": points,
+                    "date": match.get("date"),
+                    "match": knockout_match_label(match),
+                    "reason": f"{winner_team} won the tournament",
+                    "status": "awarded",
+                }
+
+                if not by_team[winner_team]["winnerBonus"]:
+                    by_team[winner_team]["winnerBonus"] = item
+                    by_team[winner_team]["stageBonuses"].append(item)
+                    by_team[winner_team]["total"] += points
+                    stage_summary.append(item)
+
+        if is_knockout_stage(stage) and match.get("score1") is not None and match.get("score2") is not None:
+            clean_sheet_candidates = []
+
+            if match.get("score2") == 0:
+                clean_sheet_candidates.append((match.get("team1"), match.get("team2")))
+
+            if match.get("score1") == 0:
+                clean_sheet_candidates.append((match.get("team2"), match.get("team1")))
+
+            for team, opponent in clean_sheet_candidates:
+                team = normalise_team_name(team)
+                opponent = normalise_team_name(opponent)
+
+                if is_placeholder_team(team) or team not in by_team:
+                    continue
+
+                key = (team, match.get("id"), "clean_sheet")
+
+                if key in seen_clean_sheets:
+                    continue
+
+                seen_clean_sheets.add(key)
+                label, points = KNOCKOUT_CLEAN_SHEET_BONUS
+                item = {
+                    "stage": stage,
+                    "label": label,
+                    "shortLabel": "+2 clean sheet",
+                    "team": team,
+                    "owner": team_to_owner.get(team),
+                    "points": points,
+                    "date": match.get("date"),
+                    "match": knockout_match_label(match),
+                    "opponent": opponent,
+                    "reason": f"{team} kept a knockout clean sheet against {opponent}",
+                    "status": "awarded",
+                }
+
+                by_team[team]["cleanSheets"].append(item)
+                by_team[team]["total"] += points
+                stage_summary.append(item)
+
+    tracker_rows = sorted(
+        by_team.values(),
+        key=lambda row: (-row.get("total", 0), row.get("owner") or "", row.get("team") or "")
+    )
+
+    return {
+        "stages": [
+            {"key": key, "label": label, "points": points}
+            for key, label, points in stage_order
+        ],
+        "rows": tracker_rows,
+        "awardedItems": sorted(stage_summary, key=lambda row: (row.get("date") or "", row.get("owner") or ""), reverse=True),
+        "stageSummary": stage_summary,
+        "notes": [
+            "Round of 32 bonuses are awarded from confirmed fixtures; later progression bonuses are awarded only after the previous knockout match is completed.",
+            "Penalty shootout winners count as the match winner for sweepstake points because the progressing team is what matters.",
+            "Knockout clean sheet bonuses start from the Round of 32 and apply to all knockout-stage matches.",
+        ],
+    }
+
+
 def build_bonus_points(players, matches):
     team_to_players = build_team_to_players(players)
 
@@ -522,34 +866,30 @@ def build_bonus_points(players, matches):
     stage_awards_seen = set()
     clean_sheet_awards_seen = set()
 
-    for match in completed_matches:
+    for award in build_progression_awards(matches):
+        team = normalise_team_name(award.get("team"))
+        stage = award.get("stage")
+        key = (team, stage)
+
+        if key in stage_awards_seen:
+            continue
+
+        stage_awards_seen.add(key)
+
+        add_bonus(
+            player_bonuses,
+            team_to_players,
+            team,
+            award.get("label"),
+            award.get("points", 0),
+            award.get("reason")
+        )
+
+    for match in matches:
         stage = get_match_stage(match)
 
-        if stage in PROGRESSION_BONUSES:
-            label, points = PROGRESSION_BONUSES[stage]
-
-            for team in [match["team1"], match["team2"]]:
-                key = (team, stage)
-
-                if key not in stage_awards_seen:
-                    stage_awards_seen.add(key)
-
-                    add_bonus(
-                        player_bonuses,
-                        team_to_players,
-                        team,
-                        label,
-                        points,
-                        f"{team} reached {label.replace('Reach ', '')}"
-                    )
-
-        if stage == "final":
-            winner_team = None
-
-            if match["score1"] > match["score2"]:
-                winner_team = match["team1"]
-            elif match["score2"] > match["score1"]:
-                winner_team = match["team2"]
+        if stage == "final" and match.get("score1") is not None and match.get("score2") is not None:
+            winner_team = match_winner(match)
 
             if winner_team:
                 label, points = WINNER_BONUS
@@ -563,37 +903,37 @@ def build_bonus_points(players, matches):
                     f"{winner_team} won the tournament"
                 )
 
-        if is_knockout_stage(stage):
-            if match["score2"] == 0:
-                key = (match["team1"], match.get("id"), "clean_sheet")
+        if is_knockout_stage(stage) and match.get("score1") is not None and match.get("score2") is not None:
+            if match.get("score2") == 0:
+                key = (match.get("team1"), match.get("id"), "clean_sheet")
 
-                if key not in clean_sheet_awards_seen:
+                if key not in clean_sheet_awards_seen and not is_placeholder_team(match.get("team1")):
                     clean_sheet_awards_seen.add(key)
                     label, points = KNOCKOUT_CLEAN_SHEET_BONUS
 
                     add_bonus(
                         player_bonuses,
                         team_to_players,
-                        match["team1"],
+                        match.get("team1"),
                         label,
                         points,
-                        f"{match['team1']} kept a knockout clean sheet against {match['team2']}"
+                        f"{match.get('team1')} kept a knockout clean sheet against {match.get('team2')}"
                     )
 
-            if match["score1"] == 0:
-                key = (match["team2"], match.get("id"), "clean_sheet")
+            if match.get("score1") == 0:
+                key = (match.get("team2"), match.get("id"), "clean_sheet")
 
-                if key not in clean_sheet_awards_seen:
+                if key not in clean_sheet_awards_seen and not is_placeholder_team(match.get("team2")):
                     clean_sheet_awards_seen.add(key)
                     label, points = KNOCKOUT_CLEAN_SHEET_BONUS
 
                     add_bonus(
                         player_bonuses,
                         team_to_players,
-                        match["team2"],
+                        match.get("team2"),
                         label,
                         points,
-                        f"{match['team2']} kept a knockout clean sheet against {match['team1']}"
+                        f"{match.get('team2')} kept a knockout clean sheet against {match.get('team1')}"
                     )
 
     golden_boot_race, nation_goal_table, fastest_goal, fastest_goal_race = build_goal_trackers(matches)
@@ -657,23 +997,25 @@ def build_bonus_points(players, matches):
         })
 
     player_bonus_rows.sort(key=lambda x: (-x["total"], x["name"]))
+    knockout_tracker = build_knockout_tracker(players, matches)
 
     return {
         "tournamentComplete": tournament_complete,
         "playerBonuses": player_bonus_rows,
+        "knockoutTracker": knockout_tracker,
         "goldenBootRace": golden_boot_race[:10],
         "nationGoalTable": nation_goal_table,
         "fastestGoal": fastest_goal,
         "fastestGoalRace": fastest_goal_race,
         "notes": [
-            "Progression bonuses are awarded when teams appear in the relevant knockout stage data.",
+            "Round of 32 bonuses are awarded from confirmed fixtures; later progression bonuses are awarded only when a team progresses by winning the previous knockout round.",
+            "Penalty shootout winners count as the match winner for sweepstake points because the progressing team is what matters.",
             "Knockout clean sheet bonuses are awarded automatically from knockout-stage scores.",
             "Golden Boot and most goals by nation are tracked during the tournament and awarded when the tournament is complete.",
             "Fastest goal is prize-only and does not affect leaderboard points.",
             "Wooden Spoon is prize-only and does not affect leaderboard points."
         ]
     }
-
 
 def calculate(players, matches, previous_leaderboard, bonus_data):
     now = datetime.now(timezone.utc)
@@ -1414,6 +1756,7 @@ if __name__ == "__main__":
 
     save(MATCHES_FILE, matches)
     save(BONUS_POINTS_FILE, bonus_data)
+    save(KNOCKOUT_TRACKER_FILE, bonus_data.get("knockoutTracker", {}))
     save(LEADERBOARD_FILE, leaderboard)
     save(LATEST_RESULTS_FILE, latest_results)
     save(UPCOMING_FIXTURES_FILE, upcoming_fixtures)
