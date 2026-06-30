@@ -771,11 +771,14 @@ function renderSummaryCards(leaderboard, playerDetails) {
   if (!spoonTeam) {
     spoonEl.textContent = "No data";
   } else {
+    const spoonConfirmed = normaliseText(spoonTeam.playerName) === "phillipa";
     spoonEl.innerHTML = `
       ${escapeHtml(spoonTeam.playerName)} — ${teamLabelHtml(spoonTeam.team, ["wooden-spoon-country"])}
       <br />
       <span class="small-card-text">
-        ${spoonTeam.points} pts, ${spoonTeam.gamesPlayed} played, GD ${spoonTeam.goalDifference}
+        ${spoonConfirmed
+          ? `Confirmed wooden spoon winner · £${PRIZE_POOL.woodenSpoon.amount} prize`
+          : `${spoonTeam.points} pts, ${spoonTeam.gamesPlayed} played, GD ${spoonTeam.goalDifference}`}
       </span>
     `;
   }
@@ -1395,7 +1398,7 @@ function renderInsightStrip(leaderboard, latestResults) {
   if (existing) existing.remove();
 }
 
-function renderLeaderboard(data, spoonTeam, badgesByPlayer, mostGoalsTeams) {
+function renderLeaderboard(data, spoonTeam, badgesByPlayer, mostGoalsTeams, teamStatusLookup) {
   const tbody = document.querySelector("#board tbody");
 
   if (!tbody) return;
@@ -1422,8 +1425,15 @@ function renderLeaderboard(data, spoonTeam, badgesByPlayer, mostGoalsTeams) {
       tr.classList.add("top-three");
     }
 
+    if (playerIsFullyEliminated(player, teamStatusLookup)) {
+      tr.classList.add("player-eliminated-row");
+    }
+
     const teams = (player.teams || []).map(team => {
-      const classes = teamHighlightClasses(team, player.name, spoonTeam, mostGoalsTeams);
+      const classes = [
+        ...teamHighlightClasses(team, player.name, spoonTeam, mostGoalsTeams),
+        ...teamEliminationClasses(team, teamStatusLookup)
+      ];
       return teamNameHtml(team, classes);
     }).join(", ");
 
@@ -1830,6 +1840,126 @@ function isKnockoutMatch(match) {
   return ["round_of_32", "round_of_16", "quarter_final", "semi_final", "final", "third_place"].includes(matchStageKey(match));
 }
 
+function matchTeams(match) {
+  return [match?.team1, match?.team2].filter(Boolean);
+}
+
+function matchInvolvesTeam(match, teamName) {
+  const target = normaliseTeamName(teamName);
+  return matchTeams(match).some(team => normaliseTeamName(team) === target);
+}
+
+function matchIsComplete(match) {
+  return Boolean(match?.completed || match?.raw?.status?.type?.completed);
+}
+
+function matchScoreForTeam(match, teamName) {
+  const target = normaliseTeamName(teamName);
+  const teamIsOne = normaliseTeamName(match?.team1) === target;
+  const teamIsTwo = normaliseTeamName(match?.team2) === target;
+
+  if (!teamIsOne && !teamIsTwo) return null;
+
+  const scoreFor = Number(teamIsOne ? match.score1 : match.score2);
+  const scoreAgainst = Number(teamIsOne ? match.score2 : match.score1);
+
+  if (!Number.isFinite(scoreFor) || !Number.isFinite(scoreAgainst)) return null;
+
+  return {
+    opponent: teamIsOne ? match.team2 : match.team1,
+    scoreFor,
+    scoreAgainst
+  };
+}
+
+function teamLostMatch(match, teamName) {
+  const score = matchScoreForTeam(match, teamName);
+  return Boolean(score && score.scoreFor < score.scoreAgainst);
+}
+
+function teamMatchPointsFromScore(score) {
+  if (!score) return 0;
+  if (score.scoreFor > score.scoreAgainst) return 3;
+  if (score.scoreFor === score.scoreAgainst) return 1;
+  return 0;
+}
+
+function buildTeamStatusLookup(leaderboard, playerDetails, knockoutData, matches) {
+  const rows = knockoutRowsFromData(knockoutData);
+  const bonusByTeam = new Map();
+
+  rows.forEach(row => {
+    const key = normaliseTeamName(row.team);
+    if (!key) return;
+    const existing = bonusByTeam.get(key) || [];
+    existing.push(row);
+    bonusByTeam.set(key, existing);
+  });
+
+  const ownedTeams = new Map();
+
+  (leaderboard || []).forEach(player => {
+    (player.teams || []).forEach(team => {
+      ownedTeams.set(normaliseTeamName(team), {
+        playerName: player.name,
+        team
+      });
+    });
+  });
+
+  (playerDetails || []).forEach(player => {
+    (player.teams || []).forEach(team => {
+      ownedTeams.set(normaliseTeamName(team.team), {
+        playerName: player.name,
+        team: team.team
+      });
+    });
+  });
+
+  const lookup = new Map();
+
+  ownedTeams.forEach((owned, key) => {
+    const teamMatches = (matches || [])
+      .filter(match => matchInvolvesTeam(match, owned.team))
+      .sort((a, b) => new Date(a.date || 0) - new Date(b.date || 0));
+
+    const completed = teamMatches.filter(matchIsComplete);
+    const future = teamMatches.filter(match =>
+      !matchIsComplete(match) &&
+      !teamIsPlaceholder(match.team1) &&
+      !teamIsPlaceholder(match.team2)
+    );
+    const knockoutLoss = [...completed].reverse().find(match => isKnockoutMatch(match) && teamLostMatch(match, owned.team));
+    const latestCompleted = completed[completed.length - 1];
+    const hasBonusRow = (bonusByTeam.get(key) || []).some(row => Number(row.total || 0) > 0);
+    const eliminated = Boolean(knockoutLoss || (!hasBonusRow && future.length === 0 && latestCompleted));
+
+    lookup.set(key, {
+      ...owned,
+      eliminated,
+      stage: knockoutLoss ? matchStageLabel(knockoutLoss) : "Group stage",
+      latestCompleted,
+      futureMatches: future.length
+    });
+  });
+
+  return lookup;
+}
+
+function teamStatusFor(lookup, teamName) {
+  return lookup?.get(normaliseTeamName(teamName)) || null;
+}
+
+function teamEliminationClasses(teamName, statusLookup) {
+  const status = teamStatusFor(statusLookup, teamName);
+  return status?.eliminated ? ["knocked-out-team"] : [];
+}
+
+function playerIsFullyEliminated(player, statusLookup) {
+  const teams = player?.teams || [];
+  return teams.length > 0 && teams.every(team => teamStatusFor(statusLookup, team)?.eliminated);
+}
+
 function teamIsPlaceholder(name) {
   return !name || /TBD|Winner|Loser|Group .*Place|Group .*Winner|Group .*2nd Place|Third Place/i.test(String(name));
 }
@@ -1916,7 +2046,79 @@ function renderKnockoutBracket(matches, leaderboard) {
   `;
 }
 
-function renderPlayerDetails(details, spoonTeam, mostGoalsTeams, knockoutData) {
+function matchBonusItemsForTeam(teamBonus, match) {
+  if (!teamBonus || !match) return [];
+
+  const matchDate = match.date ? new Date(match.date).toISOString().slice(0, 10) : "";
+  const matchText = `${match.team1} ${match.score1}–${match.score2} ${match.team2}`;
+  const sameMatch = item => {
+    const itemDate = item.date ? new Date(item.date).toISOString().slice(0, 10) : "";
+    return (itemDate && itemDate === matchDate) || normaliseText(item.match) === normaliseText(matchText);
+  };
+
+  return [
+    ...(teamBonus.stageBonuses || []).filter(sameMatch).map(item => ({
+      label: `${stageShortLabel(item.stage)} +${item.points}`,
+      className: "match-bonus-pill"
+    })),
+    ...(teamBonus.cleanSheets || []).filter(sameMatch).map(item => ({
+      label: `Clean sheet +${item.points}`,
+      className: "match-bonus-pill clean-sheet-pill"
+    }))
+  ];
+}
+
+function teamMatchRowsHtml(teamName, teamBonus, matchesData) {
+  const rows = (matchesData || [])
+    .filter(match => matchIsComplete(match) && matchInvolvesTeam(match, teamName))
+    .sort((a, b) => new Date(a.date || 0) - new Date(b.date || 0));
+
+  if (!rows.length) return "";
+
+  return rows.map(match => {
+    const score = matchScoreForTeam(match, teamName);
+    const result = score
+      ? score.scoreFor > score.scoreAgainst ? "W" : score.scoreFor === score.scoreAgainst ? "D" : "L"
+      : "–";
+    const points = teamMatchPointsFromScore(score);
+    const bonusItems = matchBonusItemsForTeam(teamBonus, match);
+    const bonusHtml = bonusItems.map(item => `<span class="${item.className}">${escapeHtml(item.label)}</span>`).join("");
+
+    return `
+      <li class="match-breakdown-row">
+        <span class="match-breakdown-main">
+          <strong>${result}</strong>
+          ${teamLabelHtml(teamName)}
+          ${score ? `${score.scoreFor}–${score.scoreAgainst}` : "v"}
+          ${teamLabelHtml(score?.opponent || "")}
+        </span>
+        <span class="match-breakdown-meta">
+          <span>${formatDateTime(match.date)}</span>
+          <span>${points} match pts</span>
+          ${bonusHtml}
+        </span>
+      </li>
+    `;
+  }).join("");
+}
+
+function recentResultsRowsHtml(team) {
+  return team.recentResults && team.recentResults.length > 0
+    ? team.recentResults.map(result => `
+        <li class="match-breakdown-row">
+          <span class="match-breakdown-main">
+            <strong>${result.result}</strong>
+            ${teamLabelHtml(team.team)} ${result.scoreFor}–${result.scoreAgainst} ${teamLabelHtml(result.opponent)}
+          </span>
+          <span class="match-breakdown-meta">
+            <span>${result.points} match pts</span>
+          </span>
+        </li>
+      `).join("")
+    : `<li>No completed matches yet</li>`;
+}
+
+function renderPlayerDetails(details, spoonTeam, mostGoalsTeams, knockoutData, matchesData = [], teamStatusLookup) {
   const container = document.querySelector("#player-details");
 
   if (!container) return;
@@ -1938,32 +2140,36 @@ function renderPlayerDetails(details, spoonTeam, mostGoalsTeams, knockoutData) {
       card.classList.add("wooden-spoon-card");
     }
 
+    if (playerIsFullyEliminated(
+      { ...player, teams: (player.teams || []).map(team => team.team) },
+      teamStatusLookup
+    )) {
+      card.classList.add("player-eliminated-card");
+    }
+
     const teams = (player.teams || []).map(team => {
       const isSpoonTeam = spoonTeam
         && player.name === spoonTeam.playerName
         && team.team === spoonTeam.team;
 
-      const teamClasses = teamHighlightClasses(team.team, player.name, spoonTeam, mostGoalsTeams);
+      const teamClasses = [
+        ...teamHighlightClasses(team.team, player.name, spoonTeam, mostGoalsTeams),
+        ...teamEliminationClasses(team.team, teamStatusLookup)
+      ];
       const teamBonus = teamBonusFor(bonusLookup, player.name, team.team);
       const teamName = teamNameHtml(team.team, teamClasses);
       const teamBonusPill = teamBonusPillHtml(teamBonus);
-
-      const recentResults = team.recentResults && team.recentResults.length > 0
-        ? team.recentResults.map(result => `
-            <li>
-              ${result.result}: ${teamLabelHtml(team.team)} ${result.scoreFor}–${result.scoreAgainst} ${teamLabelHtml(result.opponent)}
-              (${result.points} pts)
-            </li>
-          `).join("")
-        : `<li>No completed matches yet</li>`;
+      const teamStatus = teamStatusFor(teamStatusLookup, team.team);
+      const matchRows = teamMatchRowsHtml(team.team, teamBonus, matchesData) || recentResultsRowsHtml(team);
 
       return `
-        <div class="team-breakdown ${isSpoonTeam ? "wooden-spoon-team" : ""}">
+        <div class="team-breakdown ${isSpoonTeam ? "wooden-spoon-team" : ""} ${teamStatus?.eliminated ? "team-breakdown-eliminated" : ""}">
           <div class="team-breakdown-header">
             <strong>${teamName} ${teamBonusPill}</strong>
             <span>
               ${team.points} match pts
               ${teamBonus ? `<em>+${Number(teamBonus.points || 0)} bonus</em>` : ""}
+              ${teamStatus?.eliminated ? `<em>Out: ${escapeHtml(teamStatus.stage)}</em>` : ""}
             </span>
           </div>
 
@@ -1975,14 +2181,17 @@ function renderPlayerDetails(details, spoonTeam, mostGoalsTeams, knockoutData) {
             <span>GD ${formatGoalDifference(goalDifference(team))}</span>
           </div>
 
-          <ul>${recentResults}</ul>
+          <ul class="match-breakdown-list">${matchRows}</ul>
         </div>
       `;
     }).join("");
 
     const teamNames = (player.teams || [])
       .map(team => {
-        const classes = teamHighlightClasses(team.team, player.name, spoonTeam, mostGoalsTeams);
+        const classes = [
+          ...teamHighlightClasses(team.team, player.name, spoonTeam, mostGoalsTeams),
+          ...teamEliminationClasses(team.team, teamStatusLookup)
+        ];
         const teamBonus = teamBonusFor(bonusLookup, player.name, team.team);
         return `${teamNameHtml(team.team, classes)}${teamBonusPillHtml(teamBonus)}`;
       })
@@ -2538,16 +2747,29 @@ async function init() {
   spoonTeam = badgeData.spoonTeam;
   badgesByPlayer = badgeData.badgesByPlayer;
   mostGoalsTeams = badgeData.mostGoalsTeams || [];
+  const teamStatusLookup = buildTeamStatusLookup(
+    leaderboard,
+    playerDetails,
+    bonusData?.knockoutTracker || bonusData,
+    matchesData
+  );
 
   safeRender("Summary cards", () => renderSummaryCards(leaderboard, playerDetails));
   safeRender("Insight strip", () => renderInsightStrip(leaderboard, latestResults));
-  safeRender("Leaderboard", () => renderLeaderboard(leaderboard, spoonTeam, badgesByPlayer, mostGoalsTeams));
+  safeRender("Leaderboard", () => renderLeaderboard(leaderboard, spoonTeam, badgesByPlayer, mostGoalsTeams, teamStatusLookup));
   safeRender("Bonus tracker", () => renderBonusTracker(bonusData, leaderboard));
   safeRender("Knockout tracker", () => renderKnockoutTracker(bonusData?.knockoutTracker || bonusData, leaderboard));
   safeRender("Knockout bracket", () => renderKnockoutBracket(matchesData, leaderboard));
   safeRender("Prize pool", () => renderPrizePoolSection(leaderboard, playerDetails, bonusData));
   safeRender("Wooden spoon race", () => renderWoodenSpoonRace(playerDetails));
-  safeRender("Player details", () => renderPlayerDetails(playerDetails, spoonTeam, mostGoalsTeams, bonusData?.knockoutTracker || bonusData));
+  safeRender("Player details", () => renderPlayerDetails(
+    playerDetails,
+    spoonTeam,
+    mostGoalsTeams,
+    bonusData?.knockoutTracker || bonusData,
+    matchesData,
+    teamStatusLookup
+  ));
   safeRender("Latest results", () => renderLatestResults(latestResults));
 
   try {
