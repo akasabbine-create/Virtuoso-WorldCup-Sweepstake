@@ -4703,7 +4703,7 @@
               "order": 1,
               "homeAway": "away",
               "winner": false,
-              "form": "DWWDD",
+              "form": "WWWDD",
               "score": "1",
               "records": [
                 {
@@ -7689,7 +7689,7 @@
               "order": 0,
               "homeAway": "home",
               "winner": false,
-              "form": "DWWDW",
+              "form": "LWWDW",
               "score": "2",
               "records": [
                 {
@@ -24151,7 +24151,7 @@
               "homeAway": "away",
               "winner": true,
               "advance": true,
-              "form": "DWWDD",
+              "form": "WWWDD",
               "score": "1",
               "records": [
                 {
@@ -26338,7 +26338,7 @@
               "homeAway": "home",
               "winner": true,
               "advance": true,
-              "form": "DWWDW",
+              "form": "LWWDW",
               "score": "5",
               "records": [
                 {
@@ -40771,7 +40771,7 @@
               "homeAway": "home",
               "winner": true,
               "advance": true,
-              "form": "DWWDD",
+              "form": "WWWDD",
               "score": "4",
               "records": [
                 {
@@ -46670,7 +46670,7 @@
               "homeAway": "away",
               "winner": true,
               "advance": true,
-              "form": "DWWDW",
+              "form": "WWDWL",
               "score": "3",
               "records": [
                 {
@@ -61647,14 +61647,14 @@
     "id": "760488",
     "team1": "Netherlands",
     "team2": "Morocco",
-    "score1": null,
-    "score2": null,
+    "score1": 1,
+    "score2": 1,
     "displayScore1": 1,
     "displayScore2": 1,
     "winner1": false,
-    "winner2": false,
-    "status": "Overtime",
-    "completed": false,
+    "winner2": true,
+    "status": "Final Score - After Penalties",
+    "completed": true,
     "live": false,
     "date": "2026-06-30T01:00Z",
     "name": "Morocco at Netherlands",
@@ -61676,21 +61676,21 @@
           "uid": "s:600~l:606~e:760488~c:760488",
           "date": "2026-06-30T01:00Z",
           "startDate": "2026-06-30T01:00Z",
-          "attendance": 0,
+          "attendance": 51243,
           "timeValid": true,
           "recent": true,
           "status": {
-            "clock": 6840.0,
-            "displayClock": "114'",
-            "period": 4,
+            "clock": 7200.0,
+            "displayClock": "120'",
+            "period": 5,
             "type": {
-              "id": "24",
-              "name": "STATUS_OVERTIME",
-              "state": "in",
-              "completed": false,
-              "description": "Overtime",
-              "detail": "114'",
-              "shortDetail": "114'"
+              "id": "47",
+              "name": "STATUS_FINAL_PEN",
+              "state": "post",
+              "completed": true,
+              "description": "Final Score - After Penalties",
+              "detail": "FT-Pens",
+              "shortDetail": "FT-Pens"
             }
           },
           "venue": {
@@ -61707,7 +61707,13 @@
             }
           },
           "altGameNote": "FIFA World Cup, Round of 32",
-          "notes": [],
+          "notes": [
+            {
+              "text": "Morocco advance 3-2 on penalties",
+              "headline": "Morocco advance 3-2 on penalties",
+              "type": "event"
+            }
+          ],
           "geoBroadcasts": [
             {
               "type": {
@@ -61774,8 +61780,10 @@
               "order": 0,
               "homeAway": "home",
               "winner": false,
-              "form": "DWWDW",
+              "advance": false,
+              "form": "LWWDW",
               "score": "1",
+              "shootoutScore": 2,
               "team": {
                 "id": "449",
                 "uid": "s:600~t:449",
@@ -61890,7 +61898,7 @@
                 {
                   "name": "foulsCommitted",
                   "abbreviation": "FC",
-                  "displayValue": "16"
+                  "displayValue": "18"
                 },
                 {
                   "name": "wonCorners",
@@ -61905,7 +61913,7 @@
                 {
                   "name": "possessionPct",
                   "abbreviation": "PP",
-                  "displayValue": "30.4"
+                  "displayValue": "30"
                 },
                 {
                   "name": "shotAssists",
@@ -61935,9 +61943,11 @@
               "type": "team",
               "order": 1,
               "homeAway": "away",
-              "winner": false,
-              "form": "DWWDD",
+              "winner": true,
+              "advance": true,
+              "form": "WWWDD",
               "score": "1",
+              "shootoutScore": 3,
               "team": {
                 "id": "2869",
                 "uid": "s:600~t:2869",
@@ -62067,7 +62077,7 @@
                 {
                   "name": "possessionPct",
                   "abbreviation": "PP",
-                  "displayValue": "69.6"
+                  "displayValue": "70"
                 },
                 {
                   "name": "shotAssists",
@@ -62225,141 +62235,232 @@
                   "position": "CD-R"
                 }
               ]
+            },
+            {
+              "type": {
+                "id": "104",
+                "text": "Penalty - Scored"
+              },
+              "clock": {
+                "value": 7200.0,
+                "displayValue": "120'"
+              },
+              "team": {
+                "id": "449"
+              },
+              "scoreValue": 1,
+              "scoringPlay": true,
+              "redCard": false,
+              "yellowCard": false,
+              "penaltyKick": true,
+              "ownGoal": false,
+              "shootout": true,
+              "athletesInvolved": [
+                {
+                  "id": "258968",
+                  "displayName": "Teun Koopmeiners",
+                  "shortName": "T. Koopmeiners",
+                  "fullName": "Teun Koopmeiners",
+                  "jersey": "20",
+                  "team": {
+                    "id": "449"
+                  },
+                  "headshot": "https://a.espncdn.com/i/headshots/soccer/players/full/258968.png",
+                  "links": [
+                    {
+                      "rel": [
+                        "playercard",
+                        "desktop",
+                        "athlete"
+                      ],
+                      "href": "https://www.espn.com/soccer/player/_/id/258968/teun-koopmeiners",
+                      "isHidden": false
+                    }
+                  ],
+                  "position": "SUB"
+                }
+              ]
+            },
+            {
+              "type": {
+                "id": "104",
+                "text": "Penalty - Scored"
+              },
+              "clock": {
+                "value": 7200.0,
+                "displayValue": "120'"
+              },
+              "team": {
+                "id": "2869"
+              },
+              "scoreValue": 1,
+              "scoringPlay": true,
+              "redCard": false,
+              "yellowCard": false,
+              "penaltyKick": true,
+              "ownGoal": false,
+              "shootout": true,
+              "athletesInvolved": [
+                {
+                  "id": "276139",
+                  "displayName": "Soufiane Rahimi",
+                  "shortName": "S. Rahimi",
+                  "fullName": "Soufiane Rahimi",
+                  "jersey": "9",
+                  "team": {
+                    "id": "2869"
+                  },
+                  "links": [
+                    {
+                      "rel": [
+                        "playercard",
+                        "desktop",
+                        "athlete"
+                      ],
+                      "href": "https://www.espn.com/soccer/player/_/id/276139/soufiane-rahimi",
+                      "isHidden": false
+                    }
+                  ],
+                  "position": "SUB"
+                }
+              ]
+            },
+            {
+              "type": {
+                "id": "104",
+                "text": "Penalty - Scored"
+              },
+              "clock": {
+                "value": 7200.0,
+                "displayValue": "120'"
+              },
+              "team": {
+                "id": "449"
+              },
+              "scoreValue": 1,
+              "scoringPlay": true,
+              "redCard": false,
+              "yellowCard": false,
+              "penaltyKick": true,
+              "ownGoal": false,
+              "shootout": true,
+              "athletesInvolved": [
+                {
+                  "id": "177042",
+                  "displayName": "Wout Weghorst",
+                  "shortName": "W. Weghorst",
+                  "fullName": "Wout Weghorst",
+                  "jersey": "9",
+                  "team": {
+                    "id": "449"
+                  },
+                  "links": [
+                    {
+                      "rel": [
+                        "playercard",
+                        "desktop",
+                        "athlete"
+                      ],
+                      "href": "https://www.espn.com/soccer/player/_/id/177042/wout-weghorst",
+                      "isHidden": false
+                    }
+                  ],
+                  "position": "SUB"
+                }
+              ]
+            },
+            {
+              "type": {
+                "id": "104",
+                "text": "Penalty - Scored"
+              },
+              "clock": {
+                "value": 7200.0,
+                "displayValue": "120'"
+              },
+              "team": {
+                "id": "2869"
+              },
+              "scoreValue": 1,
+              "scoringPlay": true,
+              "redCard": false,
+              "yellowCard": false,
+              "penaltyKick": true,
+              "ownGoal": false,
+              "shootout": true,
+              "athletesInvolved": [
+                {
+                  "id": "360062",
+                  "displayName": "Chemsdine Talbi",
+                  "shortName": "C. Talbi",
+                  "fullName": "Chemsdine Talbi",
+                  "jersey": "7",
+                  "team": {
+                    "id": "2869"
+                  },
+                  "links": [
+                    {
+                      "rel": [
+                        "playercard",
+                        "desktop",
+                        "athlete"
+                      ],
+                      "href": "https://www.espn.com/soccer/player/_/id/360062/chemsdine-talbi",
+                      "isHidden": false
+                    }
+                  ],
+                  "position": "SUB"
+                }
+              ]
+            },
+            {
+              "type": {
+                "id": "104",
+                "text": "Penalty - Scored"
+              },
+              "clock": {
+                "value": 7200.0,
+                "displayValue": "120'"
+              },
+              "team": {
+                "id": "2869"
+              },
+              "scoreValue": 1,
+              "scoringPlay": true,
+              "redCard": false,
+              "yellowCard": false,
+              "penaltyKick": true,
+              "ownGoal": false,
+              "shootout": true,
+              "athletesInvolved": [
+                {
+                  "id": "304572",
+                  "displayName": "Ismael Saibari",
+                  "shortName": "I. Saibari",
+                  "fullName": "Ismael Saibari",
+                  "jersey": "11",
+                  "team": {
+                    "id": "2869"
+                  },
+                  "headshot": "https://a.espncdn.com/i/headshots/soccer/players/full/304572.png",
+                  "links": [
+                    {
+                      "rel": [
+                        "playercard",
+                        "desktop",
+                        "athlete"
+                      ],
+                      "href": "https://www.espn.com/soccer/player/_/id/304572/ismael-saibari",
+                      "isHidden": false
+                    }
+                  ],
+                  "position": "F"
+                }
+              ]
             }
           ],
           "odds": [
-            {
-              "overUnder": 2.5,
-              "link": {
-                "language": "en-US",
-                "rel": [
-                  "game",
-                  "desktop",
-                  "bets"
-                ],
-                "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34322861",
-                "text": "Game",
-                "shortText": "Game",
-                "isExternal": true,
-                "isPremium": false,
-                "isHidden": false
-              },
-              "provider": {
-                "id": "100",
-                "name": "DraftKings",
-                "priority": 1,
-                "displayName": "DraftKings",
-                "logos": [
-                  {
-                    "href": "https://a.espncdn.com/i/betting/Draftkings_Light.svg",
-                    "rel": [
-                      "light"
-                    ]
-                  },
-                  {
-                    "href": "https://a.espncdn.com/i/betting/Draftkings_Dark.svg",
-                    "rel": [
-                      "dark"
-                    ]
-                  }
-                ]
-              },
-              "drawOdds": {
-                "moneyLine": 210,
-                "link": {
-                  "language": "en-US",
-                  "rel": [
-                    "draw",
-                    "desktop",
-                    "bets",
-                    "draftkings"
-                  ],
-                  "href": "https://sportsbook.draftkings.com/gateway?s=__s__&wpcid=__wpcid__&wpsrc=413&wpcn=ESPN&wpscn=Widget&wpcrn=BetSlipDeepLink&wpscid=__wpscid__&wpcrid=xx&preurl=https%3A%2F%2Fsportsbook.draftkings.com%2Fevent%2F34322861%3Foutcomes%3D0ML85288316_2",
-                  "text": "Draw Bet",
-                  "shortText": "Draw Bet",
-                  "isExternal": true,
-                  "isPremium": false,
-                  "isHidden": false
-                }
-              },
-              "total": {
-                "displayName": "Total",
-                "shortDisplayName": "Total",
-                "over": {
-                  "open": {
-                    "line": "o2.5",
-                    "odds": "+125"
-                  },
-                  "close": {
-                    "line": "o2.5",
-                    "odds": "+115"
-                  }
-                },
-                "under": {
-                  "open": {
-                    "line": "u2.5",
-                    "odds": "-155"
-                  },
-                  "close": {
-                    "line": "u2.5",
-                    "odds": "-140"
-                  }
-                }
-              },
-              "pointSpread": {
-                "displayName": "Spread",
-                "shortDisplayName": "Spread",
-                "home": {
-                  "open": {
-                    "line": "-0.5",
-                    "odds": "+105"
-                  },
-                  "close": {
-                    "line": "-0.5",
-                    "odds": "+130"
-                  }
-                },
-                "away": {
-                  "open": {
-                    "line": "+0.5",
-                    "odds": "-130"
-                  },
-                  "close": {
-                    "line": "+0.5",
-                    "odds": "-170"
-                  }
-                }
-              },
-              "moneyline": {
-                "displayName": "Moneyline",
-                "shortDisplayName": "ML",
-                "home": {
-                  "open": {
-                    "odds": "+110"
-                  },
-                  "close": {
-                    "odds": "+145"
-                  }
-                },
-                "away": {
-                  "open": {
-                    "odds": "+275"
-                  },
-                  "close": {
-                    "odds": "+230"
-                  }
-                },
-                "draw": {
-                  "open": {
-                    "odds": "+235"
-                  },
-                  "close": {
-                    "odds": "+210"
-                  }
-                }
-              },
-              "details": "NED +145"
-            }
+            null
           ],
           "wasSuspended": false,
           "playByPlayAvailable": true,
@@ -62367,17 +62468,17 @@
         }
       ],
       "status": {
-        "clock": 6840.0,
-        "displayClock": "114'",
-        "period": 4,
+        "clock": 7200.0,
+        "displayClock": "120'",
+        "period": 5,
         "type": {
-          "id": "24",
-          "name": "STATUS_OVERTIME",
-          "state": "in",
-          "completed": false,
-          "description": "Overtime",
-          "detail": "114'",
-          "shortDetail": "114'"
+          "id": "47",
+          "name": "STATUS_FINAL_PEN",
+          "state": "post",
+          "completed": true,
+          "description": "Final Score - After Penalties",
+          "detail": "FT-Pens",
+          "shortDetail": "FT-Pens"
         }
       },
       "venue": {
@@ -62387,27 +62488,13 @@
         {
           "language": "en-US",
           "rel": [
-            "live",
+            "summary",
             "desktop",
             "event"
           ],
-          "href": "https://www.espn.com/soccer/match/_/gameId/760488",
-          "text": "Gamecast",
-          "shortText": "Live",
-          "isExternal": false,
-          "isPremium": false,
-          "isHidden": false
-        },
-        {
-          "language": "en-US",
-          "rel": [
-            "stats",
-            "desktop",
-            "event"
-          ],
-          "href": "https://www.espn.com/soccer/matchstats/_/gameId/760488",
-          "text": "Statistics",
-          "shortText": "Statistics",
+          "href": "https://www.espn.com/soccer/match/_/gameId/760488/morocco-netherlands",
+          "text": "Summary",
+          "shortText": "Summary",
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
@@ -62423,6 +62510,20 @@
           "shortText": "Highlights",
           "isExternal": false,
           "isPremium": false
+        },
+        {
+          "language": "en-US",
+          "rel": [
+            "stats",
+            "desktop",
+            "event"
+          ],
+          "href": "https://www.espn.com/soccer/matchstats/_/gameId/760488",
+          "text": "Statistics",
+          "shortText": "Statistics",
+          "isExternal": false,
+          "isPremium": false,
+          "isHidden": false
         },
         {
           "language": "en-US",
@@ -63027,7 +63128,7 @@
                   },
                   "close": {
                     "line": "o2.5",
-                    "odds": "-105",
+                    "odds": "-110",
                     "link": {
                       "rel": [
                         "over",
@@ -63345,8 +63446,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $829",
-              "numberAvailable": 1088,
+              "summary": "Tickets as low as $812",
+              "numberAvailable": 973,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-metlife-stadium-6-30-2026--sports-soccer/production/5080730?wsUser=717"
@@ -65878,8 +65979,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $474",
-              "numberAvailable": 2135,
+              "summary": "Tickets as low as $437",
+              "numberAvailable": 2100,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-lumen-field-7-1-2026--sports-soccer/production/5080832?wsUser=717"
@@ -66723,7 +66824,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $1,450",
-              "numberAvailable": 1807,
+              "numberAvailable": 1794,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-levis-stadium-7-1-2026--sports-soccer/production/5080829?wsUser=717"
@@ -67567,7 +67668,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $1,003",
-              "numberAvailable": 1978,
+              "numberAvailable": 2055,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-sofi-stadium-7-2-2026--sports-soccer/production/5080836?wsUser=717"
@@ -70113,8 +70214,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $653",
-              "numberAvailable": 2300,
+              "summary": "Tickets as low as $639",
+              "numberAvailable": 2273,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-att-stadium-7-3-2026--sports-soccer/production/5080843?wsUser=717"
@@ -70970,7 +71071,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $2,125",
-              "numberAvailable": 2003,
+              "numberAvailable": 1978,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-hard-rock-stadium-7-3-2026--sports-soccer/production/5080839?wsUser=717"
@@ -71615,7 +71716,7 @@
                     "odds": "-650"
                   },
                   "close": {
-                    "odds": "-575",
+                    "odds": "-600",
                     "link": {
                       "rel": [
                         "home",
@@ -71640,7 +71741,7 @@
                     "odds": "+1600"
                   },
                   "close": {
-                    "odds": "+1600",
+                    "odds": "+1800",
                     "link": {
                       "rel": [
                         "away",
@@ -71686,7 +71787,7 @@
                   }
                 }
               },
-              "details": "ARG -575"
+              "details": "ARG -600"
             }
           ],
           "wasSuspended": false,
@@ -71816,7 +71917,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $982",
-              "numberAvailable": 3034,
+              "numberAvailable": 3045,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-geha-field-at-arrowhead-stadium-7-3-2026--sports-soccer/production/5080842?wsUser=717"
@@ -72603,7 +72704,7 @@
   {
     "id": "760502",
     "team1": "Canada",
-    "team2": "Round of 32 3 Winner",
+    "team2": "Morocco",
     "score1": null,
     "score2": null,
     "displayScore1": 0,
@@ -72614,14 +72715,14 @@
     "completed": false,
     "live": false,
     "date": "2026-07-04T17:00Z",
-    "name": "Round of 32 3 Winner at Canada",
-    "shortName": "RD32 @ CAN",
+    "name": "Morocco at Canada",
+    "shortName": "MAR @ CAN",
     "raw": {
       "id": "760502",
       "uid": "s:600~l:606~e:760502",
       "date": "2026-07-04T17:00Z",
-      "name": "Round of 32 3 Winner at Canada",
-      "shortName": "RD32 @ CAN",
+      "name": "Morocco at Canada",
+      "shortName": "MAR @ CAN",
       "season": {
         "year": 2026,
         "type": 13800,
@@ -72936,28 +73037,204 @@
               ]
             },
             {
-              "id": "131527",
-              "uid": "s:600~t:131527",
+              "id": "2869",
+              "uid": "s:600~t:2869",
               "type": "team",
               "order": 1,
               "homeAway": "away",
               "winner": false,
+              "form": "WWWDD",
               "score": "0",
               "team": {
-                "id": "131527",
-                "uid": "s:600~t:131527",
-                "abbreviation": "RD32",
-                "displayName": "Round of 32 3 Winner",
-                "shortDisplayName": "RD32 W3",
-                "name": "Round of 32 3 Winner",
-                "location": "Round of 32 3 Winner",
-                "color": "000000",
-                "alternateColor": "000000",
-                "isActive": false,
-                "logo": "",
-                "links": []
+                "id": "2869",
+                "uid": "s:600~t:2869",
+                "abbreviation": "MAR",
+                "displayName": "Morocco",
+                "shortDisplayName": "Morocco",
+                "name": "Morocco",
+                "location": "Morocco",
+                "color": "df2027",
+                "alternateColor": "ffffff",
+                "isActive": true,
+                "logo": "https://a.espncdn.com/i/teamlogos/countries/500/mar.png",
+                "links": [
+                  {
+                    "rel": [
+                      "clubhouse",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "https://www.espn.com/soccer/team/_/id/2869/morocco",
+                    "text": "Clubhouse",
+                    "isExternal": false,
+                    "isPremium": false,
+                    "isHidden": false
+                  },
+                  {
+                    "rel": [
+                      "stats",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "https://www.espn.com/soccer/team/stats/_/id/2869/morocco",
+                    "text": "Stats",
+                    "isExternal": false,
+                    "isPremium": false,
+                    "isHidden": false
+                  },
+                  {
+                    "rel": [
+                      "stats",
+                      "sportscenter",
+                      "app",
+                      "team"
+                    ],
+                    "href": "sportscenter://x-callback-url/showClubhouse?uid=s:600~t:2869&section=stats",
+                    "text": "Stats",
+                    "isExternal": false,
+                    "isPremium": false,
+                    "isHidden": false
+                  },
+                  {
+                    "rel": [
+                      "schedule",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "https://www.espn.com/soccer/team/fixtures/_/id/2869/morocco",
+                    "text": "Fixtures",
+                    "isExternal": false,
+                    "isPremium": false,
+                    "isHidden": false
+                  },
+                  {
+                    "rel": [
+                      "schedule",
+                      "sportscenter",
+                      "app",
+                      "team"
+                    ],
+                    "href": "sportscenter://x-callback-url/showClubhouse?uid=s:600~t:2869&section=scores",
+                    "text": "Fixtures",
+                    "isExternal": false,
+                    "isPremium": false,
+                    "isHidden": false
+                  },
+                  {
+                    "rel": [
+                      "squad",
+                      "desktop",
+                      "team"
+                    ],
+                    "href": "https://www.espn.com/soccer/team/squad/_/id/2869/morocco",
+                    "text": "Squad",
+                    "isExternal": false,
+                    "isPremium": false,
+                    "isHidden": false
+                  },
+                  {
+                    "rel": [
+                      "squad",
+                      "sportscenter",
+                      "app",
+                      "team"
+                    ],
+                    "href": "sportscenter://x-callback-url/showClubhouse?uid=s:600~t:2869&section=squad",
+                    "text": "Squad",
+                    "isExternal": false,
+                    "isPremium": false,
+                    "isHidden": false
+                  }
+                ],
+                "venue": {
+                  "id": "10633"
+                }
               },
-              "statistics": []
+              "statistics": [],
+              "leaders": [
+                {
+                  "name": "goals",
+                  "displayName": "Goals",
+                  "shortDisplayName": "Goals",
+                  "abbreviation": "G",
+                  "leaders": [
+                    {
+                      "displayValue": "3",
+                      "value": 3.0,
+                      "athlete": {
+                        "id": "304572",
+                        "displayName": "Ismael Saibari",
+                        "shortName": "I. Saibari",
+                        "fullName": "Ismael Saibari",
+                        "jersey": "11",
+                        "active": true,
+                        "team": {
+                          "id": "2869"
+                        },
+                        "headshot": "https://a.espncdn.com/i/headshots/soccer/players/full/304572.png",
+                        "links": [
+                          {
+                            "rel": [
+                              "playercard",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "https://www.espn.com/soccer/player/_/id/304572/ismael-saibari",
+                            "isHidden": false
+                          }
+                        ],
+                        "position": {
+                          "abbreviation": "M"
+                        }
+                      },
+                      "team": {
+                        "id": "2869"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "name": "goalsLeaders",
+                  "displayName": "Goals",
+                  "shortDisplayName": "Goals",
+                  "abbreviation": "G",
+                  "leaders": [
+                    {
+                      "displayValue": "3",
+                      "value": 3.0,
+                      "athlete": {
+                        "id": "304572",
+                        "displayName": "Ismael Saibari",
+                        "shortName": "I. Saibari",
+                        "fullName": "Ismael Saibari",
+                        "jersey": "11",
+                        "active": true,
+                        "team": {
+                          "id": "2869"
+                        },
+                        "headshot": "https://a.espncdn.com/i/headshots/soccer/players/full/304572.png",
+                        "links": [
+                          {
+                            "rel": [
+                              "playercard",
+                              "desktop",
+                              "athlete"
+                            ],
+                            "href": "https://www.espn.com/soccer/player/_/id/304572/ismael-saibari",
+                            "isHidden": false
+                          }
+                        ],
+                        "position": {
+                          "abbreviation": "M"
+                        }
+                      },
+                      "team": {
+                        "id": "2869"
+                      }
+                    }
+                  ]
+                }
+              ]
             }
           ],
           "details": [],
@@ -72993,7 +73270,7 @@
             "desktop",
             "event"
           ],
-          "href": "https://www.espn.com/soccer/match/_/gameId/760502/round-of-32-3-winner-canada",
+          "href": "https://www.espn.com/soccer/match/_/gameId/760502/morocco-canada",
           "text": "Summary",
           "shortText": "Summary",
           "isExternal": false,
@@ -73091,7 +73368,7 @@
           "tickets": [
             {
               "summary": "Tickets as low as $983",
-              "numberAvailable": 2991,
+              "numberAvailable": 2975,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-lincoln-financial-field-7-4-2026--sports-soccer/production/5080845?wsUser=717"
@@ -73521,8 +73798,8 @@
           },
           "tickets": [
             {
-              "summary": "Tickets as low as $1,740",
-              "numberAvailable": 2657,
+              "summary": "Tickets as low as $1,769",
+              "numberAvailable": 2641,
               "links": [
                 {
                   "href": "https://www.vividseats.com/world-cup-soccer-tickets-metlife-stadium-7-5-2026--sports-soccer/production/5080851?wsUser=717"
@@ -75076,20 +75353,6 @@
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
-        },
-        {
-          "language": "en-US",
-          "rel": [
-            "bracket",
-            "desktop",
-            "event"
-          ],
-          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
-          "text": "Bracket",
-          "shortText": "Bracket",
-          "isExternal": false,
-          "isPremium": false,
-          "isHidden": false
         }
       ]
     }
@@ -75559,20 +75822,6 @@
           "href": "https://www.espn.com/soccer/matchstats/_/gameId/760511",
           "text": "Statistics",
           "shortText": "Statistics",
-          "isExternal": false,
-          "isPremium": false,
-          "isHidden": false
-        },
-        {
-          "language": "en-US",
-          "rel": [
-            "bracket",
-            "desktop",
-            "event"
-          ],
-          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
-          "text": "Bracket",
-          "shortText": "Bracket",
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
@@ -76543,20 +76792,6 @@
           "href": "https://www.espn.com/soccer/matchstats/_/gameId/760515",
           "text": "Statistics",
           "shortText": "Statistics",
-          "isExternal": false,
-          "isPremium": false,
-          "isHidden": false
-        },
-        {
-          "language": "en-US",
-          "rel": [
-            "bracket",
-            "desktop",
-            "event"
-          ],
-          "href": "https://www.espn.com/soccer/bracket/_/season/2026/league/fifa.world",
-          "text": "Bracket",
-          "shortText": "Bracket",
           "isExternal": false,
           "isPremium": false,
           "isHidden": false
