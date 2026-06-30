@@ -436,16 +436,6 @@
     groupedKnockoutCss();
 
     document.querySelector("#wooden-spoon-confirmed-section")?.remove();
-
-    const leaderboardSection = document.querySelector(".cards");
-    if (!leaderboardSection) return;
-
-    const section = document.createElement("section");
-    section.id = "wooden-spoon-confirmed-section";
-    section.className = "wooden-spoon-confirmed-section";
-    section.innerHTML = woodenSpoonConfirmedHtml(playerDetails);
-
-    leaderboardSection.insertAdjacentElement("afterend", section);
   }
 
   function renderKnockoutTrackerFixed(knockoutData, leaderboard, matches) {
@@ -457,7 +447,9 @@
     const tracker = knockoutData?.rows ? knockoutData : (knockoutData?.knockoutTracker || knockoutData || {});
     const rows = tracker.rows || [];
     const activeRows = rows.filter(row => Number(row.total || 0) > 0);
-    const qualifiedTeamKeys = new Set(activeRows.map(row => `${normalise(row.owner)}::${normalise(row.team)}`));
+    const teamStatusLookup = typeof buildTeamStatusLookup === "function"
+      ? buildTeamStatusLookup(leaderboard, [], tracker, matches)
+      : null;
 
     const players = new Map();
     (leaderboard || []).forEach(player => {
@@ -478,9 +470,12 @@
 
     players.forEach(player => {
       (player.teams || []).forEach(team => {
-        const key = `${normalise(player.name)}::${normalise(team)}`;
-        if (!qualifiedTeamKeys.has(key)) {
-          player.knockedOut.push({ team, stage: completedStageLabel(team, matches) });
+        const status = typeof teamStatusFor === "function"
+          ? teamStatusFor(teamStatusLookup, team)
+          : null;
+
+        if (status?.eliminated) {
+          player.knockedOut.push({ team, stage: status.stage || completedStageLabel(team, matches) });
         }
       });
     });

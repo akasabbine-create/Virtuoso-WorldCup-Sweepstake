@@ -3688,6 +3688,47 @@ body.title-option-broadcast .layered-hero-header::after {
   font-size: 0.68rem;
 }
 
+.team-name.knocked-out-team {
+  position: relative;
+  opacity: 0.58;
+  filter: grayscale(0.75);
+  text-decoration: line-through;
+  text-decoration-color: rgba(255, 107, 107, 0.82);
+  text-decoration-thickness: 2px;
+}
+
+.team-name.knocked-out-team .team-name-text {
+  text-decoration: line-through;
+  text-decoration-color: rgba(255, 107, 107, 0.82);
+  text-decoration-thickness: 2px;
+}
+
+#board tr.player-eliminated-row {
+  opacity: 0.62;
+}
+
+#board tr.player-eliminated-row td {
+  text-decoration: line-through;
+  text-decoration-color: rgba(255, 107, 107, 0.72);
+  text-decoration-thickness: 2px;
+}
+
+#board tr.player-eliminated-row .badge-icon,
+#board tr.player-eliminated-row .team-name,
+#board tr.player-eliminated-row td:last-child strong {
+  filter: grayscale(0.85);
+}
+
+.player-eliminated-card {
+  opacity: 0.72;
+}
+
+.team-breakdown-eliminated {
+  border-color: rgba(255, 107, 107, 0.26);
+  background:
+    linear-gradient(145deg, rgba(255, 107, 107, 0.08), rgba(8, 31, 49, 0.78));
+}
+
 .team-breakdown-header span {
   display: inline-flex;
   flex-wrap: wrap;
@@ -3705,6 +3746,87 @@ body.title-option-broadcast .layered-hero-header::after {
   border-radius: 999px;
   padding: 0.1rem 0.42rem;
   background: rgba(126, 211, 255, 0.08);
+}
+
+.team-breakdown-eliminated .team-breakdown-header span em:last-child {
+  color: #ffb4b4;
+  border-color: rgba(255, 107, 107, 0.28);
+  background: rgba(255, 107, 107, 0.08);
+}
+
+.match-breakdown-list {
+  display: grid;
+  gap: 0.45rem;
+  padding-left: 0;
+  list-style: none;
+}
+
+.match-breakdown-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.65rem;
+  align-items: center;
+  margin: 0;
+  padding: 0.55rem 0.65rem;
+  border: 1px solid rgba(88, 166, 255, 0.13);
+  border-radius: 0.7rem;
+  background: rgba(3, 18, 30, 0.30);
+}
+
+.match-breakdown-main,
+.match-breakdown-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.match-breakdown-main {
+  min-width: 0;
+  color: #eef6ff;
+  font-weight: 800;
+}
+
+.match-breakdown-main > strong {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 999px;
+  background: rgba(88, 166, 255, 0.12);
+  border: 1px solid rgba(88, 166, 255, 0.2);
+  color: #ffffff;
+  font-size: 0.8rem;
+}
+
+.match-breakdown-meta {
+  justify-content: flex-end;
+  color: #c9d1d9;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.match-breakdown-meta > span {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 0.22rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(8, 31, 49, 0.78);
+  border: 1px solid rgba(88, 166, 255, 0.15);
+}
+
+.match-bonus-pill {
+  color: #ffd166 !important;
+  border-color: rgba(255, 209, 102, 0.28) !important;
+  background: rgba(255, 209, 102, 0.10) !important;
+}
+
+.match-bonus-pill.clean-sheet-pill {
+  color: #8ee7ff !important;
+  border-color: rgba(126, 211, 255, 0.30) !important;
+  background: rgba(126, 211, 255, 0.10) !important;
 }
 
 .awarded-summary-card ul {
@@ -3735,6 +3857,14 @@ body.title-option-broadcast .layered-hero-header::after {
   .knockout-team-grid-wide,
   .awarded-summary-card ul {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .match-breakdown-row {
+    grid-template-columns: 1fr;
+  }
+
+  .match-breakdown-meta {
+    justify-content: flex-start;
   }
 }
 
