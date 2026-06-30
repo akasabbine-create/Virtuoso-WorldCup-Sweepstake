@@ -1872,7 +1872,25 @@ function matchScoreForTeam(match, teamName) {
   };
 }
 
+function rawCompetitorForTeam(match, teamName) {
+  const target = normaliseTeamName(teamName);
+  const competitors = match?.raw?.competitions?.[0]?.competitors || [];
+
+  return competitors.find(competitor => normaliseTeamName(
+    competitor?.team?.displayName
+    || competitor?.team?.shortDisplayName
+    || competitor?.team?.name
+  ) === target) || null;
+}
+
 function teamLostMatch(match, teamName) {
+  const competitor = rawCompetitorForTeam(match, teamName);
+
+  if (isKnockoutMatch(match) && competitor) {
+    if (competitor.winner === false || competitor.advance === false) return true;
+    if (competitor.winner === true || competitor.advance === true) return false;
+  }
+
   const score = matchScoreForTeam(match, teamName);
   return Boolean(score && score.scoreFor < score.scoreAgainst);
 }
