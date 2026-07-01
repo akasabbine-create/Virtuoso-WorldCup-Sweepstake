@@ -140,6 +140,44 @@
       ]
     },
     {
+      "name": "Oli",
+      "total": 20,
+      "items": [
+        {
+          "label": "Reach Round of 32",
+          "team": "Belgium",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Belgium qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 16",
+          "team": "Belgium",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Belgium progressed to the Round of 16 by winning Belgium 3–2 Senegal",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 32",
+          "team": "Bosnia",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Bosnia qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 32",
+          "team": "Austria",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Austria qualified for the Round of 32",
+          "status": "awarded"
+        }
+      ]
+    },
+    {
       "name": "Jason",
       "total": 15,
       "items": [
@@ -195,36 +233,6 @@
           "points": 5,
           "displayPoints": 5,
           "reason": "Egypt qualified for the Round of 32",
-          "status": "awarded"
-        }
-      ]
-    },
-    {
-      "name": "Oli",
-      "total": 15,
-      "items": [
-        {
-          "label": "Reach Round of 32",
-          "team": "Belgium",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Belgium qualified for the Round of 32",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 32",
-          "team": "Bosnia",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Bosnia qualified for the Round of 32",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 32",
-          "team": "Austria",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Austria qualified for the Round of 32",
           "status": "awarded"
         }
       ]
@@ -716,6 +724,39 @@
         "total": 10
       },
       {
+        "owner": "Oli",
+        "team": "Belgium",
+        "stageBonuses": [
+          {
+            "stage": "round_of_32",
+            "label": "Reach Round of 32",
+            "shortLabel": "Round of 32",
+            "team": "Belgium",
+            "owner": "Oli",
+            "points": 5,
+            "date": "2026-07-01T20:00Z",
+            "match": "Belgium 3–2 Senegal",
+            "reason": "Belgium qualified for the Round of 32",
+            "status": "awarded"
+          },
+          {
+            "stage": "round_of_16",
+            "label": "Reach Round of 16",
+            "shortLabel": "Round of 16",
+            "team": "Belgium",
+            "owner": "Oli",
+            "points": 5,
+            "date": "2026-07-01T20:00Z",
+            "match": "Belgium 3–2 Senegal",
+            "reason": "Belgium progressed to the Round of 16 by winning Belgium 3–2 Senegal",
+            "status": "awarded"
+          }
+        ],
+        "cleanSheets": [],
+        "winnerBonus": null,
+        "total": 10
+      },
+      {
         "owner": "Phillipa",
         "team": "Morocco",
         "stageBonuses": [
@@ -877,7 +918,7 @@
             "owner": "Jason",
             "points": 5,
             "date": "2026-07-01T20:00Z",
-            "match": "Belgium v Senegal",
+            "match": "Belgium 3–2 Senegal",
             "reason": "Senegal qualified for the Round of 32",
             "status": "awarded"
           }
@@ -1110,27 +1151,6 @@
             "date": "2026-07-02T19:00Z",
             "match": "Spain v Austria",
             "reason": "Austria qualified for the Round of 32",
-            "status": "awarded"
-          }
-        ],
-        "cleanSheets": [],
-        "winnerBonus": null,
-        "total": 5
-      },
-      {
-        "owner": "Oli",
-        "team": "Belgium",
-        "stageBonuses": [
-          {
-            "stage": "round_of_32",
-            "label": "Reach Round of 32",
-            "shortLabel": "Round of 32",
-            "team": "Belgium",
-            "owner": "Oli",
-            "points": 5,
-            "date": "2026-07-01T20:00Z",
-            "match": "Belgium v Senegal",
-            "reason": "Belgium qualified for the Round of 32",
             "status": "awarded"
           }
         ],
@@ -1591,8 +1611,20 @@
         "owner": "Oli",
         "points": 5,
         "date": "2026-07-01T20:00Z",
-        "match": "Belgium v Senegal",
+        "match": "Belgium 3–2 Senegal",
         "reason": "Belgium qualified for the Round of 32",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_16",
+        "label": "Reach Round of 16",
+        "shortLabel": "Round of 16",
+        "team": "Belgium",
+        "owner": "Oli",
+        "points": 5,
+        "date": "2026-07-01T20:00Z",
+        "match": "Belgium 3–2 Senegal",
+        "reason": "Belgium progressed to the Round of 16 by winning Belgium 3–2 Senegal",
         "status": "awarded"
       },
       {
@@ -1603,7 +1635,7 @@
         "owner": "Jason",
         "points": 5,
         "date": "2026-07-01T20:00Z",
-        "match": "Belgium v Senegal",
+        "match": "Belgium 3–2 Senegal",
         "reason": "Senegal qualified for the Round of 32",
         "status": "awarded"
       },
@@ -2232,7 +2264,7 @@
         "owner": "Oli",
         "points": 5,
         "date": "2026-07-01T20:00Z",
-        "match": "Belgium v Senegal",
+        "match": "Belgium 3–2 Senegal",
         "reason": "Belgium qualified for the Round of 32",
         "status": "awarded"
       },
@@ -2244,8 +2276,20 @@
         "owner": "Jason",
         "points": 5,
         "date": "2026-07-01T20:00Z",
-        "match": "Belgium v Senegal",
+        "match": "Belgium 3–2 Senegal",
         "reason": "Senegal qualified for the Round of 32",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_16",
+        "label": "Reach Round of 16",
+        "shortLabel": "Round of 16",
+        "team": "Belgium",
+        "owner": "Oli",
+        "points": 5,
+        "date": "2026-07-01T20:00Z",
+        "match": "Belgium 3–2 Senegal",
+        "reason": "Belgium progressed to the Round of 16 by winning Belgium 3–2 Senegal",
         "status": "awarded"
       },
       {
@@ -2489,6 +2533,11 @@
       "goals": 4
     },
     {
+      "player": "Ismaïla Sarr",
+      "team": "Senegal",
+      "goals": 4
+    },
+    {
       "player": "Ousmane Dembélé",
       "team": "France",
       "goals": 4
@@ -2506,11 +2555,6 @@
     {
       "player": "Cody Gakpo",
       "team": "Netherlands",
-      "goals": 3
-    },
-    {
-      "player": "Deniz Undav",
-      "team": "Germany",
       "goals": 3
     }
   ],
@@ -2530,6 +2574,14 @@
     {
       "team": "Norway",
       "goals": 10
+    },
+    {
+      "team": "Senegal",
+      "goals": 10
+    },
+    {
+      "team": "Belgium",
+      "goals": 9
     },
     {
       "team": "Brazil",
@@ -2556,10 +2608,6 @@
       "goals": 8
     },
     {
-      "team": "Senegal",
-      "goals": 8
-    },
-    {
       "team": "USA",
       "goals": 8
     },
@@ -2577,10 +2625,6 @@
     },
     {
       "team": "Austria",
-      "goals": 6
-    },
-    {
-      "team": "Belgium",
       "goals": 6
     },
     {

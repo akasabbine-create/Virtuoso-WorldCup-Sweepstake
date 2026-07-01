@@ -38,12 +38,12 @@
     "date": "2026-07-01T20:00Z",
     "team1": "Belgium",
     "team2": "Senegal",
-    "score1": null,
-    "score2": null,
-    "displayScore1": 2,
+    "score1": 3,
+    "score2": 2,
+    "displayScore1": 3,
     "displayScore2": 2,
-    "status": "Overtime",
-    "completed": false,
+    "status": "Final Score - After Extra Time",
+    "completed": true,
     "live": false,
     "isToday": true,
     "footballDayStart": "2026-07-01T05:00:00+00:00",
@@ -62,7 +62,12 @@
         ]
       }
     ],
-    "playerGains": []
+    "playerGains": [
+      {
+        "name": "Oli",
+        "points": 3
+      }
+    ]
   },
   {
     "date": "2026-07-02T00:00Z",
