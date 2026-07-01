@@ -477,18 +477,26 @@
     "points": 29,
     "matchPoints": 14,
     "bonusPoints": 15,
-    "gamesPlayed": 10,
+    "gamesPlayed": 11,
     "teams": [
       {
         "team": "Ecuador",
         "points": 4,
-        "gamesPlayed": 3,
+        "gamesPlayed": 4,
         "wins": 1,
         "draws": 1,
-        "losses": 1,
+        "losses": 2,
         "goalsFor": 2,
-        "goalsAgainst": 2,
+        "goalsAgainst": 4,
         "recentResults": [
+          {
+            "date": "2026-07-01T02:00Z",
+            "opponent": "Mexico",
+            "scoreFor": 0,
+            "scoreAgainst": 2,
+            "result": "L",
+            "points": 0
+          },
           {
             "date": "2026-06-25T20:00Z",
             "opponent": "Germany",
@@ -504,14 +512,6 @@
             "scoreAgainst": 0,
             "result": "D",
             "points": 1
-          },
-          {
-            "date": "2026-06-14T23:00Z",
-            "opponent": "Ivory Coast",
-            "scoreFor": 0,
-            "scoreAgainst": 1,
-            "result": "L",
-            "points": 0
           }
         ]
       },
@@ -826,8 +826,126 @@
     ]
   },
   {
-    "name": "Luke",
+    "name": "Max",
     "rank": 8,
+    "points": 26,
+    "matchPoints": 14,
+    "bonusPoints": 12,
+    "gamesPlayed": 10,
+    "teams": [
+      {
+        "team": "Uruguay",
+        "points": 2,
+        "gamesPlayed": 3,
+        "wins": 0,
+        "draws": 2,
+        "losses": 1,
+        "goalsFor": 3,
+        "goalsAgainst": 4,
+        "recentResults": [
+          {
+            "date": "2026-06-27T00:00Z",
+            "opponent": "Spain",
+            "scoreFor": 0,
+            "scoreAgainst": 1,
+            "result": "L",
+            "points": 0
+          },
+          {
+            "date": "2026-06-21T22:00Z",
+            "opponent": "Cape Verde",
+            "scoreFor": 2,
+            "scoreAgainst": 2,
+            "result": "D",
+            "points": 1
+          },
+          {
+            "date": "2026-06-15T22:00Z",
+            "opponent": "Saudi Arabia",
+            "scoreFor": 1,
+            "scoreAgainst": 1,
+            "result": "D",
+            "points": 1
+          }
+        ]
+      },
+      {
+        "team": "Mexico",
+        "points": 12,
+        "gamesPlayed": 4,
+        "wins": 4,
+        "draws": 0,
+        "losses": 0,
+        "goalsFor": 8,
+        "goalsAgainst": 0,
+        "recentResults": [
+          {
+            "date": "2026-07-01T02:00Z",
+            "opponent": "Ecuador",
+            "scoreFor": 2,
+            "scoreAgainst": 0,
+            "result": "W",
+            "points": 3
+          },
+          {
+            "date": "2026-06-25T01:00Z",
+            "opponent": "Czech Republic",
+            "scoreFor": 3,
+            "scoreAgainst": 0,
+            "result": "W",
+            "points": 3
+          },
+          {
+            "date": "2026-06-19T01:00Z",
+            "opponent": "South Korea",
+            "scoreFor": 1,
+            "scoreAgainst": 0,
+            "result": "W",
+            "points": 3
+          }
+        ]
+      },
+      {
+        "team": "Tunisia",
+        "points": 0,
+        "gamesPlayed": 3,
+        "wins": 0,
+        "draws": 0,
+        "losses": 3,
+        "goalsFor": 2,
+        "goalsAgainst": 12,
+        "recentResults": [
+          {
+            "date": "2026-06-25T23:00Z",
+            "opponent": "Netherlands",
+            "scoreFor": 1,
+            "scoreAgainst": 3,
+            "result": "L",
+            "points": 0
+          },
+          {
+            "date": "2026-06-21T04:00Z",
+            "opponent": "Japan",
+            "scoreFor": 0,
+            "scoreAgainst": 4,
+            "result": "L",
+            "points": 0
+          },
+          {
+            "date": "2026-06-15T02:00Z",
+            "opponent": "Sweden",
+            "scoreFor": 1,
+            "scoreAgainst": 5,
+            "result": "L",
+            "points": 0
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Luke",
+    "rank": 9,
     "points": 24,
     "matchPoints": 14,
     "bonusPoints": 10,
@@ -945,7 +1063,7 @@
   },
   {
     "name": "Malcolm",
-    "rank": 9,
+    "rank": 10,
     "points": 23,
     "matchPoints": 13,
     "bonusPoints": 10,
@@ -1063,7 +1181,7 @@
   },
   {
     "name": "Ryan",
-    "rank": 10,
+    "rank": 11,
     "points": 23,
     "matchPoints": 13,
     "bonusPoints": 10,
@@ -1181,7 +1299,7 @@
   },
   {
     "name": "Rob",
-    "rank": 11,
+    "rank": 12,
     "points": 21,
     "matchPoints": 11,
     "bonusPoints": 10,
@@ -1299,7 +1417,7 @@
   },
   {
     "name": "Nick",
-    "rank": 12,
+    "rank": 13,
     "points": 21,
     "matchPoints": 11,
     "bonusPoints": 10,
@@ -1410,124 +1528,6 @@
             "scoreAgainst": 1,
             "result": "D",
             "points": 1
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "name": "Max",
-    "rank": 13,
-    "points": 16,
-    "matchPoints": 11,
-    "bonusPoints": 5,
-    "gamesPlayed": 9,
-    "teams": [
-      {
-        "team": "Uruguay",
-        "points": 2,
-        "gamesPlayed": 3,
-        "wins": 0,
-        "draws": 2,
-        "losses": 1,
-        "goalsFor": 3,
-        "goalsAgainst": 4,
-        "recentResults": [
-          {
-            "date": "2026-06-27T00:00Z",
-            "opponent": "Spain",
-            "scoreFor": 0,
-            "scoreAgainst": 1,
-            "result": "L",
-            "points": 0
-          },
-          {
-            "date": "2026-06-21T22:00Z",
-            "opponent": "Cape Verde",
-            "scoreFor": 2,
-            "scoreAgainst": 2,
-            "result": "D",
-            "points": 1
-          },
-          {
-            "date": "2026-06-15T22:00Z",
-            "opponent": "Saudi Arabia",
-            "scoreFor": 1,
-            "scoreAgainst": 1,
-            "result": "D",
-            "points": 1
-          }
-        ]
-      },
-      {
-        "team": "Mexico",
-        "points": 9,
-        "gamesPlayed": 3,
-        "wins": 3,
-        "draws": 0,
-        "losses": 0,
-        "goalsFor": 6,
-        "goalsAgainst": 0,
-        "recentResults": [
-          {
-            "date": "2026-06-25T01:00Z",
-            "opponent": "Czech Republic",
-            "scoreFor": 3,
-            "scoreAgainst": 0,
-            "result": "W",
-            "points": 3
-          },
-          {
-            "date": "2026-06-19T01:00Z",
-            "opponent": "South Korea",
-            "scoreFor": 1,
-            "scoreAgainst": 0,
-            "result": "W",
-            "points": 3
-          },
-          {
-            "date": "2026-06-11T19:00Z",
-            "opponent": "South Africa",
-            "scoreFor": 2,
-            "scoreAgainst": 0,
-            "result": "W",
-            "points": 3
-          }
-        ]
-      },
-      {
-        "team": "Tunisia",
-        "points": 0,
-        "gamesPlayed": 3,
-        "wins": 0,
-        "draws": 0,
-        "losses": 3,
-        "goalsFor": 2,
-        "goalsAgainst": 12,
-        "recentResults": [
-          {
-            "date": "2026-06-25T23:00Z",
-            "opponent": "Netherlands",
-            "scoreFor": 1,
-            "scoreAgainst": 3,
-            "result": "L",
-            "points": 0
-          },
-          {
-            "date": "2026-06-21T04:00Z",
-            "opponent": "Japan",
-            "scoreFor": 0,
-            "scoreAgainst": 4,
-            "result": "L",
-            "points": 0
-          },
-          {
-            "date": "2026-06-15T02:00Z",
-            "opponent": "Sweden",
-            "scoreFor": 1,
-            "scoreAgainst": 5,
-            "result": "L",
-            "points": 0
           }
         ]
       }

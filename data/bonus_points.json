@@ -260,6 +260,36 @@
       ]
     },
     {
+      "name": "Max",
+      "total": 12,
+      "items": [
+        {
+          "label": "Reach Round of 32",
+          "team": "Mexico",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Mexico qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 16",
+          "team": "Mexico",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Mexico progressed to the Round of 16 by winning Mexico 2–0 Ecuador",
+          "status": "awarded"
+        },
+        {
+          "label": "Knockout clean sheet",
+          "team": "Mexico",
+          "points": 2,
+          "displayPoints": 2,
+          "reason": "Mexico kept a knockout clean sheet against Ecuador",
+          "status": "awarded"
+        }
+      ]
+    },
+    {
       "name": "Luke",
       "total": 10,
       "items": [
@@ -398,20 +428,6 @@
       ]
     },
     {
-      "name": "Max",
-      "total": 5,
-      "items": [
-        {
-          "label": "Reach Round of 32",
-          "team": "Mexico",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Mexico qualified for the Round of 32",
-          "status": "awarded"
-        }
-      ]
-    },
-    {
       "name": "Jake",
       "total": 0,
       "items": []
@@ -539,6 +555,53 @@
             "match": "France 3–0 Sweden",
             "opponent": "Sweden",
             "reason": "France kept a knockout clean sheet against Sweden",
+            "status": "awarded"
+          }
+        ],
+        "winnerBonus": null,
+        "total": 12
+      },
+      {
+        "owner": "Max",
+        "team": "Mexico",
+        "stageBonuses": [
+          {
+            "stage": "round_of_32",
+            "label": "Reach Round of 32",
+            "shortLabel": "Round of 32",
+            "team": "Mexico",
+            "owner": "Max",
+            "points": 5,
+            "date": "2026-07-01T02:00Z",
+            "match": "Mexico 2–0 Ecuador",
+            "reason": "Mexico qualified for the Round of 32",
+            "status": "awarded"
+          },
+          {
+            "stage": "round_of_16",
+            "label": "Reach Round of 16",
+            "shortLabel": "Round of 16",
+            "team": "Mexico",
+            "owner": "Max",
+            "points": 5,
+            "date": "2026-07-01T02:00Z",
+            "match": "Mexico 2–0 Ecuador",
+            "reason": "Mexico progressed to the Round of 16 by winning Mexico 2–0 Ecuador",
+            "status": "awarded"
+          }
+        ],
+        "cleanSheets": [
+          {
+            "stage": "round_of_32",
+            "label": "Knockout clean sheet",
+            "shortLabel": "+2 clean sheet",
+            "team": "Mexico",
+            "owner": "Max",
+            "points": 2,
+            "date": "2026-07-01T02:00Z",
+            "match": "Mexico 2–0 Ecuador",
+            "opponent": "Ecuador",
+            "reason": "Mexico kept a knockout clean sheet against Ecuador",
             "status": "awarded"
           }
         ],
@@ -972,27 +1035,6 @@
         "total": 5
       },
       {
-        "owner": "Max",
-        "team": "Mexico",
-        "stageBonuses": [
-          {
-            "stage": "round_of_32",
-            "label": "Reach Round of 32",
-            "shortLabel": "Round of 32",
-            "team": "Mexico",
-            "owner": "Max",
-            "points": 5,
-            "date": "2026-07-01T02:00Z",
-            "match": "Mexico v Ecuador",
-            "reason": "Mexico qualified for the Round of 32",
-            "status": "awarded"
-          }
-        ],
-        "cleanSheets": [],
-        "winnerBonus": null,
-        "total": 5
-      },
-      {
         "owner": "Nick",
         "team": "Algeria",
         "stageBonuses": [
@@ -1109,7 +1151,7 @@
             "owner": "Phillipa",
             "points": 5,
             "date": "2026-07-01T02:00Z",
-            "match": "Mexico v Ecuador",
+            "match": "Mexico 2–0 Ecuador",
             "reason": "Ecuador qualified for the Round of 32",
             "status": "awarded"
           }
@@ -1577,7 +1619,7 @@
         "owner": "Phillipa",
         "points": 5,
         "date": "2026-07-01T02:00Z",
-        "match": "Mexico v Ecuador",
+        "match": "Mexico 2–0 Ecuador",
         "reason": "Ecuador qualified for the Round of 32",
         "status": "awarded"
       },
@@ -1589,8 +1631,33 @@
         "owner": "Max",
         "points": 5,
         "date": "2026-07-01T02:00Z",
-        "match": "Mexico v Ecuador",
+        "match": "Mexico 2–0 Ecuador",
         "reason": "Mexico qualified for the Round of 32",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_16",
+        "label": "Reach Round of 16",
+        "shortLabel": "Round of 16",
+        "team": "Mexico",
+        "owner": "Max",
+        "points": 5,
+        "date": "2026-07-01T02:00Z",
+        "match": "Mexico 2–0 Ecuador",
+        "reason": "Mexico progressed to the Round of 16 by winning Mexico 2–0 Ecuador",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_32",
+        "label": "Knockout clean sheet",
+        "shortLabel": "+2 clean sheet",
+        "team": "Mexico",
+        "owner": "Max",
+        "points": 2,
+        "date": "2026-07-01T02:00Z",
+        "match": "Mexico 2–0 Ecuador",
+        "opponent": "Ecuador",
+        "reason": "Mexico kept a knockout clean sheet against Ecuador",
         "status": "awarded"
       },
       {
@@ -2061,7 +2128,7 @@
         "owner": "Max",
         "points": 5,
         "date": "2026-07-01T02:00Z",
-        "match": "Mexico v Ecuador",
+        "match": "Mexico 2–0 Ecuador",
         "reason": "Mexico qualified for the Round of 32",
         "status": "awarded"
       },
@@ -2073,8 +2140,20 @@
         "owner": "Phillipa",
         "points": 5,
         "date": "2026-07-01T02:00Z",
-        "match": "Mexico v Ecuador",
+        "match": "Mexico 2–0 Ecuador",
         "reason": "Ecuador qualified for the Round of 32",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_16",
+        "label": "Reach Round of 16",
+        "shortLabel": "Round of 16",
+        "team": "Mexico",
+        "owner": "Max",
+        "points": 5,
+        "date": "2026-07-01T02:00Z",
+        "match": "Mexico 2–0 Ecuador",
+        "reason": "Mexico progressed to the Round of 16 by winning Mexico 2–0 Ecuador",
         "status": "awarded"
       },
       {
@@ -2318,6 +2397,19 @@
         "opponent": "Sweden",
         "reason": "France kept a knockout clean sheet against Sweden",
         "status": "awarded"
+      },
+      {
+        "stage": "round_of_32",
+        "label": "Knockout clean sheet",
+        "shortLabel": "+2 clean sheet",
+        "team": "Mexico",
+        "owner": "Max",
+        "points": 2,
+        "date": "2026-07-01T02:00Z",
+        "match": "Mexico 2–0 Ecuador",
+        "opponent": "Ecuador",
+        "reason": "Mexico kept a knockout clean sheet against Ecuador",
+        "status": "awarded"
       }
     ],
     "notes": [
@@ -2412,6 +2504,10 @@
       "goals": 8
     },
     {
+      "team": "Mexico",
+      "goals": 8
+    },
+    {
       "team": "Senegal",
       "goals": 8
     },
@@ -2441,10 +2537,6 @@
     },
     {
       "team": "England",
-      "goals": 6
-    },
-    {
-      "team": "Mexico",
       "goals": 6
     },
     {
