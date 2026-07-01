@@ -241,7 +241,7 @@
     "points": 36,
     "matchPoints": 16,
     "bonusPoints": 20,
-    "gamesPlayed": 10,
+    "gamesPlayed": 11,
     "teams": [
       {
         "team": "Portugal",
@@ -318,13 +318,21 @@
       {
         "team": "DR Congo",
         "points": 4,
-        "gamesPlayed": 3,
+        "gamesPlayed": 4,
         "wins": 1,
         "draws": 1,
-        "losses": 1,
-        "goalsFor": 4,
-        "goalsAgainst": 3,
+        "losses": 2,
+        "goalsFor": 5,
+        "goalsAgainst": 5,
         "recentResults": [
+          {
+            "date": "2026-07-01T16:00Z",
+            "opponent": "England",
+            "scoreFor": 1,
+            "scoreAgainst": 2,
+            "result": "L",
+            "points": 0
+          },
           {
             "date": "2026-06-27T23:30Z",
             "opponent": "Uzbekistan",
@@ -340,14 +348,6 @@
             "scoreAgainst": 1,
             "result": "L",
             "points": 0
-          },
-          {
-            "date": "2026-06-17T17:00Z",
-            "opponent": "Portugal",
-            "scoreFor": 1,
-            "scoreAgainst": 1,
-            "result": "D",
-            "points": 1
           }
         ]
       }
@@ -472,8 +472,126 @@
     ]
   },
   {
-    "name": "Phillipa",
+    "name": "Malcolm",
     "rank": 5,
+    "points": 31,
+    "matchPoints": 16,
+    "bonusPoints": 15,
+    "gamesPlayed": 10,
+    "teams": [
+      {
+        "team": "England",
+        "points": 10,
+        "gamesPlayed": 4,
+        "wins": 3,
+        "draws": 1,
+        "losses": 0,
+        "goalsFor": 8,
+        "goalsAgainst": 3,
+        "recentResults": [
+          {
+            "date": "2026-07-01T16:00Z",
+            "opponent": "DR Congo",
+            "scoreFor": 2,
+            "scoreAgainst": 1,
+            "result": "W",
+            "points": 3
+          },
+          {
+            "date": "2026-06-27T21:00Z",
+            "opponent": "Panama",
+            "scoreFor": 2,
+            "scoreAgainst": 0,
+            "result": "W",
+            "points": 3
+          },
+          {
+            "date": "2026-06-23T20:00Z",
+            "opponent": "Ghana",
+            "scoreFor": 0,
+            "scoreAgainst": 0,
+            "result": "D",
+            "points": 1
+          }
+        ]
+      },
+      {
+        "team": "Czech Republic",
+        "points": 1,
+        "gamesPlayed": 3,
+        "wins": 0,
+        "draws": 1,
+        "losses": 2,
+        "goalsFor": 2,
+        "goalsAgainst": 6,
+        "recentResults": [
+          {
+            "date": "2026-06-25T01:00Z",
+            "opponent": "Mexico",
+            "scoreFor": 0,
+            "scoreAgainst": 3,
+            "result": "L",
+            "points": 0
+          },
+          {
+            "date": "2026-06-18T16:00Z",
+            "opponent": "South Africa",
+            "scoreFor": 1,
+            "scoreAgainst": 1,
+            "result": "D",
+            "points": 1
+          },
+          {
+            "date": "2026-06-12T02:00Z",
+            "opponent": "South Korea",
+            "scoreFor": 1,
+            "scoreAgainst": 2,
+            "result": "L",
+            "points": 0
+          }
+        ]
+      },
+      {
+        "team": "Egypt",
+        "points": 5,
+        "gamesPlayed": 3,
+        "wins": 1,
+        "draws": 2,
+        "losses": 0,
+        "goalsFor": 5,
+        "goalsAgainst": 3,
+        "recentResults": [
+          {
+            "date": "2026-06-27T03:00Z",
+            "opponent": "Iran",
+            "scoreFor": 1,
+            "scoreAgainst": 1,
+            "result": "D",
+            "points": 1
+          },
+          {
+            "date": "2026-06-22T01:00Z",
+            "opponent": "New Zealand",
+            "scoreFor": 3,
+            "scoreAgainst": 1,
+            "result": "W",
+            "points": 3
+          },
+          {
+            "date": "2026-06-15T19:00Z",
+            "opponent": "Belgium",
+            "scoreFor": 1,
+            "scoreAgainst": 1,
+            "result": "D",
+            "points": 1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "name": "Phillipa",
+    "rank": 6,
     "points": 29,
     "matchPoints": 14,
     "bonusPoints": 15,
@@ -591,7 +709,7 @@
   },
   {
     "name": "Oli",
-    "rank": 6,
+    "rank": 7,
     "points": 28,
     "matchPoints": 13,
     "bonusPoints": 15,
@@ -709,7 +827,7 @@
   },
   {
     "name": "Jason",
-    "rank": 7,
+    "rank": 8,
     "points": 27,
     "matchPoints": 12,
     "bonusPoints": 15,
@@ -827,7 +945,7 @@
   },
   {
     "name": "Max",
-    "rank": 8,
+    "rank": 9,
     "points": 26,
     "matchPoints": 14,
     "bonusPoints": 12,
@@ -945,7 +1063,7 @@
   },
   {
     "name": "Luke",
-    "rank": 9,
+    "rank": 10,
     "points": 24,
     "matchPoints": 14,
     "bonusPoints": 10,
@@ -1052,124 +1170,6 @@
           {
             "date": "2026-06-13T19:00Z",
             "opponent": "Switzerland",
-            "scoreFor": 1,
-            "scoreAgainst": 1,
-            "result": "D",
-            "points": 1
-          }
-        ]
-      }
-    ]
-  },
-  {
-    "name": "Malcolm",
-    "rank": 10,
-    "points": 23,
-    "matchPoints": 13,
-    "bonusPoints": 10,
-    "gamesPlayed": 9,
-    "teams": [
-      {
-        "team": "England",
-        "points": 7,
-        "gamesPlayed": 3,
-        "wins": 2,
-        "draws": 1,
-        "losses": 0,
-        "goalsFor": 6,
-        "goalsAgainst": 2,
-        "recentResults": [
-          {
-            "date": "2026-06-27T21:00Z",
-            "opponent": "Panama",
-            "scoreFor": 2,
-            "scoreAgainst": 0,
-            "result": "W",
-            "points": 3
-          },
-          {
-            "date": "2026-06-23T20:00Z",
-            "opponent": "Ghana",
-            "scoreFor": 0,
-            "scoreAgainst": 0,
-            "result": "D",
-            "points": 1
-          },
-          {
-            "date": "2026-06-17T20:00Z",
-            "opponent": "Croatia",
-            "scoreFor": 4,
-            "scoreAgainst": 2,
-            "result": "W",
-            "points": 3
-          }
-        ]
-      },
-      {
-        "team": "Czech Republic",
-        "points": 1,
-        "gamesPlayed": 3,
-        "wins": 0,
-        "draws": 1,
-        "losses": 2,
-        "goalsFor": 2,
-        "goalsAgainst": 6,
-        "recentResults": [
-          {
-            "date": "2026-06-25T01:00Z",
-            "opponent": "Mexico",
-            "scoreFor": 0,
-            "scoreAgainst": 3,
-            "result": "L",
-            "points": 0
-          },
-          {
-            "date": "2026-06-18T16:00Z",
-            "opponent": "South Africa",
-            "scoreFor": 1,
-            "scoreAgainst": 1,
-            "result": "D",
-            "points": 1
-          },
-          {
-            "date": "2026-06-12T02:00Z",
-            "opponent": "South Korea",
-            "scoreFor": 1,
-            "scoreAgainst": 2,
-            "result": "L",
-            "points": 0
-          }
-        ]
-      },
-      {
-        "team": "Egypt",
-        "points": 5,
-        "gamesPlayed": 3,
-        "wins": 1,
-        "draws": 2,
-        "losses": 0,
-        "goalsFor": 5,
-        "goalsAgainst": 3,
-        "recentResults": [
-          {
-            "date": "2026-06-27T03:00Z",
-            "opponent": "Iran",
-            "scoreFor": 1,
-            "scoreAgainst": 1,
-            "result": "D",
-            "points": 1
-          },
-          {
-            "date": "2026-06-22T01:00Z",
-            "opponent": "New Zealand",
-            "scoreFor": 3,
-            "scoreAgainst": 1,
-            "result": "W",
-            "points": 3
-          },
-          {
-            "date": "2026-06-15T19:00Z",
-            "opponent": "Belgium",
             "scoreFor": 1,
             "scoreAgainst": 1,
             "result": "D",

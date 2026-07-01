@@ -170,6 +170,36 @@
       ]
     },
     {
+      "name": "Malcolm",
+      "total": 15,
+      "items": [
+        {
+          "label": "Reach Round of 32",
+          "team": "England",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "England qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 16",
+          "team": "England",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "England progressed to the Round of 16 by winning England 2–1 DR Congo",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 32",
+          "team": "Egypt",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Egypt qualified for the Round of 32",
+          "status": "awarded"
+        }
+      ]
+    },
+    {
       "name": "Oli",
       "total": 15,
       "items": [
@@ -307,28 +337,6 @@
           "points": 5,
           "displayPoints": 5,
           "reason": "Argentina qualified for the Round of 32",
-          "status": "awarded"
-        }
-      ]
-    },
-    {
-      "name": "Malcolm",
-      "total": 10,
-      "items": [
-        {
-          "label": "Reach Round of 32",
-          "team": "England",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "England qualified for the Round of 32",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 32",
-          "team": "Egypt",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Egypt qualified for the Round of 32",
           "status": "awarded"
         }
       ]
@@ -675,6 +683,39 @@
         "total": 10
       },
       {
+        "owner": "Malcolm",
+        "team": "England",
+        "stageBonuses": [
+          {
+            "stage": "round_of_32",
+            "label": "Reach Round of 32",
+            "shortLabel": "Round of 32",
+            "team": "England",
+            "owner": "Malcolm",
+            "points": 5,
+            "date": "2026-07-01T16:00Z",
+            "match": "England 2–1 DR Congo",
+            "reason": "England qualified for the Round of 32",
+            "status": "awarded"
+          },
+          {
+            "stage": "round_of_16",
+            "label": "Reach Round of 16",
+            "shortLabel": "Round of 16",
+            "team": "England",
+            "owner": "Malcolm",
+            "points": 5,
+            "date": "2026-07-01T16:00Z",
+            "match": "England 2–1 DR Congo",
+            "reason": "England progressed to the Round of 16 by winning England 2–1 DR Congo",
+            "status": "awarded"
+          }
+        ],
+        "cleanSheets": [],
+        "winnerBonus": null,
+        "total": 10
+      },
+      {
         "owner": "Phillipa",
         "team": "Morocco",
         "stageBonuses": [
@@ -857,7 +898,7 @@
             "owner": "Kyle",
             "points": 5,
             "date": "2026-07-01T16:00Z",
-            "match": "England v DR Congo",
+            "match": "England 2–1 DR Congo",
             "reason": "DR Congo qualified for the Round of 32",
             "status": "awarded"
           }
@@ -985,27 +1026,6 @@
             "date": "2026-07-03T18:00Z",
             "match": "Australia v Egypt",
             "reason": "Egypt qualified for the Round of 32",
-            "status": "awarded"
-          }
-        ],
-        "cleanSheets": [],
-        "winnerBonus": null,
-        "total": 5
-      },
-      {
-        "owner": "Malcolm",
-        "team": "England",
-        "stageBonuses": [
-          {
-            "stage": "round_of_32",
-            "label": "Reach Round of 32",
-            "shortLabel": "Round of 32",
-            "team": "England",
-            "owner": "Malcolm",
-            "points": 5,
-            "date": "2026-07-01T16:00Z",
-            "match": "England v DR Congo",
-            "reason": "England qualified for the Round of 32",
             "status": "awarded"
           }
         ],
@@ -1595,8 +1615,20 @@
         "owner": "Malcolm",
         "points": 5,
         "date": "2026-07-01T16:00Z",
-        "match": "England v DR Congo",
+        "match": "England 2–1 DR Congo",
         "reason": "England qualified for the Round of 32",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_16",
+        "label": "Reach Round of 16",
+        "shortLabel": "Round of 16",
+        "team": "England",
+        "owner": "Malcolm",
+        "points": 5,
+        "date": "2026-07-01T16:00Z",
+        "match": "England 2–1 DR Congo",
+        "reason": "England progressed to the Round of 16 by winning England 2–1 DR Congo",
         "status": "awarded"
       },
       {
@@ -1607,7 +1639,7 @@
         "owner": "Kyle",
         "points": 5,
         "date": "2026-07-01T16:00Z",
-        "match": "England v DR Congo",
+        "match": "England 2–1 DR Congo",
         "reason": "DR Congo qualified for the Round of 32",
         "status": "awarded"
       },
@@ -2164,7 +2196,7 @@
         "owner": "Malcolm",
         "points": 5,
         "date": "2026-07-01T16:00Z",
-        "match": "England v DR Congo",
+        "match": "England 2–1 DR Congo",
         "reason": "England qualified for the Round of 32",
         "status": "awarded"
       },
@@ -2176,8 +2208,20 @@
         "owner": "Kyle",
         "points": 5,
         "date": "2026-07-01T16:00Z",
-        "match": "England v DR Congo",
+        "match": "England 2–1 DR Congo",
         "reason": "DR Congo qualified for the Round of 32",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_16",
+        "label": "Reach Round of 16",
+        "shortLabel": "Round of 16",
+        "team": "England",
+        "owner": "Malcolm",
+        "points": 5,
+        "date": "2026-07-01T16:00Z",
+        "match": "England 2–1 DR Congo",
+        "reason": "England progressed to the Round of 16 by winning England 2–1 DR Congo",
         "status": "awarded"
       },
       {
@@ -2435,6 +2479,11 @@
       "goals": 5
     },
     {
+      "player": "Harry Kane",
+      "team": "England",
+      "goals": 5
+    },
+    {
       "player": "Ismael Saibari",
       "team": "Morocco",
       "goals": 4
@@ -2462,11 +2511,6 @@
     {
       "player": "Deniz Undav",
       "team": "Germany",
-      "goals": 3
-    },
-    {
-      "player": "Elijah Just",
-      "team": "New Zealand",
       "goals": 3
     }
   ],
@@ -2497,6 +2541,10 @@
     },
     {
       "team": "Argentina",
+      "goals": 8
+    },
+    {
+      "team": "England",
       "goals": 8
     },
     {
@@ -2536,10 +2584,6 @@
       "goals": 6
     },
     {
-      "team": "England",
-      "goals": 6
-    },
-    {
       "team": "Portugal",
       "goals": 6
     },
@@ -2556,6 +2600,10 @@
       "goals": 5
     },
     {
+      "team": "DR Congo",
+      "goals": 5
+    },
+    {
       "team": "Egypt",
       "goals": 5
     },
@@ -2569,10 +2617,6 @@
     },
     {
       "team": "Colombia",
-      "goals": 4
-    },
-    {
-      "team": "DR Congo",
       "goals": 4
     },
     {
