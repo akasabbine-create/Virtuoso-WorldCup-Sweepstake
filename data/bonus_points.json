@@ -64,6 +64,52 @@
       ]
     },
     {
+      "name": "Seb",
+      "total": 22,
+      "items": [
+        {
+          "label": "Reach Round of 32",
+          "team": "South Africa",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "South Africa qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 32",
+          "team": "Netherlands",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Netherlands qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 32",
+          "team": "USA",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "USA qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 16",
+          "team": "USA",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "USA progressed to the Round of 16 by winning USA 2–0 Bosnia",
+          "status": "awarded"
+        },
+        {
+          "label": "Knockout clean sheet",
+          "team": "USA",
+          "points": 2,
+          "displayPoints": 2,
+          "reason": "USA kept a knockout clean sheet against Bosnia",
+          "status": "awarded"
+        }
+      ]
+    },
+    {
       "name": "Kyle",
       "total": 20,
       "items": [
@@ -263,36 +309,6 @@
           "points": 5,
           "displayPoints": 5,
           "reason": "Ecuador qualified for the Round of 32",
-          "status": "awarded"
-        }
-      ]
-    },
-    {
-      "name": "Seb",
-      "total": 15,
-      "items": [
-        {
-          "label": "Reach Round of 32",
-          "team": "South Africa",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "South Africa qualified for the Round of 32",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 32",
-          "team": "Netherlands",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Netherlands qualified for the Round of 32",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 32",
-          "team": "USA",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "USA qualified for the Round of 32",
           "status": "awarded"
         }
       ]
@@ -618,6 +634,53 @@
             "match": "Mexico 2–0 Ecuador",
             "opponent": "Ecuador",
             "reason": "Mexico kept a knockout clean sheet against Ecuador",
+            "status": "awarded"
+          }
+        ],
+        "winnerBonus": null,
+        "total": 12
+      },
+      {
+        "owner": "Seb",
+        "team": "USA",
+        "stageBonuses": [
+          {
+            "stage": "round_of_32",
+            "label": "Reach Round of 32",
+            "shortLabel": "Round of 32",
+            "team": "USA",
+            "owner": "Seb",
+            "points": 5,
+            "date": "2026-07-02T00:00Z",
+            "match": "USA 2–0 Bosnia",
+            "reason": "USA qualified for the Round of 32",
+            "status": "awarded"
+          },
+          {
+            "stage": "round_of_16",
+            "label": "Reach Round of 16",
+            "shortLabel": "Round of 16",
+            "team": "USA",
+            "owner": "Seb",
+            "points": 5,
+            "date": "2026-07-02T00:00Z",
+            "match": "USA 2–0 Bosnia",
+            "reason": "USA progressed to the Round of 16 by winning USA 2–0 Bosnia",
+            "status": "awarded"
+          }
+        ],
+        "cleanSheets": [
+          {
+            "stage": "round_of_32",
+            "label": "Knockout clean sheet",
+            "shortLabel": "+2 clean sheet",
+            "team": "USA",
+            "owner": "Seb",
+            "points": 2,
+            "date": "2026-07-02T00:00Z",
+            "match": "USA 2–0 Bosnia",
+            "opponent": "Bosnia",
+            "reason": "USA kept a knockout clean sheet against Bosnia",
             "status": "awarded"
           }
         ],
@@ -1170,7 +1233,7 @@
             "owner": "Oli",
             "points": 5,
             "date": "2026-07-02T00:00Z",
-            "match": "USA v Bosnia",
+            "match": "USA 2–0 Bosnia",
             "reason": "Bosnia qualified for the Round of 32",
             "status": "awarded"
           }
@@ -1277,27 +1340,6 @@
             "date": "2026-06-28T19:00Z",
             "match": "South Africa 0–1 Canada",
             "reason": "South Africa qualified for the Round of 32",
-            "status": "awarded"
-          }
-        ],
-        "cleanSheets": [],
-        "winnerBonus": null,
-        "total": 5
-      },
-      {
-        "owner": "Seb",
-        "team": "USA",
-        "stageBonuses": [
-          {
-            "stage": "round_of_32",
-            "label": "Reach Round of 32",
-            "shortLabel": "Round of 32",
-            "team": "USA",
-            "owner": "Seb",
-            "points": 5,
-            "date": "2026-07-02T00:00Z",
-            "match": "USA v Bosnia",
-            "reason": "USA qualified for the Round of 32",
             "status": "awarded"
           }
         ],
@@ -1587,8 +1629,33 @@
         "owner": "Seb",
         "points": 5,
         "date": "2026-07-02T00:00Z",
-        "match": "USA v Bosnia",
+        "match": "USA 2–0 Bosnia",
         "reason": "USA qualified for the Round of 32",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_16",
+        "label": "Reach Round of 16",
+        "shortLabel": "Round of 16",
+        "team": "USA",
+        "owner": "Seb",
+        "points": 5,
+        "date": "2026-07-02T00:00Z",
+        "match": "USA 2–0 Bosnia",
+        "reason": "USA progressed to the Round of 16 by winning USA 2–0 Bosnia",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_32",
+        "label": "Knockout clean sheet",
+        "shortLabel": "+2 clean sheet",
+        "team": "USA",
+        "owner": "Seb",
+        "points": 2,
+        "date": "2026-07-02T00:00Z",
+        "match": "USA 2–0 Bosnia",
+        "opponent": "Bosnia",
+        "reason": "USA kept a knockout clean sheet against Bosnia",
         "status": "awarded"
       },
       {
@@ -1599,7 +1666,7 @@
         "owner": "Oli",
         "points": 5,
         "date": "2026-07-02T00:00Z",
-        "match": "USA v Bosnia",
+        "match": "USA 2–0 Bosnia",
         "reason": "Bosnia qualified for the Round of 32",
         "status": "awarded"
       },
@@ -2300,7 +2367,7 @@
         "owner": "Seb",
         "points": 5,
         "date": "2026-07-02T00:00Z",
-        "match": "USA v Bosnia",
+        "match": "USA 2–0 Bosnia",
         "reason": "USA qualified for the Round of 32",
         "status": "awarded"
       },
@@ -2312,8 +2379,20 @@
         "owner": "Oli",
         "points": 5,
         "date": "2026-07-02T00:00Z",
-        "match": "USA v Bosnia",
+        "match": "USA 2–0 Bosnia",
         "reason": "Bosnia qualified for the Round of 32",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_16",
+        "label": "Reach Round of 16",
+        "shortLabel": "Round of 16",
+        "team": "USA",
+        "owner": "Seb",
+        "points": 5,
+        "date": "2026-07-02T00:00Z",
+        "match": "USA 2–0 Bosnia",
+        "reason": "USA progressed to the Round of 16 by winning USA 2–0 Bosnia",
         "status": "awarded"
       },
       {
@@ -2498,6 +2577,19 @@
         "opponent": "Ecuador",
         "reason": "Mexico kept a knockout clean sheet against Ecuador",
         "status": "awarded"
+      },
+      {
+        "stage": "round_of_32",
+        "label": "Knockout clean sheet",
+        "shortLabel": "+2 clean sheet",
+        "team": "USA",
+        "owner": "Seb",
+        "points": 2,
+        "date": "2026-07-02T00:00Z",
+        "match": "USA 2–0 Bosnia",
+        "opponent": "Bosnia",
+        "reason": "USA kept a knockout clean sheet against Bosnia",
+        "status": "awarded"
       }
     ],
     "notes": [
@@ -2580,6 +2672,10 @@
       "goals": 10
     },
     {
+      "team": "USA",
+      "goals": 10
+    },
+    {
       "team": "Belgium",
       "goals": 9
     },
@@ -2605,10 +2701,6 @@
     },
     {
       "team": "Mexico",
-      "goals": 8
-    },
-    {
-      "team": "USA",
       "goals": 8
     },
     {
