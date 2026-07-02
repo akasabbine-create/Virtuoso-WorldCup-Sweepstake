@@ -314,6 +314,36 @@
       ]
     },
     {
+      "name": "Matt",
+      "total": 12,
+      "items": [
+        {
+          "label": "Reach Round of 32",
+          "team": "Spain",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Spain qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 16",
+          "team": "Spain",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Spain progressed to the Round of 16 by winning Spain 3–0 Austria",
+          "status": "awarded"
+        },
+        {
+          "label": "Knockout clean sheet",
+          "team": "Spain",
+          "points": 2,
+          "displayPoints": 2,
+          "reason": "Spain kept a knockout clean sheet against Austria",
+          "status": "awarded"
+        }
+      ]
+    },
+    {
       "name": "Max",
       "total": 12,
       "items": [
@@ -446,20 +476,6 @@
       ]
     },
     {
-      "name": "Matt",
-      "total": 5,
-      "items": [
-        {
-          "label": "Reach Round of 32",
-          "team": "Spain",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Spain qualified for the Round of 32",
-          "status": "awarded"
-        }
-      ]
-    },
-    {
       "name": "Jake",
       "total": 0,
       "items": []
@@ -587,6 +603,53 @@
             "match": "France 3–0 Sweden",
             "opponent": "Sweden",
             "reason": "France kept a knockout clean sheet against Sweden",
+            "status": "awarded"
+          }
+        ],
+        "winnerBonus": null,
+        "total": 12
+      },
+      {
+        "owner": "Matt",
+        "team": "Spain",
+        "stageBonuses": [
+          {
+            "stage": "round_of_32",
+            "label": "Reach Round of 32",
+            "shortLabel": "Round of 32",
+            "team": "Spain",
+            "owner": "Matt",
+            "points": 5,
+            "date": "2026-07-02T19:00Z",
+            "match": "Spain 3–0 Austria",
+            "reason": "Spain qualified for the Round of 32",
+            "status": "awarded"
+          },
+          {
+            "stage": "round_of_16",
+            "label": "Reach Round of 16",
+            "shortLabel": "Round of 16",
+            "team": "Spain",
+            "owner": "Matt",
+            "points": 5,
+            "date": "2026-07-02T19:00Z",
+            "match": "Spain 3–0 Austria",
+            "reason": "Spain progressed to the Round of 16 by winning Spain 3–0 Austria",
+            "status": "awarded"
+          }
+        ],
+        "cleanSheets": [
+          {
+            "stage": "round_of_32",
+            "label": "Knockout clean sheet",
+            "shortLabel": "+2 clean sheet",
+            "team": "Spain",
+            "owner": "Matt",
+            "points": 2,
+            "date": "2026-07-02T19:00Z",
+            "match": "Spain 3–0 Austria",
+            "opponent": "Austria",
+            "reason": "Spain kept a knockout clean sheet against Austria",
             "status": "awarded"
           }
         ],
@@ -1138,27 +1201,6 @@
         "total": 5
       },
       {
-        "owner": "Matt",
-        "team": "Spain",
-        "stageBonuses": [
-          {
-            "stage": "round_of_32",
-            "label": "Reach Round of 32",
-            "shortLabel": "Round of 32",
-            "team": "Spain",
-            "owner": "Matt",
-            "points": 5,
-            "date": "2026-07-02T19:00Z",
-            "match": "Spain v Austria",
-            "reason": "Spain qualified for the Round of 32",
-            "status": "awarded"
-          }
-        ],
-        "cleanSheets": [],
-        "winnerBonus": null,
-        "total": 5
-      },
-      {
         "owner": "Nick",
         "team": "Algeria",
         "stageBonuses": [
@@ -1212,7 +1254,7 @@
             "owner": "Oli",
             "points": 5,
             "date": "2026-07-02T19:00Z",
-            "match": "Spain v Austria",
+            "match": "Spain 3–0 Austria",
             "reason": "Austria qualified for the Round of 32",
             "status": "awarded"
           }
@@ -1605,7 +1647,7 @@
         "owner": "Oli",
         "points": 5,
         "date": "2026-07-02T19:00Z",
-        "match": "Spain v Austria",
+        "match": "Spain 3–0 Austria",
         "reason": "Austria qualified for the Round of 32",
         "status": "awarded"
       },
@@ -1617,8 +1659,33 @@
         "owner": "Matt",
         "points": 5,
         "date": "2026-07-02T19:00Z",
-        "match": "Spain v Austria",
+        "match": "Spain 3–0 Austria",
         "reason": "Spain qualified for the Round of 32",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_16",
+        "label": "Reach Round of 16",
+        "shortLabel": "Round of 16",
+        "team": "Spain",
+        "owner": "Matt",
+        "points": 5,
+        "date": "2026-07-02T19:00Z",
+        "match": "Spain 3–0 Austria",
+        "reason": "Spain progressed to the Round of 16 by winning Spain 3–0 Austria",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_32",
+        "label": "Knockout clean sheet",
+        "shortLabel": "+2 clean sheet",
+        "team": "Spain",
+        "owner": "Matt",
+        "points": 2,
+        "date": "2026-07-02T19:00Z",
+        "match": "Spain 3–0 Austria",
+        "opponent": "Austria",
+        "reason": "Spain kept a knockout clean sheet against Austria",
         "status": "awarded"
       },
       {
@@ -2403,7 +2470,7 @@
         "owner": "Matt",
         "points": 5,
         "date": "2026-07-02T19:00Z",
-        "match": "Spain v Austria",
+        "match": "Spain 3–0 Austria",
         "reason": "Spain qualified for the Round of 32",
         "status": "awarded"
       },
@@ -2415,8 +2482,20 @@
         "owner": "Oli",
         "points": 5,
         "date": "2026-07-02T19:00Z",
-        "match": "Spain v Austria",
+        "match": "Spain 3–0 Austria",
         "reason": "Austria qualified for the Round of 32",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_16",
+        "label": "Reach Round of 16",
+        "shortLabel": "Round of 16",
+        "team": "Spain",
+        "owner": "Matt",
+        "points": 5,
+        "date": "2026-07-02T19:00Z",
+        "match": "Spain 3–0 Austria",
+        "reason": "Spain progressed to the Round of 16 by winning Spain 3–0 Austria",
         "status": "awarded"
       },
       {
@@ -2590,6 +2669,19 @@
         "opponent": "Bosnia",
         "reason": "USA kept a knockout clean sheet against Bosnia",
         "status": "awarded"
+      },
+      {
+        "stage": "round_of_32",
+        "label": "Knockout clean sheet",
+        "shortLabel": "+2 clean sheet",
+        "team": "Spain",
+        "owner": "Matt",
+        "points": 2,
+        "date": "2026-07-02T19:00Z",
+        "match": "Spain 3–0 Austria",
+        "opponent": "Austria",
+        "reason": "Spain kept a knockout clean sheet against Austria",
+        "status": "awarded"
       }
     ],
     "notes": [
@@ -2630,6 +2722,11 @@
       "goals": 4
     },
     {
+      "player": "Mikel Oyarzabal",
+      "team": "Spain",
+      "goals": 4
+    },
+    {
       "player": "Ousmane Dembélé",
       "team": "France",
       "goals": 4
@@ -2641,11 +2738,6 @@
     },
     {
       "player": "Brian Brobbey",
-      "team": "Netherlands",
-      "goals": 3
-    },
-    {
-      "player": "Cody Gakpo",
       "team": "Netherlands",
       "goals": 3
     }
@@ -2704,6 +2796,10 @@
       "goals": 8
     },
     {
+      "team": "Spain",
+      "goals": 8
+    },
+    {
       "team": "Morocco",
       "goals": 7
     },
@@ -2745,10 +2841,6 @@
     },
     {
       "team": "Ivory Coast",
-      "goals": 5
-    },
-    {
-      "team": "Spain",
       "goals": 5
     },
     {
