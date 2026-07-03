@@ -210,6 +210,44 @@
       ]
     },
     {
+      "name": "Malcolm",
+      "total": 20,
+      "items": [
+        {
+          "label": "Reach Round of 32",
+          "team": "England",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "England qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 16",
+          "team": "England",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "England progressed to the Round of 16 by winning England 2–1 DR Congo",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 32",
+          "team": "Egypt",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Egypt qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 16",
+          "team": "Egypt",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Egypt progressed to the Round of 16 by winning Australia 1–1 Egypt",
+          "status": "awarded"
+        }
+      ]
+    },
+    {
       "name": "Oli",
       "total": 20,
       "items": [
@@ -273,36 +311,6 @@
           "points": 5,
           "displayPoints": 5,
           "reason": "Cape Verde qualified for the Round of 32",
-          "status": "awarded"
-        }
-      ]
-    },
-    {
-      "name": "Malcolm",
-      "total": 15,
-      "items": [
-        {
-          "label": "Reach Round of 32",
-          "team": "England",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "England qualified for the Round of 32",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 16",
-          "team": "England",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "England progressed to the Round of 16 by winning England 2–1 DR Congo",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 32",
-          "team": "Egypt",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Egypt qualified for the Round of 32",
           "status": "awarded"
         }
       ]
@@ -922,6 +930,39 @@
       },
       {
         "owner": "Malcolm",
+        "team": "Egypt",
+        "stageBonuses": [
+          {
+            "stage": "round_of_32",
+            "label": "Reach Round of 32",
+            "shortLabel": "Round of 32",
+            "team": "Egypt",
+            "owner": "Malcolm",
+            "points": 5,
+            "date": "2026-07-03T18:00Z",
+            "match": "Australia 1–1 Egypt",
+            "reason": "Egypt qualified for the Round of 32",
+            "status": "awarded"
+          },
+          {
+            "stage": "round_of_16",
+            "label": "Reach Round of 16",
+            "shortLabel": "Round of 16",
+            "team": "Egypt",
+            "owner": "Malcolm",
+            "points": 5,
+            "date": "2026-07-03T18:00Z",
+            "match": "Australia 1–1 Egypt",
+            "reason": "Egypt progressed to the Round of 16 by winning Australia 1–1 Egypt",
+            "status": "awarded"
+          }
+        ],
+        "cleanSheets": [],
+        "winnerBonus": null,
+        "total": 10
+      },
+      {
+        "owner": "Malcolm",
         "team": "England",
         "stageBonuses": [
           {
@@ -1211,7 +1252,7 @@
             "owner": "Luke",
             "points": 5,
             "date": "2026-07-03T18:00Z",
-            "match": "Australia v Egypt",
+            "match": "Australia 1–1 Egypt",
             "reason": "Australia qualified for the Round of 32",
             "status": "awarded"
           }
@@ -1234,27 +1275,6 @@
             "date": "2026-06-30T17:00Z",
             "match": "Ivory Coast 1–2 Norway",
             "reason": "Ivory Coast qualified for the Round of 32",
-            "status": "awarded"
-          }
-        ],
-        "cleanSheets": [],
-        "winnerBonus": null,
-        "total": 5
-      },
-      {
-        "owner": "Malcolm",
-        "team": "Egypt",
-        "stageBonuses": [
-          {
-            "stage": "round_of_32",
-            "label": "Reach Round of 32",
-            "shortLabel": "Round of 32",
-            "team": "Egypt",
-            "owner": "Malcolm",
-            "points": 5,
-            "date": "2026-07-03T18:00Z",
-            "match": "Australia v Egypt",
-            "reason": "Egypt qualified for the Round of 32",
             "status": "awarded"
           }
         ],
@@ -1637,8 +1657,20 @@
         "owner": "Malcolm",
         "points": 5,
         "date": "2026-07-03T18:00Z",
-        "match": "Australia v Egypt",
+        "match": "Australia 1–1 Egypt",
         "reason": "Egypt qualified for the Round of 32",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_16",
+        "label": "Reach Round of 16",
+        "shortLabel": "Round of 16",
+        "team": "Egypt",
+        "owner": "Malcolm",
+        "points": 5,
+        "date": "2026-07-03T18:00Z",
+        "match": "Australia 1–1 Egypt",
+        "reason": "Egypt progressed to the Round of 16 by winning Australia 1–1 Egypt",
         "status": "awarded"
       },
       {
@@ -1649,7 +1681,7 @@
         "owner": "Luke",
         "points": 5,
         "date": "2026-07-03T18:00Z",
-        "match": "Australia v Egypt",
+        "match": "Australia 1–1 Egypt",
         "reason": "Australia qualified for the Round of 32",
         "status": "awarded"
       },
@@ -2677,7 +2709,7 @@
         "owner": "Luke",
         "points": 5,
         "date": "2026-07-03T18:00Z",
-        "match": "Australia v Egypt",
+        "match": "Australia 1–1 Egypt",
         "reason": "Australia qualified for the Round of 32",
         "status": "awarded"
       },
@@ -2689,8 +2721,20 @@
         "owner": "Malcolm",
         "points": 5,
         "date": "2026-07-03T18:00Z",
-        "match": "Australia v Egypt",
+        "match": "Australia 1–1 Egypt",
         "reason": "Egypt qualified for the Round of 32",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_16",
+        "label": "Reach Round of 16",
+        "shortLabel": "Round of 16",
+        "team": "Egypt",
+        "owner": "Malcolm",
+        "points": 5,
+        "date": "2026-07-03T18:00Z",
+        "match": "Australia 1–1 Egypt",
+        "reason": "Egypt progressed to the Round of 16 by winning Australia 1–1 Egypt",
         "status": "awarded"
       },
       {
@@ -2960,6 +3004,10 @@
       "goals": 6
     },
     {
+      "team": "Egypt",
+      "goals": 6
+    },
+    {
       "team": "Algeria",
       "goals": 5
     },
@@ -2969,10 +3017,6 @@
     },
     {
       "team": "DR Congo",
-      "goals": 5
-    },
-    {
-      "team": "Egypt",
       "goals": 5
     },
     {
@@ -2986,6 +3030,10 @@
     {
       "team": "New Zealand",
       "goals": 4
+    },
+    {
+      "team": "Australia",
+      "goals": 3
     },
     {
       "team": "Iran",
@@ -3006,10 +3054,6 @@
     {
       "team": "Uruguay",
       "goals": 3
-    },
-    {
-      "team": "Australia",
-      "goals": 2
     },
     {
       "team": "Cape Verde",
