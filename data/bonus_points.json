@@ -64,6 +64,52 @@
       ]
     },
     {
+      "name": "Kyle",
+      "total": 25,
+      "items": [
+        {
+          "label": "Reach Round of 32",
+          "team": "Paraguay",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Paraguay qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 16",
+          "team": "Paraguay",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Paraguay progressed to the Round of 16 by winning Germany 1–1 Paraguay",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 32",
+          "team": "DR Congo",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "DR Congo qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 32",
+          "team": "Portugal",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Portugal qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 16",
+          "team": "Portugal",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Portugal progressed to the Round of 16 by winning Portugal 2–1 Croatia",
+          "status": "awarded"
+        }
+      ]
+    },
+    {
       "name": "Seb",
       "total": 22,
       "items": [
@@ -105,44 +151,6 @@
           "points": 2,
           "displayPoints": 2,
           "reason": "USA kept a knockout clean sheet against Bosnia",
-          "status": "awarded"
-        }
-      ]
-    },
-    {
-      "name": "Kyle",
-      "total": 20,
-      "items": [
-        {
-          "label": "Reach Round of 32",
-          "team": "Paraguay",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Paraguay qualified for the Round of 32",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 16",
-          "team": "Paraguay",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Paraguay progressed to the Round of 16 by winning Germany 1–1 Paraguay",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 32",
-          "team": "DR Congo",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "DR Congo qualified for the Round of 32",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 32",
-          "team": "Portugal",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Portugal qualified for the Round of 32",
           "status": "awarded"
         }
       ]
@@ -784,6 +792,39 @@
         "total": 10
       },
       {
+        "owner": "Kyle",
+        "team": "Portugal",
+        "stageBonuses": [
+          {
+            "stage": "round_of_32",
+            "label": "Reach Round of 32",
+            "shortLabel": "Round of 32",
+            "team": "Portugal",
+            "owner": "Kyle",
+            "points": 5,
+            "date": "2026-07-02T23:00Z",
+            "match": "Portugal 2–1 Croatia",
+            "reason": "Portugal qualified for the Round of 32",
+            "status": "awarded"
+          },
+          {
+            "stage": "round_of_16",
+            "label": "Reach Round of 16",
+            "shortLabel": "Round of 16",
+            "team": "Portugal",
+            "owner": "Kyle",
+            "points": 5,
+            "date": "2026-07-02T23:00Z",
+            "match": "Portugal 2–1 Croatia",
+            "reason": "Portugal progressed to the Round of 16 by winning Portugal 2–1 Croatia",
+            "status": "awarded"
+          }
+        ],
+        "cleanSheets": [],
+        "winnerBonus": null,
+        "total": 10
+      },
+      {
         "owner": "Maelan",
         "team": "Brazil",
         "stageBonuses": [
@@ -1023,7 +1064,7 @@
             "owner": "Jason",
             "points": 5,
             "date": "2026-07-02T23:00Z",
-            "match": "Portugal v Croatia",
+            "match": "Portugal 2–1 Croatia",
             "reason": "Croatia qualified for the Round of 32",
             "status": "awarded"
           }
@@ -1067,27 +1108,6 @@
             "date": "2026-07-01T16:00Z",
             "match": "England 2–1 DR Congo",
             "reason": "DR Congo qualified for the Round of 32",
-            "status": "awarded"
-          }
-        ],
-        "cleanSheets": [],
-        "winnerBonus": null,
-        "total": 5
-      },
-      {
-        "owner": "Kyle",
-        "team": "Portugal",
-        "stageBonuses": [
-          {
-            "stage": "round_of_32",
-            "label": "Reach Round of 32",
-            "shortLabel": "Round of 32",
-            "team": "Portugal",
-            "owner": "Kyle",
-            "points": 5,
-            "date": "2026-07-02T23:00Z",
-            "match": "Portugal v Croatia",
-            "reason": "Portugal qualified for the Round of 32",
             "status": "awarded"
           }
         ],
@@ -1623,8 +1643,20 @@
         "owner": "Kyle",
         "points": 5,
         "date": "2026-07-02T23:00Z",
-        "match": "Portugal v Croatia",
+        "match": "Portugal 2–1 Croatia",
         "reason": "Portugal qualified for the Round of 32",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_16",
+        "label": "Reach Round of 16",
+        "shortLabel": "Round of 16",
+        "team": "Portugal",
+        "owner": "Kyle",
+        "points": 5,
+        "date": "2026-07-02T23:00Z",
+        "match": "Portugal 2–1 Croatia",
+        "reason": "Portugal progressed to the Round of 16 by winning Portugal 2–1 Croatia",
         "status": "awarded"
       },
       {
@@ -1635,7 +1667,7 @@
         "owner": "Jason",
         "points": 5,
         "date": "2026-07-02T23:00Z",
-        "match": "Portugal v Croatia",
+        "match": "Portugal 2–1 Croatia",
         "reason": "Croatia qualified for the Round of 32",
         "status": "awarded"
       },
@@ -2506,7 +2538,7 @@
         "owner": "Kyle",
         "points": 5,
         "date": "2026-07-02T23:00Z",
-        "match": "Portugal v Croatia",
+        "match": "Portugal 2–1 Croatia",
         "reason": "Portugal qualified for the Round of 32",
         "status": "awarded"
       },
@@ -2518,8 +2550,20 @@
         "owner": "Jason",
         "points": 5,
         "date": "2026-07-02T23:00Z",
-        "match": "Portugal v Croatia",
+        "match": "Portugal 2–1 Croatia",
         "reason": "Croatia qualified for the Round of 32",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_16",
+        "label": "Reach Round of 16",
+        "shortLabel": "Round of 16",
+        "team": "Portugal",
+        "owner": "Kyle",
+        "points": 5,
+        "date": "2026-07-02T23:00Z",
+        "match": "Portugal 2–1 Croatia",
+        "reason": "Portugal progressed to the Round of 16 by winning Portugal 2–1 Croatia",
         "status": "awarded"
       },
       {
@@ -2796,6 +2840,10 @@
       "goals": 8
     },
     {
+      "team": "Portugal",
+      "goals": 8
+    },
+    {
       "team": "Spain",
       "goals": 8
     },
@@ -2816,7 +2864,7 @@
       "goals": 6
     },
     {
-      "team": "Portugal",
+      "team": "Croatia",
       "goals": 6
     },
     {
@@ -2825,10 +2873,6 @@
     },
     {
       "team": "Bosnia",
-      "goals": 5
-    },
-    {
-      "team": "Croatia",
       "goals": 5
     },
     {
