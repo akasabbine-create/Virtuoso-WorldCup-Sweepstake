@@ -64,6 +64,60 @@
       ]
     },
     {
+      "name": "Maelan",
+      "total": 27,
+      "items": [
+        {
+          "label": "Reach Round of 32",
+          "team": "Brazil",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Brazil qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 16",
+          "team": "Brazil",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Brazil progressed to the Round of 16 by winning Brazil 2–1 Japan",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 32",
+          "team": "Ivory Coast",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Ivory Coast qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 32",
+          "team": "Switzerland",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Switzerland qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 16",
+          "team": "Switzerland",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Switzerland progressed to the Round of 16 by winning Switzerland 2–0 Algeria",
+          "status": "awarded"
+        },
+        {
+          "label": "Knockout clean sheet",
+          "team": "Switzerland",
+          "points": 2,
+          "displayPoints": 2,
+          "reason": "Switzerland kept a knockout clean sheet against Algeria",
+          "status": "awarded"
+        }
+      ]
+    },
+    {
       "name": "Kyle",
       "total": 25,
       "items": [
@@ -151,44 +205,6 @@
           "points": 2,
           "displayPoints": 2,
           "reason": "USA kept a knockout clean sheet against Bosnia",
-          "status": "awarded"
-        }
-      ]
-    },
-    {
-      "name": "Maelan",
-      "total": 20,
-      "items": [
-        {
-          "label": "Reach Round of 32",
-          "team": "Brazil",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Brazil qualified for the Round of 32",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 16",
-          "team": "Brazil",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Brazil progressed to the Round of 16 by winning Brazil 2–1 Japan",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 32",
-          "team": "Ivory Coast",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Ivory Coast qualified for the Round of 32",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 32",
-          "team": "Switzerland",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Switzerland qualified for the Round of 32",
           "status": "awarded"
         }
       ]
@@ -611,6 +627,53 @@
             "match": "France 3–0 Sweden",
             "opponent": "Sweden",
             "reason": "France kept a knockout clean sheet against Sweden",
+            "status": "awarded"
+          }
+        ],
+        "winnerBonus": null,
+        "total": 12
+      },
+      {
+        "owner": "Maelan",
+        "team": "Switzerland",
+        "stageBonuses": [
+          {
+            "stage": "round_of_32",
+            "label": "Reach Round of 32",
+            "shortLabel": "Round of 32",
+            "team": "Switzerland",
+            "owner": "Maelan",
+            "points": 5,
+            "date": "2026-07-03T03:00Z",
+            "match": "Switzerland 2–0 Algeria",
+            "reason": "Switzerland qualified for the Round of 32",
+            "status": "awarded"
+          },
+          {
+            "stage": "round_of_16",
+            "label": "Reach Round of 16",
+            "shortLabel": "Round of 16",
+            "team": "Switzerland",
+            "owner": "Maelan",
+            "points": 5,
+            "date": "2026-07-03T03:00Z",
+            "match": "Switzerland 2–0 Algeria",
+            "reason": "Switzerland progressed to the Round of 16 by winning Switzerland 2–0 Algeria",
+            "status": "awarded"
+          }
+        ],
+        "cleanSheets": [
+          {
+            "stage": "round_of_32",
+            "label": "Knockout clean sheet",
+            "shortLabel": "+2 clean sheet",
+            "team": "Switzerland",
+            "owner": "Maelan",
+            "points": 2,
+            "date": "2026-07-03T03:00Z",
+            "match": "Switzerland 2–0 Algeria",
+            "opponent": "Algeria",
+            "reason": "Switzerland kept a knockout clean sheet against Algeria",
             "status": "awarded"
           }
         ],
@@ -1179,27 +1242,6 @@
         "total": 5
       },
       {
-        "owner": "Maelan",
-        "team": "Switzerland",
-        "stageBonuses": [
-          {
-            "stage": "round_of_32",
-            "label": "Reach Round of 32",
-            "shortLabel": "Round of 32",
-            "team": "Switzerland",
-            "owner": "Maelan",
-            "points": 5,
-            "date": "2026-07-03T03:00Z",
-            "match": "Switzerland v Algeria",
-            "reason": "Switzerland qualified for the Round of 32",
-            "status": "awarded"
-          }
-        ],
-        "cleanSheets": [],
-        "winnerBonus": null,
-        "total": 5
-      },
-      {
         "owner": "Malcolm",
         "team": "Egypt",
         "stageBonuses": [
@@ -1232,7 +1274,7 @@
             "owner": "Nick",
             "points": 5,
             "date": "2026-07-03T03:00Z",
-            "match": "Switzerland v Algeria",
+            "match": "Switzerland 2–0 Algeria",
             "reason": "Algeria qualified for the Round of 32",
             "status": "awarded"
           }
@@ -1619,7 +1661,7 @@
         "owner": "Nick",
         "points": 5,
         "date": "2026-07-03T03:00Z",
-        "match": "Switzerland v Algeria",
+        "match": "Switzerland 2–0 Algeria",
         "reason": "Algeria qualified for the Round of 32",
         "status": "awarded"
       },
@@ -1631,8 +1673,33 @@
         "owner": "Maelan",
         "points": 5,
         "date": "2026-07-03T03:00Z",
-        "match": "Switzerland v Algeria",
+        "match": "Switzerland 2–0 Algeria",
         "reason": "Switzerland qualified for the Round of 32",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_16",
+        "label": "Reach Round of 16",
+        "shortLabel": "Round of 16",
+        "team": "Switzerland",
+        "owner": "Maelan",
+        "points": 5,
+        "date": "2026-07-03T03:00Z",
+        "match": "Switzerland 2–0 Algeria",
+        "reason": "Switzerland progressed to the Round of 16 by winning Switzerland 2–0 Algeria",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_32",
+        "label": "Knockout clean sheet",
+        "shortLabel": "+2 clean sheet",
+        "team": "Switzerland",
+        "owner": "Maelan",
+        "points": 2,
+        "date": "2026-07-03T03:00Z",
+        "match": "Switzerland 2–0 Algeria",
+        "opponent": "Algeria",
+        "reason": "Switzerland kept a knockout clean sheet against Algeria",
         "status": "awarded"
       },
       {
@@ -2574,7 +2641,7 @@
         "owner": "Maelan",
         "points": 5,
         "date": "2026-07-03T03:00Z",
-        "match": "Switzerland v Algeria",
+        "match": "Switzerland 2–0 Algeria",
         "reason": "Switzerland qualified for the Round of 32",
         "status": "awarded"
       },
@@ -2586,8 +2653,20 @@
         "owner": "Nick",
         "points": 5,
         "date": "2026-07-03T03:00Z",
-        "match": "Switzerland v Algeria",
+        "match": "Switzerland 2–0 Algeria",
         "reason": "Algeria qualified for the Round of 32",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_16",
+        "label": "Reach Round of 16",
+        "shortLabel": "Round of 16",
+        "team": "Switzerland",
+        "owner": "Maelan",
+        "points": 5,
+        "date": "2026-07-03T03:00Z",
+        "match": "Switzerland 2–0 Algeria",
+        "reason": "Switzerland progressed to the Round of 16 by winning Switzerland 2–0 Algeria",
         "status": "awarded"
       },
       {
@@ -2726,6 +2805,19 @@
         "opponent": "Austria",
         "reason": "Spain kept a knockout clean sheet against Austria",
         "status": "awarded"
+      },
+      {
+        "stage": "round_of_32",
+        "label": "Knockout clean sheet",
+        "shortLabel": "+2 clean sheet",
+        "team": "Switzerland",
+        "owner": "Maelan",
+        "points": 2,
+        "date": "2026-07-03T03:00Z",
+        "match": "Switzerland 2–0 Algeria",
+        "opponent": "Algeria",
+        "reason": "Switzerland kept a knockout clean sheet against Algeria",
+        "status": "awarded"
       }
     ],
     "notes": [
@@ -2824,6 +2916,10 @@
       "goals": 9
     },
     {
+      "team": "Switzerland",
+      "goals": 9
+    },
+    {
       "team": "Argentina",
       "goals": 8
     },
@@ -2853,10 +2949,6 @@
     },
     {
       "team": "Sweden",
-      "goals": 7
-    },
-    {
-      "team": "Switzerland",
       "goals": 7
     },
     {
