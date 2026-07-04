@@ -316,6 +316,36 @@
       ]
     },
     {
+      "name": "Luke",
+      "total": 15,
+      "items": [
+        {
+          "label": "Reach Round of 32",
+          "team": "Australia",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Australia qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 32",
+          "team": "Argentina",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Argentina qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 16",
+          "team": "Argentina",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Argentina progressed to the Round of 16 by winning Argentina 3–2 Cape Verde",
+          "status": "awarded"
+        }
+      ]
+    },
+    {
       "name": "Phillipa",
       "total": 15,
       "items": [
@@ -401,28 +431,6 @@
           "points": 2,
           "displayPoints": 2,
           "reason": "Mexico kept a knockout clean sheet against Ecuador",
-          "status": "awarded"
-        }
-      ]
-    },
-    {
-      "name": "Luke",
-      "total": 10,
-      "items": [
-        {
-          "label": "Reach Round of 32",
-          "team": "Australia",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Australia qualified for the Round of 32",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 32",
-          "team": "Argentina",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Argentina qualified for the Round of 32",
           "status": "awarded"
         }
       ]
@@ -896,6 +904,39 @@
         "total": 10
       },
       {
+        "owner": "Luke",
+        "team": "Argentina",
+        "stageBonuses": [
+          {
+            "stage": "round_of_32",
+            "label": "Reach Round of 32",
+            "shortLabel": "Round of 32",
+            "team": "Argentina",
+            "owner": "Luke",
+            "points": 5,
+            "date": "2026-07-03T22:00Z",
+            "match": "Argentina 3–2 Cape Verde",
+            "reason": "Argentina qualified for the Round of 32",
+            "status": "awarded"
+          },
+          {
+            "stage": "round_of_16",
+            "label": "Reach Round of 16",
+            "shortLabel": "Round of 16",
+            "team": "Argentina",
+            "owner": "Luke",
+            "points": 5,
+            "date": "2026-07-03T22:00Z",
+            "match": "Argentina 3–2 Cape Verde",
+            "reason": "Argentina progressed to the Round of 16 by winning Argentina 3–2 Cape Verde",
+            "status": "awarded"
+          }
+        ],
+        "cleanSheets": [],
+        "winnerBonus": null,
+        "total": 10
+      },
+      {
         "owner": "Maelan",
         "team": "Brazil",
         "stageBonuses": [
@@ -1147,7 +1188,7 @@
             "owner": "Jason",
             "points": 5,
             "date": "2026-07-03T22:00Z",
-            "match": "Argentina v Cape Verde",
+            "match": "Argentina 3–2 Cape Verde",
             "reason": "Cape Verde qualified for the Round of 32",
             "status": "awarded"
           }
@@ -1212,27 +1253,6 @@
             "date": "2026-07-01T16:00Z",
             "match": "England 2–1 DR Congo",
             "reason": "DR Congo qualified for the Round of 32",
-            "status": "awarded"
-          }
-        ],
-        "cleanSheets": [],
-        "winnerBonus": null,
-        "total": 5
-      },
-      {
-        "owner": "Luke",
-        "team": "Argentina",
-        "stageBonuses": [
-          {
-            "stage": "round_of_32",
-            "label": "Reach Round of 32",
-            "shortLabel": "Round of 32",
-            "team": "Argentina",
-            "owner": "Luke",
-            "points": 5,
-            "date": "2026-07-03T22:00Z",
-            "match": "Argentina v Cape Verde",
-            "reason": "Argentina qualified for the Round of 32",
             "status": "awarded"
           }
         ],
@@ -1633,8 +1653,20 @@
         "owner": "Luke",
         "points": 5,
         "date": "2026-07-03T22:00Z",
-        "match": "Argentina v Cape Verde",
+        "match": "Argentina 3–2 Cape Verde",
         "reason": "Argentina qualified for the Round of 32",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_16",
+        "label": "Reach Round of 16",
+        "shortLabel": "Round of 16",
+        "team": "Argentina",
+        "owner": "Luke",
+        "points": 5,
+        "date": "2026-07-03T22:00Z",
+        "match": "Argentina 3–2 Cape Verde",
+        "reason": "Argentina progressed to the Round of 16 by winning Argentina 3–2 Cape Verde",
         "status": "awarded"
       },
       {
@@ -1645,7 +1677,7 @@
         "owner": "Jason",
         "points": 5,
         "date": "2026-07-03T22:00Z",
-        "match": "Argentina v Cape Verde",
+        "match": "Argentina 3–2 Cape Verde",
         "reason": "Cape Verde qualified for the Round of 32",
         "status": "awarded"
       },
@@ -2745,7 +2777,7 @@
         "owner": "Luke",
         "points": 5,
         "date": "2026-07-03T22:00Z",
-        "match": "Argentina v Cape Verde",
+        "match": "Argentina 3–2 Cape Verde",
         "reason": "Argentina qualified for the Round of 32",
         "status": "awarded"
       },
@@ -2757,8 +2789,20 @@
         "owner": "Jason",
         "points": 5,
         "date": "2026-07-03T22:00Z",
-        "match": "Argentina v Cape Verde",
+        "match": "Argentina 3–2 Cape Verde",
         "reason": "Cape Verde qualified for the Round of 32",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_16",
+        "label": "Reach Round of 16",
+        "shortLabel": "Round of 16",
+        "team": "Argentina",
+        "owner": "Luke",
+        "points": 5,
+        "date": "2026-07-03T22:00Z",
+        "match": "Argentina 3–2 Cape Verde",
+        "reason": "Argentina progressed to the Round of 16 by winning Argentina 3–2 Cape Verde",
         "status": "awarded"
       },
       {
@@ -2872,13 +2916,13 @@
   },
   "goldenBootRace": [
     {
-      "player": "Kylian Mbappé",
-      "team": "France",
-      "goals": 6
-    },
-    {
       "player": "Lionel Messi",
       "team": "Argentina",
+      "goals": 7
+    },
+    {
+      "player": "Kylian Mbappé",
+      "team": "France",
       "goals": 6
     },
     {
@@ -2928,6 +2972,10 @@
       "goals": 13
     },
     {
+      "team": "Argentina",
+      "goals": 11
+    },
+    {
       "team": "Germany",
       "goals": 11
     },
@@ -2962,10 +3010,6 @@
     {
       "team": "Switzerland",
       "goals": 9
-    },
-    {
-      "team": "Argentina",
-      "goals": 8
     },
     {
       "team": "England",
@@ -3024,6 +3068,10 @@
       "goals": 5
     },
     {
+      "team": "Cape Verde",
+      "goals": 4
+    },
+    {
       "team": "Colombia",
       "goals": 4
     },
@@ -3054,10 +3102,6 @@
     {
       "team": "Uruguay",
       "goals": 3
-    },
-    {
-      "team": "Cape Verde",
-      "goals": 2
     },
     {
       "team": "Czech Republic",
