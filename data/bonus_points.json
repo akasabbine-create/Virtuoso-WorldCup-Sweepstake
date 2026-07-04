@@ -164,6 +164,52 @@
       ]
     },
     {
+      "name": "Phillipa",
+      "total": 22,
+      "items": [
+        {
+          "label": "Reach Round of 32",
+          "team": "Morocco",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Morocco qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 16",
+          "team": "Morocco",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Morocco progressed to the Round of 16 by winning Netherlands 1–1 Morocco",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 32",
+          "team": "Ecuador",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Ecuador qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Quarter-finals",
+          "team": "Morocco",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Morocco progressed to the Quarter-finals by winning Canada 0–3 Morocco",
+          "status": "awarded"
+        },
+        {
+          "label": "Knockout clean sheet",
+          "team": "Morocco",
+          "points": 2,
+          "displayPoints": 2,
+          "reason": "Morocco kept a knockout clean sheet against Canada",
+          "status": "awarded"
+        }
+      ]
+    },
+    {
       "name": "Seb",
       "total": 22,
       "items": [
@@ -384,36 +430,6 @@
       ]
     },
     {
-      "name": "Phillipa",
-      "total": 15,
-      "items": [
-        {
-          "label": "Reach Round of 32",
-          "team": "Morocco",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Morocco qualified for the Round of 32",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 16",
-          "team": "Morocco",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Morocco progressed to the Round of 16 by winning Netherlands 1–1 Morocco",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 32",
-          "team": "Ecuador",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Ecuador qualified for the Round of 32",
-          "status": "awarded"
-        }
-      ]
-    },
-    {
       "name": "Matt",
       "total": 12,
       "items": [
@@ -571,6 +587,65 @@
       }
     ],
     "rows": [
+      {
+        "owner": "Phillipa",
+        "team": "Morocco",
+        "stageBonuses": [
+          {
+            "stage": "round_of_32",
+            "label": "Reach Round of 32",
+            "shortLabel": "Round of 32",
+            "team": "Morocco",
+            "owner": "Phillipa",
+            "points": 5,
+            "date": "2026-06-30T01:00Z",
+            "match": "Netherlands 1–1 Morocco",
+            "reason": "Morocco qualified for the Round of 32",
+            "status": "awarded"
+          },
+          {
+            "stage": "round_of_16",
+            "label": "Reach Round of 16",
+            "shortLabel": "Round of 16",
+            "team": "Morocco",
+            "owner": "Phillipa",
+            "points": 5,
+            "date": "2026-06-30T01:00Z",
+            "match": "Netherlands 1–1 Morocco",
+            "reason": "Morocco progressed to the Round of 16 by winning Netherlands 1–1 Morocco",
+            "status": "awarded"
+          },
+          {
+            "stage": "quarter_final",
+            "label": "Reach Quarter-finals",
+            "shortLabel": "Quarter-final",
+            "team": "Morocco",
+            "owner": "Phillipa",
+            "points": 5,
+            "date": "2026-07-04T17:00Z",
+            "match": "Canada 0–3 Morocco",
+            "reason": "Morocco progressed to the Quarter-finals by winning Canada 0–3 Morocco",
+            "status": "awarded"
+          }
+        ],
+        "cleanSheets": [
+          {
+            "stage": "round_of_16",
+            "label": "Knockout clean sheet",
+            "shortLabel": "+2 clean sheet",
+            "team": "Morocco",
+            "owner": "Phillipa",
+            "points": 2,
+            "date": "2026-07-04T17:00Z",
+            "match": "Canada 0–3 Morocco",
+            "opponent": "Canada",
+            "reason": "Morocco kept a knockout clean sheet against Canada",
+            "status": "awarded"
+          }
+        ],
+        "winnerBonus": null,
+        "total": 17
+      },
       {
         "owner": "Declan",
         "team": "Canada",
@@ -1132,39 +1207,6 @@
         "total": 10
       },
       {
-        "owner": "Phillipa",
-        "team": "Morocco",
-        "stageBonuses": [
-          {
-            "stage": "round_of_32",
-            "label": "Reach Round of 32",
-            "shortLabel": "Round of 32",
-            "team": "Morocco",
-            "owner": "Phillipa",
-            "points": 5,
-            "date": "2026-06-30T01:00Z",
-            "match": "Netherlands 1–1 Morocco",
-            "reason": "Morocco qualified for the Round of 32",
-            "status": "awarded"
-          },
-          {
-            "stage": "round_of_16",
-            "label": "Reach Round of 16",
-            "shortLabel": "Round of 16",
-            "team": "Morocco",
-            "owner": "Phillipa",
-            "points": 5,
-            "date": "2026-06-30T01:00Z",
-            "match": "Netherlands 1–1 Morocco",
-            "reason": "Morocco progressed to the Round of 16 by winning Netherlands 1–1 Morocco",
-            "status": "awarded"
-          }
-        ],
-        "cleanSheets": [],
-        "winnerBonus": null,
-        "total": 10
-      },
-      {
         "owner": "Ryan",
         "team": "Norway",
         "stageBonuses": [
@@ -1663,6 +1705,31 @@
       }
     ],
     "awardedItems": [
+      {
+        "stage": "quarter_final",
+        "label": "Reach Quarter-finals",
+        "shortLabel": "Quarter-final",
+        "team": "Morocco",
+        "owner": "Phillipa",
+        "points": 5,
+        "date": "2026-07-04T17:00Z",
+        "match": "Canada 0–3 Morocco",
+        "reason": "Morocco progressed to the Quarter-finals by winning Canada 0–3 Morocco",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_16",
+        "label": "Knockout clean sheet",
+        "shortLabel": "+2 clean sheet",
+        "team": "Morocco",
+        "owner": "Phillipa",
+        "points": 2,
+        "date": "2026-07-04T17:00Z",
+        "match": "Canada 0–3 Morocco",
+        "opponent": "Canada",
+        "reason": "Morocco kept a knockout clean sheet against Canada",
+        "status": "awarded"
+      },
       {
         "stage": "round_of_32",
         "label": "Reach Round of 32",
@@ -2909,6 +2976,18 @@
         "status": "awarded"
       },
       {
+        "stage": "quarter_final",
+        "label": "Reach Quarter-finals",
+        "shortLabel": "Quarter-final",
+        "team": "Morocco",
+        "owner": "Phillipa",
+        "points": 5,
+        "date": "2026-07-04T17:00Z",
+        "match": "Canada 0–3 Morocco",
+        "reason": "Morocco progressed to the Quarter-finals by winning Canada 0–3 Morocco",
+        "status": "awarded"
+      },
+      {
         "stage": "round_of_32",
         "label": "Knockout clean sheet",
         "shortLabel": "+2 clean sheet",
@@ -2998,6 +3077,19 @@
         "opponent": "Ghana",
         "reason": "Colombia kept a knockout clean sheet against Ghana",
         "status": "awarded"
+      },
+      {
+        "stage": "round_of_16",
+        "label": "Knockout clean sheet",
+        "shortLabel": "+2 clean sheet",
+        "team": "Morocco",
+        "owner": "Phillipa",
+        "points": 2,
+        "date": "2026-07-04T17:00Z",
+        "match": "Canada 0–3 Morocco",
+        "opponent": "Canada",
+        "reason": "Morocco kept a knockout clean sheet against Canada",
+        "status": "awarded"
       }
     ],
     "notes": [
@@ -3076,6 +3168,10 @@
       "goals": 11
     },
     {
+      "team": "Morocco",
+      "goals": 10
+    },
+    {
       "team": "Norway",
       "goals": 10
     },
@@ -3122,10 +3218,6 @@
     {
       "team": "Spain",
       "goals": 8
-    },
-    {
-      "team": "Morocco",
-      "goals": 7
     },
     {
       "team": "Sweden",
