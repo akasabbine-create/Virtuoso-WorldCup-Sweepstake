@@ -286,6 +286,44 @@
       ]
     },
     {
+      "name": "Rob",
+      "total": 17,
+      "items": [
+        {
+          "label": "Reach Round of 32",
+          "team": "Colombia",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Colombia qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 32",
+          "team": "Ghana",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Ghana qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 16",
+          "team": "Colombia",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Colombia progressed to the Round of 16 by winning Colombia 1–0 Ghana",
+          "status": "awarded"
+        },
+        {
+          "label": "Knockout clean sheet",
+          "team": "Colombia",
+          "points": 2,
+          "displayPoints": 2,
+          "reason": "Colombia kept a knockout clean sheet against Ghana",
+          "status": "awarded"
+        }
+      ]
+    },
+    {
       "name": "Jason",
       "total": 15,
       "items": [
@@ -453,28 +491,6 @@
           "points": 5,
           "displayPoints": 5,
           "reason": "Algeria qualified for the Round of 32",
-          "status": "awarded"
-        }
-      ]
-    },
-    {
-      "name": "Rob",
-      "total": 10,
-      "items": [
-        {
-          "label": "Reach Round of 32",
-          "team": "Colombia",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Colombia qualified for the Round of 32",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 32",
-          "team": "Ghana",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Ghana qualified for the Round of 32",
           "status": "awarded"
         }
       ]
@@ -784,6 +800,53 @@
             "match": "Mexico 2–0 Ecuador",
             "opponent": "Ecuador",
             "reason": "Mexico kept a knockout clean sheet against Ecuador",
+            "status": "awarded"
+          }
+        ],
+        "winnerBonus": null,
+        "total": 12
+      },
+      {
+        "owner": "Rob",
+        "team": "Colombia",
+        "stageBonuses": [
+          {
+            "stage": "round_of_32",
+            "label": "Reach Round of 32",
+            "shortLabel": "Round of 32",
+            "team": "Colombia",
+            "owner": "Rob",
+            "points": 5,
+            "date": "2026-07-04T01:30Z",
+            "match": "Colombia 1–0 Ghana",
+            "reason": "Colombia qualified for the Round of 32",
+            "status": "awarded"
+          },
+          {
+            "stage": "round_of_16",
+            "label": "Reach Round of 16",
+            "shortLabel": "Round of 16",
+            "team": "Colombia",
+            "owner": "Rob",
+            "points": 5,
+            "date": "2026-07-04T01:30Z",
+            "match": "Colombia 1–0 Ghana",
+            "reason": "Colombia progressed to the Round of 16 by winning Colombia 1–0 Ghana",
+            "status": "awarded"
+          }
+        ],
+        "cleanSheets": [
+          {
+            "stage": "round_of_32",
+            "label": "Knockout clean sheet",
+            "shortLabel": "+2 clean sheet",
+            "team": "Colombia",
+            "owner": "Rob",
+            "points": 2,
+            "date": "2026-07-04T01:30Z",
+            "match": "Colombia 1–0 Ghana",
+            "opponent": "Ghana",
+            "reason": "Colombia kept a knockout clean sheet against Ghana",
             "status": "awarded"
           }
         ],
@@ -1409,27 +1472,6 @@
       },
       {
         "owner": "Rob",
-        "team": "Colombia",
-        "stageBonuses": [
-          {
-            "stage": "round_of_32",
-            "label": "Reach Round of 32",
-            "shortLabel": "Round of 32",
-            "team": "Colombia",
-            "owner": "Rob",
-            "points": 5,
-            "date": "2026-07-04T01:30Z",
-            "match": "Colombia v Ghana",
-            "reason": "Colombia qualified for the Round of 32",
-            "status": "awarded"
-          }
-        ],
-        "cleanSheets": [],
-        "winnerBonus": null,
-        "total": 5
-      },
-      {
-        "owner": "Rob",
         "team": "Ghana",
         "stageBonuses": [
           {
@@ -1440,7 +1482,7 @@
             "owner": "Rob",
             "points": 5,
             "date": "2026-07-04T01:30Z",
-            "match": "Colombia v Ghana",
+            "match": "Colombia 1–0 Ghana",
             "reason": "Ghana qualified for the Round of 32",
             "status": "awarded"
           }
@@ -1629,7 +1671,7 @@
         "owner": "Rob",
         "points": 5,
         "date": "2026-07-04T01:30Z",
-        "match": "Colombia v Ghana",
+        "match": "Colombia 1–0 Ghana",
         "reason": "Colombia qualified for the Round of 32",
         "status": "awarded"
       },
@@ -1641,8 +1683,33 @@
         "owner": "Rob",
         "points": 5,
         "date": "2026-07-04T01:30Z",
-        "match": "Colombia v Ghana",
+        "match": "Colombia 1–0 Ghana",
         "reason": "Ghana qualified for the Round of 32",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_16",
+        "label": "Reach Round of 16",
+        "shortLabel": "Round of 16",
+        "team": "Colombia",
+        "owner": "Rob",
+        "points": 5,
+        "date": "2026-07-04T01:30Z",
+        "match": "Colombia 1–0 Ghana",
+        "reason": "Colombia progressed to the Round of 16 by winning Colombia 1–0 Ghana",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_32",
+        "label": "Knockout clean sheet",
+        "shortLabel": "+2 clean sheet",
+        "team": "Colombia",
+        "owner": "Rob",
+        "points": 2,
+        "date": "2026-07-04T01:30Z",
+        "match": "Colombia 1–0 Ghana",
+        "opponent": "Ghana",
+        "reason": "Colombia kept a knockout clean sheet against Ghana",
         "status": "awarded"
       },
       {
@@ -2813,7 +2880,7 @@
         "owner": "Rob",
         "points": 5,
         "date": "2026-07-04T01:30Z",
-        "match": "Colombia v Ghana",
+        "match": "Colombia 1–0 Ghana",
         "reason": "Colombia qualified for the Round of 32",
         "status": "awarded"
       },
@@ -2825,8 +2892,20 @@
         "owner": "Rob",
         "points": 5,
         "date": "2026-07-04T01:30Z",
-        "match": "Colombia v Ghana",
+        "match": "Colombia 1–0 Ghana",
         "reason": "Ghana qualified for the Round of 32",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_16",
+        "label": "Reach Round of 16",
+        "shortLabel": "Round of 16",
+        "team": "Colombia",
+        "owner": "Rob",
+        "points": 5,
+        "date": "2026-07-04T01:30Z",
+        "match": "Colombia 1–0 Ghana",
+        "reason": "Colombia progressed to the Round of 16 by winning Colombia 1–0 Ghana",
         "status": "awarded"
       },
       {
@@ -2905,6 +2984,19 @@
         "match": "Switzerland 2–0 Algeria",
         "opponent": "Algeria",
         "reason": "Switzerland kept a knockout clean sheet against Algeria",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_32",
+        "label": "Knockout clean sheet",
+        "shortLabel": "+2 clean sheet",
+        "team": "Colombia",
+        "owner": "Rob",
+        "points": 2,
+        "date": "2026-07-04T01:30Z",
+        "match": "Colombia 1–0 Ghana",
+        "opponent": "Ghana",
+        "reason": "Colombia kept a knockout clean sheet against Ghana",
         "status": "awarded"
       }
     ],
@@ -3060,6 +3152,10 @@
       "goals": 5
     },
     {
+      "team": "Colombia",
+      "goals": 5
+    },
+    {
       "team": "DR Congo",
       "goals": 5
     },
@@ -3069,10 +3165,6 @@
     },
     {
       "team": "Cape Verde",
-      "goals": 4
-    },
-    {
-      "team": "Colombia",
       "goals": 4
     },
     {
