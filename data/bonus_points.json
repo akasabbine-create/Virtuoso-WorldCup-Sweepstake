@@ -446,6 +446,36 @@
       ]
     },
     {
+      "name": "Ryan",
+      "total": 15,
+      "items": [
+        {
+          "label": "Reach Round of 32",
+          "team": "Norway",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Norway qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 16",
+          "team": "Norway",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Norway progressed to the Round of 16 by winning Ivory Coast 1–2 Norway",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Quarter-finals",
+          "team": "Norway",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Norway progressed to the Quarter-finals by winning Brazil 1–2 Norway",
+          "status": "awarded"
+        }
+      ]
+    },
+    {
       "name": "Matt",
       "total": 12,
       "items": [
@@ -523,28 +553,6 @@
           "points": 5,
           "displayPoints": 5,
           "reason": "Algeria qualified for the Round of 32",
-          "status": "awarded"
-        }
-      ]
-    },
-    {
-      "name": "Ryan",
-      "total": 10,
-      "items": [
-        {
-          "label": "Reach Round of 32",
-          "team": "Norway",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Norway qualified for the Round of 32",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 16",
-          "team": "Norway",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Norway progressed to the Round of 16 by winning Ivory Coast 1–2 Norway",
           "status": "awarded"
         }
       ]
@@ -733,6 +741,51 @@
         ],
         "winnerBonus": null,
         "total": 17
+      },
+      {
+        "owner": "Ryan",
+        "team": "Norway",
+        "stageBonuses": [
+          {
+            "stage": "round_of_32",
+            "label": "Reach Round of 32",
+            "shortLabel": "Round of 32",
+            "team": "Norway",
+            "owner": "Ryan",
+            "points": 5,
+            "date": "2026-06-30T17:00Z",
+            "match": "Ivory Coast 1–2 Norway",
+            "reason": "Norway qualified for the Round of 32",
+            "status": "awarded"
+          },
+          {
+            "stage": "round_of_16",
+            "label": "Reach Round of 16",
+            "shortLabel": "Round of 16",
+            "team": "Norway",
+            "owner": "Ryan",
+            "points": 5,
+            "date": "2026-06-30T17:00Z",
+            "match": "Ivory Coast 1–2 Norway",
+            "reason": "Norway progressed to the Round of 16 by winning Ivory Coast 1–2 Norway",
+            "status": "awarded"
+          },
+          {
+            "stage": "quarter_final",
+            "label": "Reach Quarter-finals",
+            "shortLabel": "Quarter-final",
+            "team": "Norway",
+            "owner": "Ryan",
+            "points": 5,
+            "date": "2026-07-05T20:00Z",
+            "match": "Brazil 1–2 Norway",
+            "reason": "Norway progressed to the Quarter-finals by winning Brazil 1–2 Norway",
+            "status": "awarded"
+          }
+        ],
+        "cleanSheets": [],
+        "winnerBonus": null,
+        "total": 15
       },
       {
         "owner": "Declan",
@@ -1248,39 +1301,6 @@
         "total": 10
       },
       {
-        "owner": "Ryan",
-        "team": "Norway",
-        "stageBonuses": [
-          {
-            "stage": "round_of_32",
-            "label": "Reach Round of 32",
-            "shortLabel": "Round of 32",
-            "team": "Norway",
-            "owner": "Ryan",
-            "points": 5,
-            "date": "2026-06-30T17:00Z",
-            "match": "Ivory Coast 1–2 Norway",
-            "reason": "Norway qualified for the Round of 32",
-            "status": "awarded"
-          },
-          {
-            "stage": "round_of_16",
-            "label": "Reach Round of 16",
-            "shortLabel": "Round of 16",
-            "team": "Norway",
-            "owner": "Ryan",
-            "points": 5,
-            "date": "2026-06-30T17:00Z",
-            "match": "Ivory Coast 1–2 Norway",
-            "reason": "Norway progressed to the Round of 16 by winning Ivory Coast 1–2 Norway",
-            "status": "awarded"
-          }
-        ],
-        "cleanSheets": [],
-        "winnerBonus": null,
-        "total": 10
-      },
-      {
         "owner": "Charlie",
         "team": "Germany",
         "stageBonuses": [
@@ -1746,6 +1766,18 @@
       }
     ],
     "awardedItems": [
+      {
+        "stage": "quarter_final",
+        "label": "Reach Quarter-finals",
+        "shortLabel": "Quarter-final",
+        "team": "Norway",
+        "owner": "Ryan",
+        "points": 5,
+        "date": "2026-07-05T20:00Z",
+        "match": "Brazil 1–2 Norway",
+        "reason": "Norway progressed to the Quarter-finals by winning Brazil 1–2 Norway",
+        "status": "awarded"
+      },
       {
         "stage": "quarter_final",
         "label": "Reach Quarter-finals",
@@ -3066,6 +3098,18 @@
         "status": "awarded"
       },
       {
+        "stage": "quarter_final",
+        "label": "Reach Quarter-finals",
+        "shortLabel": "Quarter-final",
+        "team": "Norway",
+        "owner": "Ryan",
+        "points": 5,
+        "date": "2026-07-05T20:00Z",
+        "match": "Brazil 1–2 Norway",
+        "reason": "Norway progressed to the Quarter-finals by winning Brazil 1–2 Norway",
+        "status": "awarded"
+      },
+      {
         "stage": "round_of_32",
         "label": "Knockout clean sheet",
         "shortLabel": "+2 clean sheet",
@@ -3191,6 +3235,11 @@
   },
   "goldenBootRace": [
     {
+      "player": "Erling Haaland",
+      "team": "Norway",
+      "goals": 7
+    },
+    {
       "player": "Kylian Mbappé",
       "team": "France",
       "goals": 7
@@ -3199,11 +3248,6 @@
       "player": "Lionel Messi",
       "team": "Argentina",
       "goals": 7
-    },
-    {
-      "player": "Erling Haaland",
-      "team": "Norway",
-      "goals": 5
     },
     {
       "player": "Harry Kane",
@@ -3247,6 +3291,10 @@
       "goals": 14
     },
     {
+      "team": "Norway",
+      "goals": 12
+    },
+    {
       "team": "Argentina",
       "goals": 11
     },
@@ -3259,11 +3307,11 @@
       "goals": 11
     },
     {
-      "team": "Morocco",
+      "team": "Brazil",
       "goals": 10
     },
     {
-      "team": "Norway",
+      "team": "Morocco",
       "goals": 10
     },
     {
@@ -3276,10 +3324,6 @@
     },
     {
       "team": "Belgium",
-      "goals": 9
-    },
-    {
-      "team": "Brazil",
       "goals": 9
     },
     {

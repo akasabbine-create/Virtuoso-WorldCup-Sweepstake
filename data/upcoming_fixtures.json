@@ -3,13 +3,13 @@
     "date": "2026-07-05T20:00Z",
     "team1": "Brazil",
     "team2": "Norway",
-    "score1": null,
-    "score2": null,
-    "displayScore1": 0,
+    "score1": 1,
+    "score2": 2,
+    "displayScore1": 1,
     "displayScore2": 2,
-    "status": "Second Half",
-    "completed": false,
-    "live": true,
+    "status": "Full Time",
+    "completed": true,
+    "live": false,
     "isToday": true,
     "footballDayStart": "2026-07-05T05:00:00+00:00",
     "footballDayEnd": "2026-07-06T05:00:00+00:00",
@@ -27,7 +27,12 @@
         ]
       }
     ],
-    "playerGains": []
+    "playerGains": [
+      {
+        "name": "Ryan",
+        "points": 3
+      }
+    ]
   },
   {
     "date": "2026-07-06T00:00Z",
