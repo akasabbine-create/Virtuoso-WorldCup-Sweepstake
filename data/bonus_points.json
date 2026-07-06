@@ -180,6 +180,52 @@
       ]
     },
     {
+      "name": "Malcolm",
+      "total": 25,
+      "items": [
+        {
+          "label": "Reach Round of 32",
+          "team": "England",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "England qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 16",
+          "team": "England",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "England progressed to the Round of 16 by winning England 2–1 DR Congo",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 32",
+          "team": "Egypt",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Egypt qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 16",
+          "team": "Egypt",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Egypt progressed to the Round of 16 by winning Australia 1–1 Egypt",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Quarter-finals",
+          "team": "England",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "England progressed to the Quarter-finals by winning Mexico 2–3 England",
+          "status": "awarded"
+        }
+      ]
+    },
+    {
       "name": "Phillipa",
       "total": 22,
       "items": [
@@ -267,44 +313,6 @@
           "points": 2,
           "displayPoints": 2,
           "reason": "USA kept a knockout clean sheet against Bosnia",
-          "status": "awarded"
-        }
-      ]
-    },
-    {
-      "name": "Malcolm",
-      "total": 20,
-      "items": [
-        {
-          "label": "Reach Round of 32",
-          "team": "England",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "England qualified for the Round of 32",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 16",
-          "team": "England",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "England progressed to the Round of 16 by winning England 2–1 DR Congo",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 32",
-          "team": "Egypt",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Egypt qualified for the Round of 32",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 16",
-          "team": "Egypt",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Egypt progressed to the Round of 16 by winning Australia 1–1 Egypt",
           "status": "awarded"
         }
       ]
@@ -741,6 +749,51 @@
         ],
         "winnerBonus": null,
         "total": 17
+      },
+      {
+        "owner": "Malcolm",
+        "team": "England",
+        "stageBonuses": [
+          {
+            "stage": "round_of_32",
+            "label": "Reach Round of 32",
+            "shortLabel": "Round of 32",
+            "team": "England",
+            "owner": "Malcolm",
+            "points": 5,
+            "date": "2026-07-01T16:00Z",
+            "match": "England 2–1 DR Congo",
+            "reason": "England qualified for the Round of 32",
+            "status": "awarded"
+          },
+          {
+            "stage": "round_of_16",
+            "label": "Reach Round of 16",
+            "shortLabel": "Round of 16",
+            "team": "England",
+            "owner": "Malcolm",
+            "points": 5,
+            "date": "2026-07-01T16:00Z",
+            "match": "England 2–1 DR Congo",
+            "reason": "England progressed to the Round of 16 by winning England 2–1 DR Congo",
+            "status": "awarded"
+          },
+          {
+            "stage": "quarter_final",
+            "label": "Reach Quarter-finals",
+            "shortLabel": "Quarter-final",
+            "team": "England",
+            "owner": "Malcolm",
+            "points": 5,
+            "date": "2026-07-06T01:00Z",
+            "match": "Mexico 2–3 England",
+            "reason": "England progressed to the Quarter-finals by winning Mexico 2–3 England",
+            "status": "awarded"
+          }
+        ],
+        "cleanSheets": [],
+        "winnerBonus": null,
+        "total": 15
       },
       {
         "owner": "Ryan",
@@ -1227,39 +1280,6 @@
             "date": "2026-07-03T18:00Z",
             "match": "Australia 1–1 Egypt",
             "reason": "Egypt progressed to the Round of 16 by winning Australia 1–1 Egypt",
-            "status": "awarded"
-          }
-        ],
-        "cleanSheets": [],
-        "winnerBonus": null,
-        "total": 10
-      },
-      {
-        "owner": "Malcolm",
-        "team": "England",
-        "stageBonuses": [
-          {
-            "stage": "round_of_32",
-            "label": "Reach Round of 32",
-            "shortLabel": "Round of 32",
-            "team": "England",
-            "owner": "Malcolm",
-            "points": 5,
-            "date": "2026-07-01T16:00Z",
-            "match": "England 2–1 DR Congo",
-            "reason": "England qualified for the Round of 32",
-            "status": "awarded"
-          },
-          {
-            "stage": "round_of_16",
-            "label": "Reach Round of 16",
-            "shortLabel": "Round of 16",
-            "team": "England",
-            "owner": "Malcolm",
-            "points": 5,
-            "date": "2026-07-01T16:00Z",
-            "match": "England 2–1 DR Congo",
-            "reason": "England progressed to the Round of 16 by winning England 2–1 DR Congo",
             "status": "awarded"
           }
         ],
@@ -1766,6 +1786,18 @@
       }
     ],
     "awardedItems": [
+      {
+        "stage": "quarter_final",
+        "label": "Reach Quarter-finals",
+        "shortLabel": "Quarter-final",
+        "team": "England",
+        "owner": "Malcolm",
+        "points": 5,
+        "date": "2026-07-06T01:00Z",
+        "match": "Mexico 2–3 England",
+        "reason": "England progressed to the Quarter-finals by winning Mexico 2–3 England",
+        "status": "awarded"
+      },
       {
         "stage": "quarter_final",
         "label": "Reach Quarter-finals",
@@ -3110,6 +3142,18 @@
         "status": "awarded"
       },
       {
+        "stage": "quarter_final",
+        "label": "Reach Quarter-finals",
+        "shortLabel": "Quarter-final",
+        "team": "England",
+        "owner": "Malcolm",
+        "points": 5,
+        "date": "2026-07-06T01:00Z",
+        "match": "Mexico 2–3 England",
+        "reason": "England progressed to the Quarter-finals by winning Mexico 2–3 England",
+        "status": "awarded"
+      },
+      {
         "stage": "round_of_32",
         "label": "Knockout clean sheet",
         "shortLabel": "+2 clean sheet",
@@ -3252,7 +3296,7 @@
     {
       "player": "Harry Kane",
       "team": "England",
-      "goals": 5
+      "goals": 6
     },
     {
       "player": "Ismael Saibari",
@@ -3265,6 +3309,16 @@
       "goals": 4
     },
     {
+      "player": "Jude Bellingham",
+      "team": "England",
+      "goals": 4
+    },
+    {
+      "player": "Julián Quiñones",
+      "team": "Mexico",
+      "goals": 4
+    },
+    {
       "player": "Mikel Oyarzabal",
       "team": "Spain",
       "goals": 4
@@ -3273,16 +3327,6 @@
       "player": "Ousmane Dembélé",
       "team": "France",
       "goals": 4
-    },
-    {
-      "player": "Vinícius Júnior",
-      "team": "Brazil",
-      "goals": 4
-    },
-    {
-      "player": "Brian Brobbey",
-      "team": "Netherlands",
-      "goals": 3
     }
   ],
   "nationGoalTable": [
@@ -3299,6 +3343,10 @@
       "goals": 11
     },
     {
+      "team": "England",
+      "goals": 11
+    },
+    {
       "team": "Germany",
       "goals": 11
     },
@@ -3308,6 +3356,10 @@
     },
     {
       "team": "Brazil",
+      "goals": 10
+    },
+    {
+      "team": "Mexico",
       "goals": 10
     },
     {
@@ -3335,15 +3387,7 @@
       "goals": 9
     },
     {
-      "team": "England",
-      "goals": 8
-    },
-    {
       "team": "Japan",
-      "goals": 8
-    },
-    {
-      "team": "Mexico",
       "goals": 8
     },
     {
