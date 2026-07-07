@@ -38,12 +38,12 @@
     "date": "2026-07-07T20:00Z",
     "team1": "Switzerland",
     "team2": "Colombia",
-    "score1": null,
-    "score2": null,
+    "score1": 0,
+    "score2": 0,
     "displayScore1": 0,
     "displayScore2": 0,
-    "status": "Overtime",
-    "completed": false,
+    "status": "Final Score - After Penalties",
+    "completed": true,
     "live": false,
     "isToday": true,
     "footballDayStart": "2026-07-07T05:00:00+00:00",
@@ -62,6 +62,11 @@
         ]
       }
     ],
-    "playerGains": []
+    "playerGains": [
+      {
+        "name": "Maelan",
+        "points": 3
+      }
+    ]
   }
 ]

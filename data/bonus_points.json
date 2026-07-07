@@ -81,7 +81,7 @@
     },
     {
       "name": "Maelan",
-      "total": 27,
+      "total": 34,
       "items": [
         {
           "label": "Reach Round of 32",
@@ -124,11 +124,27 @@
           "status": "awarded"
         },
         {
+          "label": "Reach Quarter-finals",
+          "team": "Switzerland",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Switzerland progressed to the Quarter-finals by winning Switzerland 0–0 Colombia",
+          "status": "awarded"
+        },
+        {
           "label": "Knockout clean sheet",
           "team": "Switzerland",
           "points": 2,
           "displayPoints": 2,
           "reason": "Switzerland kept a knockout clean sheet against Algeria",
+          "status": "awarded"
+        },
+        {
+          "label": "Knockout clean sheet",
+          "team": "Switzerland",
+          "points": 2,
+          "displayPoints": 2,
+          "reason": "Switzerland kept a knockout clean sheet against Colombia",
           "status": "awarded"
         }
       ]
@@ -449,7 +465,7 @@
     },
     {
       "name": "Rob",
-      "total": 17,
+      "total": 19,
       "items": [
         {
           "label": "Reach Round of 32",
@@ -481,6 +497,14 @@
           "points": 2,
           "displayPoints": 2,
           "reason": "Colombia kept a knockout clean sheet against Ghana",
+          "status": "awarded"
+        },
+        {
+          "label": "Knockout clean sheet",
+          "team": "Colombia",
+          "points": 2,
+          "displayPoints": 2,
+          "reason": "Colombia kept a knockout clean sheet against Switzerland",
           "status": "awarded"
         }
       ]
@@ -717,6 +741,78 @@
             "match": "Paraguay 0–1 France",
             "opponent": "Paraguay",
             "reason": "France kept a knockout clean sheet against Paraguay",
+            "status": "awarded"
+          }
+        ],
+        "winnerBonus": null,
+        "total": 19
+      },
+      {
+        "owner": "Maelan",
+        "team": "Switzerland",
+        "stageBonuses": [
+          {
+            "stage": "round_of_32",
+            "label": "Reach Round of 32",
+            "shortLabel": "Round of 32",
+            "team": "Switzerland",
+            "owner": "Maelan",
+            "points": 5,
+            "date": "2026-07-03T03:00Z",
+            "match": "Switzerland 2–0 Algeria",
+            "reason": "Switzerland qualified for the Round of 32",
+            "status": "awarded"
+          },
+          {
+            "stage": "round_of_16",
+            "label": "Reach Round of 16",
+            "shortLabel": "Round of 16",
+            "team": "Switzerland",
+            "owner": "Maelan",
+            "points": 5,
+            "date": "2026-07-03T03:00Z",
+            "match": "Switzerland 2–0 Algeria",
+            "reason": "Switzerland progressed to the Round of 16 by winning Switzerland 2–0 Algeria",
+            "status": "awarded"
+          },
+          {
+            "stage": "quarter_final",
+            "label": "Reach Quarter-finals",
+            "shortLabel": "Quarter-final",
+            "team": "Switzerland",
+            "owner": "Maelan",
+            "points": 5,
+            "date": "2026-07-07T20:00Z",
+            "match": "Switzerland 0–0 Colombia",
+            "reason": "Switzerland progressed to the Quarter-finals by winning Switzerland 0–0 Colombia",
+            "status": "awarded"
+          }
+        ],
+        "cleanSheets": [
+          {
+            "stage": "round_of_32",
+            "label": "Knockout clean sheet",
+            "shortLabel": "+2 clean sheet",
+            "team": "Switzerland",
+            "owner": "Maelan",
+            "points": 2,
+            "date": "2026-07-03T03:00Z",
+            "match": "Switzerland 2–0 Algeria",
+            "opponent": "Algeria",
+            "reason": "Switzerland kept a knockout clean sheet against Algeria",
+            "status": "awarded"
+          },
+          {
+            "stage": "round_of_16",
+            "label": "Knockout clean sheet",
+            "shortLabel": "+2 clean sheet",
+            "team": "Switzerland",
+            "owner": "Maelan",
+            "points": 2,
+            "date": "2026-07-07T20:00Z",
+            "match": "Switzerland 0–0 Colombia",
+            "opponent": "Colombia",
+            "reason": "Switzerland kept a knockout clean sheet against Colombia",
             "status": "awarded"
           }
         ],
@@ -1035,6 +1131,66 @@
         "total": 15
       },
       {
+        "owner": "Rob",
+        "team": "Colombia",
+        "stageBonuses": [
+          {
+            "stage": "round_of_32",
+            "label": "Reach Round of 32",
+            "shortLabel": "Round of 32",
+            "team": "Colombia",
+            "owner": "Rob",
+            "points": 5,
+            "date": "2026-07-04T01:30Z",
+            "match": "Colombia 1–0 Ghana",
+            "reason": "Colombia qualified for the Round of 32",
+            "status": "awarded"
+          },
+          {
+            "stage": "round_of_16",
+            "label": "Reach Round of 16",
+            "shortLabel": "Round of 16",
+            "team": "Colombia",
+            "owner": "Rob",
+            "points": 5,
+            "date": "2026-07-04T01:30Z",
+            "match": "Colombia 1–0 Ghana",
+            "reason": "Colombia progressed to the Round of 16 by winning Colombia 1–0 Ghana",
+            "status": "awarded"
+          }
+        ],
+        "cleanSheets": [
+          {
+            "stage": "round_of_32",
+            "label": "Knockout clean sheet",
+            "shortLabel": "+2 clean sheet",
+            "team": "Colombia",
+            "owner": "Rob",
+            "points": 2,
+            "date": "2026-07-04T01:30Z",
+            "match": "Colombia 1–0 Ghana",
+            "opponent": "Ghana",
+            "reason": "Colombia kept a knockout clean sheet against Ghana",
+            "status": "awarded"
+          },
+          {
+            "stage": "round_of_16",
+            "label": "Knockout clean sheet",
+            "shortLabel": "+2 clean sheet",
+            "team": "Colombia",
+            "owner": "Rob",
+            "points": 2,
+            "date": "2026-07-07T20:00Z",
+            "match": "Switzerland 0–0 Colombia",
+            "opponent": "Switzerland",
+            "reason": "Colombia kept a knockout clean sheet against Switzerland",
+            "status": "awarded"
+          }
+        ],
+        "winnerBonus": null,
+        "total": 14
+      },
+      {
         "owner": "Declan",
         "team": "Canada",
         "stageBonuses": [
@@ -1082,53 +1238,6 @@
         "total": 12
       },
       {
-        "owner": "Maelan",
-        "team": "Switzerland",
-        "stageBonuses": [
-          {
-            "stage": "round_of_32",
-            "label": "Reach Round of 32",
-            "shortLabel": "Round of 32",
-            "team": "Switzerland",
-            "owner": "Maelan",
-            "points": 5,
-            "date": "2026-07-03T03:00Z",
-            "match": "Switzerland 2–0 Algeria",
-            "reason": "Switzerland qualified for the Round of 32",
-            "status": "awarded"
-          },
-          {
-            "stage": "round_of_16",
-            "label": "Reach Round of 16",
-            "shortLabel": "Round of 16",
-            "team": "Switzerland",
-            "owner": "Maelan",
-            "points": 5,
-            "date": "2026-07-03T03:00Z",
-            "match": "Switzerland 2–0 Algeria",
-            "reason": "Switzerland progressed to the Round of 16 by winning Switzerland 2–0 Algeria",
-            "status": "awarded"
-          }
-        ],
-        "cleanSheets": [
-          {
-            "stage": "round_of_32",
-            "label": "Knockout clean sheet",
-            "shortLabel": "+2 clean sheet",
-            "team": "Switzerland",
-            "owner": "Maelan",
-            "points": 2,
-            "date": "2026-07-03T03:00Z",
-            "match": "Switzerland 2–0 Algeria",
-            "opponent": "Algeria",
-            "reason": "Switzerland kept a knockout clean sheet against Algeria",
-            "status": "awarded"
-          }
-        ],
-        "winnerBonus": null,
-        "total": 12
-      },
-      {
         "owner": "Max",
         "team": "Mexico",
         "stageBonuses": [
@@ -1169,53 +1278,6 @@
             "match": "Mexico 2–0 Ecuador",
             "opponent": "Ecuador",
             "reason": "Mexico kept a knockout clean sheet against Ecuador",
-            "status": "awarded"
-          }
-        ],
-        "winnerBonus": null,
-        "total": 12
-      },
-      {
-        "owner": "Rob",
-        "team": "Colombia",
-        "stageBonuses": [
-          {
-            "stage": "round_of_32",
-            "label": "Reach Round of 32",
-            "shortLabel": "Round of 32",
-            "team": "Colombia",
-            "owner": "Rob",
-            "points": 5,
-            "date": "2026-07-04T01:30Z",
-            "match": "Colombia 1–0 Ghana",
-            "reason": "Colombia qualified for the Round of 32",
-            "status": "awarded"
-          },
-          {
-            "stage": "round_of_16",
-            "label": "Reach Round of 16",
-            "shortLabel": "Round of 16",
-            "team": "Colombia",
-            "owner": "Rob",
-            "points": 5,
-            "date": "2026-07-04T01:30Z",
-            "match": "Colombia 1–0 Ghana",
-            "reason": "Colombia progressed to the Round of 16 by winning Colombia 1–0 Ghana",
-            "status": "awarded"
-          }
-        ],
-        "cleanSheets": [
-          {
-            "stage": "round_of_32",
-            "label": "Knockout clean sheet",
-            "shortLabel": "+2 clean sheet",
-            "team": "Colombia",
-            "owner": "Rob",
-            "points": 2,
-            "date": "2026-07-04T01:30Z",
-            "match": "Colombia 1–0 Ghana",
-            "opponent": "Ghana",
-            "reason": "Colombia kept a knockout clean sheet against Ghana",
             "status": "awarded"
           }
         ],
@@ -1867,6 +1929,44 @@
       }
     ],
     "awardedItems": [
+      {
+        "stage": "round_of_16",
+        "label": "Knockout clean sheet",
+        "shortLabel": "+2 clean sheet",
+        "team": "Colombia",
+        "owner": "Rob",
+        "points": 2,
+        "date": "2026-07-07T20:00Z",
+        "match": "Switzerland 0–0 Colombia",
+        "opponent": "Switzerland",
+        "reason": "Colombia kept a knockout clean sheet against Switzerland",
+        "status": "awarded"
+      },
+      {
+        "stage": "quarter_final",
+        "label": "Reach Quarter-finals",
+        "shortLabel": "Quarter-final",
+        "team": "Switzerland",
+        "owner": "Maelan",
+        "points": 5,
+        "date": "2026-07-07T20:00Z",
+        "match": "Switzerland 0–0 Colombia",
+        "reason": "Switzerland progressed to the Quarter-finals by winning Switzerland 0–0 Colombia",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_16",
+        "label": "Knockout clean sheet",
+        "shortLabel": "+2 clean sheet",
+        "team": "Switzerland",
+        "owner": "Maelan",
+        "points": 2,
+        "date": "2026-07-07T20:00Z",
+        "match": "Switzerland 0–0 Colombia",
+        "opponent": "Colombia",
+        "reason": "Switzerland kept a knockout clean sheet against Colombia",
+        "status": "awarded"
+      },
       {
         "stage": "quarter_final",
         "label": "Reach Quarter-finals",
@@ -3320,6 +3420,18 @@
         "status": "awarded"
       },
       {
+        "stage": "quarter_final",
+        "label": "Reach Quarter-finals",
+        "shortLabel": "Quarter-final",
+        "team": "Switzerland",
+        "owner": "Maelan",
+        "points": 5,
+        "date": "2026-07-07T20:00Z",
+        "match": "Switzerland 0–0 Colombia",
+        "reason": "Switzerland progressed to the Quarter-finals by winning Switzerland 0–0 Colombia",
+        "status": "awarded"
+      },
+      {
         "stage": "round_of_32",
         "label": "Knockout clean sheet",
         "shortLabel": "+2 clean sheet",
@@ -3447,6 +3559,32 @@
         "match": "Portugal 0–1 Spain",
         "opponent": "Portugal",
         "reason": "Spain kept a knockout clean sheet against Portugal",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_16",
+        "label": "Knockout clean sheet",
+        "shortLabel": "+2 clean sheet",
+        "team": "Switzerland",
+        "owner": "Maelan",
+        "points": 2,
+        "date": "2026-07-07T20:00Z",
+        "match": "Switzerland 0–0 Colombia",
+        "opponent": "Colombia",
+        "reason": "Switzerland kept a knockout clean sheet against Colombia",
+        "status": "awarded"
+      },
+      {
+        "stage": "round_of_16",
+        "label": "Knockout clean sheet",
+        "shortLabel": "+2 clean sheet",
+        "team": "Colombia",
+        "owner": "Rob",
+        "points": 2,
+        "date": "2026-07-07T20:00Z",
+        "match": "Switzerland 0–0 Colombia",
+        "opponent": "Switzerland",
+        "reason": "Colombia kept a knockout clean sheet against Switzerland",
         "status": "awarded"
       }
     ],
