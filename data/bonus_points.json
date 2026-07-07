@@ -226,6 +226,52 @@
       ]
     },
     {
+      "name": "Oli",
+      "total": 25,
+      "items": [
+        {
+          "label": "Reach Round of 32",
+          "team": "Belgium",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Belgium qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 16",
+          "team": "Belgium",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Belgium progressed to the Round of 16 by winning Belgium 3–2 Senegal",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 32",
+          "team": "Bosnia",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Bosnia qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 32",
+          "team": "Austria",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Austria qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Quarter-finals",
+          "team": "Belgium",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Belgium progressed to the Quarter-finals by winning USA 1–4 Belgium",
+          "status": "awarded"
+        }
+      ]
+    },
+    {
       "name": "Phillipa",
       "total": 22,
       "items": [
@@ -313,44 +359,6 @@
           "points": 2,
           "displayPoints": 2,
           "reason": "USA kept a knockout clean sheet against Bosnia",
-          "status": "awarded"
-        }
-      ]
-    },
-    {
-      "name": "Oli",
-      "total": 20,
-      "items": [
-        {
-          "label": "Reach Round of 32",
-          "team": "Belgium",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Belgium qualified for the Round of 32",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 16",
-          "team": "Belgium",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Belgium progressed to the Round of 16 by winning Belgium 3–2 Senegal",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 32",
-          "team": "Bosnia",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Bosnia qualified for the Round of 32",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 32",
-          "team": "Austria",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Austria qualified for the Round of 32",
           "status": "awarded"
         }
       ]
@@ -884,6 +892,51 @@
         "total": 15
       },
       {
+        "owner": "Oli",
+        "team": "Belgium",
+        "stageBonuses": [
+          {
+            "stage": "round_of_32",
+            "label": "Reach Round of 32",
+            "shortLabel": "Round of 32",
+            "team": "Belgium",
+            "owner": "Oli",
+            "points": 5,
+            "date": "2026-07-01T20:00Z",
+            "match": "Belgium 3–2 Senegal",
+            "reason": "Belgium qualified for the Round of 32",
+            "status": "awarded"
+          },
+          {
+            "stage": "round_of_16",
+            "label": "Reach Round of 16",
+            "shortLabel": "Round of 16",
+            "team": "Belgium",
+            "owner": "Oli",
+            "points": 5,
+            "date": "2026-07-01T20:00Z",
+            "match": "Belgium 3–2 Senegal",
+            "reason": "Belgium progressed to the Round of 16 by winning Belgium 3–2 Senegal",
+            "status": "awarded"
+          },
+          {
+            "stage": "quarter_final",
+            "label": "Reach Quarter-finals",
+            "shortLabel": "Quarter-final",
+            "team": "Belgium",
+            "owner": "Oli",
+            "points": 5,
+            "date": "2026-07-07T00:00Z",
+            "match": "USA 1–4 Belgium",
+            "reason": "Belgium progressed to the Quarter-finals by winning USA 1–4 Belgium",
+            "status": "awarded"
+          }
+        ],
+        "cleanSheets": [],
+        "winnerBonus": null,
+        "total": 15
+      },
+      {
         "owner": "Ryan",
         "team": "Norway",
         "stageBonuses": [
@@ -1321,39 +1374,6 @@
             "date": "2026-07-03T18:00Z",
             "match": "Australia 1–1 Egypt",
             "reason": "Egypt progressed to the Round of 16 by winning Australia 1–1 Egypt",
-            "status": "awarded"
-          }
-        ],
-        "cleanSheets": [],
-        "winnerBonus": null,
-        "total": 10
-      },
-      {
-        "owner": "Oli",
-        "team": "Belgium",
-        "stageBonuses": [
-          {
-            "stage": "round_of_32",
-            "label": "Reach Round of 32",
-            "shortLabel": "Round of 32",
-            "team": "Belgium",
-            "owner": "Oli",
-            "points": 5,
-            "date": "2026-07-01T20:00Z",
-            "match": "Belgium 3–2 Senegal",
-            "reason": "Belgium qualified for the Round of 32",
-            "status": "awarded"
-          },
-          {
-            "stage": "round_of_16",
-            "label": "Reach Round of 16",
-            "shortLabel": "Round of 16",
-            "team": "Belgium",
-            "owner": "Oli",
-            "points": 5,
-            "date": "2026-07-01T20:00Z",
-            "match": "Belgium 3–2 Senegal",
-            "reason": "Belgium progressed to the Round of 16 by winning Belgium 3–2 Senegal",
             "status": "awarded"
           }
         ],
@@ -1827,6 +1847,18 @@
       }
     ],
     "awardedItems": [
+      {
+        "stage": "quarter_final",
+        "label": "Reach Quarter-finals",
+        "shortLabel": "Quarter-final",
+        "team": "Belgium",
+        "owner": "Oli",
+        "points": 5,
+        "date": "2026-07-07T00:00Z",
+        "match": "USA 1–4 Belgium",
+        "reason": "Belgium progressed to the Quarter-finals by winning USA 1–4 Belgium",
+        "status": "awarded"
+      },
       {
         "stage": "quarter_final",
         "label": "Reach Quarter-finals",
@@ -3232,6 +3264,18 @@
         "status": "awarded"
       },
       {
+        "stage": "quarter_final",
+        "label": "Reach Quarter-finals",
+        "shortLabel": "Quarter-final",
+        "team": "Belgium",
+        "owner": "Oli",
+        "points": 5,
+        "date": "2026-07-07T00:00Z",
+        "match": "USA 1–4 Belgium",
+        "reason": "Belgium progressed to the Quarter-finals by winning USA 1–4 Belgium",
+        "status": "awarded"
+      },
+      {
         "stage": "round_of_32",
         "label": "Knockout clean sheet",
         "shortLabel": "+2 clean sheet",
@@ -3426,6 +3470,10 @@
       "goals": 14
     },
     {
+      "team": "Belgium",
+      "goals": 13
+    },
+    {
       "team": "Norway",
       "goals": 12
     },
@@ -3446,6 +3494,10 @@
       "goals": 11
     },
     {
+      "team": "USA",
+      "goals": 11
+    },
+    {
       "team": "Brazil",
       "goals": 10
     },
@@ -3460,14 +3512,6 @@
     {
       "team": "Senegal",
       "goals": 10
-    },
-    {
-      "team": "USA",
-      "goals": 10
-    },
-    {
-      "team": "Belgium",
-      "goals": 9
     },
     {
       "team": "Canada",
