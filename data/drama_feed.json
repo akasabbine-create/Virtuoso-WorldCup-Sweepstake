@@ -1,12 +1,19 @@
 {
-  "generatedAt": "2026-07-07T18:01:11.821455+00:00",
+  "generatedAt": "2026-07-07T18:31:05.046861+00:00",
   "items": [
     {
-      "type": "mover",
-      "icon": "📈",
-      "label": "Big mover",
-      "title": "Matt storms up 5 places",
-      "text": "That is the biggest climb showing on the leaderboard right now."
+      "type": "goals",
+      "icon": "⚽",
+      "label": "Most goals",
+      "title": "Most Goals badge has shifted",
+      "text": "Luke (Argentina), Declan (France) now lead the nation scoring race on 14 goals."
+    },
+    {
+      "type": "goals",
+      "icon": "🥾",
+      "label": "Golden Boot",
+      "title": "Golden Boot race update",
+      "text": "Luke (Argentina) now control the Golden Boot badge on 8 goals."
     },
     {
       "type": "spoon",
@@ -39,6 +46,12 @@
     },
     "mostGoalsNation": [
       {
+        "owner": "Luke",
+        "team": "Argentina",
+        "player": null,
+        "goals": 14
+      },
+      {
         "owner": "Declan",
         "team": "France",
         "player": null,
@@ -47,22 +60,10 @@
     ],
     "goldenBoot": [
       {
-        "owner": "Ryan",
-        "team": "Norway",
-        "player": "Erling Haaland",
-        "goals": 7
-      },
-      {
-        "owner": "Declan",
-        "team": "France",
-        "player": "Kylian Mbappé",
-        "goals": 7
-      },
-      {
         "owner": "Luke",
         "team": "Argentina",
         "player": "Lionel Messi",
-        "goals": 7
+        "goals": 8
       }
     ]
   }

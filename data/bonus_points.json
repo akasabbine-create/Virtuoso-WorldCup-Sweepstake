@@ -364,6 +364,44 @@
       ]
     },
     {
+      "name": "Luke",
+      "total": 20,
+      "items": [
+        {
+          "label": "Reach Round of 32",
+          "team": "Australia",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Australia qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 32",
+          "team": "Argentina",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Argentina qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 16",
+          "team": "Argentina",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Argentina progressed to the Round of 16 by winning Argentina 3–2 Cape Verde",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Quarter-finals",
+          "team": "Argentina",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Argentina progressed to the Quarter-finals by winning Argentina 3–2 Egypt",
+          "status": "awarded"
+        }
+      ]
+    },
+    {
       "name": "Matt",
       "total": 19,
       "items": [
@@ -473,36 +511,6 @@
           "points": 5,
           "displayPoints": 5,
           "reason": "Cape Verde qualified for the Round of 32",
-          "status": "awarded"
-        }
-      ]
-    },
-    {
-      "name": "Luke",
-      "total": 15,
-      "items": [
-        {
-          "label": "Reach Round of 32",
-          "team": "Australia",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Australia qualified for the Round of 32",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 32",
-          "team": "Argentina",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Argentina qualified for the Round of 32",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 16",
-          "team": "Argentina",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Argentina progressed to the Round of 16 by winning Argentina 3–2 Cape Verde",
           "status": "awarded"
         }
       ]
@@ -845,6 +853,51 @@
         ],
         "winnerBonus": null,
         "total": 17
+      },
+      {
+        "owner": "Luke",
+        "team": "Argentina",
+        "stageBonuses": [
+          {
+            "stage": "round_of_32",
+            "label": "Reach Round of 32",
+            "shortLabel": "Round of 32",
+            "team": "Argentina",
+            "owner": "Luke",
+            "points": 5,
+            "date": "2026-07-03T22:00Z",
+            "match": "Argentina 3–2 Cape Verde",
+            "reason": "Argentina qualified for the Round of 32",
+            "status": "awarded"
+          },
+          {
+            "stage": "round_of_16",
+            "label": "Reach Round of 16",
+            "shortLabel": "Round of 16",
+            "team": "Argentina",
+            "owner": "Luke",
+            "points": 5,
+            "date": "2026-07-03T22:00Z",
+            "match": "Argentina 3–2 Cape Verde",
+            "reason": "Argentina progressed to the Round of 16 by winning Argentina 3–2 Cape Verde",
+            "status": "awarded"
+          },
+          {
+            "stage": "quarter_final",
+            "label": "Reach Quarter-finals",
+            "shortLabel": "Quarter-final",
+            "team": "Argentina",
+            "owner": "Luke",
+            "points": 5,
+            "date": "2026-07-07T16:00Z",
+            "match": "Argentina 3–2 Egypt",
+            "reason": "Argentina progressed to the Quarter-finals by winning Argentina 3–2 Egypt",
+            "status": "awarded"
+          }
+        ],
+        "cleanSheets": [],
+        "winnerBonus": null,
+        "total": 15
       },
       {
         "owner": "Malcolm",
@@ -1275,39 +1328,6 @@
             "date": "2026-07-02T23:00Z",
             "match": "Portugal 2–1 Croatia",
             "reason": "Portugal progressed to the Round of 16 by winning Portugal 2–1 Croatia",
-            "status": "awarded"
-          }
-        ],
-        "cleanSheets": [],
-        "winnerBonus": null,
-        "total": 10
-      },
-      {
-        "owner": "Luke",
-        "team": "Argentina",
-        "stageBonuses": [
-          {
-            "stage": "round_of_32",
-            "label": "Reach Round of 32",
-            "shortLabel": "Round of 32",
-            "team": "Argentina",
-            "owner": "Luke",
-            "points": 5,
-            "date": "2026-07-03T22:00Z",
-            "match": "Argentina 3–2 Cape Verde",
-            "reason": "Argentina qualified for the Round of 32",
-            "status": "awarded"
-          },
-          {
-            "stage": "round_of_16",
-            "label": "Reach Round of 16",
-            "shortLabel": "Round of 16",
-            "team": "Argentina",
-            "owner": "Luke",
-            "points": 5,
-            "date": "2026-07-03T22:00Z",
-            "match": "Argentina 3–2 Cape Verde",
-            "reason": "Argentina progressed to the Round of 16 by winning Argentina 3–2 Cape Verde",
             "status": "awarded"
           }
         ],
@@ -1847,6 +1867,18 @@
       }
     ],
     "awardedItems": [
+      {
+        "stage": "quarter_final",
+        "label": "Reach Quarter-finals",
+        "shortLabel": "Quarter-final",
+        "team": "Argentina",
+        "owner": "Luke",
+        "points": 5,
+        "date": "2026-07-07T16:00Z",
+        "match": "Argentina 3–2 Egypt",
+        "reason": "Argentina progressed to the Quarter-finals by winning Argentina 3–2 Egypt",
+        "status": "awarded"
+      },
       {
         "stage": "quarter_final",
         "label": "Reach Quarter-finals",
@@ -3276,6 +3308,18 @@
         "status": "awarded"
       },
       {
+        "stage": "quarter_final",
+        "label": "Reach Quarter-finals",
+        "shortLabel": "Quarter-final",
+        "team": "Argentina",
+        "owner": "Luke",
+        "points": 5,
+        "date": "2026-07-07T16:00Z",
+        "match": "Argentina 3–2 Egypt",
+        "reason": "Argentina progressed to the Quarter-finals by winning Argentina 3–2 Egypt",
+        "status": "awarded"
+      },
+      {
         "stage": "round_of_32",
         "label": "Knockout clean sheet",
         "shortLabel": "+2 clean sheet",
@@ -3414,6 +3458,11 @@
   },
   "goldenBootRace": [
     {
+      "player": "Lionel Messi",
+      "team": "Argentina",
+      "goals": 8
+    },
+    {
       "player": "Erling Haaland",
       "team": "Norway",
       "goals": 7
@@ -3421,11 +3470,6 @@
     {
       "player": "Kylian Mbappé",
       "team": "France",
-      "goals": 7
-    },
-    {
-      "player": "Lionel Messi",
-      "team": "Argentina",
       "goals": 7
     },
     {
@@ -3466,6 +3510,10 @@
   ],
   "nationGoalTable": [
     {
+      "team": "Argentina",
+      "goals": 14
+    },
+    {
       "team": "France",
       "goals": 14
     },
@@ -3476,10 +3524,6 @@
     {
       "team": "Norway",
       "goals": 12
-    },
-    {
-      "team": "Argentina",
-      "goals": 11
     },
     {
       "team": "England",
@@ -3526,6 +3570,10 @@
       "goals": 9
     },
     {
+      "team": "Egypt",
+      "goals": 8
+    },
+    {
       "team": "Japan",
       "goals": 8
     },
@@ -3543,10 +3591,6 @@
     },
     {
       "team": "Croatia",
-      "goals": 6
-    },
-    {
-      "team": "Egypt",
       "goals": 6
     },
     {
