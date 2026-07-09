@@ -3,7 +3,7 @@
   "playerBonuses": [
     {
       "name": "Declan",
-      "total": 36,
+      "total": 48,
       "items": [
         {
           "label": "Reach Round of 32",
@@ -54,6 +54,14 @@
           "status": "awarded"
         },
         {
+          "label": "Reach Semi-finals",
+          "team": "France",
+          "points": 10,
+          "displayPoints": 10,
+          "reason": "France progressed to the Semi-finals by winning France 2–0 Morocco",
+          "status": "awarded"
+        },
+        {
           "label": "Knockout clean sheet",
           "team": "Canada",
           "points": 2,
@@ -75,6 +83,14 @@
           "points": 2,
           "displayPoints": 2,
           "reason": "France kept a knockout clean sheet against Paraguay",
+          "status": "awarded"
+        },
+        {
+          "label": "Knockout clean sheet",
+          "team": "France",
+          "points": 2,
+          "displayPoints": 2,
+          "reason": "France kept a knockout clean sheet against Morocco",
           "status": "awarded"
         }
       ]
@@ -714,6 +730,18 @@
             "match": "Paraguay 0–1 France",
             "reason": "France progressed to the Quarter-finals by winning Paraguay 0–1 France",
             "status": "awarded"
+          },
+          {
+            "stage": "semi_final",
+            "label": "Reach Semi-finals",
+            "shortLabel": "Semi-final",
+            "team": "France",
+            "owner": "Declan",
+            "points": 10,
+            "date": "2026-07-09T20:00Z",
+            "match": "France 2–0 Morocco",
+            "reason": "France progressed to the Semi-finals by winning France 2–0 Morocco",
+            "status": "awarded"
           }
         ],
         "cleanSheets": [
@@ -742,10 +770,23 @@
             "opponent": "Paraguay",
             "reason": "France kept a knockout clean sheet against Paraguay",
             "status": "awarded"
+          },
+          {
+            "stage": "quarter_final",
+            "label": "Knockout clean sheet",
+            "shortLabel": "+2 clean sheet",
+            "team": "France",
+            "owner": "Declan",
+            "points": 2,
+            "date": "2026-07-09T20:00Z",
+            "match": "France 2–0 Morocco",
+            "opponent": "Morocco",
+            "reason": "France kept a knockout clean sheet against Morocco",
+            "status": "awarded"
           }
         ],
         "winnerBonus": null,
-        "total": 19
+        "total": 31
       },
       {
         "owner": "Maelan",
@@ -1929,6 +1970,31 @@
       }
     ],
     "awardedItems": [
+      {
+        "stage": "semi_final",
+        "label": "Reach Semi-finals",
+        "shortLabel": "Semi-final",
+        "team": "France",
+        "owner": "Declan",
+        "points": 10,
+        "date": "2026-07-09T20:00Z",
+        "match": "France 2–0 Morocco",
+        "reason": "France progressed to the Semi-finals by winning France 2–0 Morocco",
+        "status": "awarded"
+      },
+      {
+        "stage": "quarter_final",
+        "label": "Knockout clean sheet",
+        "shortLabel": "+2 clean sheet",
+        "team": "France",
+        "owner": "Declan",
+        "points": 2,
+        "date": "2026-07-09T20:00Z",
+        "match": "France 2–0 Morocco",
+        "opponent": "Morocco",
+        "reason": "France kept a knockout clean sheet against Morocco",
+        "status": "awarded"
+      },
       {
         "stage": "round_of_16",
         "label": "Knockout clean sheet",
@@ -3432,6 +3498,18 @@
         "status": "awarded"
       },
       {
+        "stage": "semi_final",
+        "label": "Reach Semi-finals",
+        "shortLabel": "Semi-final",
+        "team": "France",
+        "owner": "Declan",
+        "points": 10,
+        "date": "2026-07-09T20:00Z",
+        "match": "France 2–0 Morocco",
+        "reason": "France progressed to the Semi-finals by winning France 2–0 Morocco",
+        "status": "awarded"
+      },
+      {
         "stage": "round_of_32",
         "label": "Knockout clean sheet",
         "shortLabel": "+2 clean sheet",
@@ -3586,6 +3664,19 @@
         "opponent": "Switzerland",
         "reason": "Colombia kept a knockout clean sheet against Switzerland",
         "status": "awarded"
+      },
+      {
+        "stage": "quarter_final",
+        "label": "Knockout clean sheet",
+        "shortLabel": "+2 clean sheet",
+        "team": "France",
+        "owner": "Declan",
+        "points": 2,
+        "date": "2026-07-09T20:00Z",
+        "match": "France 2–0 Morocco",
+        "opponent": "Morocco",
+        "reason": "France kept a knockout clean sheet against Morocco",
+        "status": "awarded"
       }
     ],
     "notes": [
@@ -3595,6 +3686,11 @@
     ]
   },
   "goldenBootRace": [
+    {
+      "player": "Kylian Mbappé",
+      "team": "France",
+      "goals": 8
+    },
     {
       "player": "Lionel Messi",
       "team": "Argentina",
@@ -3606,14 +3702,14 @@
       "goals": 7
     },
     {
-      "player": "Kylian Mbappé",
-      "team": "France",
-      "goals": 7
-    },
-    {
       "player": "Harry Kane",
       "team": "England",
       "goals": 6
+    },
+    {
+      "player": "Ousmane Dembélé",
+      "team": "France",
+      "goals": 5
     },
     {
       "player": "Ismael Saibari",
@@ -3639,20 +3735,15 @@
       "player": "Mikel Oyarzabal",
       "team": "Spain",
       "goals": 4
-    },
-    {
-      "player": "Ousmane Dembélé",
-      "team": "France",
-      "goals": 4
     }
   ],
   "nationGoalTable": [
     {
-      "team": "Argentina",
-      "goals": 14
+      "team": "France",
+      "goals": 16
     },
     {
-      "team": "France",
+      "team": "Argentina",
       "goals": 14
     },
     {
