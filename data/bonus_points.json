@@ -166,6 +166,60 @@
       ]
     },
     {
+      "name": "Matt",
+      "total": 29,
+      "items": [
+        {
+          "label": "Reach Round of 32",
+          "team": "Spain",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Spain qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 16",
+          "team": "Spain",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Spain progressed to the Round of 16 by winning Spain 3–0 Austria",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Quarter-finals",
+          "team": "Spain",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Spain progressed to the Quarter-finals by winning Portugal 0–1 Spain",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Semi-finals",
+          "team": "Spain",
+          "points": 10,
+          "displayPoints": 10,
+          "reason": "Spain progressed to the Semi-finals by winning Spain 2–1 Belgium",
+          "status": "awarded"
+        },
+        {
+          "label": "Knockout clean sheet",
+          "team": "Spain",
+          "points": 2,
+          "displayPoints": 2,
+          "reason": "Spain kept a knockout clean sheet against Austria",
+          "status": "awarded"
+        },
+        {
+          "label": "Knockout clean sheet",
+          "team": "Spain",
+          "points": 2,
+          "displayPoints": 2,
+          "reason": "Spain kept a knockout clean sheet against Portugal",
+          "status": "awarded"
+        }
+      ]
+    },
+    {
       "name": "Kyle",
       "total": 25,
       "items": [
@@ -429,52 +483,6 @@
           "points": 5,
           "displayPoints": 5,
           "reason": "Argentina progressed to the Quarter-finals by winning Argentina 3–2 Egypt",
-          "status": "awarded"
-        }
-      ]
-    },
-    {
-      "name": "Matt",
-      "total": 19,
-      "items": [
-        {
-          "label": "Reach Round of 32",
-          "team": "Spain",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Spain qualified for the Round of 32",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 16",
-          "team": "Spain",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Spain progressed to the Round of 16 by winning Spain 3–0 Austria",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Quarter-finals",
-          "team": "Spain",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Spain progressed to the Quarter-finals by winning Portugal 0–1 Spain",
-          "status": "awarded"
-        },
-        {
-          "label": "Knockout clean sheet",
-          "team": "Spain",
-          "points": 2,
-          "displayPoints": 2,
-          "reason": "Spain kept a knockout clean sheet against Austria",
-          "status": "awarded"
-        },
-        {
-          "label": "Knockout clean sheet",
-          "team": "Spain",
-          "points": 2,
-          "displayPoints": 2,
-          "reason": "Spain kept a knockout clean sheet against Portugal",
           "status": "awarded"
         }
       ]
@@ -789,6 +797,90 @@
         "total": 31
       },
       {
+        "owner": "Matt",
+        "team": "Spain",
+        "stageBonuses": [
+          {
+            "stage": "round_of_32",
+            "label": "Reach Round of 32",
+            "shortLabel": "Round of 32",
+            "team": "Spain",
+            "owner": "Matt",
+            "points": 5,
+            "date": "2026-07-02T19:00Z",
+            "match": "Spain 3–0 Austria",
+            "reason": "Spain qualified for the Round of 32",
+            "status": "awarded"
+          },
+          {
+            "stage": "round_of_16",
+            "label": "Reach Round of 16",
+            "shortLabel": "Round of 16",
+            "team": "Spain",
+            "owner": "Matt",
+            "points": 5,
+            "date": "2026-07-02T19:00Z",
+            "match": "Spain 3–0 Austria",
+            "reason": "Spain progressed to the Round of 16 by winning Spain 3–0 Austria",
+            "status": "awarded"
+          },
+          {
+            "stage": "quarter_final",
+            "label": "Reach Quarter-finals",
+            "shortLabel": "Quarter-final",
+            "team": "Spain",
+            "owner": "Matt",
+            "points": 5,
+            "date": "2026-07-06T19:00Z",
+            "match": "Portugal 0–1 Spain",
+            "reason": "Spain progressed to the Quarter-finals by winning Portugal 0–1 Spain",
+            "status": "awarded"
+          },
+          {
+            "stage": "semi_final",
+            "label": "Reach Semi-finals",
+            "shortLabel": "Semi-final",
+            "team": "Spain",
+            "owner": "Matt",
+            "points": 10,
+            "date": "2026-07-10T19:00Z",
+            "match": "Spain 2–1 Belgium",
+            "reason": "Spain progressed to the Semi-finals by winning Spain 2–1 Belgium",
+            "status": "awarded"
+          }
+        ],
+        "cleanSheets": [
+          {
+            "stage": "round_of_32",
+            "label": "Knockout clean sheet",
+            "shortLabel": "+2 clean sheet",
+            "team": "Spain",
+            "owner": "Matt",
+            "points": 2,
+            "date": "2026-07-02T19:00Z",
+            "match": "Spain 3–0 Austria",
+            "opponent": "Austria",
+            "reason": "Spain kept a knockout clean sheet against Austria",
+            "status": "awarded"
+          },
+          {
+            "stage": "round_of_16",
+            "label": "Knockout clean sheet",
+            "shortLabel": "+2 clean sheet",
+            "team": "Spain",
+            "owner": "Matt",
+            "points": 2,
+            "date": "2026-07-06T19:00Z",
+            "match": "Portugal 0–1 Spain",
+            "opponent": "Portugal",
+            "reason": "Spain kept a knockout clean sheet against Portugal",
+            "status": "awarded"
+          }
+        ],
+        "winnerBonus": null,
+        "total": 29
+      },
+      {
         "owner": "Maelan",
         "team": "Switzerland",
         "stageBonuses": [
@@ -854,78 +946,6 @@
             "match": "Switzerland 0–0 Colombia",
             "opponent": "Colombia",
             "reason": "Switzerland kept a knockout clean sheet against Colombia",
-            "status": "awarded"
-          }
-        ],
-        "winnerBonus": null,
-        "total": 19
-      },
-      {
-        "owner": "Matt",
-        "team": "Spain",
-        "stageBonuses": [
-          {
-            "stage": "round_of_32",
-            "label": "Reach Round of 32",
-            "shortLabel": "Round of 32",
-            "team": "Spain",
-            "owner": "Matt",
-            "points": 5,
-            "date": "2026-07-02T19:00Z",
-            "match": "Spain 3–0 Austria",
-            "reason": "Spain qualified for the Round of 32",
-            "status": "awarded"
-          },
-          {
-            "stage": "round_of_16",
-            "label": "Reach Round of 16",
-            "shortLabel": "Round of 16",
-            "team": "Spain",
-            "owner": "Matt",
-            "points": 5,
-            "date": "2026-07-02T19:00Z",
-            "match": "Spain 3–0 Austria",
-            "reason": "Spain progressed to the Round of 16 by winning Spain 3–0 Austria",
-            "status": "awarded"
-          },
-          {
-            "stage": "quarter_final",
-            "label": "Reach Quarter-finals",
-            "shortLabel": "Quarter-final",
-            "team": "Spain",
-            "owner": "Matt",
-            "points": 5,
-            "date": "2026-07-06T19:00Z",
-            "match": "Portugal 0–1 Spain",
-            "reason": "Spain progressed to the Quarter-finals by winning Portugal 0–1 Spain",
-            "status": "awarded"
-          }
-        ],
-        "cleanSheets": [
-          {
-            "stage": "round_of_32",
-            "label": "Knockout clean sheet",
-            "shortLabel": "+2 clean sheet",
-            "team": "Spain",
-            "owner": "Matt",
-            "points": 2,
-            "date": "2026-07-02T19:00Z",
-            "match": "Spain 3–0 Austria",
-            "opponent": "Austria",
-            "reason": "Spain kept a knockout clean sheet against Austria",
-            "status": "awarded"
-          },
-          {
-            "stage": "round_of_16",
-            "label": "Knockout clean sheet",
-            "shortLabel": "+2 clean sheet",
-            "team": "Spain",
-            "owner": "Matt",
-            "points": 2,
-            "date": "2026-07-06T19:00Z",
-            "match": "Portugal 0–1 Spain",
-            "opponent": "Portugal",
-            "reason": "Spain kept a knockout clean sheet against Portugal",
             "status": "awarded"
           }
         ],
@@ -1970,6 +1990,18 @@
       }
     ],
     "awardedItems": [
+      {
+        "stage": "semi_final",
+        "label": "Reach Semi-finals",
+        "shortLabel": "Semi-final",
+        "team": "Spain",
+        "owner": "Matt",
+        "points": 10,
+        "date": "2026-07-10T19:00Z",
+        "match": "Spain 2–1 Belgium",
+        "reason": "Spain progressed to the Semi-finals by winning Spain 2–1 Belgium",
+        "status": "awarded"
+      },
       {
         "stage": "semi_final",
         "label": "Reach Semi-finals",
@@ -3510,6 +3542,18 @@
         "status": "awarded"
       },
       {
+        "stage": "semi_final",
+        "label": "Reach Semi-finals",
+        "shortLabel": "Semi-final",
+        "team": "Spain",
+        "owner": "Matt",
+        "points": 10,
+        "date": "2026-07-10T19:00Z",
+        "match": "Spain 2–1 Belgium",
+        "reason": "Spain progressed to the Semi-finals by winning Spain 2–1 Belgium",
+        "status": "awarded"
+      },
+      {
         "stage": "round_of_32",
         "label": "Knockout clean sheet",
         "shortLabel": "+2 clean sheet",
@@ -3748,7 +3792,7 @@
     },
     {
       "team": "Belgium",
-      "goals": 13
+      "goals": 14
     },
     {
       "team": "Norway",
@@ -3764,6 +3808,10 @@
     },
     {
       "team": "Netherlands",
+      "goals": 11
+    },
+    {
+      "team": "Spain",
       "goals": 11
     },
     {
@@ -3788,10 +3836,6 @@
     },
     {
       "team": "Canada",
-      "goals": 9
-    },
-    {
-      "team": "Spain",
       "goals": 9
     },
     {
