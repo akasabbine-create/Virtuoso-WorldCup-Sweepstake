@@ -220,6 +220,52 @@
       ]
     },
     {
+      "name": "Luke",
+      "total": 30,
+      "items": [
+        {
+          "label": "Reach Round of 32",
+          "team": "Australia",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Australia qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 32",
+          "team": "Argentina",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Argentina qualified for the Round of 32",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Round of 16",
+          "team": "Argentina",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Argentina progressed to the Round of 16 by winning Argentina 3–2 Cape Verde",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Quarter-finals",
+          "team": "Argentina",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Argentina progressed to the Quarter-finals by winning Argentina 3–2 Egypt",
+          "status": "awarded"
+        },
+        {
+          "label": "Reach Semi-finals",
+          "team": "Argentina",
+          "points": 10,
+          "displayPoints": 10,
+          "reason": "Argentina progressed to the Semi-finals by winning Argentina 3–1 Switzerland",
+          "status": "awarded"
+        }
+      ]
+    },
+    {
       "name": "Matt",
       "total": 29,
       "items": [
@@ -453,44 +499,6 @@
           "points": 2,
           "displayPoints": 2,
           "reason": "USA kept a knockout clean sheet against Bosnia",
-          "status": "awarded"
-        }
-      ]
-    },
-    {
-      "name": "Luke",
-      "total": 20,
-      "items": [
-        {
-          "label": "Reach Round of 32",
-          "team": "Australia",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Australia qualified for the Round of 32",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 32",
-          "team": "Argentina",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Argentina qualified for the Round of 32",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Round of 16",
-          "team": "Argentina",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Argentina progressed to the Round of 16 by winning Argentina 3–2 Cape Verde",
-          "status": "awarded"
-        },
-        {
-          "label": "Reach Quarter-finals",
-          "team": "Argentina",
-          "points": 5,
-          "displayPoints": 5,
-          "reason": "Argentina progressed to the Quarter-finals by winning Argentina 3–2 Egypt",
           "status": "awarded"
         }
       ]
@@ -889,6 +897,63 @@
         "total": 29
       },
       {
+        "owner": "Luke",
+        "team": "Argentina",
+        "stageBonuses": [
+          {
+            "stage": "round_of_32",
+            "label": "Reach Round of 32",
+            "shortLabel": "Round of 32",
+            "team": "Argentina",
+            "owner": "Luke",
+            "points": 5,
+            "date": "2026-07-03T22:00Z",
+            "match": "Argentina 3–2 Cape Verde",
+            "reason": "Argentina qualified for the Round of 32",
+            "status": "awarded"
+          },
+          {
+            "stage": "round_of_16",
+            "label": "Reach Round of 16",
+            "shortLabel": "Round of 16",
+            "team": "Argentina",
+            "owner": "Luke",
+            "points": 5,
+            "date": "2026-07-03T22:00Z",
+            "match": "Argentina 3–2 Cape Verde",
+            "reason": "Argentina progressed to the Round of 16 by winning Argentina 3–2 Cape Verde",
+            "status": "awarded"
+          },
+          {
+            "stage": "quarter_final",
+            "label": "Reach Quarter-finals",
+            "shortLabel": "Quarter-final",
+            "team": "Argentina",
+            "owner": "Luke",
+            "points": 5,
+            "date": "2026-07-07T16:00Z",
+            "match": "Argentina 3–2 Egypt",
+            "reason": "Argentina progressed to the Quarter-finals by winning Argentina 3–2 Egypt",
+            "status": "awarded"
+          },
+          {
+            "stage": "semi_final",
+            "label": "Reach Semi-finals",
+            "shortLabel": "Semi-final",
+            "team": "Argentina",
+            "owner": "Luke",
+            "points": 10,
+            "date": "2026-07-12T01:00Z",
+            "match": "Argentina 3–1 Switzerland",
+            "reason": "Argentina progressed to the Semi-finals by winning Argentina 3–1 Switzerland",
+            "status": "awarded"
+          }
+        ],
+        "cleanSheets": [],
+        "winnerBonus": null,
+        "total": 25
+      },
+      {
         "owner": "Malcolm",
         "team": "England",
         "stageBonuses": [
@@ -1075,51 +1140,6 @@
         ],
         "winnerBonus": null,
         "total": 17
-      },
-      {
-        "owner": "Luke",
-        "team": "Argentina",
-        "stageBonuses": [
-          {
-            "stage": "round_of_32",
-            "label": "Reach Round of 32",
-            "shortLabel": "Round of 32",
-            "team": "Argentina",
-            "owner": "Luke",
-            "points": 5,
-            "date": "2026-07-03T22:00Z",
-            "match": "Argentina 3–2 Cape Verde",
-            "reason": "Argentina qualified for the Round of 32",
-            "status": "awarded"
-          },
-          {
-            "stage": "round_of_16",
-            "label": "Reach Round of 16",
-            "shortLabel": "Round of 16",
-            "team": "Argentina",
-            "owner": "Luke",
-            "points": 5,
-            "date": "2026-07-03T22:00Z",
-            "match": "Argentina 3–2 Cape Verde",
-            "reason": "Argentina progressed to the Round of 16 by winning Argentina 3–2 Cape Verde",
-            "status": "awarded"
-          },
-          {
-            "stage": "quarter_final",
-            "label": "Reach Quarter-finals",
-            "shortLabel": "Quarter-final",
-            "team": "Argentina",
-            "owner": "Luke",
-            "points": 5,
-            "date": "2026-07-07T16:00Z",
-            "match": "Argentina 3–2 Egypt",
-            "reason": "Argentina progressed to the Quarter-finals by winning Argentina 3–2 Egypt",
-            "status": "awarded"
-          }
-        ],
-        "cleanSheets": [],
-        "winnerBonus": null,
-        "total": 15
       },
       {
         "owner": "Oli",
@@ -2010,6 +2030,18 @@
       }
     ],
     "awardedItems": [
+      {
+        "stage": "semi_final",
+        "label": "Reach Semi-finals",
+        "shortLabel": "Semi-final",
+        "team": "Argentina",
+        "owner": "Luke",
+        "points": 10,
+        "date": "2026-07-12T01:00Z",
+        "match": "Argentina 3–1 Switzerland",
+        "reason": "Argentina progressed to the Semi-finals by winning Argentina 3–1 Switzerland",
+        "status": "awarded"
+      },
       {
         "stage": "semi_final",
         "label": "Reach Semi-finals",
@@ -3598,6 +3630,18 @@
         "status": "awarded"
       },
       {
+        "stage": "semi_final",
+        "label": "Reach Semi-finals",
+        "shortLabel": "Semi-final",
+        "team": "Argentina",
+        "owner": "Luke",
+        "points": 10,
+        "date": "2026-07-12T01:00Z",
+        "match": "Argentina 3–1 Switzerland",
+        "reason": "Argentina progressed to the Semi-finals by winning Argentina 3–1 Switzerland",
+        "status": "awarded"
+      },
+      {
         "stage": "round_of_32",
         "label": "Knockout clean sheet",
         "shortLabel": "+2 clean sheet",
@@ -3827,12 +3871,12 @@
   ],
   "nationGoalTable": [
     {
-      "team": "France",
-      "goals": 16
+      "team": "Argentina",
+      "goals": 17
     },
     {
-      "team": "Argentina",
-      "goals": 14
+      "team": "France",
+      "goals": 16
     },
     {
       "team": "Belgium",
@@ -3879,11 +3923,11 @@
       "goals": 10
     },
     {
-      "team": "Canada",
-      "goals": 9
+      "team": "Switzerland",
+      "goals": 10
     },
     {
-      "team": "Switzerland",
+      "team": "Canada",
       "goals": 9
     },
     {
