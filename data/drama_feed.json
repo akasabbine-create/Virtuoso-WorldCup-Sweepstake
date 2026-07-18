@@ -1,6 +1,20 @@
 {
-  "generatedAt": "2026-07-18T23:00:52.821102+00:00",
+  "generatedAt": "2026-07-18T23:30:50.012625+00:00",
   "items": [
+    {
+      "type": "goals",
+      "icon": "⚽",
+      "label": "Most goals",
+      "title": "Most Goals badge has shifted",
+      "text": "Malcolm (England), Declan (France) now lead the nation scoring race on 20 goals."
+    },
+    {
+      "type": "goals",
+      "icon": "🥾",
+      "label": "Golden Boot",
+      "title": "Golden Boot race update",
+      "text": "Declan (France) now control the Golden Boot badge on 10 goals."
+    },
     {
       "type": "spoon",
       "icon": "🥄",
@@ -32,10 +46,16 @@
     },
     "mostGoalsNation": [
       {
-        "owner": "Luke",
-        "team": "Argentina",
+        "owner": "Malcolm",
+        "team": "England",
         "player": null,
-        "goals": 19
+        "goals": 20
+      },
+      {
+        "owner": "Declan",
+        "team": "France",
+        "player": null,
+        "goals": 20
       }
     ],
     "goldenBoot": [
@@ -43,13 +63,7 @@
         "owner": "Declan",
         "team": "France",
         "player": "Kylian Mbappé",
-        "goals": 8
-      },
-      {
-        "owner": "Luke",
-        "team": "Argentina",
-        "player": "Lionel Messi",
-        "goals": 8
+        "goals": 10
       }
     ]
   }
