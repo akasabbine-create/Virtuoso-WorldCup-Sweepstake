@@ -1,9 +1,9 @@
 {
-  "tournamentComplete": false,
+  "tournamentComplete": true,
   "playerBonuses": [
     {
       "name": "Declan",
-      "total": 48,
+      "total": 58,
       "items": [
         {
           "label": "Reach Round of 32",
@@ -92,12 +92,28 @@
           "displayPoints": 2,
           "reason": "France kept a knockout clean sheet against Morocco",
           "status": "awarded"
+        },
+        {
+          "label": "Golden Boot",
+          "team": "France",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "Kylian Mbappé won/shared the Golden Boot with 10 goals",
+          "status": "awarded"
+        },
+        {
+          "label": "Most goals by nation",
+          "team": "France",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "France finished with the most goals: 20",
+          "status": "awarded"
         }
       ]
     },
     {
       "name": "Matt",
-      "total": 41,
+      "total": 58,
       "items": [
         {
           "label": "Reach Round of 32",
@@ -162,6 +178,22 @@
           "displayPoints": 2,
           "reason": "Spain kept a knockout clean sheet against France",
           "status": "awarded"
+        },
+        {
+          "label": "Tournament Winner",
+          "team": "Spain",
+          "points": 15,
+          "displayPoints": 15,
+          "reason": "Spain won the tournament",
+          "status": "awarded"
+        },
+        {
+          "label": "Knockout clean sheet",
+          "team": "Spain",
+          "points": 2,
+          "displayPoints": 2,
+          "reason": "Spain kept a knockout clean sheet against Argentina",
+          "status": "awarded"
         }
       ]
     },
@@ -221,7 +253,7 @@
     },
     {
       "name": "Malcolm",
-      "total": 35,
+      "total": 40,
       "items": [
         {
           "label": "Reach Round of 32",
@@ -269,6 +301,14 @@
           "points": 10,
           "displayPoints": 10,
           "reason": "England progressed to the Semi-finals by winning Norway 1–2 England",
+          "status": "awarded"
+        },
+        {
+          "label": "Most goals by nation",
+          "team": "England",
+          "points": 5,
+          "displayPoints": 5,
+          "reason": "England finished with the most goals: 20",
           "status": "awarded"
         }
       ]
@@ -802,6 +842,18 @@
             "match": "France 0–2 Spain",
             "reason": "Spain progressed to the Final by winning France 0–2 Spain",
             "status": "awarded"
+          },
+          {
+            "stage": "winner",
+            "label": "Tournament Winner",
+            "shortLabel": "Winner",
+            "team": "Spain",
+            "owner": "Matt",
+            "points": 15,
+            "date": "2026-07-19T19:00Z",
+            "match": "Spain 1–0 Argentina",
+            "reason": "Spain won the tournament",
+            "status": "awarded"
           }
         ],
         "cleanSheets": [
@@ -843,10 +895,34 @@
             "opponent": "France",
             "reason": "Spain kept a knockout clean sheet against France",
             "status": "awarded"
+          },
+          {
+            "stage": "final",
+            "label": "Knockout clean sheet",
+            "shortLabel": "+2 clean sheet",
+            "team": "Spain",
+            "owner": "Matt",
+            "points": 2,
+            "date": "2026-07-19T19:00Z",
+            "match": "Spain 1–0 Argentina",
+            "opponent": "Argentina",
+            "reason": "Spain kept a knockout clean sheet against Argentina",
+            "status": "awarded"
           }
         ],
-        "winnerBonus": null,
-        "total": 41
+        "winnerBonus": {
+          "stage": "winner",
+          "label": "Tournament Winner",
+          "shortLabel": "Winner",
+          "team": "Spain",
+          "owner": "Matt",
+          "points": 15,
+          "date": "2026-07-19T19:00Z",
+          "match": "Spain 1–0 Argentina",
+          "reason": "Spain won the tournament",
+          "status": "awarded"
+        },
+        "total": 58
       },
       {
         "owner": "Luke",
@@ -2091,6 +2167,31 @@
       }
     ],
     "awardedItems": [
+      {
+        "stage": "winner",
+        "label": "Tournament Winner",
+        "shortLabel": "Winner",
+        "team": "Spain",
+        "owner": "Matt",
+        "points": 15,
+        "date": "2026-07-19T19:00Z",
+        "match": "Spain 1–0 Argentina",
+        "reason": "Spain won the tournament",
+        "status": "awarded"
+      },
+      {
+        "stage": "final",
+        "label": "Knockout clean sheet",
+        "shortLabel": "+2 clean sheet",
+        "team": "Spain",
+        "owner": "Matt",
+        "points": 2,
+        "date": "2026-07-19T19:00Z",
+        "match": "Spain 1–0 Argentina",
+        "opponent": "Argentina",
+        "reason": "Spain kept a knockout clean sheet against Argentina",
+        "status": "awarded"
+      },
       {
         "stage": "final",
         "label": "Reach Final",
@@ -3944,6 +4045,31 @@
         "opponent": "France",
         "reason": "Spain kept a knockout clean sheet against France",
         "status": "awarded"
+      },
+      {
+        "stage": "winner",
+        "label": "Tournament Winner",
+        "shortLabel": "Winner",
+        "team": "Spain",
+        "owner": "Matt",
+        "points": 15,
+        "date": "2026-07-19T19:00Z",
+        "match": "Spain 1–0 Argentina",
+        "reason": "Spain won the tournament",
+        "status": "awarded"
+      },
+      {
+        "stage": "final",
+        "label": "Knockout clean sheet",
+        "shortLabel": "+2 clean sheet",
+        "team": "Spain",
+        "owner": "Matt",
+        "points": 2,
+        "date": "2026-07-19T19:00Z",
+        "match": "Spain 1–0 Argentina",
+        "opponent": "Argentina",
+        "reason": "Spain kept a knockout clean sheet against Argentina",
+        "status": "awarded"
       }
     ],
     "notes": [
@@ -4022,11 +4148,11 @@
       "goals": 14
     },
     {
-      "team": "Norway",
-      "goals": 13
+      "team": "Spain",
+      "goals": 14
     },
     {
-      "team": "Spain",
+      "team": "Norway",
       "goals": 13
     },
     {
